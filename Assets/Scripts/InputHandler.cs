@@ -111,10 +111,6 @@ public class InputHandler : MonoBehaviour
         }
 
         var isBraking = Input.GetKey(this.brakingKey);
-        if (isBraking)
-        {
-            int x = 0;
-        }
 
         return (pitch, roll, yaw, thrust, isBraking);
 
