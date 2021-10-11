@@ -11,20 +11,19 @@ public class Shoot : MonoBehaviour
     [SerializeField]
     private Transform attackPoint;
 
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private float speed;
+    [SerializeField] private Rigidbody ship;
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            Instantiate(projectilePrefab, attackPoint.position, transform.rotation);
+            var projectile = Instantiate(projectilePrefab, attackPoint.position, transform.rotation);
+
+            var projectileDirectionAndVelocity = ship.velocity + attackPoint.forward * speed;
+            projectile.GetComponent<SphereProjectile>().InitializeDirection(projectileDirectionAndVelocity, true);
+
         }
     }
 }

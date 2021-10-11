@@ -1,32 +1,46 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class SphereProjectile : MonoBehaviour
 {
 
-    private float speed = 20f;
     private int Damage = 100;
-    Rigidbody rb;
+    private bool isInit = false;
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private float timeToLive;
+    private string tagWhichCanTakeDamage;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        Destroy(this.gameObject, timeToLive);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void InitializeDirection(Vector3 velocity, bool isFriendly)
     {
-        rb.velocity = transform.forward * speed;
+        if (this.isInit)
+        {
+            throw new Exception("Already initialized");
+        }
+
+        this.tagWhichCanTakeDamage = isFriendly ? "Enemy" : "Player" ;
+        this.rb.velocity = velocity;
+        this.isInit = true;
     }
+
+
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.TryGetComponent(out Health health))
+
+        if (other.gameObject.TryGetComponent(out Health health) && this.ShouldCollide(other))
         {
             health.TakeDamage(Damage);
             Destroy(this.gameObject);
         }    
+    }
+
+    private bool ShouldCollide(Component c)
+    {
+        return c.gameObject.CompareTag(this.tagWhichCanTakeDamage);
     }
 }
