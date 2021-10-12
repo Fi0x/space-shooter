@@ -3,28 +3,32 @@ using UnityEngine;
 
 public class SphereProjectile : MonoBehaviour
 {
-
-    private int Damage = 100;
     private bool isInit = false;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float timeToLive;
     private string tagWhichCanTakeDamage;
+
+    private AnimationCurve damageOverTime;
+    private double startTime = 0f;
+
 
     private void Start()
     {
         Destroy(this.gameObject, timeToLive);
     }
 
-    public void InitializeDirection(Vector3 velocity, bool isFriendly)
+    public void InitializeDirection(Vector3 velocity, bool isFriendly, AnimationCurve damageOverTime)
     {
         if (this.isInit)
         {
             throw new Exception("Already initialized");
         }
 
+        this.damageOverTime = damageOverTime;
         this.tagWhichCanTakeDamage = isFriendly ? "Enemy" : "Player" ;
         this.rb.velocity = velocity;
         this.isInit = true;
+        this.startTime = Time.timeAsDouble;
     }
 
 
@@ -34,7 +38,9 @@ public class SphereProjectile : MonoBehaviour
 
         if (other.gameObject.TryGetComponent(out Health health) && this.ShouldCollide(other))
         {
-            health.TakeDamage(Damage);
+            var timeOnImpact = Time.timeAsDouble - this.startTime;
+            
+            health.TakeDamage((int)this.damageOverTime.Evaluate((float)timeOnImpact));
             Destroy(this.gameObject);
         }    
     }

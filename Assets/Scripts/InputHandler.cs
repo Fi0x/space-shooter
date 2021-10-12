@@ -42,6 +42,8 @@ public class InputHandler : MonoBehaviour
     public float Yaw => this.CurrentInputState.yaw;
     public float Thrust => this.CurrentInputState.thrust;
 
+    public bool IsShooting { get; private set; }
+
     public bool Braking => this.CurrentInputState.braking;
 
     private void Start()
@@ -58,6 +60,7 @@ public class InputHandler : MonoBehaviour
         var inputAxes = (x: Input.GetAxis("Horizontal"), y: Input.GetAxis("Vertical"));
         var mouseAxes = (x: Input.GetAxis("Mouse X"), y: Input.GetAxis("Mouse Y"));
         this.CurrentInputState = this.CalculateAppliedMovement(inputAxes, mouseAxes);
+        this.IsShooting = Input.GetMouseButton(0);
     }
 
     private (float pitch, float roll, float yaw, float thrust, bool braking) CalculateAppliedMovement((float x, float y) inputAxes, (float x, float y) mouseAxes)
