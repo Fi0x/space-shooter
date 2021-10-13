@@ -37,10 +37,11 @@ public class CanopyDirectionIndicator : MonoBehaviour
         var spritePositionRetrograde = ownPosition + -shipMovementDirection * radius;
 
         this.prograde.transform.position = spritePositionPrograde;
-        this.prograde.transform.LookAt(this.transform);
+        this.prograde.transform.LookAt(this.transform, this.transform.parent.up);
 
         this.retrograde.transform.position = spritePositionRetrograde;
-        this.retrograde.transform.LookAt(this.transform);
+        this.retrograde.transform.LookAt(this.transform, this.transform.parent.up);
+
 
         this.progradeSR.color = this.retrogradeSR.color =
             new Color(1, 1, 1, this.opacityForSpeed.Evaluate(this.ship.velocity.magnitude));

@@ -28,6 +28,6 @@ public class CanopyTargetReticleManager : MonoBehaviour
                                      (weaponManager.Target - ownPosition).normalized *
                                      this.uiRadius;
         this.spriteObject.transform.position = spritePositionOnSphere;
-        this.spriteObject.transform.LookAt(this.transform);
+        this.spriteObject.transform.LookAt(this.transform, this.transform.parent.up);
     }
 }

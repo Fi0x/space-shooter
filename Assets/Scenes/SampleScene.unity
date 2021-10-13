@@ -1291,8 +1291,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiRadius: 1
   weaponManager: {fileID: 1469893911}
-  crosshair: {fileID: -1283007199816395724, guid: 66d6d6551e3f0d191aa03a09410f76c2, type: 3}
-  crosshairHitmarker: {fileID: -7662052229049661747, guid: 66d6d6551e3f0d191aa03a09410f76c2, type: 3}
+  crosshair: {fileID: 90552832038109653, guid: 5d8a99f745cb1b475b5756115b6f00f5, type: 3}
+  crosshairHitmarker: {fileID: 8838231677444702852, guid: 5d8a99f745cb1b475b5756115b6f00f5, type: 3}
 --- !u!114 &763038476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1305,9 +1305,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73e6af15e329004d18d7ab4b0947f2bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  progradeSprite: {fileID: 366635945936629851, guid: 66d6d6551e3f0d191aa03a09410f76c2, type: 3}
-  retrogradeSprite: {fileID: 4686540850915193588, guid: 66d6d6551e3f0d191aa03a09410f76c2, type: 3}
-  radius: 1
+  progradeSprite: {fileID: -4585037549960267790, guid: 5d8a99f745cb1b475b5756115b6f00f5, type: 3}
+  retrogradeSprite: {fileID: 8299907334195038221, guid: 5d8a99f745cb1b475b5756115b6f00f5, type: 3}
+  radius: 2
   ship: {fileID: 1469893910}
   opacityForSpeed:
     serializedVersion: 2
