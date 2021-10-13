@@ -66,8 +66,10 @@ public class Weapon : MonoBehaviour
 
     private void Fire()
     {
-        var projectile = Instantiate(projectilePrefab, this.gameObject.transform);
-        var shotDirection = this.weaponManager.Target - this.gameObject.transform.position;
+        var projectile = Instantiate(projectilePrefab);
+        var ownPosition = this.gameObject.transform.position;
+        projectile.transform.position = ownPosition;
+        var shotDirection = this.weaponManager.Target - ownPosition;
         var projectileDirectionAndVelocity = this.ship.velocity + shotDirection.normalized * this.speed;
         projectile.GetComponent<SphereProjectile>().InitializeDirection(projectileDirectionAndVelocity, true, this.damageOverTime);
     }
