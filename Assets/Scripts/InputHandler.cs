@@ -62,7 +62,7 @@ public class InputHandler : MonoBehaviour
     private void Update()
     {
         var mouseAxes = (x: Input.GetAxis("Mouse X"), y: Input.GetAxis("Mouse Y"));
-        this.CurrentInputState = this.CalculateAppliedMovement(inputAxes, mouseAxes);
+        this.CurrentInputState = this.CalculateAppliedMovement(mouseAxes);
         this.IsShooting = Input.GetMouseButton(0) || this.debugForceShootingTrue;
     }
 
