@@ -69,12 +69,12 @@ public class ShipMovementHandler : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var (pitch, roll, yaw, thrust, strave, _) = this.inputHandler.CurrentInputState;
+        var (pitch, roll, yaw, thrust, strafe, _) = this.inputHandler.CurrentInputState;
         this.HandleAngularVelocity(pitch, yaw, roll);
-        this.HandleThrust(thrust, strave);
+        this.HandleThrust(thrust, strafe);
     }
 
-    private void HandleThrust(float thrust, float strave)
+    private void HandleThrust(float thrust, float strafe)
     {
         var forward = this.shipObject.transform.forward;
         var sideways = this.shipObject.transform.right;
@@ -91,11 +91,11 @@ public class ShipMovementHandler : MonoBehaviour
             else if (thrust < 0f) forceThrust = thrust * this.accelerationBackwards;
             this.shipRigidbody.AddForce(this.shipObject.transform.forward * forceThrust);
 
-            var forceStrave = strave * this.accelerationSideways;
-            this.shipRigidbody.AddForce(this.shipObject.transform.right * forceStrave);
+            var strafeForce = strafe * this.accelerationSideways;
+            this.shipRigidbody.AddForce(this.shipObject.transform.right * strafeForce);
         }
 
-        if (isLookingForwards) this.HandleStabilization();
+        if (isLookingForwards && !this.inputHandler.Strafing) this.HandleStabilization();
 #if DEBUG
         else this.dotX = this.dotY = float.NaN;
 #endif

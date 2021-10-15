@@ -2210,8 +2210,8 @@ MonoBehaviour:
   rollRightKey: 101
   accelerateKey: 119
   decelerateKey: 115
-  straveLeftKey: 97
-  straveRightKey: 100
+  strafeLeftKey: 97
+  strafeRightKey: 100
   brakingKey: 120
 --- !u!114 &1469893908
 MonoBehaviour:
@@ -2768,7 +2768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 715f80fd4fa1f308e98d13c8839c9f6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ownPosition: {fileID: 0}
+  ownPosition: {fileID: 1469893904}
   radarRadius: 0.1
   radarDetectableList:
   - {fileID: 286391764}
