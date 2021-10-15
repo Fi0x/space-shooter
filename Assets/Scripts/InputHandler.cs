@@ -33,6 +33,7 @@ public class InputHandler : MonoBehaviour
     [SerializeField] private KeyCode strafeLeftKey;
     [SerializeField] private KeyCode strafeRightKey;
     [SerializeField] private KeyCode brakingKey;
+    [SerializeField] private bool debugForceShootingTrue;
 
 
     public (float pitch, float roll, float yaw, float thrust, float strafe, bool braking) CurrentInputState { get; private set; } = (0f, 0f, 0f, 0f, 0f, false);
@@ -42,6 +43,8 @@ public class InputHandler : MonoBehaviour
     public float Pitch => this.CurrentInputState.pitch;
     public float Yaw => this.CurrentInputState.yaw;
     public float Thrust => this.CurrentInputState.thrust;
+
+    public bool IsShooting { get; private set; }
 
     public bool Braking => this.CurrentInputState.braking;
 
@@ -60,6 +63,7 @@ public class InputHandler : MonoBehaviour
     {
         var mouseAxes = (x: Input.GetAxis("Mouse X"), y: Input.GetAxis("Mouse Y"));
         this.CurrentInputState = this.CalculateAppliedMovement(mouseAxes);
+        this.IsShooting = Input.GetMouseButton(0) || this.debugForceShootingTrue;
     }
 
     private (float pitch, float roll, float yaw, float thrust, float strafe, bool braking) CalculateAppliedMovement((float x, float y) mouseAxes)
