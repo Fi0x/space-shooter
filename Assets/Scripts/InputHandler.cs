@@ -3,6 +3,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class InputHandler : MonoBehaviour
@@ -86,11 +87,14 @@ public class InputHandler : MonoBehaviour
                 break;
         }
 
-        if (Input.GetKeyDown("W")) thrust++;
-        if (Input.GetKeyDown("S")) thrust--;
+        if (Input.GetKey(accelerateKey)) thrust++;
+        if (Input.GetKey(decelerateKey)) thrust--;
 
-        if (Input.GetKeyDown("A")) strave--;
-        if (Input.GetKeyDown("D")) strave++;
+        if (Input.GetKey(straveLeftKey)) strave--;
+        if (Input.GetKey(straveRightKey)) strave++;
+
+        if (Input.GetKey(rollLeftKey)) roll = -1;
+        if (Input.GetKey(rollRightKey)) roll = 1;
 
         var isBraking = Input.GetKey(this.brakingKey);
 
