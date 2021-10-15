@@ -3,6 +3,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class InputHandler : MonoBehaviour
@@ -20,22 +21,22 @@ public class InputHandler : MonoBehaviour
         Thrust
     }
 
-    [Header("Input Settings")]
-    //
-    [SerializeField]
-    private HorizontalAxisMode xAxisMode;
-
-    [SerializeField] private VerticalAxisMode yAxisMode;
-
+    [Header("Rotation Controls")]
     [SerializeField] private HorizontalAxisMode xAxisMouseMode;
-
     [SerializeField] private VerticalAxisMode yAxisMouseMode;
+    [SerializeField] private KeyCode rollLeftKey; //TODO: Use for roll
+    [SerializeField] private KeyCode rollRightKey; //TODO: Use for roll
 
+    [Header("Movement Controls")]
+    [SerializeField] private KeyCode accelerateKey;
+    [SerializeField] private KeyCode decelerateKey;
+    [SerializeField] private KeyCode strafeLeftKey;
+    [SerializeField] private KeyCode strafeRightKey;
     [SerializeField] private KeyCode brakingKey;
     [SerializeField] private bool debugForceShootingTrue;
 
 
-    public (float pitch, float roll, float yaw, float thrust, bool braking) CurrentInputState { get; private set; } = (0f, 0f, 0f, 0f, false);
+    public (float pitch, float roll, float yaw, float thrust, float strafe, bool braking) CurrentInputState { get; private set; } = (0f, 0f, 0f, 0f, 0f, false);
 
     // Getters
     public float Roll => this.CurrentInputState.roll;
@@ -46,6 +47,8 @@ public class InputHandler : MonoBehaviour
     public bool IsShooting { get; private set; }
 
     public bool Braking => this.CurrentInputState.braking;
+
+    public bool Strafing => this.CurrentInputState.strafe != 0f;
 
     private void Start()
     {
@@ -58,15 +61,14 @@ public class InputHandler : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        var inputAxes = (x: Input.GetAxis("Horizontal"), y: Input.GetAxis("Vertical"));
         var mouseAxes = (x: Input.GetAxis("Mouse X"), y: Input.GetAxis("Mouse Y"));
         this.CurrentInputState = this.CalculateAppliedMovement(inputAxes, mouseAxes);
         this.IsShooting = Input.GetMouseButton(0) || this.debugForceShootingTrue;
     }
 
-    private (float pitch, float roll, float yaw, float thrust, bool braking) CalculateAppliedMovement((float x, float y) inputAxes, (float x, float y) mouseAxes)
+    private (float pitch, float roll, float yaw, float thrust, float strafe, bool braking) CalculateAppliedMovement((float x, float y) mouseAxes)
     {
-        float yaw = 0, roll = 0, thrust = 0, pitch = 0;
+        float pitch = 0, roll = 0, yaw = 0, thrust = 0, strafe = 0;
 
         switch (this.xAxisMouseMode)
         {
@@ -78,7 +80,7 @@ public class InputHandler : MonoBehaviour
                 break;
         }
 
-        switch (yAxisMouseMode)
+        switch (this.yAxisMouseMode)
         {
             case VerticalAxisMode.Pitch:
                 pitch = mouseAxes.y;
@@ -91,32 +93,18 @@ public class InputHandler : MonoBehaviour
                 break;
         }
 
-        switch (xAxisMode)
-        {
-            case HorizontalAxisMode.Roll:
-                roll = inputAxes.x;
-                break;
-            case HorizontalAxisMode.Yaw:
-                yaw = inputAxes.x;
-                break;
-        }
+        if (Input.GetKey(accelerateKey)) thrust++;
+        if (Input.GetKey(decelerateKey)) thrust--;
 
-        switch (yAxisMode)
-        {
-            case VerticalAxisMode.Pitch:
-                pitch = inputAxes.y;
-                break;
-            case VerticalAxisMode.PitchInverted:
-                pitch = -inputAxes.y;
-                break;
-            case VerticalAxisMode.Thrust:
-                thrust = inputAxes.y;
-                break;
-        }
+        if (Input.GetKey(strafeLeftKey)) strafe--;
+        if (Input.GetKey(strafeRightKey)) strafe++;
+
+        if (Input.GetKey(rollLeftKey)) roll = -1;
+        if (Input.GetKey(rollRightKey)) roll = 1;
 
         var isBraking = Input.GetKey(this.brakingKey);
 
-        return (pitch, roll, yaw, thrust, isBraking);
+        return (pitch, roll, yaw, thrust, strafe, isBraking);
 
     }
 }
