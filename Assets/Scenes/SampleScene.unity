@@ -2174,6 +2174,7 @@ MonoBehaviour:
   pitchSpeed: 0.2
   accelerationBackwards: 5
   accelerationForwards: 10
+  accelerationSideways: 7
   accelerationLateral: 3
   maxSpeed: 100
   shipObject: {fileID: 1469893903}
@@ -2203,10 +2204,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8536778727e5ed996aedede8287f4b06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xAxisMode: 1
-  yAxisMode: 2
   xAxisMouseMode: 0
   yAxisMouseMode: 0
+  rollLeftKey: 113
+  rollRightKey: 101
+  accelerateKey: 119
+  decelerateKey: 115
+  straveLeftKey: 97
+  straveRightKey: 100
   brakingKey: 120
 --- !u!114 &1469893908
 MonoBehaviour:
