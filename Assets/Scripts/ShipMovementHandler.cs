@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class ShipMovementHandler : MonoBehaviour
 {
-    [Header("Attributes")]
-    //
-    [SerializeField]
-    private float rollSpeed = 2f;
-
+    [Header("Rotation Forces")]
+    [SerializeField] private float rollSpeed = 2f;
     [SerializeField] private float yawSpeed = 0.8f;
     [SerializeField] private float pitchSpeed = 1f;
 
+    [Header("Movement Forces")]
     [SerializeField] private float accelerationBackwards = 1f;
     [SerializeField] private float accelerationForwards = 2f;
+    [SerializeField] private float accelerationSideways = 1f;
     [SerializeField] private float accelerationLateral = 0.8f;
     [SerializeField] private float maxSpeed = 100f;
 
@@ -70,14 +69,15 @@ public class ShipMovementHandler : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var (pitch, roll, yaw, thrust, _) = this.inputHandler.CurrentInputState;
+        var (pitch, roll, yaw, thrust, strafe, _) = this.inputHandler.CurrentInputState;
         this.HandleAngularVelocity(pitch, yaw, roll);
-        this.HandleThrust(thrust);
+        this.HandleThrust(thrust, strafe);
     }
 
-    private void HandleThrust(float thrust)
+    private void HandleThrust(float thrust, float strafe)
     {
         var forward = this.shipObject.transform.forward;
+        var sideways = this.shipObject.transform.right;
         var isLookingForwards = Vector3.Dot(forward, this.shipRigidbody.velocity) > 0;
         
         if (this.inputHandler.Braking)
@@ -86,27 +86,18 @@ public class ShipMovementHandler : MonoBehaviour
         }
         else
         {
-            if (thrust > 0f)
-            {
-                var force = thrust * this.accelerationForwards;
-                this.shipRigidbody.AddForce(this.shipObject.transform.forward * force);
-            }
-            else if (thrust < 0f)
-            {
-                var force = thrust * this.accelerationBackwards;
-                this.shipRigidbody.AddForce(this.shipObject.transform.forward * force);
-            }
+            var forceThrust = 0f;
+            if (thrust > 0f) forceThrust = thrust * this.accelerationForwards;
+            else if (thrust < 0f) forceThrust = thrust * this.accelerationBackwards;
+            this.shipRigidbody.AddForce(this.shipObject.transform.forward * forceThrust);
+
+            var strafeForce = strafe * this.accelerationSideways;
+            this.shipRigidbody.AddForce(this.shipObject.transform.right * strafeForce);
         }
 
-        if (isLookingForwards)
-        {
-            this.HandleStabilization();
-        }
+        if (isLookingForwards && !this.inputHandler.Strafing) this.HandleStabilization();
 #if DEBUG
-        else
-        {
-            this.dotX = this.dotY = float.NaN;
-        }
+        else this.dotX = this.dotY = float.NaN;
 #endif
         // Check if Speed exceeds max speed. if yes, clamp value down
         if (this.shipRigidbody.velocity.magnitude > this.maxSpeed)
