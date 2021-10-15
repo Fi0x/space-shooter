@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: a4be220830e90ea4eb88b48b7fd376ce, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.17316318, g: 0.16457182, b: 0.29665613, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2146,7 +2146,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1469893903}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -29.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1283582052}
@@ -2174,6 +2174,7 @@ MonoBehaviour:
   pitchSpeed: 0.2
   accelerationBackwards: 5
   accelerationForwards: 10
+  accelerationSideways: 7
   accelerationLateral: 3
   maxSpeed: 100
   shipObject: {fileID: 1469893903}
@@ -2203,10 +2204,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8536778727e5ed996aedede8287f4b06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xAxisMode: 1
-  yAxisMode: 2
   xAxisMouseMode: 0
   yAxisMouseMode: 0
+  rollLeftKey: 113
+  rollRightKey: 101
+  accelerateKey: 119
+  decelerateKey: 115
+  strafeLeftKey: 97
+  strafeRightKey: 100
   brakingKey: 120
 --- !u!114 &1469893908
 MonoBehaviour:
@@ -2763,7 +2768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 715f80fd4fa1f308e98d13c8839c9f6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ownPosition: {fileID: 0}
+  ownPosition: {fileID: 1469893904}
   radarRadius: 0.1
   radarDetectableList:
   - {fileID: 286391764}
