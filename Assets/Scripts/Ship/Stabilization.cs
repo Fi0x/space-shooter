@@ -2,38 +2,30 @@ using UnityEngine;
 
 namespace Ship
 {
-    public class Stabilization
+    public static class Stabilization
     {
-        public static void StabilizeShip()
+        public static void StabilizeShip(ShipMovementHandler smh)
         {
-            
-        }
-        public static void HandleStabilization(ShipMovementHandler smh, float maxSpeed, float accelerationLateral)
-        {
-            if (!smh.inputHandler.Strafing) ;
             // Check if Speed exceeds max speed. if yes, clamp value down
-            if (smh.shipRigidbody.velocity.magnitude > maxSpeed)
+            if (smh.shipRigidbody.velocity.magnitude > smh.maxSpeed)
             {
-                smh.shipRigidbody.velocity = smh.shipRigidbody.velocity.normalized * maxSpeed;
+                smh.shipRigidbody.velocity = smh.shipRigidbody.velocity.normalized * smh.maxSpeed;
             }
-
-
-            var vNow = smh.shipRigidbody.velocity;
-
+            
+            var vNow= smh.shipRigidbody.velocity;
+            
             // Determine which sides need to trigger their thrusters
-
             // Local X
             var localX = smh.shipObject.transform.right;
             var dotProductCurrentDirectionXAxis = Vector3.Dot(localX, vNow);
 
 #if DEBUG
-            ShipMovementHandler.dotX = dotProductCurrentDirectionXAxis;
-
+            ShipMovementHandler.DotX = dotProductCurrentDirectionXAxis;
 #endif
 
-            if (Mathf.Abs(dotProductCurrentDirectionXAxis) > 0.05f)
+            if (!smh.isStrafing && Mathf.Abs(dotProductCurrentDirectionXAxis) > 0.05f)
             {
-                smh.shipRigidbody.AddForce(dotProductCurrentDirectionXAxis * accelerationLateral * -localX);
+                smh.shipRigidbody.AddForce(dotProductCurrentDirectionXAxis * smh.accelerationLateral * -localX);
                 if (dotProductCurrentDirectionXAxis > 0)
                 {
                     // Need to move left (trigger right thrusters)
@@ -50,12 +42,12 @@ namespace Ship
             var localY = smh.shipObject.transform.up;
             var dotProductCurrentDirectionYAxis = Vector3.Dot(localY, vNow);
 #if DEBUG
-            ShipMovementHandler.dotY = dotProductCurrentDirectionYAxis;
+            ShipMovementHandler.DotY = dotProductCurrentDirectionYAxis;
 #endif
 
-            if (Mathf.Abs(dotProductCurrentDirectionYAxis) > 0.1f)
+            if (Mathf.Abs(dotProductCurrentDirectionYAxis) > 0.05f)
             {
-                smh.shipRigidbody.AddForce(dotProductCurrentDirectionYAxis * accelerationLateral * -localY);
+                smh.shipRigidbody.AddForce(dotProductCurrentDirectionYAxis * smh.accelerationLateral * -localY);
                 if (dotProductCurrentDirectionYAxis > 0)
                 {
                     // Need to move left (trigger right thrusters)
@@ -67,6 +59,8 @@ namespace Ship
                     // TODO: Thruster Effect Management
                 }
             }
+            
+            //TODO: Adjust forward speed towards desiredThrust
         }
     }
 }
