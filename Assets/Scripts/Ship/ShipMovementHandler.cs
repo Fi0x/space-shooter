@@ -1,34 +1,38 @@
-using System;
+using System.Numerics;
+using Ship;
 using UnityEditor;
 using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
+[RequireComponent(typeof(InputHandler))]
 public class ShipMovementHandler : MonoBehaviour
 {
-    [Header("Rotation Forces")]
-    [SerializeField] private float rollSpeed = 2f;
+    [Header("Rotation Forces")] [SerializeField]
+    private float rollSpeed = 2f;
+
     [SerializeField] private float yawSpeed = 0.8f;
     [SerializeField] private float pitchSpeed = 1f;
 
-    [Header("Movement Forces")]
-    [SerializeField] private float accelerationBackwards = 1f;
+    [Header("Movement Forces")] [SerializeField]
+    private float accelerationBackwards = 1f;
+
     [SerializeField] private float accelerationForwards = 2f;
     [SerializeField] private float accelerationSideways = 1f;
     [SerializeField] private float accelerationLateral = 0.8f;
     [SerializeField] private float maxSpeed = 100f;
+    [SerializeField] private float minBrakeSpeed = 0.02f;
 
+    [HideInInspector] public GameObject shipObject;
+    [HideInInspector] public InputHandler inputHandler;
+    [HideInInspector] public Rigidbody shipRigidbody;
 
-    [Header("Ship")]
-    //
-    [SerializeField] private GameObject shipObject;
-    
-    private InputHandler inputHandler;
-    private Rigidbody shipRigidbody;
+    private float desiredSpeed = 0;
+    private float desiredSideSpeed = 0;
 
 #if DEBUG
     private GUIStyle textStyle;
-    private float dotX, dotY;
+    public static float dotX, dotY;
 #endif
-
 
     // Start is called before the first frame update
     private void Start()
@@ -36,16 +40,15 @@ public class ShipMovementHandler : MonoBehaviour
 #if DEBUG
         this.textStyle = new GUIStyle();
         this.textStyle.normal.textColor = Color.green;
-
 #endif
-        this.inputHandler = this.shipObject.GetComponent<InputHandler>();
-        this.shipRigidbody = this.shipObject.GetComponent<Rigidbody>();
+        shipObject = gameObject;
+        inputHandler = shipObject.GetComponent<InputHandler>();
+        shipRigidbody = shipObject.GetComponent<Rigidbody>();
     }
 
 #if DEBUG
     private void OnDrawGizmos()
     {
-
         if (!Application.isPlaying)
         {
             return;
@@ -53,137 +56,74 @@ public class ShipMovementHandler : MonoBehaviour
 
         if (Application.isEditor)
         {
-            var position = this.shipObject.transform.position;
-            Handles.Label(position, $"angV=({inputHandler.Pitch}, {inputHandler.Roll}, {inputHandler.Yaw}); V=({this.shipRigidbody.velocity.magnitude})",
+            var position = shipObject.transform.position;
+            Handles.Label(position,
+                $"angV=({inputHandler.Pitch}, {inputHandler.Roll}, {inputHandler.Yaw}); V=({shipRigidbody.velocity.magnitude})",
                 this.textStyle);
             Handles.color = Color.red;
-            Handles.DrawLine(position, position + this.shipObject.transform.forward * 20f);
+            Handles.DrawLine(position, position + shipObject.transform.forward * 20f);
             Handles.color = Color.green;
-            Handles.DrawLine(position, position + this.shipRigidbody.velocity);
-            Handles.Label(position + this.shipObject.transform.right * 2, $"dotX:{this.dotX}", this.textStyle);
-            Handles.Label(position + this.shipObject.transform.up * 2, $"dotY:{this.dotY}", this.textStyle);
+            Handles.DrawLine(position, position + shipRigidbody.velocity);
+            Handles.Label(position + shipObject.transform.right * 2, $"dotX:{dotX}", this.textStyle);
+            Handles.Label(position + shipObject.transform.up * 2, $"dotY:{dotY}", this.textStyle);
         }
     }
 #endif
 
     private void FixedUpdate()
     {
-        var (pitch, roll, yaw, thrust, strafe, _) = this.inputHandler.CurrentInputState;
+        var (pitch, roll, yaw, thrust, strafe, _) = inputHandler.CurrentInputState;
         this.HandleAngularVelocity(pitch, yaw, roll);
         this.HandleThrust(thrust, strafe);
-        this.HandleStabilization();
+        Stabilization.HandleStabilization(this, this.maxSpeed, this.accelerationLateral); //TODO: Change to "StabilizeShip()"
+    }
+
+    private void HandleAngularVelocity(float pitch, float yaw, float roll)
+    {
+        var currentWorldAngularVelocity = shipRigidbody.angularVelocity;
+        var currentLocalAngularVelocity = shipObject.transform.InverseTransformDirection(currentWorldAngularVelocity);
+
+        var angularForce = new Vector3(-pitch * pitchSpeed, yaw * yawSpeed, -roll * rollSpeed);
+        currentLocalAngularVelocity += angularForce;
+
+        var modifiedWorldAngularVelocity = shipObject.transform.TransformDirection(currentLocalAngularVelocity);
+        shipRigidbody.angularVelocity = modifiedWorldAngularVelocity;
     }
 
     private void HandleThrust(float thrust, float strafe)
     {
-        var forward = this.shipObject.transform.forward;
-        var sideways = this.shipObject.transform.right;
-        var isLookingForwards = Vector3.Dot(forward, this.shipRigidbody.velocity) > 0;
-        
-        if (this.inputHandler.Braking)
+        var forward = shipObject.transform.forward;
+        var isFlyingForward = Vector3.Dot(forward, shipRigidbody.velocity) > 0;
+
+        if (inputHandler.Braking)
         {
-            this.ApplyBraking(isLookingForwards);
+            this.ApplyBraking(isFlyingForward);
         }
         else
         {
             var forceThrust = 0f;
             if (thrust > 0f) forceThrust = thrust * this.accelerationForwards;
-            else if (thrust < 0f) forceThrust = thrust * this.accelerationBackwards;
-            this.shipRigidbody.AddForce(this.shipObject.transform.forward * forceThrust);
+            else if (thrust < 0f && isFlyingForward) forceThrust = thrust * this.accelerationBackwards;
+            shipRigidbody.AddForce(forward * forceThrust);
 
             var strafeForce = strafe * this.accelerationSideways;
-            this.shipRigidbody.AddForce(this.shipObject.transform.right * strafeForce);
+            shipRigidbody.AddForce(shipObject.transform.right * strafeForce);
         }
     }
 
     private void ApplyBraking(bool isLookingForwards)
     {
-        Vector3 force;
+        float force;
         if (isLookingForwards)
         {
-            force = -this.shipObject.transform.forward * this.accelerationBackwards;
+            force = -accelerationBackwards;
         }
         else
         {
-            force = this.shipObject.transform.forward * this.accelerationForwards;
-        }
-        this.shipRigidbody.AddForce(force);
-    }
-
-    private void HandleStabilization()
-    {
-        if (!this.inputHandler.Strafing);
-#if DEBUG
-        else this.dotX = this.dotY = float.NaN;
-#endif
-        // Check if Speed exceeds max speed. if yes, clamp value down
-        if (this.shipRigidbody.velocity.magnitude > this.maxSpeed)
-        {
-            this.shipRigidbody.velocity = this.shipRigidbody.velocity.normalized * this.maxSpeed;
-        }
-        
-        
-        var vNow = this.shipRigidbody.velocity;
-
-        // Determine which sides need to trigger their thrusters
-
-        // Local X
-        var localX = this.shipObject.transform.right;
-        var dotProductCurrentDirectionXAxis = Vector3.Dot(localX, vNow);
-
-#if DEBUG
-        this.dotX = dotProductCurrentDirectionXAxis;
-
-#endif
-
-        if (Mathf.Abs(dotProductCurrentDirectionXAxis) > 0.05f)
-        {
-            this.shipRigidbody.AddForce(dotProductCurrentDirectionXAxis * this.accelerationLateral * -localX);
-            if (dotProductCurrentDirectionXAxis > 0)
-            {
-                // Need to move left (trigger right thrusters)
-                // TODO: Thruster Effect Management
-            }
-            else
-            {
-                // Need to move right (trigger left thrusters)
-                // TODO: Thruster Effect Management
-            }
+            force = accelerationForwards;
         }
 
-        // Local Y
-        var localY = this.shipObject.transform.up;
-        var dotProductCurrentDirectionYAxis = Vector3.Dot(localY, vNow);
-#if DEBUG
-        this.dotY = dotProductCurrentDirectionYAxis;
-#endif
-
-        if (Mathf.Abs(dotProductCurrentDirectionYAxis) > 0.1f)
-        {
-            this.shipRigidbody.AddForce(dotProductCurrentDirectionYAxis * this.accelerationLateral * -localY);
-            if (dotProductCurrentDirectionYAxis > 0)
-            {
-                // Need to move left (trigger right thrusters)
-                // TODO: Thruster Effect Management
-            }
-            else
-            {
-                // Need to move right (trigger left thrusters)
-                // TODO: Thruster Effect Management
-            }
-        }
-    }
-
-    private void HandleAngularVelocity(float pitch, float yaw, float roll)
-    {
-        var currentWorldAngularVelocity = this.shipRigidbody.angularVelocity;
-        var currentLocalAngularVelocity =
-            this.shipObject.transform.InverseTransformDirection(currentWorldAngularVelocity);
-
-        var angularForce = new Vector3(-pitch * pitchSpeed, yaw * yawSpeed, -roll * rollSpeed);
-        currentLocalAngularVelocity += angularForce;
-
-        var modifiedWorldAngularVelocity = this.shipObject.transform.TransformDirection(currentLocalAngularVelocity);
-        this.shipRigidbody.angularVelocity = modifiedWorldAngularVelocity;
+        if (shipRigidbody.velocity.sqrMagnitude < minBrakeSpeed) shipRigidbody.velocity = Vector3.zero;
+        else shipRigidbody.AddForce(shipObject.transform.forward * force);
     }
 }

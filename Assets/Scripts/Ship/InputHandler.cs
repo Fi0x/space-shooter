@@ -54,7 +54,6 @@ public class InputHandler : MonoBehaviour
     {
 #if FIX_POSITION
         Cursor.lockState = CursorLockMode.Locked;
-
 #endif
     }
 
