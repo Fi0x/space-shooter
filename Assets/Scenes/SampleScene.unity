@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17316318, g: 0.16457182, b: 0.29665613, a: 1}
+  m_IndirectSpecularColor: {r: 0.17323539, g: 0.16459554, b: 0.2966911, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2505,7 +2505,7 @@ MonoBehaviour:
   pitchSpeed: 0.2
   accelerationBackwards: 5
   accelerationForwards: 10
-  accelerationSideways: 1
+  accelerationSideways: 3
   accelerationLateral: 3
   maxSpeed: 100
   shipObject: {fileID: 1469893903}

@@ -112,7 +112,7 @@ public class ShipMovementHandler : MonoBehaviour
 
     private void HandleStabilization()
     {
-        if (isLookingForwards && !this.inputHandler.Strafing);
+        if (!this.inputHandler.Strafing);
 #if DEBUG
         else this.dotX = this.dotY = float.NaN;
 #endif
