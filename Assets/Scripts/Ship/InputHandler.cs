@@ -24,8 +24,8 @@ public class InputHandler : MonoBehaviour
     [Header("Rotation Controls")]
     [SerializeField] private HorizontalAxisMode xAxisMouseMode;
     [SerializeField] private VerticalAxisMode yAxisMouseMode;
-    [SerializeField] private KeyCode rollLeftKey; //TODO: Use for roll
-    [SerializeField] private KeyCode rollRightKey; //TODO: Use for roll
+    [SerializeField] private KeyCode rollLeftKey;
+    [SerializeField] private KeyCode rollRightKey;
 
     [Header("Movement Controls")]
     [SerializeField] private KeyCode accelerateKey;
@@ -47,8 +47,6 @@ public class InputHandler : MonoBehaviour
     public bool IsShooting { get; private set; }
 
     public bool Braking => this.CurrentInputState.braking;
-
-    public bool Strafing => this.CurrentInputState.strafe != 0f;
 
     private void Start()
     {

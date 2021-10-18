@@ -1,4 +1,3 @@
-using System.Numerics;
 using Ship;
 using UnityEditor;
 using UnityEngine;
@@ -18,28 +17,31 @@ public class ShipMovementHandler : MonoBehaviour
 
     [SerializeField] private float accelerationForwards = 2f;
     [SerializeField] private float accelerationSideways = 1f;
-    [SerializeField] private float accelerationLateral = 0.8f;
-    [SerializeField] private float maxSpeed = 100f;
+    [SerializeField] public float accelerationLateral = 0.8f;
+    [SerializeField] public float maxSpeed = 100f;
     [SerializeField] private float minBrakeSpeed = 0.02f;
 
     [HideInInspector] public GameObject shipObject;
     [HideInInspector] public InputHandler inputHandler;
     [HideInInspector] public Rigidbody shipRigidbody;
-
-    private float desiredSpeed = 0;
-    private float desiredSideSpeed = 0;
+    [HideInInspector] public bool isStrafing;
+    private float desiredSpeed = 0;//TODO: Use for forward thrust
 
 #if DEBUG
-    private GUIStyle textStyle;
-    public static float dotX, dotY;
+    private GUIStyle _textStyle;
+    public static float DotX, DotY;
 #endif
 
-    // Start is called before the first frame update
     private void Start()
     {
 #if DEBUG
-        this.textStyle = new GUIStyle();
-        this.textStyle.normal.textColor = Color.green;
+        this._textStyle = new GUIStyle()
+        {
+            normal = new GUIStyleState()
+            {
+                textColor = Color.green
+            }
+        };
 #endif
         shipObject = gameObject;
         inputHandler = shipObject.GetComponent<InputHandler>();
@@ -59,13 +61,13 @@ public class ShipMovementHandler : MonoBehaviour
             var position = shipObject.transform.position;
             Handles.Label(position,
                 $"angV=({inputHandler.Pitch}, {inputHandler.Roll}, {inputHandler.Yaw}); V=({shipRigidbody.velocity.magnitude})",
-                this.textStyle);
+                this._textStyle);
             Handles.color = Color.red;
             Handles.DrawLine(position, position + shipObject.transform.forward * 20f);
             Handles.color = Color.green;
             Handles.DrawLine(position, position + shipRigidbody.velocity);
-            Handles.Label(position + shipObject.transform.right * 2, $"dotX:{dotX}", this.textStyle);
-            Handles.Label(position + shipObject.transform.up * 2, $"dotY:{dotY}", this.textStyle);
+            Handles.Label(position + shipObject.transform.right * 2, $"dotX:{DotX}", this._textStyle);
+            Handles.Label(position + shipObject.transform.up * 2, $"dotY:{DotY}", this._textStyle);
         }
     }
 #endif
@@ -75,7 +77,7 @@ public class ShipMovementHandler : MonoBehaviour
         var (pitch, roll, yaw, thrust, strafe, _) = inputHandler.CurrentInputState;
         this.HandleAngularVelocity(pitch, yaw, roll);
         this.HandleThrust(thrust, strafe);
-        Stabilization.HandleStabilization(this, this.maxSpeed, this.accelerationLateral); //TODO: Change to "StabilizeShip()"
+        Stabilization.StabilizeShip(this); //TODO: Change to "StabilizeShip()"
     }
 
     private void HandleAngularVelocity(float pitch, float yaw, float roll)
@@ -92,22 +94,23 @@ public class ShipMovementHandler : MonoBehaviour
 
     private void HandleThrust(float thrust, float strafe)
     {
-        var forward = shipObject.transform.forward;
-        var isFlyingForward = Vector3.Dot(forward, shipRigidbody.velocity) > 0;
+        var currentSpeed = shipObject.transform.forward;
+        var isFlyingForward = Vector3.Dot(currentSpeed, shipRigidbody.velocity) > 0;
 
-        if (inputHandler.Braking)
-        {
-            this.ApplyBraking(isFlyingForward);
-        }
+        if (inputHandler.Braking) this.ApplyBraking(isFlyingForward);
         else
         {
-            var forceThrust = 0f;
-            if (thrust > 0f) forceThrust = thrust * this.accelerationForwards;
-            else if (thrust < 0f && isFlyingForward) forceThrust = thrust * this.accelerationBackwards;
-            shipRigidbody.AddForce(forward * forceThrust);
+            var thrustForce = 0f;
+            if (thrust > 0f) thrustForce = thrust * this.accelerationForwards;
+            else if (thrust < 0f && isFlyingForward) thrustForce = thrust * this.accelerationBackwards;
+            shipRigidbody.AddForce(currentSpeed * thrustForce);
 
-            var strafeForce = strafe * this.accelerationSideways;
-            shipRigidbody.AddForce(shipObject.transform.right * strafeForce);
+            isStrafing = strafe != 0;
+            if (isStrafing)
+            {
+                var strafeForce = strafe * this.accelerationSideways;
+                shipRigidbody.AddForce(shipObject.transform.right * strafeForce);
+            }
         }
     }
 
