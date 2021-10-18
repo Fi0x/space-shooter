@@ -19,9 +19,8 @@ public class ShipMovementHandler : MonoBehaviour
 
     [Header("Ship")]
     //
-    [SerializeField]
-    private GameObject shipObject;
-
+    [SerializeField] private GameObject shipObject;
+    
     private InputHandler inputHandler;
     private Rigidbody shipRigidbody;
 
@@ -72,6 +71,7 @@ public class ShipMovementHandler : MonoBehaviour
         var (pitch, roll, yaw, thrust, strafe, _) = this.inputHandler.CurrentInputState;
         this.HandleAngularVelocity(pitch, yaw, roll);
         this.HandleThrust(thrust, strafe);
+        this.HandleStabilization();
     }
 
     private void HandleThrust(float thrust, float strafe)
@@ -94,16 +94,6 @@ public class ShipMovementHandler : MonoBehaviour
             var strafeForce = strafe * this.accelerationSideways;
             this.shipRigidbody.AddForce(this.shipObject.transform.right * strafeForce);
         }
-
-        if (isLookingForwards && !this.inputHandler.Strafing) this.HandleStabilization();
-#if DEBUG
-        else this.dotX = this.dotY = float.NaN;
-#endif
-        // Check if Speed exceeds max speed. if yes, clamp value down
-        if (this.shipRigidbody.velocity.magnitude > this.maxSpeed)
-        {
-            this.shipRigidbody.velocity = this.shipRigidbody.velocity.normalized * this.maxSpeed;
-        }
     }
 
     private void ApplyBraking(bool isLookingForwards)
@@ -122,6 +112,17 @@ public class ShipMovementHandler : MonoBehaviour
 
     private void HandleStabilization()
     {
+        if (isLookingForwards && !this.inputHandler.Strafing);
+#if DEBUG
+        else this.dotX = this.dotY = float.NaN;
+#endif
+        // Check if Speed exceeds max speed. if yes, clamp value down
+        if (this.shipRigidbody.velocity.magnitude > this.maxSpeed)
+        {
+            this.shipRigidbody.velocity = this.shipRigidbody.velocity.normalized * this.maxSpeed;
+        }
+        
+        
         var vNow = this.shipRigidbody.velocity;
 
         // Determine which sides need to trigger their thrusters
