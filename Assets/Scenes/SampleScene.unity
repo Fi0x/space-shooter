@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17323539, g: 0.16459554, b: 0.2966911, a: 1}
+  m_IndirectSpecularColor: {r: 0.17316318, g: 0.16457182, b: 0.29665613, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2503,12 +2503,16 @@ MonoBehaviour:
   rollSpeed: 0.2
   yawSpeed: 0.2
   pitchSpeed: 0.2
-  accelerationBackwards: 5
   accelerationForwards: 10
+  accelerationBackwards: 5
   accelerationSideways: 3
   accelerationLateral: 3
-  maxSpeed: 100
+  maxSpeed: 30
+  minBrakeSpeed: 0.02
   shipObject: {fileID: 1469893903}
+  inputHandler: {fileID: 0}
+  shipRigidbody: {fileID: 0}
+  isStrafing: 0
 --- !u!114 &1469893906
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Ship
@@ -25,7 +26,10 @@ namespace Ship
 
             if (!smh.isStrafing && Mathf.Abs(dotProductCurrentDirectionXAxis) > 0.05f)
             {
-                smh.shipRigidbody.AddForce(dotProductCurrentDirectionXAxis * smh.accelerationLateral * -localX);
+                float multiplier = smh.stabilizationMultiplier;
+                if (dotProductCurrentDirectionXAxis > 0) multiplier = Math.Min(dotProductCurrentDirectionXAxis, multiplier);
+                else multiplier = Math.Max(dotProductCurrentDirectionXAxis, -multiplier);
+                smh.shipRigidbody.AddForce(multiplier * smh.accelerationLateral * -localX);
                 if (dotProductCurrentDirectionXAxis > 0)
                 {
                     // Need to move left (trigger right thrusters)
@@ -47,7 +51,10 @@ namespace Ship
 
             if (Mathf.Abs(dotProductCurrentDirectionYAxis) > 0.05f)
             {
-                smh.shipRigidbody.AddForce(dotProductCurrentDirectionYAxis * smh.accelerationLateral * -localY);
+                float multiplier = smh.stabilizationMultiplier;
+                if (dotProductCurrentDirectionYAxis > 0) multiplier = Math.Min(dotProductCurrentDirectionYAxis, multiplier);
+                else multiplier = Math.Max(dotProductCurrentDirectionYAxis, -multiplier);
+                smh.shipRigidbody.AddForce(multiplier * smh.accelerationLateral * -localY);
                 if (dotProductCurrentDirectionYAxis > 0)
                 {
                     // Need to move left (trigger right thrusters)

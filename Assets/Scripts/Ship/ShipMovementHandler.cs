@@ -7,25 +7,25 @@ using Vector3 = UnityEngine.Vector3;
 [RequireComponent(typeof(InputHandler))]
 public class ShipMovementHandler : MonoBehaviour
 {
-    [Header("Rotation Forces")] [SerializeField]
-    private float rollSpeed = 2f;
-
+    [Header("Rotation Forces")]
+    [SerializeField] private float rollSpeed = 2f;
     [SerializeField] private float yawSpeed = 0.8f;
     [SerializeField] private float pitchSpeed = 1f;
 
     [Header("Movement Forces")]
     [SerializeField] private float accelerationForwards = 2f;
     [SerializeField] private float accelerationBackwards = 1f;
-    [SerializeField] private float accelerationSideways = 1f;
-    [SerializeField] public float accelerationLateral = 0.8f;
-    [SerializeField] public float maxSpeed = 100f;
+    [SerializeField] public float accelerationLateral = 1f;
+    [SerializeField] public float maxSpeed = 30f;
     [SerializeField] private float minBrakeSpeed = 0.02f;
+    [SerializeField] public float stabilizationMultiplier = 3;
 
     [HideInInspector] public GameObject shipObject;
     [HideInInspector] public InputHandler inputHandler;
     [HideInInspector] public Rigidbody shipRigidbody;
+    
     [HideInInspector] public bool isStrafing;
-    private float desiredSpeed = 0; //TODO: Use for forward thrust
+    private float _desiredSpeed = 0;
 
 #if DEBUG
     private GUIStyle _textStyle;
@@ -94,34 +94,32 @@ public class ShipMovementHandler : MonoBehaviour
 
     private void HandleThrust(float thrust, float strafe)
     {
-        desiredSpeed += thrust;
-        if (desiredSpeed > maxSpeed) desiredSpeed = maxSpeed;
-        else if (desiredSpeed < 0) desiredSpeed = 0;
+        _desiredSpeed += thrust;
+        if (_desiredSpeed > maxSpeed) _desiredSpeed = maxSpeed;
+        else if (_desiredSpeed < 0) _desiredSpeed = 0;
 
         var currentSpeed = shipObject.transform.forward;
         var forwardSpeed = Vector3.Dot(currentSpeed, shipRigidbody.velocity);
-        
-        Debug.Log($"Current speed: {currentSpeed}, Desired: {desiredSpeed}");
 
         if (inputHandler.Braking)
         {
-            desiredSpeed--;
-            if (desiredSpeed < 0) desiredSpeed = 0;
+            _desiredSpeed--;
+            if (_desiredSpeed < 0) _desiredSpeed = 0;
             if(forwardSpeed > 0) ApplyBraking(-accelerationBackwards);
             else ApplyBraking(accelerationForwards);
         }
         else
         {
             var thrustForce = 0f;
-            if (desiredSpeed > forwardSpeed) thrustForce = accelerationForwards;
-            else if (desiredSpeed < forwardSpeed) thrustForce = -accelerationBackwards;
+            if (_desiredSpeed > forwardSpeed) thrustForce = accelerationForwards;
+            else if (_desiredSpeed < forwardSpeed) thrustForce = -accelerationBackwards;
             shipRigidbody.AddForce(currentSpeed * thrustForce);
         }
 
         isStrafing = strafe != 0;
         if (isStrafing)
         {
-            var strafeForce = strafe * accelerationSideways;
+            var strafeForce = strafe * accelerationLateral;
             shipRigidbody.AddForce(shipObject.transform.right * strafeForce);
         }
     }
