@@ -13,10 +13,9 @@ public class ShipMovementHandler : MonoBehaviour
     [SerializeField] private float yawSpeed = 0.8f;
     [SerializeField] private float pitchSpeed = 1f;
 
-    [Header("Movement Forces")] [SerializeField]
-    private float accelerationBackwards = 1f;
-
+    [Header("Movement Forces")]
     [SerializeField] private float accelerationForwards = 2f;
+    [SerializeField] private float accelerationBackwards = 1f;
     [SerializeField] private float accelerationSideways = 1f;
     [SerializeField] public float accelerationLateral = 0.8f;
     [SerializeField] public float maxSpeed = 100f;
@@ -26,7 +25,7 @@ public class ShipMovementHandler : MonoBehaviour
     [HideInInspector] public InputHandler inputHandler;
     [HideInInspector] public Rigidbody shipRigidbody;
     [HideInInspector] public bool isStrafing;
-    private float desiredSpeed = 0;//TODO: Use for forward thrust
+    private float desiredSpeed = 0; //TODO: Use for forward thrust
 
 #if DEBUG
     private GUIStyle _textStyle;
@@ -95,39 +94,41 @@ public class ShipMovementHandler : MonoBehaviour
 
     private void HandleThrust(float thrust, float strafe)
     {
-        var currentSpeed = shipObject.transform.forward;
-        var isFlyingForward = Vector3.Dot(currentSpeed, shipRigidbody.velocity) > 0;
+        desiredSpeed += thrust;
+        if (desiredSpeed > maxSpeed) desiredSpeed = maxSpeed;
+        else if (desiredSpeed < 0) desiredSpeed = 0;
 
-        if (inputHandler.Braking) this.ApplyBraking(isFlyingForward);
+        var currentSpeed = shipObject.transform.forward;
+        var forwardSpeed = Vector3.Dot(currentSpeed, shipRigidbody.velocity);
+        
+        Debug.Log($"Current speed: {currentSpeed}, Desired: {desiredSpeed}");
+
+        if (inputHandler.Braking)
+        {
+            desiredSpeed--;
+            if (desiredSpeed < 0) desiredSpeed = 0;
+            if(forwardSpeed > 0) ApplyBraking(-accelerationBackwards);
+            else ApplyBraking(accelerationForwards);
+        }
         else
         {
             var thrustForce = 0f;
-            if (thrust > 0f) thrustForce = thrust * this.accelerationForwards;
-            else if (thrust < 0f && isFlyingForward) thrustForce = thrust * this.accelerationBackwards;
+            if (desiredSpeed > forwardSpeed) thrustForce = accelerationForwards;
+            else if (desiredSpeed < forwardSpeed) thrustForce = -accelerationBackwards;
             shipRigidbody.AddForce(currentSpeed * thrustForce);
+        }
 
-            isStrafing = strafe != 0;
-            if (isStrafing)
-            {
-                var strafeForce = strafe * this.accelerationSideways;
-                shipRigidbody.AddForce(shipObject.transform.right * strafeForce);
-            }
+        isStrafing = strafe != 0;
+        if (isStrafing)
+        {
+            var strafeForce = strafe * accelerationSideways;
+            shipRigidbody.AddForce(shipObject.transform.right * strafeForce);
         }
     }
 
-    private void ApplyBraking(bool isLookingForwards)
+    private void ApplyBraking(float brakingForce)
     {
-        float force;
-        if (isLookingForwards)
-        {
-            force = -accelerationBackwards;
-        }
-        else
-        {
-            force = accelerationForwards;
-        }
-
         if (shipRigidbody.velocity.sqrMagnitude < minBrakeSpeed) shipRigidbody.velocity = Vector3.zero;
-        else shipRigidbody.AddForce(shipObject.transform.forward * force);
+        else shipRigidbody.AddForce(shipObject.transform.forward * brakingForce);
     }
 }

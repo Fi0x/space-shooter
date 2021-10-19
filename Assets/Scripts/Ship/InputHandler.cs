@@ -86,8 +86,8 @@ public class InputHandler : MonoBehaviour
                 break;
         }
 
-        if (Input.GetKey(accelerateKey)) thrust++;
-        if (Input.GetKey(decelerateKey)) thrust--;
+        if (Input.GetKey(accelerateKey)) thrust += 0.25f;
+        if (Input.GetKey(decelerateKey)) thrust -= 0.25f;
 
         if (Input.GetKey(strafeLeftKey)) strafe--;
         if (Input.GetKey(strafeRightKey)) strafe++;
