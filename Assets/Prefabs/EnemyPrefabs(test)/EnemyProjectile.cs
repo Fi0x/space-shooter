@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Manager;
 using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
@@ -7,13 +8,13 @@ public class EnemyProjectile : MonoBehaviour
     private int damage = 100;
     Rigidbody rigidBody;
     Vector3 direction;
-    public GameObject Player;
+
     float speed = 25.0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        direction = (Player.transform.position - this.transform.position).normalized;
+        direction = (GameManager.Instance.Player.transform.position - this.transform.position).normalized;
         rigidBody = GetComponent<Rigidbody>();
 
         Destroy(gameObject, 20.0f);

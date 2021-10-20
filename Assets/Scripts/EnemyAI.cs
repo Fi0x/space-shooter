@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Manager;
 using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
@@ -12,41 +13,31 @@ public class EnemyAI : MonoBehaviour
     }
 
     [Header("AI")]
-    [SerializeField]
-    private State state;
-    [SerializeField]
-    private Transform AttackPoint;
-    [SerializeField] 
-    private GameObject Player;
+    //
+    [SerializeField] [ReadOnlyInspector] private State state;
+    [SerializeField] private Transform AttackPoint;
 
     // Patroling
     [Header("Roaming")]
-    [SerializeField]
-    private Vector3 raomingPosition;
-    [SerializeField]
-    float reachedPositionMaxDistance;
-    [SerializeField]
-    private float minDistanceFromPlayer;
-    [SerializeField]
-    private float maxDistanceFromPlayer;
-    [SerializeField]
-    private float speed;
+    //
+    [SerializeField] [ReadOnlyInspector] private Vector3 roamingPosition;
+    [SerializeField] float reachedPositionMaxDistance;
+    [SerializeField] private float minDistanceFromPlayer;
+    [SerializeField] private float maxDistanceFromPlayer;
+    [SerializeField] private float speed;
 
     // Attacking
     [Header("Attack")]
-    [SerializeField]
-    private float timeBetweenAttacks;
-    [SerializeField]
-    private float waitForAttack;
-    [SerializeField]
-    private GameObject projectilePrefab;
+    //
+    [SerializeField] private float timeBetweenAttacks;
+    [SerializeField] [ReadOnlyInspector] private float waitForAttack;
+    [SerializeField] private GameObject projectilePrefab;
 
     // Ranges
     [Header("Ranges")]
-    [SerializeField]
-    private float sightRange;
-    [SerializeField]
-    private float attackRange;
+    //
+    [SerializeField] private float sightRange;
+    [SerializeField] private float attackRange;
 
     // Start is called before the first frame update
     void Start()
@@ -63,7 +54,7 @@ public class EnemyAI : MonoBehaviour
         // Patroling
         minDistanceFromPlayer = 75.0f;
         maxDistanceFromPlayer = 250.0f;
-        raomingPosition = GetRoamingPosition();
+        roamingPosition = GetRoamingPosition();
 
         reachedPositionMaxDistance = 2.0f;
 
@@ -86,27 +77,29 @@ public class EnemyAI : MonoBehaviour
             case State.Roaming:
 
                 // rotate towards position
-                FaceTarget(raomingPosition);
+                FaceTarget(roamingPosition);
                 // move towards position
-                this.transform.position = Vector3.MoveTowards(transform.position, raomingPosition, speed * Time.deltaTime);
-                
+                this.transform.position =
+                    Vector3.MoveTowards(transform.position, roamingPosition, speed * Time.deltaTime);
+
                 // check if roamingPosition has been reached
-                if(Vector3.Distance(this.transform.position, raomingPosition) < reachedPositionMaxDistance)
+                if (Vector3.Distance(this.transform.position, roamingPosition) < reachedPositionMaxDistance)
                 {
                     // determine a new roamPosition
-                    raomingPosition = GetRoamingPosition();
+                    roamingPosition = GetRoamingPosition();
                 }
 
                 CheckState();
                 break;
-                
+
 
             case State.ChasePlayer:
 
                 // rotate towards position
-                FaceTarget(Player.transform.position);
+                FaceTarget(GameManager.Instance.Player.transform.position);
                 // move towards Player
-                this.transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);
+                this.transform.position =
+                    Vector3.MoveTowards(transform.position, GameManager.Instance.Player.transform.position, speed * Time.deltaTime);
 
                 CheckState();
                 break;
@@ -115,12 +108,13 @@ public class EnemyAI : MonoBehaviour
             case State.AttackPlayer:
 
                 // rotate towards Player
-                FaceTarget(this.Player.transform.position);
+                FaceTarget(GameManager.Instance.Player.transform.position);
 
                 // Attack
                 waitForAttack -= Time.deltaTime;
-                if(waitForAttack < 0f 
-                    && IsFacingTarget(this.transform.forward, this.Player.transform.position - this.transform.position, 10))
+                if (waitForAttack < 0f
+                    && IsFacingTarget(this.transform.forward, GameManager.Instance.Player.transform.position - this.transform.position,
+                        10))
                 {
                     waitForAttack = timeBetweenAttacks;
 
@@ -135,7 +129,7 @@ public class EnemyAI : MonoBehaviour
     private void CheckState()
     {
         // Check for sightRange 
-        if (Vector3.Distance(this.transform.position, this.Player.transform.position) <= sightRange)
+        if (Vector3.Distance(this.transform.position, GameManager.Instance.Player.transform.position) <= sightRange)
         {
             this.state = State.ChasePlayer;
         }
@@ -145,10 +139,10 @@ public class EnemyAI : MonoBehaviour
         }
 
         // Check for attackRange
-        if (Vector3.Distance(this.transform.position, this.Player.transform.position) <= attackRange)
+        if (Vector3.Distance(this.transform.position, GameManager.Instance.Player.transform.position) <= attackRange)
         {
             this.state = State.AttackPlayer;
-        }        
+        }
     }
 
     private void FaceTarget(Vector3 lookDirection)
@@ -170,19 +164,18 @@ public class EnemyAI : MonoBehaviour
 
     private Vector3 GetRoamingPosition()
     {
-        return this.Player.transform.position + GetRandomDir() * UnityEngine.Random.Range(minDistanceFromPlayer, maxDistanceFromPlayer);
+        return GameManager.Instance.Player.transform.position +
+               GetRandomDir() * UnityEngine.Random.Range(minDistanceFromPlayer, maxDistanceFromPlayer);
     }
 
     private Vector3 GetRandomDir()
     {
-        return new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f));
+        return new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f),
+            UnityEngine.Random.Range(-1f, 1f));
     }
 
     private void Attack()
     {
-        GameObject projectile = Instantiate(projectilePrefab, AttackPoint.position, transform.rotation);
-
-        EnemyProjectile enemyProjectile = projectile.GetComponent<EnemyProjectile>();
-        enemyProjectile.Player = this.Player;
+       Instantiate(projectilePrefab, AttackPoint.position, transform.rotation);
     }
 }

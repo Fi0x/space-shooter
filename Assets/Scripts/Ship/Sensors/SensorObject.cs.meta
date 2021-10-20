@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4189f21d8eb31e6c28e682e742e01b8f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - shipTargetSprite: {fileID: -9154230928176334115, guid: 66d6d6551e3f0d191aa03a09410f76c2, type: 3}
+  - stationTargetSprite: {fileID: 1003607296872550789, guid: 66d6d6551e3f0d191aa03a09410f76c2, type: 3}
+  - missileTargetSprite: {fileID: 366635945936629851, guid: 66d6d6551e3f0d191aa03a09410f76c2, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
