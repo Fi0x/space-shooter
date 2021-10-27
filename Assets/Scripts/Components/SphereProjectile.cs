@@ -57,9 +57,12 @@ public class SphereProjectile : MonoBehaviour
             var timeOnImpact = Time.timeAsDouble - this.startTime;
             
             health.TakeDamage((int)this.damageOverTime.Evaluate((float)timeOnImpact));
-            var closestPoint = other.ClosestPoint(transform.position);
-            var impact = Instantiate(impactPrefab, closestPoint, Quaternion.LookRotation(transform.position - closestPoint));
-            Destroy(impact, 2f);
+            if (impactPrefab != null)
+            {
+                var closestPoint = other.ClosestPoint(transform.position);
+                var impact = Instantiate(impactPrefab, closestPoint, Quaternion.LookRotation(transform.position - closestPoint));
+                Destroy(impact, 2f);
+            }
             Destroy(this.gameObject);
         }    
     }
