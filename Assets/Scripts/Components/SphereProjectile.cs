@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class SphereProjectile : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class SphereProjectile : MonoBehaviour
     private void Start()
     {
         Destroy(this.gameObject, timeToLive);
+        var vfx = GetComponentInChildren<VisualEffect>();
+        if (vfx != null)
+        {
+            vfx.Play();
+        }
     }
 
     public void InitializeDirection(Vector3 velocity, bool isFriendly, AnimationCurve damageOverTime)
@@ -23,6 +29,7 @@ public class SphereProjectile : MonoBehaviour
         {
             throw new Exception("Already initialized");
         }
+        this.transform.LookAt(transform.position + velocity);
 
         this.damageOverTime = damageOverTime;
         this.tagWhichCanTakeDamage = isFriendly ? "Enemy" : "Player" ;
