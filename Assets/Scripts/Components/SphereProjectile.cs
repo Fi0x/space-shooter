@@ -4,6 +4,9 @@ using UnityEngine.VFX;
 
 public class SphereProjectile : MonoBehaviour
 {
+    public GameObject muzzlePrefab;
+    public GameObject impactPrefab;
+    
     private bool isInit = false;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float timeToLive;
@@ -20,6 +23,12 @@ public class SphereProjectile : MonoBehaviour
         if (vfx != null)
         {
             vfx.Play();
+        }
+
+        if (muzzlePrefab != null)
+        {
+            var muzzle = Instantiate(muzzlePrefab, transform);
+            Destroy(muzzle, 1f);
         }
     }
 
@@ -48,6 +57,9 @@ public class SphereProjectile : MonoBehaviour
             var timeOnImpact = Time.timeAsDouble - this.startTime;
             
             health.TakeDamage((int)this.damageOverTime.Evaluate((float)timeOnImpact));
+            var closestPoint = other.ClosestPoint(transform.position);
+            var impact = Instantiate(impactPrefab, closestPoint, Quaternion.LookRotation(transform.position - closestPoint));
+            Destroy(impact, 2f);
             Destroy(this.gameObject);
         }    
     }
