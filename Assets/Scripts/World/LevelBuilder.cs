@@ -45,6 +45,7 @@ namespace World
             {
                 Debug.LogError("No Asteroids defined. Cannot spawn Prefabs");
             }
+
             this.Construct();
         }
 
@@ -54,11 +55,16 @@ namespace World
             {
                 this.Teardown();
             }
-
+        
             if (this.asteroidPrefabs.Count == 0)
             {
                 return;
             }
+
+            var offset = new Vector3(sectorCount.x / 2f, sectorCount.y / 2f, sectorCount.z / 2f);
+            offset.Scale(sectorSize);
+
+            
 #if DEBUG
             this.sectorData = new SerializedDictionary<(int x, int y, int z), SectorDataDebug>();
 #endif
@@ -92,7 +98,7 @@ namespace World
                                 (.5f + x) * this.sectorSize.x,
                                 (.5f + y) * this.sectorSize.y,
                                 (.5f + z) * this.sectorSize.z
-                            );
+                            ) - offset;
 
                             var rotation = Quaternion.Euler(this.random.Next(360), this.random.Next(360),
                                 this.random.Next(360));
