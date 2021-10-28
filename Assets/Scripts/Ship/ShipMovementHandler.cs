@@ -25,7 +25,8 @@ public class ShipMovementHandler : MonoBehaviour
     [HideInInspector] public Rigidbody shipRigidbody;
     
     [HideInInspector] public bool isStrafing;
-    [HideInInspector] public float desiredSpeed = 0;
+    private float desiredSpeed = 0;
+    [HideInInspector] public float currentSpeed = 0;
 
 #if DEBUG
     private GUIStyle _textStyle;
@@ -77,7 +78,7 @@ public class ShipMovementHandler : MonoBehaviour
         var (pitch, roll, yaw, thrust, strafe, _) = inputHandler.CurrentInputState;
         this.HandleAngularVelocity(pitch, yaw, roll);
         this.HandleThrust(thrust, strafe);
-        Stabilization.StabilizeShip(this);
+        currentSpeed = Stabilization.StabilizeShip(this);
     }
 
     private void HandleAngularVelocity(float pitch, float yaw, float roll)

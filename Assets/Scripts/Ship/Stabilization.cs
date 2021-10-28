@@ -5,7 +5,7 @@ namespace Ship
 {
     public static class Stabilization
     {
-        public static void StabilizeShip(ShipMovementHandler smh)
+        public static float StabilizeShip(ShipMovementHandler smh)
         {
             // Check if Speed exceeds max speed. if yes, clamp value down
             if (smh.shipRigidbody.velocity.magnitude > smh.maxSpeed)
@@ -68,6 +68,9 @@ namespace Ship
             }
             
             //TODO: Adjust forward speed towards desiredThrust
+            
+            var localZ = smh.shipObject.transform.forward;
+            return Vector3.Dot(localZ, vNow);
         }
     }
 }

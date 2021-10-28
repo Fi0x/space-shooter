@@ -24,6 +24,6 @@ public class Speed : MonoBehaviour
 
     private void UpdateIndicator()
     {
-        speedIndicator.SetCurrentSpeed(smh.desiredSpeed);
+        speedIndicator.SetCurrentSpeed(smh.currentSpeed);
     }
 }
