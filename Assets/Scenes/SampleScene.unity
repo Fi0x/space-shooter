@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17323539, g: 0.16459554, b: 0.2966911, a: 1}
+  m_IndirectSpecularColor: {r: 0.17316318, g: 0.16457182, b: 0.29665613, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -758,6 +758,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1009339287}
   - component: {fileID: 1009339289}
+  - component: {fileID: 1009339290}
   - component: {fileID: 1009339288}
   m_Layer: 8
   m_Name: SpeedIndicator
@@ -796,11 +797,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1009339286}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15434b980b8d8cb4788c19f76ba3eb5e, type: 3}
+  m_Script: {fileID: 11500000, guid: ed25b42d75cb4ceeae862a4e541c6ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 1009339289}
-  healthNumber_TMP: {fileID: 0}
+  smh: {fileID: 1469893905}
 --- !u!114 &1009339289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -852,6 +852,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1009339290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009339286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 155bd37ac73e40d1b682b328d973a636, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 1009339289}
 --- !u!1 &1154426869
 GameObject:
   m_ObjectHideFlags: 0
@@ -1577,6 +1590,7 @@ MonoBehaviour:
   inputHandler: {fileID: 0}
   shipRigidbody: {fileID: 0}
   isStrafing: 0
+  desiredSpeed: 0
 --- !u!114 &1469893906
 MonoBehaviour:
   m_ObjectHideFlags: 0
