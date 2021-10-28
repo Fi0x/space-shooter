@@ -1,8 +1,12 @@
 using System;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class SphereProjectile : MonoBehaviour
 {
+    public GameObject muzzlePrefab;
+    public GameObject impactPrefab;
+    
     private bool isInit = false;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float timeToLive;
@@ -16,6 +20,17 @@ public class SphereProjectile : MonoBehaviour
     private void Start()
     {
         Destroy(this.gameObject, timeToLive);
+        var vfx = GetComponentInChildren<VisualEffect>();
+        if (vfx != null)
+        {
+            vfx.Play();
+        }
+
+        if (muzzlePrefab != null)
+        {
+            var muzzle = Instantiate(muzzlePrefab, transform);
+            Destroy(muzzle, 1f);
+        }
     }
 
     public void InitializeDirection(Vector3 velocity, LayerMask layerMask, AnimationCurve damageOverTime, Quaternion rotation)
@@ -24,6 +39,7 @@ public class SphereProjectile : MonoBehaviour
         {
             throw new Exception("Already initialized");
         }
+        this.transform.LookAt(transform.position + velocity);
 
         this.layerMask = layerMask;
         this.gameObject.transform.rotation = rotation;
@@ -42,10 +58,20 @@ public class SphereProjectile : MonoBehaviour
         if (this.ShouldCollide(other))
         {
             var timeOnImpact = Time.timeAsDouble - this.startTime;
+
+            if (impactPrefab != null)
+            {
+                var closestPoint = other.ClosestPoint(transform.position);
+                var impact = Instantiate(impactPrefab, closestPoint,
+                    Quaternion.LookRotation(transform.position - closestPoint));
+                Destroy(impact, 2f);
+            }
+
             if (other.gameObject.TryGetComponent(out Health health))
             {
                 health.TakeDamage((int)this.damageOverTime.Evaluate((float)timeOnImpact));
             }
+
             Destroy(this.gameObject);
         }    
     }
