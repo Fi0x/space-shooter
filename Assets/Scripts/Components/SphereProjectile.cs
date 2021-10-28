@@ -18,7 +18,7 @@ public class SphereProjectile : MonoBehaviour
         Destroy(this.gameObject, timeToLive);
     }
 
-    public void InitializeDirection(Vector3 velocity, LayerMask layerMask, AnimationCurve damageOverTime)
+    public void InitializeDirection(Vector3 velocity, LayerMask layerMask, AnimationCurve damageOverTime, Quaternion rotation)
     {
         if (this.isInit)
         {
@@ -26,6 +26,7 @@ public class SphereProjectile : MonoBehaviour
         }
 
         this.layerMask = layerMask;
+        this.gameObject.transform.rotation = rotation;
 
         this.damageOverTime = damageOverTime;
         this.rb.velocity = velocity;

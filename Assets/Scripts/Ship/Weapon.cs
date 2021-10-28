@@ -71,6 +71,6 @@ public class Weapon : MonoBehaviour
         projectile.transform.position = ownPosition;
         var shotDirection = this.weaponManager.Target - ownPosition;
         var projectileDirectionAndVelocity = this.ship.velocity + shotDirection.normalized * this.speed;
-        projectile.GetComponent<SphereProjectile>().InitializeDirection(projectileDirectionAndVelocity, LayerMask.GetMask("Enemy", "Environment"), this.damageOverTime);
+        projectile.GetComponent<SphereProjectile>().InitializeDirection(projectileDirectionAndVelocity, LayerMask.GetMask("Enemy", "Environment"), this.damageOverTime, this.transform.rotation);
     }
 }
