@@ -25,7 +25,7 @@ public class ShipMovementHandler : MonoBehaviour
     [HideInInspector] public Rigidbody shipRigidbody;
     
     [HideInInspector] public bool isStrafing;
-    private float desiredSpeed = 0;
+    [HideInInspector] public float desiredSpeed = 0;
     [HideInInspector] public float currentSpeed = 0;
 
 #if DEBUG
