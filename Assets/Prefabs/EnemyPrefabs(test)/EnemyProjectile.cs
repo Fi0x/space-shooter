@@ -28,13 +28,14 @@ public class EnemyProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if(other.gameObject.layer == LayerMask.NameToLayer("Player") || other.gameObject.layer == LayerMask.NameToLayer("Scenery"))
         {
             if(other.TryGetComponent(out Health health))
             {
                 health.TakeDamage(damage);
-                Destroy(gameObject);
+
             }
+            Destroy(gameObject);
         }
     }
 }

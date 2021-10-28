@@ -10,7 +10,8 @@ public class SphereProjectile : MonoBehaviour
     private bool isInit = false;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float timeToLive;
-    private string tagWhichCanTakeDamage;
+
+    [SerializeField, ReadOnlyInspector] private LayerMask layerMask;
 
     private AnimationCurve damageOverTime;
     private double startTime = 0f;
@@ -32,7 +33,7 @@ public class SphereProjectile : MonoBehaviour
         }
     }
 
-    public void InitializeDirection(Vector3 velocity, bool isFriendly, AnimationCurve damageOverTime)
+    public void InitializeDirection(Vector3 velocity, LayerMask layerMask, AnimationCurve damageOverTime, Quaternion rotation)
     {
         if (this.isInit)
         {
@@ -40,8 +41,10 @@ public class SphereProjectile : MonoBehaviour
         }
         this.transform.LookAt(transform.position + velocity);
 
+        this.layerMask = layerMask;
+        this.gameObject.transform.rotation = rotation;
+
         this.damageOverTime = damageOverTime;
-        this.tagWhichCanTakeDamage = isFriendly ? "Enemy" : "Player" ;
         this.rb.velocity = velocity;
         this.isInit = true;
         this.startTime = Time.timeAsDouble;
@@ -52,7 +55,7 @@ public class SphereProjectile : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.gameObject.TryGetComponent(out Health health) && this.ShouldCollide(other))
+        if (this.ShouldCollide(other))
         {
             var timeOnImpact = Time.timeAsDouble - this.startTime;
             
@@ -62,13 +65,18 @@ public class SphereProjectile : MonoBehaviour
                 var closestPoint = other.ClosestPoint(transform.position);
                 var impact = Instantiate(impactPrefab, closestPoint, Quaternion.LookRotation(transform.position - closestPoint));
                 Destroy(impact, 2f);
+            if (other.gameObject.TryGetComponent(out Health health))
+            {
+                health.TakeDamage((int)this.damageOverTime.Evaluate((float)timeOnImpact));
             }
+
             Destroy(this.gameObject);
         }    
     }
 
     private bool ShouldCollide(Component c)
     {
-        return c.gameObject.CompareTag(this.tagWhichCanTakeDamage);
+        return c.gameObject.layer == LayerMask.NameToLayer("Scenery") || c.gameObject.layer == LayerMask.NameToLayer("Enemy");
+        //return (this.layerMask & c.gameObject.layer) > 0;
     }
 }
