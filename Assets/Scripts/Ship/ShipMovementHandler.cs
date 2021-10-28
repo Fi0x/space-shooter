@@ -25,7 +25,8 @@ public class ShipMovementHandler : MonoBehaviour
     [HideInInspector] public Rigidbody shipRigidbody;
     
     [HideInInspector] public bool isStrafing;
-    private float _desiredSpeed = 0;
+    [HideInInspector] public float desiredSpeed = 0;
+    [HideInInspector] public float currentSpeed = 0;
 
 #if DEBUG
     private GUIStyle _textStyle;
@@ -77,7 +78,7 @@ public class ShipMovementHandler : MonoBehaviour
         var (pitch, roll, yaw, thrust, strafe, _) = inputHandler.CurrentInputState;
         this.HandleAngularVelocity(pitch, yaw, roll);
         this.HandleThrust(thrust, strafe);
-        Stabilization.StabilizeShip(this);
+        currentSpeed = Stabilization.StabilizeShip(this);
     }
 
     private void HandleAngularVelocity(float pitch, float yaw, float roll)
@@ -94,25 +95,25 @@ public class ShipMovementHandler : MonoBehaviour
 
     private void HandleThrust(float thrust, float strafe)
     {
-        _desiredSpeed += thrust;
-        if (_desiredSpeed > maxSpeed) _desiredSpeed = maxSpeed;
-        else if (_desiredSpeed < 0) _desiredSpeed = 0;
+        desiredSpeed += thrust;
+        if (desiredSpeed > maxSpeed) desiredSpeed = maxSpeed;
+        else if (desiredSpeed < 0) desiredSpeed = 0;
 
         var currentSpeed = shipObject.transform.forward;
         var forwardSpeed = Vector3.Dot(currentSpeed, shipRigidbody.velocity);
 
         if (inputHandler.Braking)
         {
-            _desiredSpeed--;
-            if (_desiredSpeed < 0) _desiredSpeed = 0;
+            desiredSpeed--;
+            if (desiredSpeed < 0) desiredSpeed = 0;
             if(forwardSpeed > 0) ApplyBraking(-accelerationBackwards);
             else ApplyBraking(accelerationForwards);
         }
         else
         {
             var thrustForce = 0f;
-            if (_desiredSpeed > forwardSpeed) thrustForce = accelerationForwards;
-            else if (_desiredSpeed < forwardSpeed) thrustForce = -accelerationBackwards;
+            if (desiredSpeed > forwardSpeed) thrustForce = accelerationForwards;
+            else if (desiredSpeed < forwardSpeed) thrustForce = -accelerationBackwards;
             shipRigidbody.AddForce(currentSpeed * thrustForce);
         }
 

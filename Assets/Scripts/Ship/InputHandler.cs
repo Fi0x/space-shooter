@@ -86,14 +86,14 @@ public class InputHandler : MonoBehaviour
                 break;
         }
 
-        if (Input.GetKey(accelerateKey)) thrust += 0.25f;
-        if (Input.GetKey(decelerateKey)) thrust -= 0.25f;
+        if (Input.GetKey(accelerateKey) && !Input.GetKey(decelerateKey)) thrust += 0.25f;
+        if (Input.GetKey(decelerateKey) && !Input.GetKey(accelerateKey)) thrust -= 0.25f;
 
-        if (Input.GetKey(strafeLeftKey)) strafe--;
-        if (Input.GetKey(strafeRightKey)) strafe++;
+        if (Input.GetKey(strafeLeftKey) && !Input.GetKey(strafeRightKey)) strafe--;
+        if (Input.GetKey(strafeRightKey) && !Input.GetKey(strafeLeftKey)) strafe++;
 
-        if (Input.GetKey(rollLeftKey)) roll = -1;
-        if (Input.GetKey(rollRightKey)) roll = 1;
+        if (Input.GetKey(rollLeftKey) && !Input.GetKey(rollRightKey)) roll = -1;
+        if (Input.GetKey(rollRightKey) && !Input.GetKey(rollLeftKey)) roll = 1;
 
         var isBraking = Input.GetKey(this.brakingKey);
 
