@@ -58,13 +58,15 @@ public class SphereProjectile : MonoBehaviour
         if (this.ShouldCollide(other))
         {
             var timeOnImpact = Time.timeAsDouble - this.startTime;
-            
-            health.TakeDamage((int)this.damageOverTime.Evaluate((float)timeOnImpact));
+
             if (impactPrefab != null)
             {
                 var closestPoint = other.ClosestPoint(transform.position);
-                var impact = Instantiate(impactPrefab, closestPoint, Quaternion.LookRotation(transform.position - closestPoint));
+                var impact = Instantiate(impactPrefab, closestPoint,
+                    Quaternion.LookRotation(transform.position - closestPoint));
                 Destroy(impact, 2f);
+            }
+
             if (other.gameObject.TryGetComponent(out Health health))
             {
                 health.TakeDamage((int)this.damageOverTime.Evaluate((float)timeOnImpact));
