@@ -9826,3 +9826,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 6143299078952737090}
   timeToLive: 2
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
