@@ -1710,6 +1710,162 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &1947734308
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1947734310}
+  - component: {fileID: 1947734309}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1947734309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947734308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3771862369a55e61491112be9364ecf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sectorSize: {x: 60, y: 60, z: 60}
+  sectorCount: {x: 30, y: 20, z: 30}
+  seed: 0
+  xCrossSectionDensity:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.000579834
+      value: 0
+      inSlope: 5.860617
+      outSlope: 5.860617
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.023071807
+    - serializedVersion: 3
+      time: 0.2384722
+      value: 0.5792215
+      inSlope: -0.041880038
+      outSlope: -0.041880038
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.1370008
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: 0.009715087
+      outSlope: 0.009715087
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.23991346
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8388822
+      value: 0.6152257
+      inSlope: -0.0012939292
+      outSlope: -0.0012939292
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.075201936
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.0005493164
+      inSlope: -5.9150405
+      outSlope: -5.9150405
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.023455739
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  yCrossSectionDensity:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.575646
+      outSlope: 1.575646
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.41956526
+      value: 0.6610863
+      inSlope: 0.07263023
+      outSlope: 0.07263023
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.09294691
+    - serializedVersion: 3
+      time: 0.57011336
+      value: 0.997761
+      inSlope: 0.018060792
+      outSlope: 0.018060792
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7021829
+      value: 0.6571841
+      inSlope: -0.26473442
+      outSlope: -0.26473442
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.17655498
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2.20667
+      outSlope: -2.20667
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  probabilityCutoff: 0.449
+  asteroidPrefabs:
+  - {fileID: 8026507357531248318, guid: 3c1f367bcf308592897026cdfca03215, type: 3}
+  - {fileID: 2221158870545068552, guid: b130227b70c3ba45dbf05435bb283891, type: 3}
+  - {fileID: 8796878406112795121, guid: 52d88c56fbe481c5798f752973c28365, type: 3}
+  sectorData:
+    m_Values: []
+  isConstructed: 0
+--- !u!4 &1947734310
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947734308}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1956085832
 GameObject:
   m_ObjectHideFlags: 0
