@@ -104,8 +104,7 @@ public class ShipMovementHandler : MonoBehaviour
 
         if (inputHandler.Braking)
         {
-            desiredSpeed--;
-            if (desiredSpeed < 0) desiredSpeed = 0;
+            desiredSpeed = 0;
             if(forwardSpeed > 0) ApplyBraking(-accelerationBackwards);
             else ApplyBraking(accelerationForwards);
         }

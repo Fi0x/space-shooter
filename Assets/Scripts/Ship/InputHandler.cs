@@ -30,6 +30,7 @@ public class InputHandler : MonoBehaviour
     [SerializeField] private KeyCode strafeRightKey;
     [SerializeField] private KeyCode brakingKey;
     [SerializeField] private bool debugForceShootingTrue;
+    [SerializeField] private float thrustAdjustment = 1;
 
 
     public (float pitch, float roll, float yaw, float thrust, float strafe, bool braking) CurrentInputState { get; private set; } = (0f, 0f, 0f, 0f, 0f, false);
@@ -86,8 +87,8 @@ public class InputHandler : MonoBehaviour
                 break;
         }
 
-        if (Input.GetKey(accelerateKey) && !Input.GetKey(decelerateKey)) thrust += 0.25f;
-        if (Input.GetKey(decelerateKey) && !Input.GetKey(accelerateKey)) thrust -= 0.25f;
+        if (Input.GetKey(accelerateKey) && !Input.GetKey(decelerateKey)) thrust += thrustAdjustment;
+        if (Input.GetKey(decelerateKey) && !Input.GetKey(accelerateKey)) thrust -= thrustAdjustment;
 
         if (Input.GetKey(strafeLeftKey) && !Input.GetKey(strafeRightKey)) strafe--;
         if (Input.GetKey(strafeRightKey) && !Input.GetKey(strafeLeftKey)) strafe++;

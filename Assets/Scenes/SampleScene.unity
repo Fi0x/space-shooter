@@ -1703,17 +1703,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rollSpeed: 0.2
   yawSpeed: 0.2
-  pitchSpeed: 0.2
-  accelerationForwards: 10
-  accelerationBackwards: 5
-  accelerationLateral: 3
-  maxSpeed: 30
+  pitchSpeed: 0.3
+  accelerationForwards: 30
+  accelerationBackwards: 20
+  accelerationLateral: 20
+  maxSpeed: 150
   minBrakeSpeed: 0.02
-  stabilizationMultiplier: 3
+  stabilizationMultiplier: 2
   shipObject: {fileID: 1469893903}
   inputHandler: {fileID: 0}
   shipRigidbody: {fileID: 0}
   isStrafing: 0
+  desiredSpeed: 0
   currentSpeed: 0
 --- !u!114 &1469893906
 MonoBehaviour:
@@ -1751,6 +1752,7 @@ MonoBehaviour:
   strafeRightKey: 100
   brakingKey: 120
   debugForceShootingTrue: 0
+  thrustAdjustment: 1
 --- !u!136 &1469893909
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2133,7 +2135,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1956085832
 GameObject:
