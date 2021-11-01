@@ -1701,16 +1701,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5b177c6bfae38fd6adf886ea06f3355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rollSpeed: 0.2
-  yawSpeed: 0.2
-  pitchSpeed: 0.3
-  accelerationForwards: 40
-  accelerationBackwards: 35
-  accelerationLateral: 20
+  rollSpeed: 0.5
+  yawSpeed: 0.3
+  pitchSpeed: 0.5
+  accelerationForwards: 50
+  accelerationBackwards: 45
+  accelerationLateral: 40
   maxSpeed: 150
   maxSpeedBoost: 75
   minBrakeSpeed: 0.02
-  stabilizationMultiplier: 2
+  stabilizationMultiplier: 200
   shipObject: {fileID: 1469893903}
   inputHandler: {fileID: 0}
   shipRigidbody: {fileID: 0}

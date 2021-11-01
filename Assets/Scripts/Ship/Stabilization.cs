@@ -7,13 +7,6 @@ namespace Ship
     {
         public static float StabilizeShip(ShipMovementHandler smh, bool boosting)
         {
-            // Check if Speed exceeds max speed. if yes, clamp value down
-            //var topSpeed = smh.maxSpeed + (boosting ? smh.maxSpeedBoost : 0);
-           // if (smh.shipRigidbody.velocity.magnitude > topSpeed)
-            //{
-            //    smh.shipRigidbody.velocity = smh.shipRigidbody.velocity.normalized * topSpeed;
-           // }
-            
             var vNow= smh.shipRigidbody.velocity;
             
             // Determine which sides need to trigger their thrusters
