@@ -612,6 +612,7 @@ GameObject:
   - component: {fileID: 763038474}
   - component: {fileID: 763038475}
   - component: {fileID: 763038476}
+  - component: {fileID: 763038477}
   m_Layer: 12
   m_Name: CanopyUI
   m_TagString: Untagged
@@ -689,6 +690,25 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &763038477
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763038473}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 63ee9ac33eb0163cd85e1095a8073b3d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &850717997
 GameObject:
   m_ObjectHideFlags: 0
