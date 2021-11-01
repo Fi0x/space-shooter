@@ -16,6 +16,8 @@ public class SphereProjectile : MonoBehaviour
     private AnimationCurve damageOverTime;
     private double startTime = 0f;
 
+    public event Action<int> ProjectileHitSomethingEvent;
+
 
     private void Start()
     {
@@ -71,6 +73,7 @@ public class SphereProjectile : MonoBehaviour
             {
                 health.TakeDamage((int)this.damageOverTime.Evaluate((float)timeOnImpact));
             }
+            this.ProjectileHitSomethingEvent?.Invoke(other.gameObject.layer);
 
             Destroy(this.gameObject);
         }    
