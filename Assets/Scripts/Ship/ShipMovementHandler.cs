@@ -16,7 +16,8 @@ public class ShipMovementHandler : MonoBehaviour
     [SerializeField] private float accelerationForwards = 2f;
     [SerializeField] private float accelerationBackwards = 1f;
     [SerializeField] public float accelerationLateral = 1f;
-    [SerializeField] public float maxSpeed = 30f;
+    [SerializeField] public float maxSpeed = 150f;
+    [SerializeField] public float maxSpeedBoost = 75f;
     [SerializeField] private float minBrakeSpeed = 0.02f;
     [SerializeField] public float stabilizationMultiplier = 3;
 
@@ -75,25 +76,28 @@ public class ShipMovementHandler : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var (pitch, roll, yaw, thrust, strafe, _) = inputHandler.CurrentInputState;
-        this.HandleAngularVelocity(pitch, yaw, roll);
-        this.HandleThrust(thrust, strafe);
-        currentSpeed = Stabilization.StabilizeShip(this);
+        var (pitch, roll, yaw, thrust, strafe, _, boosting) = inputHandler.CurrentInputState;
+        this.HandleAngularVelocity(pitch, yaw, roll, boosting);
+        this.HandleThrust(thrust, strafe, boosting);
+        currentSpeed = Stabilization.StabilizeShip(this, boosting);
+        
+        Debug.Log("Current Speed: " + currentSpeed);
     }
 
-    private void HandleAngularVelocity(float pitch, float yaw, float roll)
+    private void HandleAngularVelocity(float pitch, float yaw, float roll, bool boosting)
     {
         var currentWorldAngularVelocity = shipRigidbody.angularVelocity;
         var currentLocalAngularVelocity = shipObject.transform.InverseTransformDirection(currentWorldAngularVelocity);
 
-        var angularForce = new Vector3(-pitch * pitchSpeed, yaw * yawSpeed, -roll * rollSpeed);
+        var boostMult = boosting ? 0.5f : 1f;
+        var angularForce = new Vector3(-pitch * pitchSpeed * boostMult, yaw * yawSpeed * boostMult, -roll * rollSpeed * boostMult);
         currentLocalAngularVelocity += angularForce;
 
         var modifiedWorldAngularVelocity = shipObject.transform.TransformDirection(currentLocalAngularVelocity);
         shipRigidbody.angularVelocity = modifiedWorldAngularVelocity;
     }
 
-    private void HandleThrust(float thrust, float strafe)
+    private void HandleThrust(float thrust, float strafe, bool boosting)
     {
         desiredSpeed += thrust;
         if (desiredSpeed > maxSpeed) desiredSpeed = maxSpeed;
@@ -111,8 +115,9 @@ public class ShipMovementHandler : MonoBehaviour
         else
         {
             var thrustForce = 0f;
-            if (desiredSpeed > forwardSpeed) thrustForce = accelerationForwards;
-            else if (desiredSpeed < forwardSpeed) thrustForce = -accelerationBackwards;
+            var boostedSpeed = desiredSpeed + (boosting ? maxSpeedBoost : 0);
+            if (boostedSpeed > forwardSpeed) thrustForce = accelerationForwards * (boosting ? 2 : 1);
+            else if (boostedSpeed < forwardSpeed) thrustForce = -accelerationBackwards;
             shipRigidbody.AddForce(currentSpeed * thrustForce);
         }
 

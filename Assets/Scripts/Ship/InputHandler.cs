@@ -29,11 +29,12 @@ public class InputHandler : MonoBehaviour
     [SerializeField] private KeyCode strafeLeftKey;
     [SerializeField] private KeyCode strafeRightKey;
     [SerializeField] private KeyCode brakingKey;
+    [SerializeField] private KeyCode boosterKey;
     [SerializeField] private bool debugForceShootingTrue;
     [SerializeField] private float thrustAdjustment = 1;
 
 
-    public (float pitch, float roll, float yaw, float thrust, float strafe, bool braking) CurrentInputState { get; private set; } = (0f, 0f, 0f, 0f, 0f, false);
+    public (float pitch, float roll, float yaw, float thrust, float strafe, bool braking, bool boosting) CurrentInputState { get; private set; } = (0f, 0f, 0f, 0f, 0f, false, false);
 
     // Getters
     public float Roll => this.CurrentInputState.roll;
@@ -44,6 +45,8 @@ public class InputHandler : MonoBehaviour
     public bool IsShooting { get; private set; }
 
     public bool Braking => this.CurrentInputState.braking;
+
+    public bool Boosting => this.CurrentInputState.boosting;
 
     private void Start()
     {
@@ -60,7 +63,7 @@ public class InputHandler : MonoBehaviour
         this.IsShooting = Input.GetMouseButton(0) || this.debugForceShootingTrue;
     }
 
-    private (float pitch, float roll, float yaw, float thrust, float strafe, bool braking) CalculateAppliedMovement((float x, float y) mouseAxes)
+    private (float pitch, float roll, float yaw, float thrust, float strafe, bool braking, bool boosting) CalculateAppliedMovement((float x, float y) mouseAxes)
     {
         float pitch = 0, roll = 0, yaw = 0, thrust = 0, strafe = 0;
 
@@ -96,9 +99,10 @@ public class InputHandler : MonoBehaviour
         if (Input.GetKey(rollLeftKey) && !Input.GetKey(rollRightKey)) roll = -1;
         if (Input.GetKey(rollRightKey) && !Input.GetKey(rollLeftKey)) roll = 1;
 
-        var isBraking = Input.GetKey(this.brakingKey);
+        var isBraking = Input.GetKey(brakingKey);
+        var isBoosting = Input.GetKey(boosterKey);
 
-        return (pitch, roll, yaw, thrust, strafe, isBraking);
+        return (pitch, roll, yaw, thrust, strafe, isBraking, isBoosting);
 
     }
 }

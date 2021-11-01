@@ -1704,10 +1704,11 @@ MonoBehaviour:
   rollSpeed: 0.2
   yawSpeed: 0.2
   pitchSpeed: 0.3
-  accelerationForwards: 30
-  accelerationBackwards: 20
+  accelerationForwards: 40
+  accelerationBackwards: 35
   accelerationLateral: 20
   maxSpeed: 150
+  maxSpeedBoost: 75
   minBrakeSpeed: 0.02
   stabilizationMultiplier: 2
   shipObject: {fileID: 1469893903}
@@ -1751,6 +1752,7 @@ MonoBehaviour:
   strafeLeftKey: 97
   strafeRightKey: 100
   brakingKey: 120
+  boosterKey: 304
   debugForceShootingTrue: 0
   thrustAdjustment: 1
 --- !u!136 &1469893909
