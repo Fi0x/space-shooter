@@ -1714,6 +1714,7 @@ MonoBehaviour:
   inputHandler: {fileID: 0}
   shipRigidbody: {fileID: 0}
   isStrafing: 0
+  desiredSpeed: 0
   currentSpeed: 0
 --- !u!114 &1469893906
 MonoBehaviour:
@@ -1795,6 +1796,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1204850157}
   inputHandler: {fileID: 1469893907}
+  enemyHitEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 763038475}
+        m_TargetAssemblyTypeName: CanopyTargetReticleManager, Assembly-CSharp
+        m_MethodName: NotifyAboutEnemyHit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1762417717
 GameObject:
   m_ObjectHideFlags: 0
@@ -2133,7 +2149,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1956085832
 GameObject:

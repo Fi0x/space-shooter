@@ -11,6 +11,8 @@ public class WeaponManager : MonoBehaviour
 
     public Vector3 Target => target.position;
 
+    [SerializeField] private UnityEvent enemyHitEvent = new UnityEvent();
+    public UnityEvent EnemyHitEvent => this.enemyHitEvent;
     public UnityEvent<bool> FiremodeChangedEvent { get; } = new UnityEvent<bool>();
     private bool isShooting = false;
 
