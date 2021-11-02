@@ -24,9 +24,15 @@ public class ShipMovementHandler : MonoBehaviour
     [HideInInspector] public InputHandler inputHandler;
     [HideInInspector] public Rigidbody shipRigidbody;
     
-    [HideInInspector] public bool isStrafing;
-    [HideInInspector] public float desiredSpeed = 0;
-    [HideInInspector] public float currentSpeed = 0;
+    [SerializeField, ReadOnlyInspector] public bool isStrafing;
+    [SerializeField, ReadOnlyInspector] public float desiredSpeed = 0;
+    [SerializeField, ReadOnlyInspector] public float currentSpeed = 0;
+
+    [SerializeField, ReadOnlyInspector] private float currentXForce;
+    [SerializeField, ReadOnlyInspector] private float currentYForce;
+    [SerializeField, ReadOnlyInspector] private float currentZForce;
+
+    public (float x, float y, float z) CurrentForces => (currentXForce, currentYForce, currentZForce);
 
 #if DEBUG
     private GUIStyle _textStyle;
@@ -78,7 +84,11 @@ public class ShipMovementHandler : MonoBehaviour
         var (pitch, roll, yaw, thrust, strafe, _) = inputHandler.CurrentInputState;
         this.HandleAngularVelocity(pitch, yaw, roll);
         this.HandleThrust(thrust, strafe);
-        currentSpeed = Stabilization.StabilizeShip(this);
+        var forces = Stabilization.StabilizeShip(this);
+        this.currentXForce = forces.xForce;
+        this.currentYForce = forces.yForce;
+        this.currentZForce = forces.zForce;
+        currentSpeed = forces.zForce;
     }
 
     private void HandleAngularVelocity(float pitch, float yaw, float roll)
