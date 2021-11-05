@@ -51,7 +51,7 @@ public class ShipMovementHandler : MonoBehaviour
         shipRigidbody = shipObject.GetComponent<Rigidbody>();
         
         FlightModel.StoreCustomFlightModel(this);
-        FlightModel.LoadFlightModel(this,"Normal");
+        FlightModel.LoadFlightModel(this,"Custom");
     }
 
 #if DEBUG

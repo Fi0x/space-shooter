@@ -101,6 +101,42 @@ namespace Ship
                 MaxSpeed = 150,
                 MaxBoost = 75,
                 StabilizationFactor = 200
+            }),
+            ("Dominik", new Mode
+            {
+                RotPitch = 0.5f,
+                RotRoll = 0.5f,
+                RotYaw = 0.3f,
+                AccForward = 50,
+                AccBackwards = 45,
+                AccLateral = 40,
+                MaxSpeed = 150,
+                MaxBoost = 75,
+                StabilizationFactor = 200
+            }),
+            ("Waldemar", new Mode
+            {
+                RotPitch = 0.3f,
+                RotRoll = 0.2f,
+                RotYaw = 0.2f,
+                AccForward = 40,
+                AccBackwards = 35,
+                AccLateral = 20,
+                MaxSpeed = 150,
+                MaxBoost = 100,
+                StabilizationFactor = 2
+            }),
+            ("Tobi", new Mode
+            {
+                RotPitch = 0.3f,
+                RotRoll = 0.2f,
+                RotYaw = 0.2f,
+                AccForward = 40,
+                AccBackwards = 35,
+                AccLateral = 35,
+                MaxSpeed = 150,
+                MaxBoost = 100,
+                StabilizationFactor = 2
             })
         };
 
