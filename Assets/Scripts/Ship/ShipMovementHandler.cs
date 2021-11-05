@@ -1,5 +1,3 @@
-using System;
-using System.Numerics;
 using Ship;
 using UnityEditor;
 using UnityEngine;
@@ -27,20 +25,20 @@ public class ShipMovementHandler : MonoBehaviour
     [HideInInspector] public Rigidbody shipRigidbody;
     
     [HideInInspector] public bool isStrafing;
-    [HideInInspector] public float desiredSpeed = 0;
-    [HideInInspector] public float currentSpeed = 0;
+    [HideInInspector] public float desiredSpeed;
+    [HideInInspector] public float currentSpeed;
 
-    [HideInInspector] public String currentFlightModel = "Custom";
+    [HideInInspector] public string currentFlightModel = "Custom";
 
 #if DEBUG
-    private GUIStyle _textStyle;
+    private GUIStyle textStyle;
     public static float DotX, DotY;
 #endif
 
     private void Start()
     {
 #if DEBUG
-        this._textStyle = new GUIStyle()
+        this.textStyle = new GUIStyle()
         {
             normal = new GUIStyleState()
             {
@@ -53,6 +51,7 @@ public class ShipMovementHandler : MonoBehaviour
         shipRigidbody = shipObject.GetComponent<Rigidbody>();
         
         FlightModel.StoreCustomFlightModel(this);
+        FlightModel.LoadFlightModel(this,"Normal");
     }
 
 #if DEBUG
@@ -68,24 +67,29 @@ public class ShipMovementHandler : MonoBehaviour
             var position = shipObject.transform.position;
             Handles.Label(position,
                 $"angV=({inputHandler.Pitch}, {inputHandler.Roll}, {inputHandler.Yaw}); V=({shipRigidbody.velocity.magnitude})",
-                this._textStyle);
+                this.textStyle);
             Handles.color = Color.red;
             Handles.DrawLine(position, position + shipObject.transform.forward * 20f);
             Handles.color = Color.green;
             Handles.DrawLine(position, position + shipRigidbody.velocity);
-            Handles.Label(position + shipObject.transform.right * 2, $"dotX:{DotX}", this._textStyle);
-            Handles.Label(position + shipObject.transform.up * 2, $"dotY:{DotY}", this._textStyle);
+            Handles.Label(position + shipObject.transform.right * 2, $"dotX:{DotX}", this.textStyle);
+            Handles.Label(position + shipObject.transform.up * 2, $"dotY:{DotY}", this.textStyle);
         }
     }
 #endif
 
     private void FixedUpdate()
     {
-        var (pitch, roll, yaw, thrust, strafe, _, boosting, nextMode) = inputHandler.CurrentInputState;
-        this.HandleAngularVelocity(pitch, yaw, roll, boosting);
-        this.HandleThrust(thrust, strafe, boosting);
+        var (pitch, roll, yaw, thrust, strafe, _, boosting) = inputHandler.CurrentInputState;
+        HandleAngularVelocity(pitch, yaw, roll, boosting);
+        HandleThrust(thrust, strafe, boosting);
         currentSpeed = Stabilization.StabilizeShip(this, boosting);
-        if (nextMode) FlightModel.NextFlightModel(this);
+        
+        if (inputHandler.SwitchFlightModel)
+        {
+            FlightModel.NextFlightModel(this);
+            inputHandler.SwitchFlightModel = false;
+        }
     }
 
     private void HandleAngularVelocity(float pitch, float yaw, float roll, bool boosting)
@@ -94,7 +98,7 @@ public class ShipMovementHandler : MonoBehaviour
         var currentLocalAngularVelocity = shipObject.transform.InverseTransformDirection(currentWorldAngularVelocity);
 
         var boostMult = boosting ? 0.5f : 1f;
-        var angularForce = new Vector3(-pitch * pitchSpeed * boostMult, yaw * yawSpeed * boostMult, -roll * rollSpeed * boostMult);
+        var angularForce = new Vector3(-pitch * pitchSpeed * boostMult, yaw * yawSpeed * boostMult, -roll * rollSpeed);
         currentLocalAngularVelocity += angularForce;
 
         var modifiedWorldAngularVelocity = shipObject.transform.TransformDirection(currentLocalAngularVelocity);
@@ -107,8 +111,8 @@ public class ShipMovementHandler : MonoBehaviour
         if (desiredSpeed > maxSpeed) desiredSpeed = maxSpeed;
         else if (desiredSpeed < 0) desiredSpeed = 0;
 
-        var currentSpeed = shipObject.transform.forward;
-        var forwardSpeed = Vector3.Dot(currentSpeed, shipRigidbody.velocity);
+        var actualSpeed = shipObject.transform.forward;
+        var forwardSpeed = Vector3.Dot(actualSpeed, shipRigidbody.velocity);
 
         if (inputHandler.Braking)
         {
@@ -122,7 +126,7 @@ public class ShipMovementHandler : MonoBehaviour
             var boostedSpeed = desiredSpeed + (boosting ? maxSpeedBoost : 0);
             if (boostedSpeed > forwardSpeed) thrustForce = accelerationForwards * (boosting ? 2 : 1);
             else if (boostedSpeed < forwardSpeed) thrustForce = -accelerationBackwards;
-            shipRigidbody.AddForce(currentSpeed * thrustForce);
+            shipRigidbody.AddForce(actualSpeed * thrustForce);
         }
 
         isStrafing = strafe != 0;

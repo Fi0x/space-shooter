@@ -1707,10 +1707,10 @@ MonoBehaviour:
   accelerationForwards: 50
   accelerationBackwards: 45
   accelerationLateral: 40
-  maxSpeed: 150
-  maxSpeedBoost: 75
+  maxSpeed: 200
+  maxSpeedBoost: 150
   minBrakeSpeed: 0.02
-  stabilizationMultiplier: 200
+  stabilizationMultiplier: 8
   shipObject: {fileID: 1469893903}
   inputHandler: {fileID: 0}
   shipRigidbody: {fileID: 0}
