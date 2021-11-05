@@ -30,11 +30,12 @@ public class InputHandler : MonoBehaviour
     [SerializeField] private KeyCode strafeRightKey;
     [SerializeField] private KeyCode brakingKey;
     [SerializeField] private KeyCode boosterKey;
+    [SerializeField] private KeyCode flightModeSwitchKey;
     [SerializeField] private bool debugForceShootingTrue;
     [SerializeField] private float thrustAdjustment = 1;
 
 
-    public (float pitch, float roll, float yaw, float thrust, float strafe, bool braking, bool boosting) CurrentInputState { get; private set; } = (0f, 0f, 0f, 0f, 0f, false, false);
+    public (float pitch, float roll, float yaw, float thrust, float strafe, bool braking, bool boosting, bool nextFlightMode) CurrentInputState { get; private set; } = (0f, 0f, 0f, 0f, 0f, false, false, false);
 
     // Getters
     public float Roll => this.CurrentInputState.roll;
@@ -63,7 +64,7 @@ public class InputHandler : MonoBehaviour
         this.IsShooting = Input.GetMouseButton(0) || this.debugForceShootingTrue;
     }
 
-    private (float pitch, float roll, float yaw, float thrust, float strafe, bool braking, bool boosting) CalculateAppliedMovement((float x, float y) mouseAxes)
+    private (float pitch, float roll, float yaw, float thrust, float strafe, bool braking, bool boosting, bool nextFlightMode) CalculateAppliedMovement((float x, float y) mouseAxes)
     {
         float pitch = 0, roll = 0, yaw = 0, thrust = 0, strafe = 0;
 
@@ -101,8 +102,8 @@ public class InputHandler : MonoBehaviour
 
         var isBraking = Input.GetKey(brakingKey);
         var isBoosting = Input.GetKey(boosterKey);
+        var switchFlightMode = Input.GetKeyDown(flightModeSwitchKey);
 
-        return (pitch, roll, yaw, thrust, strafe, isBraking, isBoosting);
-
+        return (pitch, roll, yaw, thrust, strafe, isBraking, isBoosting, switchFlightMode);
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Numerics;
 using Ship;
 using UnityEditor;
@@ -8,13 +9,13 @@ using Vector3 = UnityEngine.Vector3;
 public class ShipMovementHandler : MonoBehaviour
 {
     [Header("Rotation Forces")]
-    [SerializeField] private float rollSpeed = 2f;
-    [SerializeField] private float yawSpeed = 0.8f;
-    [SerializeField] private float pitchSpeed = 1f;
+    [SerializeField] public float pitchSpeed = 1f;
+    [SerializeField] public float rollSpeed = 2f;
+    [SerializeField] public float yawSpeed = 0.8f;
 
     [Header("Movement Forces")]
-    [SerializeField] private float accelerationForwards = 2f;
-    [SerializeField] private float accelerationBackwards = 1f;
+    [SerializeField] public float accelerationForwards = 2f;
+    [SerializeField] public float accelerationBackwards = 1f;
     [SerializeField] public float accelerationLateral = 1f;
     [SerializeField] public float maxSpeed = 150f;
     [SerializeField] public float maxSpeedBoost = 75f;
@@ -28,6 +29,8 @@ public class ShipMovementHandler : MonoBehaviour
     [HideInInspector] public bool isStrafing;
     [HideInInspector] public float desiredSpeed = 0;
     [HideInInspector] public float currentSpeed = 0;
+
+    [HideInInspector] public String currentFlightModel = "Custom";
 
 #if DEBUG
     private GUIStyle _textStyle;
@@ -48,6 +51,8 @@ public class ShipMovementHandler : MonoBehaviour
         shipObject = gameObject;
         inputHandler = shipObject.GetComponent<InputHandler>();
         shipRigidbody = shipObject.GetComponent<Rigidbody>();
+        
+        FlightModel.StoreCustomFlightModel(this);
     }
 
 #if DEBUG
@@ -76,12 +81,11 @@ public class ShipMovementHandler : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var (pitch, roll, yaw, thrust, strafe, _, boosting) = inputHandler.CurrentInputState;
+        var (pitch, roll, yaw, thrust, strafe, _, boosting, nextMode) = inputHandler.CurrentInputState;
         this.HandleAngularVelocity(pitch, yaw, roll, boosting);
         this.HandleThrust(thrust, strafe, boosting);
         currentSpeed = Stabilization.StabilizeShip(this, boosting);
-        
-        Debug.Log("Current Speed: " + currentSpeed);
+        if (nextMode) FlightModel.NextFlightModel(this);
     }
 
     private void HandleAngularVelocity(float pitch, float yaw, float roll, bool boosting)

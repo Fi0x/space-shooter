@@ -1701,9 +1701,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5b177c6bfae38fd6adf886ea06f3355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pitchSpeed: 0.5
   rollSpeed: 0.5
   yawSpeed: 0.3
-  pitchSpeed: 0.5
   accelerationForwards: 50
   accelerationBackwards: 45
   accelerationLateral: 40
@@ -1717,6 +1717,7 @@ MonoBehaviour:
   isStrafing: 0
   desiredSpeed: 0
   currentSpeed: 0
+  currentFlightModel: 
 --- !u!114 &1469893906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1753,6 +1754,7 @@ MonoBehaviour:
   strafeRightKey: 100
   brakingKey: 120
   boosterKey: 304
+  flightModeSwitchKey: 116
   debugForceShootingTrue: 0
   thrustAdjustment: 1
 --- !u!136 &1469893909
