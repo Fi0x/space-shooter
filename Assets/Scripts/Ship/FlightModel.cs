@@ -61,7 +61,6 @@ namespace Ship
             smh.stabilizationMultiplier = newMode.mode.StabilizationFactor;
 
             smh.currentFlightModel = newMode.name;
-            Debug.Log("New flight model: "+ newMode.name);
         }
 
         private static readonly (string name, Mode mode)[] Modes =
