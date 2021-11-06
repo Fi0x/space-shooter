@@ -28,7 +28,6 @@ public class Weapon : MonoBehaviour
     private void FiremodeChangedEventHandler(bool newFireMode)
     {
         this.isShooting = newFireMode;
-        Debug.Log(newFireMode);
         if (newFireMode)
         {
             this.Fire();

@@ -5,14 +5,8 @@ namespace Ship
 {
     public static class Stabilization
     {
-        public static float StabilizeShip(ShipMovementHandler smh)
+        public static float StabilizeShip(ShipMovementHandler smh, bool boosting)
         {
-            // Check if Speed exceeds max speed. if yes, clamp value down
-            if (smh.shipRigidbody.velocity.magnitude > smh.maxSpeed)
-            {
-                smh.shipRigidbody.velocity = smh.shipRigidbody.velocity.normalized * smh.maxSpeed;
-            }
-            
             var vNow= smh.shipRigidbody.velocity;
             
             // Determine which sides need to trigger their thrusters
@@ -26,7 +20,7 @@ namespace Ship
 
             if (!smh.isStrafing && Mathf.Abs(dotProductCurrentDirectionXAxis) > 0.05f)
             {
-                float multiplier = smh.stabilizationMultiplier;
+                float multiplier = smh.stabilizationMultiplier * (boosting ? 5 : 1);
                 if (dotProductCurrentDirectionXAxis > 0) multiplier = Math.Min(dotProductCurrentDirectionXAxis, multiplier);
                 else multiplier = Math.Max(dotProductCurrentDirectionXAxis, -multiplier);
                 smh.shipRigidbody.AddForce(multiplier * smh.accelerationLateral * -localX);
@@ -51,7 +45,7 @@ namespace Ship
 
             if (Mathf.Abs(dotProductCurrentDirectionYAxis) > 0.05f)
             {
-                float multiplier = smh.stabilizationMultiplier;
+                float multiplier = smh.stabilizationMultiplier * (boosting ? 5 : 1);
                 if (dotProductCurrentDirectionYAxis > 0) multiplier = Math.Min(dotProductCurrentDirectionYAxis, multiplier);
                 else multiplier = Math.Max(dotProductCurrentDirectionYAxis, -multiplier);
                 smh.shipRigidbody.AddForce(multiplier * smh.accelerationLateral * -localY);
@@ -66,9 +60,7 @@ namespace Ship
                     // TODO: Thruster Effect Management
                 }
             }
-            
-            //TODO: Adjust forward speed towards desiredThrust
-            
+
             var localZ = smh.shipObject.transform.forward;
             return Vector3.Dot(localZ, vNow);
         }
