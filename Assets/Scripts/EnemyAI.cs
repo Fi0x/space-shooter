@@ -39,14 +39,17 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float sightRange;
     [SerializeField] private float attackRange;
 
+    // Boid
+    [SerializeField] private Boid boid;
+
     // Start is called before the first frame update
     void Start()
     {
-        // get Player
-        //this.Player = GameObject.Find("Player");
+        // Boid
+        boid = this.GetComponent<Boid>();
 
         // get AttackPoint
-        //this.transform.Find("AttackPoint");
+        this.transform.Find("AttackPoint");
 
         // Start in RoamState
         this.state = State.Roaming;
@@ -56,7 +59,7 @@ public class EnemyAI : MonoBehaviour
         maxDistanceFromPlayer = 250.0f;
         roamingPosition = GetRoamingPosition();
 
-        reachedPositionMaxDistance = 2.0f;
+        reachedPositionMaxDistance = 10.0f;
 
         speed = 20.0f;
 
@@ -76,12 +79,27 @@ public class EnemyAI : MonoBehaviour
         {
             case State.Roaming:
 
-                // rotate towards position
-                FaceTarget(roamingPosition);
+                
                 // move towards position
-                this.transform.position =
-                    Vector3.MoveTowards(transform.position, roamingPosition, speed * Time.deltaTime);
+                if (boid.IsHeadingForCollision((roamingPosition - transform.position).normalized))
+                {
+                    Vector3 moveDir = boid.FindUnobstructedDirection(transform.forward);
 
+                    transform.forward = moveDir.normalized;
+
+                    //Debug.Log(moveDir);
+                    this.transform.position =
+                        Vector3.MoveTowards(transform.position, transform.position + moveDir, speed * Time.deltaTime);
+                }
+                else
+                {
+                    // rotate towards position
+                    transform.forward = (roamingPosition - transform.position).normalized;
+                    transform.position = Vector3.MoveTowards(transform.position, roamingPosition, speed * Time.deltaTime);
+                }
+                
+
+                //Debug.Log(Vector3.Distance(this.transform.position, roamingPosition));
                 // check if roamingPosition has been reached
                 if (Vector3.Distance(this.transform.position, roamingPosition) < reachedPositionMaxDistance)
                 {
@@ -99,7 +117,7 @@ public class EnemyAI : MonoBehaviour
                 FaceTarget(GameManager.Instance.Player.transform.position);
                 // move towards Player
                 this.transform.position =
-                    Vector3.MoveTowards(transform.position, GameManager.Instance.Player.transform.position, speed * Time.deltaTime);
+                    Vector3.MoveTowards(transform.position, GameManager.Instance.Player.transform.position, speed / 4 * Time.deltaTime);
 
                 CheckState();
                 break;
@@ -128,6 +146,7 @@ public class EnemyAI : MonoBehaviour
 
     private void CheckState()
     {
+        /*
         // Check for sightRange 
         if (Vector3.Distance(this.transform.position, GameManager.Instance.Player.transform.position) <= sightRange)
         {
@@ -143,6 +162,8 @@ public class EnemyAI : MonoBehaviour
         {
             this.state = State.AttackPlayer;
         }
+        */
+        state = State.Roaming;
     }
 
     private void FaceTarget(Vector3 lookDirection)
@@ -164,8 +185,11 @@ public class EnemyAI : MonoBehaviour
 
     private Vector3 GetRoamingPosition()
     {
+        return new Vector3(-256, 107, 136);
+        /*
         return GameManager.Instance.Player.transform.position +
                GetRandomDir() * UnityEngine.Random.Range(minDistanceFromPlayer, maxDistanceFromPlayer);
+        */
     }
 
     private Vector3 GetRandomDir()

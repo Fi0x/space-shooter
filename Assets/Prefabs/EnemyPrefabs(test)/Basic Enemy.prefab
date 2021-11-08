@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 429333123813247738}
   - component: {fileID: 429333123813247737}
   - component: {fileID: 3651637442931774677}
+  - component: {fileID: -397256906301617565}
   m_Layer: 7
   m_Name: Basic Enemy
   m_TagString: Enemy
@@ -155,6 +156,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 7276553157955487200, guid: 58d48bb45d8d3e749be06bd4b3f5e245, type: 3}
   sightRange: 0
   attackRange: 0
+  boid: {fileID: 0}
 --- !u!114 &3651637442931774677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,6 +172,19 @@ MonoBehaviour:
   allegiance: 0
   targetType: 0
   isInit: 0
+--- !u!114 &-397256906301617565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429333123813247712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb88f7ef104ad77409f0b1294ee9b420, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  directions: []
 --- !u!1 &429333124123432733
 GameObject:
   m_ObjectHideFlags: 0

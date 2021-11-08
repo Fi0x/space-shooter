@@ -44,7 +44,7 @@ namespace Manager
 
         private void Start()
         {
-            foreach (var _ in Enumerable.Range(0, 2))
+            foreach (var _ in Enumerable.Range(0, 0))
             {
                 var pos = Random.onUnitSphere * 100;
                 this.enemyManager.SpawnNewEnemy(pos);
