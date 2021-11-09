@@ -41,6 +41,8 @@ public class EnemyAI : MonoBehaviour
 
     // Boid
     [SerializeField] private Boid boid;
+    [SerializeField] private BoidController boidController;
+    [SerializeField] private SceneController sceneController;
 
     // Start is called before the first frame update
     void Start()
@@ -59,7 +61,7 @@ public class EnemyAI : MonoBehaviour
         maxDistanceFromPlayer = 250.0f;
         roamingPosition = GetRoamingPosition();
 
-        reachedPositionMaxDistance = 10.0f;
+        reachedPositionMaxDistance = 20.0f;
 
         speed = 20.0f;
 
@@ -70,6 +72,15 @@ public class EnemyAI : MonoBehaviour
         // Ranges
         sightRange = 125.0f;
         attackRange = 75.0f;
+
+        sceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
+        boidController = gameObject.GetComponent<BoidController>();
+        
+        if (!sceneController.boids.Contains(boid))
+        {
+            sceneController.boids.Add(boid);
+        }
+        
     }
 
     // Update is called once per frame
@@ -79,7 +90,7 @@ public class EnemyAI : MonoBehaviour
         {
             case State.Roaming:
 
-                
+                /*
                 // move towards position
                 if (boid.IsHeadingForCollision((roamingPosition - transform.position).normalized))
                 {
@@ -95,8 +106,11 @@ public class EnemyAI : MonoBehaviour
                 {
                     // rotate towards position
                     transform.forward = (roamingPosition - transform.position).normalized;
-                    transform.position = Vector3.MoveTowards(transform.position, roamingPosition, speed * Time.deltaTime);
+                    transform.position = Vector3.MoveTowards(transform.position, roamingPosition, speed * Time.deltaTime);  
                 }
+                */
+
+                boid.SimulateMovement(sceneController.boids, Time.deltaTime, (roamingPosition - transform.position).normalized);
                 
 
                 //Debug.Log(Vector3.Distance(this.transform.position, roamingPosition));
@@ -185,11 +199,11 @@ public class EnemyAI : MonoBehaviour
 
     private Vector3 GetRoamingPosition()
     {
-        return new Vector3(-256, 107, 136);
-        /*
+        //return new Vector3(-256, 107, 136);
+        
         return GameManager.Instance.Player.transform.position +
                GetRandomDir() * UnityEngine.Random.Range(minDistanceFromPlayer, maxDistanceFromPlayer);
-        */
+        
     }
 
     private Vector3 GetRandomDir()
