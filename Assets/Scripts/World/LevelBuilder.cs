@@ -35,36 +35,29 @@ namespace World
 #if DEBUG
         [SerializeField, ReadOnlyInspector] private SerializedDictionary<(int x, int y, int z),SectorDataDebug> sectorData;
 #endif
-        [SerializeField, ReadOnlyInspector] private bool isConstructed = false;
+        [SerializeField, ReadOnlyInspector] private bool isConstructed;
 
         private System.Random random;
         // Start is called before the first frame update
         void Start()
         {
-            if (this.asteroidPrefabs.Count == 0)
+            if (asteroidPrefabs.Count == 0)
             {
                 Debug.LogError("No Asteroids defined. Cannot spawn Prefabs");
+                return;
             }
 
-            this.Construct();
+            if (isConstructed) 
+                Teardown();
+            
+            Construct();
         }
 
         private void Construct()
         {
-            if (this.isConstructed)
-            {
-                this.Teardown();
-            }
-        
-            if (this.asteroidPrefabs.Count == 0)
-            {
-                return;
-            }
-
             var offset = new Vector3(sectorCount.x / 2f, sectorCount.y / 2f, sectorCount.z / 2f);
             offset.Scale(sectorSize);
 
-            
 #if DEBUG
             this.sectorData = new SerializedDictionary<(int x, int y, int z), SectorDataDebug>();
 #endif
@@ -131,15 +124,9 @@ namespace World
                 Destroy(child.gameObject);
             }
 #if DEBUG
-            this.sectorData = null;
+            sectorData = null;
 #endif 
-            this.isConstructed = false;
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
+            isConstructed = false;
         }
     }
 #if DEBUG
