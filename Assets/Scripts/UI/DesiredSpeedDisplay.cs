@@ -13,15 +13,14 @@ public class DesiredSpeedDisplay : MonoBehaviour
 
     private Vector3 originalPosition;
 
-    private void Start()
+    void Start()
     {
         originalPosition = indicator.transform.localPosition;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        float thrustPercent = smh.desiredSpeed / smh.maxSpeed;
+        var thrustPercent = smh.desiredSpeed / smh.maxSpeed;
         indicator.transform.localPosition = new Vector3(originalPosition.x, originalPosition.y + thrustPercent * maxValue, originalPosition.z);
     }
 }
