@@ -1,30 +1,38 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] public static bool IsPaused = true;
-    [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private KeyCode pauseKey = KeyCode.Escape;
+    public static bool IsPaused = false;
+    private static GameObject pauseMenu;
 
     private void Start()
     {
-        if (IsPaused)
-        {
-            pauseMenu.SetActive(IsPaused);
-            Time.timeScale = IsPaused ? 0f : 1;
-        }
+        pauseMenu = gameObject;
+        pauseMenu.SetActive(IsPaused);
+        Time.timeScale = IsPaused ? 0f : 1;
     }
 
-    void Update()
+    public static void Pause()
     {
-        if (Input.GetKeyDown(pauseKey))
-        {
-            IsPaused = !IsPaused;
-            pauseMenu.SetActive(IsPaused);
-            Time.timeScale = IsPaused ? 0f : 1;
-        }
+        IsPaused = true;
+        pauseMenu.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    public static void Resume()
+    {
+        IsPaused = false;
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    public static void Quit()
+    {
+        Application.Quit();
+    }
+
+    public static void CustomTestAction()
+    {
+        Debug.Log("Test button clicked");
     }
 }

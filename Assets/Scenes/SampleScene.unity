@@ -135,13 +135,14 @@ GameObject:
   - component: {fileID: 1885197}
   - component: {fileID: 1885196}
   - component: {fileID: 1885195}
+  - component: {fileID: 1885199}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1885195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,6 +224,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1885199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d521f0a6c804ff4f8402cb32032465b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &43381712
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,7 +549,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 316444693}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1885199}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: Quit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &316444693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -870,7 +895,7 @@ GameObject:
   - component: {fileID: 698663917}
   - component: {fileID: 698663916}
   m_Layer: 5
-  m_Name: NextLevel
+  m_Name: CustomTestAction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -939,7 +964,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 698663917}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1885199}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: CustomTestAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &698663917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1384,7 +1421,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 840328891}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1885199}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: Resume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &840328891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1600,7 +1649,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Next Level
+  m_Text: Custom Test Action
 --- !u!222 &1009305955
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7294,7 +7343,6 @@ GameObject:
   - component: {fileID: 1469893910}
   - component: {fileID: 1469893909}
   - component: {fileID: 1469893911}
-  - component: {fileID: 1469893908}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -7393,19 +7441,6 @@ MonoBehaviour:
   flightModeSwitchKey: 116
   debugForceShootingTrue: 0
   thrustAdjustment: 1
---- !u!114 &1469893908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1469893903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d521f0a6c804ff4f8402cb32032465b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 1885194}
   pauseKey: 112
 --- !u!136 &1469893909
 CapsuleCollider:
