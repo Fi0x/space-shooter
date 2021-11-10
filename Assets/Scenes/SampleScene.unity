@@ -7527,7 +7527,7 @@ MonoBehaviour:
   isStrafing: 0
   desiredSpeed: 0
   currentSpeed: 0
-  currentFlightModel: 
+  currentFlightModel: Custom
 --- !u!114 &1469893906
 MonoBehaviour:
   m_ObjectHideFlags: 0
