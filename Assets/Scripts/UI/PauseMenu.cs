@@ -37,6 +37,6 @@ public class PauseMenu : MonoBehaviour
 
     public static void CustomTestAction()
     {
-        GameManager.Instance.LoadNextLevel();
+        Debug.Log("Current Position: " + GameManager.Instance.Player.transform.position);
     }
 }

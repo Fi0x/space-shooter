@@ -56,6 +56,7 @@ namespace Manager
             EnemyManager.RemoveAllEnemies();
             LevelBuilder.LoadRandomLevel();
             SpawnEnemies();
+            SpawnPlayer();
         }
 
         public static void ChangePauseState()
@@ -71,6 +72,13 @@ namespace Manager
                 var pos = Random.onUnitSphere * enemySpawnRange;
                 enemyManager.SpawnNewEnemy(pos);
             }
+        }
+
+        private void SpawnPlayer()
+        {
+            player.transform.position = new Vector3(0, 0, 0);
+            player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            player.GetComponent<ShipMovementHandler>().desiredSpeed = 0;
         }
     }
 }
