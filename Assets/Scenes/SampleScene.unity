@@ -394,13 +394,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalLocalPosition: {x: 0, y: 0, z: 0}
-  originalLocalRotationEuler: {x: 0, y: 0, z: 0}
+  originalLocalRotation: {x: 0, y: 0, z: 0, w: 0}
   shipRigidbody: {fileID: 1469893910}
-  positionChangeSpeed: {x: 0.001, y: 0.001, z: 0.001}
-  positionChangeClamp: {x: 0.1, y: 0.1, z: 0.1}
-  rotationChangeSpeed: {x: 0, y: 0, z: 0}
-  rotationChangeClamp: {x: 0, y: 0, z: 0}
+  offsetMapping:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.020891706
+      outSlope: 0.020891706
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.03990817
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  maximumOffset: {x: 0.2, y: 0.2, z: 0.2}
+  inputMapping: {x: 10, y: 10, z: 5}
+  lerpValue: 0.204
   movementHandler: {fileID: 1469893905}
+  currentPositionalOffset: {x: 0, y: 0, z: 0}
   currentInertiaVelocity: {x: 0, y: 0, z: 0}
   currentAngularInertia: {x: 0, y: 0, z: 0}
   camera: {fileID: 369608058}

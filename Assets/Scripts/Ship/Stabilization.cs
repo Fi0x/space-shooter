@@ -10,7 +10,7 @@ namespace Ship
             // Check if Speed exceeds max speed. if yes, clamp value down
             if (smh.shipRigidbody.velocity.magnitude > smh.maxSpeed)
             {
-                smh.shipRigidbody.velocity = smh.shipRigidbody.velocity.normalized * smh.maxSpeed;
+                //smh.shipRigidbody.velocity = Vector3.ClampMagnitude(smh.shipRigidbody.velocity, smh.maxSpeed);
             }
             
             var vNow= smh.shipRigidbody.velocity;
