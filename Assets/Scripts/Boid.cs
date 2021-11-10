@@ -162,7 +162,7 @@ public class Boid : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.forward, out hitInfo, LocalAreaRadius, LayerMask.GetMask("Scenery")))
             steering = (hitInfo.point + hitInfo.normal - transform.position).normalized;
         */
-        if (IsHeadingForCollision(roamingDir))
+        if (IsHeadingForCollision(steering))
         {
             steering = FindUnobstructedDirection(roamingDir);
         }
