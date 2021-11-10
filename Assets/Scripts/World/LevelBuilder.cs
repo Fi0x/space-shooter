@@ -88,7 +88,7 @@ namespace World
                         );
                         sectorData[(x, y, z)] = newSectorData;
 #endif
-                        if(!populateWithAsteroid) return;
+                        if(!populateWithAsteroid) continue;
                         
                         var position = new Vector3(
                             (.5f + x) * sectorSize.x,
