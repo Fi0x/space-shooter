@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -8,18 +6,20 @@ namespace Manager
 {
     public class GameManager : MonoBehaviour
     {
-        private static GameManager instance;
+        private static GameManager _instance;
 
         [SerializeField] private EnemyManager enemyManager;
         [SerializeField] private GameObject player;
+        [SerializeField] private int enemySpawnRange = 300;
+        [SerializeField] private int enemyCount = 5;
 
         public GameObject Player => this.player;
 
         public EnemyManager EnemyManager => this.enemyManager;
 
-        public void NotifyAboutNewPlayerInstance(GameObject player)
+        public void NotifyAboutNewPlayerInstance(GameObject newPlayer)
         {
-            this.player = player;
+            this.player = newPlayer;
         }
 
 
@@ -27,26 +27,26 @@ namespace Manager
         {
             get
             {
-                if (instance == null)
+                if (_instance == null)
                 {
                     Debug.LogWarning("Instance is null");
                 }
 
-                return instance;
+                return _instance;
             }
         }
 
         private void Awake()
         {
             DontDestroyOnLoad(this.gameObject);
-            instance = this;
+            _instance = this;
         }
 
         private void Start()
         {
-            foreach (var _ in Enumerable.Range(0, 2))
+            foreach (var _ in Enumerable.Range(0, enemyCount))
             {
-                var pos = Random.onUnitSphere * 100;
+                var pos = Random.onUnitSphere * enemySpawnRange;
                 this.enemyManager.SpawnNewEnemy(pos);
             }
         }

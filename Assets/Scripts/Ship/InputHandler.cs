@@ -36,6 +36,9 @@ public class InputHandler : MonoBehaviour
     [SerializeField] private bool debugForceShootingTrue;
     [SerializeField] private float thrustAdjustment = 1;
 
+    [Header("Menu Controls")] [SerializeField]
+    private KeyCode pauseKey;
+
 
     public (float pitch, float roll, float yaw, float thrust, float strafe, bool braking, bool boosting) CurrentInputState { get; private set; } = (0f, 0f, 0f, 0f, 0f, false, false);
 
@@ -66,6 +69,12 @@ public class InputHandler : MonoBehaviour
         var mouseAxes = (x: Input.GetAxis("Mouse X"), y: Input.GetAxis("Mouse Y"));
         this.CurrentInputState = this.CalculateAppliedMovement(mouseAxes);
         this.IsShooting = Input.GetMouseButton(0) || this.debugForceShootingTrue;
+        if (Input.GetKeyDown(pauseKey))
+        {
+            Debug.Log("Paused");
+            if(PauseMenu.IsPaused) PauseMenu.Resume();
+            else PauseMenu.Pause();
+        }
     }
 
     private (float pitch, float roll, float yaw, float thrust, float strafe, bool braking, bool boosting) CalculateAppliedMovement((float x, float y) mouseAxes)
