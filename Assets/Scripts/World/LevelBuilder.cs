@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using Random = System.Random;
 
 namespace World
 {
@@ -35,89 +36,81 @@ namespace World
 #if DEBUG
         [SerializeField, ReadOnlyInspector] private SerializedDictionary<(int x, int y, int z),SectorDataDebug> sectorData;
 #endif
-        [SerializeField, ReadOnlyInspector] private bool isConstructed = false;
+        [SerializeField, ReadOnlyInspector] private bool isConstructed;
 
-        private System.Random random;
-        // Start is called before the first frame update
-        void Start()
+        private Random random;
+
+        public void LoadRandomLevel()
         {
-            if (this.asteroidPrefabs.Count == 0)
+            seed = new Random().Next();
+            
+            if (asteroidPrefabs.Count == 0)
             {
                 Debug.LogError("No Asteroids defined. Cannot spawn Prefabs");
+                return;
             }
 
-            this.Construct();
+            if (isConstructed)
+                Teardown();
+            
+            Construct();
         }
 
         private void Construct()
         {
-            if (this.isConstructed)
-            {
-                this.Teardown();
-            }
-        
-            if (this.asteroidPrefabs.Count == 0)
-            {
-                return;
-            }
-
             var offset = new Vector3(sectorCount.x / 2f, sectorCount.y / 2f, sectorCount.z / 2f);
             offset.Scale(sectorSize);
 
-            
 #if DEBUG
-            this.sectorData = new SerializedDictionary<(int x, int y, int z), SectorDataDebug>();
+            sectorData = new SerializedDictionary<(int x, int y, int z), SectorDataDebug>();
 #endif
-            this.random = new System.Random(this.seed);
-            for (int x = 0; x < sectorCount.x; x++)
+            random = new Random(seed);
+            for (var x = 0; x < sectorCount.x; x++)
             {
-                float xDensityValue = this.xCrossSectionDensity.Evaluate((float) x / sectorCount.x);
-                for (int y = 0; y < sectorCount.y; y++)
+                var xDensityValue = xCrossSectionDensity.Evaluate((float) x / sectorCount.x);
+                for (var y = 0; y < sectorCount.y; y++)
                 {
-                    float yDensityValue = this.yCrossSectionDensity.Evaluate((float) y / sectorCount.y);
-                    for (int z = 0; z < sectorCount.z; z++)
+                    var yDensityValue = yCrossSectionDensity.Evaluate((float) y / sectorCount.y);
+                    for (var z = 0; z < sectorCount.z; z++)
                     {
-                        double probability = yDensityValue * xDensityValue * this.random.NextDouble();
-                        bool populateWithAsteroid = (1 - probability < this.probabilityCutoff);
+                        var probability = yDensityValue * xDensityValue * random.NextDouble();
+                        var populateWithAsteroid = (1 - probability < probabilityCutoff);
 
 #if DEBUG
-                        var sectorData = new SectorDataDebug(
-                            this.sectorCount.x * this.sectorSize.x,
-                            (1 + this.sectorCount.x) * this.sectorSize.x,
-                            this.sectorCount.y * this.sectorSize.y,
-                            (1 + this.sectorCount.y) * this.sectorSize.y,
-                            this.sectorCount.z * this.sectorSize.z,
-                            (1 + this.sectorCount.z) * this.sectorSize.z,
+                        var newSectorData = new SectorDataDebug(
+                            sectorCount.x * sectorSize.x,
+                            (1 + sectorCount.x) * sectorSize.x,
+                            sectorCount.y * sectorSize.y,
+                            (1 + sectorCount.y) * sectorSize.y,
+                            sectorCount.z * sectorSize.z,
+                            (1 + sectorCount.z) * sectorSize.z,
                             populateWithAsteroid
                         );
-                        this.sectorData[(x, y, z)] = sectorData;
+                        sectorData[(x, y, z)] = newSectorData;
 #endif
-                        if (populateWithAsteroid)
-                        {
-                            Vector3 position = new Vector3(
-                                (.5f + x) * this.sectorSize.x,
-                                (.5f + y) * this.sectorSize.y,
-                                (.5f + z) * this.sectorSize.z
-                            ) - offset;
+                        if(!populateWithAsteroid) return;
+                        
+                        var position = new Vector3(
+                            (.5f + x) * sectorSize.x,
+                            (.5f + y) * sectorSize.y,
+                            (.5f + z) * sectorSize.z
+                        ) - offset;
 
-                            var rotation = Quaternion.Euler(this.random.Next(360), this.random.Next(360),
-                                this.random.Next(360));
+                        var rotation = Quaternion.Euler(random.Next(360), random.Next(360), random.Next(360));
+                        var prefabToUse = asteroidPrefabs[random.Next(asteroidPrefabs.Count)];
 
-                            var prefabToUse = this.asteroidPrefabs[this.random.Next(this.asteroidPrefabs.Count)];
-
-                            Instantiate(prefabToUse, position, rotation, this.transform);
-
-                        }
+                        Instantiate(prefabToUse, position, rotation, transform);
                     }
                 }
             }
             
+            isConstructed = true;
         }
 
 #if DEBUG
         private void OnDrawGizmos()
         {
-            foreach (var entry in this.sectorData.Values)
+            foreach (var entry in sectorData.Values)
             {
                 entry.DrawGizmos();
             }
@@ -131,15 +124,9 @@ namespace World
                 Destroy(child.gameObject);
             }
 #if DEBUG
-            this.sectorData = null;
+            sectorData = null;
 #endif 
-            this.isConstructed = false;
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
+            isConstructed = false;
         }
     }
 #if DEBUG
@@ -148,8 +135,8 @@ namespace World
     {
         internal SectorDataDebug(int lowerX, int upperX, int lowerY, int upperY, int lowerZ, int upperZ, bool isPopulated = false)
         {
-            this.sectorBounds = (lowerX, upperX, lowerY, upperY, lowerZ, upperZ);
-            this.corners = new[]
+            sectorBounds = (lowerX, upperX, lowerY, upperY, lowerZ, upperZ);
+            corners = new[]
             {
                 new Vector3(sectorBounds.x, sectorBounds.y, sectorBounds.Z),
                 new Vector3(sectorBounds.X, sectorBounds.Y, sectorBounds.z),
