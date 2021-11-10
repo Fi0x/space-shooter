@@ -1,5 +1,6 @@
 #define FIX_POSITION
 
+using Manager;
 using UnityEngine;
 
 public class InputHandler : MonoBehaviour
@@ -43,16 +44,13 @@ public class InputHandler : MonoBehaviour
     public (float pitch, float roll, float yaw, float thrust, float strafe, bool braking, bool boosting) CurrentInputState { get; private set; } = (0f, 0f, 0f, 0f, 0f, false, false);
 
     // Getters
-    public float Roll => this.CurrentInputState.roll;
-    public float Pitch => this.CurrentInputState.pitch;
-    public float Yaw => this.CurrentInputState.yaw;
-    public float Thrust => this.CurrentInputState.thrust;
+    public float Roll => CurrentInputState.roll;
+    public float Pitch => CurrentInputState.pitch;
+    public float Yaw => CurrentInputState.yaw;
 
     public bool IsShooting { get; private set; }
 
-    public bool Braking => this.CurrentInputState.braking;
-
-    public bool Boosting => this.CurrentInputState.boosting;
+    public bool Braking => CurrentInputState.braking;
 
     public bool SwitchFlightModel { get; set; }
 
@@ -63,25 +61,19 @@ public class InputHandler : MonoBehaviour
 #endif
     }
 
-    // Update is called once per frame
     private void Update()
     {
         var mouseAxes = (x: Input.GetAxis("Mouse X"), y: Input.GetAxis("Mouse Y"));
-        this.CurrentInputState = this.CalculateAppliedMovement(mouseAxes);
-        this.IsShooting = Input.GetMouseButton(0) || this.debugForceShootingTrue;
-        if (Input.GetKeyDown(pauseKey))
-        {
-            Debug.Log("Paused");
-            if(PauseMenu.IsPaused) PauseMenu.Resume();
-            else PauseMenu.Pause();
-        }
+        CurrentInputState = CalculateAppliedMovement(mouseAxes);
+        if (Input.GetKeyDown(pauseKey)) GameManager.ChangePauseState();
+        IsShooting = Input.GetMouseButton(0) || debugForceShootingTrue;
     }
 
     private (float pitch, float roll, float yaw, float thrust, float strafe, bool braking, bool boosting) CalculateAppliedMovement((float x, float y) mouseAxes)
     {
         float pitch = 0, roll = 0, yaw = 0, thrust = 0, strafe = 0;
 
-        switch (this.xAxisMouseMode)
+        switch (xAxisMouseMode)
         {
             case HorizontalAxisMode.Roll:
                 roll = mouseAxes.x;
@@ -91,7 +83,7 @@ public class InputHandler : MonoBehaviour
                 break;
         }
 
-        switch (this.yAxisMouseMode)
+        switch (yAxisMouseMode)
         {
             case VerticalAxisMode.Pitch:
                 pitch = mouseAxes.y;
