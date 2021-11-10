@@ -8,6 +8,9 @@ public class JumpGate : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        GameManager.Instance.LoadNextLevel();
+        if (other.gameObject.layer == 8)
+        {
+            GameManager.Instance.LoadNextLevel();
+        }
     }
 }
