@@ -89,6 +89,9 @@ namespace Ship
 
         private void FixedUpdate()
         {
+            // Necessary to allow full-stop
+            if(this.shipRigidbody.velocity.sqrMagnitude < this.minBrakeSpeed) this.shipRigidbody.velocity = Vector3.zero;
+            
             var (pitch, roll, yaw, thrust, strafe, _, boosting) = this.inputHandler.CurrentInputState;
             this.HandleAngularVelocity(pitch, yaw, roll, boosting);
             this.HandleThrust(thrust, strafe, boosting);
@@ -101,9 +104,6 @@ namespace Ship
                 FlightModel.NextFlightModel(this);
                 this.inputHandler.SwitchFlightModel = false;
             }
-            
-            // Necessary to allow full-stop
-            if(this.shipRigidbody.velocity.sqrMagnitude < this.minBrakeSpeed) this.shipRigidbody.velocity = Vector3.zero;
         }
 
         private void HandleAngularVelocity(float pitch, float yaw, float roll, bool boosting)
