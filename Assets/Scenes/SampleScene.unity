@@ -7490,7 +7490,7 @@ MonoBehaviour:
   flightModeSwitchKey: 116
   debugForceShootingTrue: 0
   thrustAdjustment: 1
-  pauseKey: 0
+  pauseKey: 112
 --- !u!136 &1469893909
 CapsuleCollider:
   m_ObjectHideFlags: 0
