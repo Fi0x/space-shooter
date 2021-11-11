@@ -6,7 +6,7 @@ namespace Manager
     public class KeyManager : MonoBehaviour
     {
         public static bool WaitingForKeyInput { get; private set; }
-        
+
         public static KeyCode RollLeftKey = KeyCode.Q;
         public static KeyCode RollRightKey = KeyCode.E;
         public static KeyCode AccelerateKey = KeyCode.W;
@@ -23,12 +23,33 @@ namespace Manager
 
         public void NextKeyToBind(Button keyButton)
         {
+            if (WaitingForKeyInput) return;
+            
             _nextBindKey = keyButton;
             WaitingForKeyInput = true;
+            
+            _nextBindKey.gameObject.GetComponentInChildren<Text>().text = "<?>";
         }
+
+        public static string GetKeyCodeForName(string keyName) => keyName switch
+        {
+            "BtnRollLeft" => RollLeftKey.ToString(),
+            "BtnRollRight" => RollRightKey.ToString(),
+            "BtnAccelerate" => AccelerateKey.ToString(),
+            "BtnDecelerate" => DecelerateKey.ToString(),
+            "BtnStrafeLeft" => StrafeLeftKey.ToString(),
+            "BtnStrafeRight" => StrafeRightKey.ToString(),
+            "BtnBraking" => BrakingKey.ToString(),
+            "BtnBoost" => BoostKey.ToString(),
+            "BtnFlightModeSwitch" => FlightModeSwitchKey.ToString(),
+            "BtnPause" => PauseKey.ToString(),
+            _ => "NONE"
+        };
 
         private static void BindKey(KeyCode newKey)
         {
+            if(newKey == KeyCode.None) return;
+            
             switch (_nextBindKey.name)
             {
                 case "BtnRollLeft":
@@ -69,16 +90,16 @@ namespace Manager
 
         private void Update()
         {
-            if(_mostRecentKey == 0) return;
+            if (_mostRecentKey == 0) return;
             if (!Input.GetKeyUp(_mostRecentKey)) return;
-            
+
             WaitingForKeyInput = false;
             _mostRecentKey = 0;
         }
 
         private void OnGUI()
         {
-            if(!WaitingForKeyInput) return;
+            if (!WaitingForKeyInput) return;
             if (_nextBindKey == null || _nextBindKey.name == string.Empty) return;
 
             var e = Event.current;
