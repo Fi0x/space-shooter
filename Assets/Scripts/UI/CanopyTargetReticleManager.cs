@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Ship;
 using UnityEngine;
 
 public class CanopyTargetReticleManager : MonoBehaviour
@@ -8,6 +9,7 @@ public class CanopyTargetReticleManager : MonoBehaviour
     [SerializeField] private WeaponManager weaponManager;
     [SerializeField] private Sprite crosshair;
     [SerializeField] private Sprite crosshairHitmarker;
+    [SerializeField] private Camera cameraRef;
 
 
     private IEnumerator animationCoroutine = null;
@@ -28,7 +30,7 @@ public class CanopyTargetReticleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var ownPosition = this.gameObject.transform.position;
+        var ownPosition = this.cameraRef.transform.position;
         var spritePositionOnSphere = ownPosition +
                                      (this.weaponManager.Target - ownPosition).normalized *
                                      this.uiRadius;
@@ -43,16 +45,17 @@ public class CanopyTargetReticleManager : MonoBehaviour
             this.StopCoroutine(this.animationCoroutine);
         }
 
-        this.animationCoroutine = this.spriteAnimator();
+        this.animationCoroutine = this.SpriteAnimator();
         this.StartCoroutine(this.animationCoroutine);
     }
 
-    IEnumerator spriteAnimator()
+    IEnumerator SpriteAnimator()
     {
         this.spriteRenderer.sprite = this.crosshairHitmarker;
         yield return new WaitForSeconds(0.1f);
         this.spriteRenderer.sprite = this.crosshair;
     }
+
 
 
 

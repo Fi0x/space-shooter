@@ -47,6 +47,8 @@ namespace Ship
 
         private Vector3 velocityLastFrame = Vector3.zero;
 
+        public event Action<Vector3> CameraUpdatedPositionEvent;
+
         // Start is called before the first frame update
         private void Start()
         {
@@ -67,6 +69,7 @@ namespace Ship
         {
             this.HandlePosition();
             this.HandleRotation();
+            this.CameraUpdatedPositionEvent?.Invoke(this.transform.position);
         }
 
         private void HandlePosition()
