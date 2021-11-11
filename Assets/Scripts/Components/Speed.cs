@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Ship;
 using UnityEngine;
 
 public class Speed : MonoBehaviour
@@ -12,18 +13,18 @@ public class Speed : MonoBehaviour
 
     void Start()
     {
-        speedIndicator = GetComponentInParent<SpeedIndicator>();
-        
-        speedIndicator.SetMaxSpeed(smh.maxSpeed);
+        this.speedIndicator = this.GetComponentInParent<SpeedIndicator>();
+
+        this.speedIndicator.SetMaxSpeed(this.smh.maxSpeed);
     }
 
     private void Update()
     {
-        UpdateIndicator();
+        this.UpdateIndicator();
     }
 
     private void UpdateIndicator()
     {
-        speedIndicator.SetCurrentSpeed(smh.currentSpeed);
+        this.speedIndicator.SetCurrentSpeed(this.smh.currentSpeed);
     }
 }

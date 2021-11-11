@@ -20,7 +20,7 @@ namespace Ship.Sensors
 
         private void Start()
         {
-            this.lineRenderer = gameObject.GetComponentInChildren<LineRenderer>();
+            this.lineRenderer = this.gameObject.GetComponentInChildren<LineRenderer>();
             this.lineRenderer.positionCount = 2;
         }
 
@@ -51,7 +51,7 @@ namespace Ship.Sensors
             this.spriteObject.transform.LookAt(Camera.main.transform);
 
             this.target = target;
-            this.target.TargetDestroyedEvent += OnSensorTargetDestroyedEventHandler;
+            this.target.TargetDestroyedEvent += this.OnSensorTargetDestroyedEventHandler;
 
             this.isInit = true;
 
@@ -59,8 +59,8 @@ namespace Ship.Sensors
 
         private void OnSensorTargetDestroyedEventHandler(SensorTarget _)
         {
-            Destroy(gameObject);
-            SensorObjectDestroyedEvent?.Invoke(this);
+            Destroy(this.gameObject);
+            this.SensorObjectDestroyedEvent?.Invoke(this);
         }
 
 

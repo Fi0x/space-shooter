@@ -21,16 +21,16 @@ public class SphereProjectile : MonoBehaviour
 
     private void Start()
     {
-        Destroy(this.gameObject, timeToLive);
-        var vfx = GetComponentInChildren<VisualEffect>();
+        Destroy(this.gameObject, this.timeToLive);
+        var vfx = this.GetComponentInChildren<VisualEffect>();
         if (vfx != null)
         {
             vfx.Play();
         }
 
-        if (muzzlePrefab != null)
+        if (this.muzzlePrefab != null)
         {
-            var muzzle = Instantiate(muzzlePrefab, transform);
+            var muzzle = Instantiate(this.muzzlePrefab, this.transform);
             Destroy(muzzle, 1f);
         }
     }
@@ -41,7 +41,7 @@ public class SphereProjectile : MonoBehaviour
         {
             throw new Exception("Already initialized");
         }
-        this.transform.LookAt(transform.position + velocity);
+        this.transform.LookAt(this.transform.position + velocity);
 
         this.layerMask = layerMask;
         this.gameObject.transform.rotation = rotation;
@@ -61,11 +61,11 @@ public class SphereProjectile : MonoBehaviour
         {
             var timeOnImpact = Time.timeAsDouble - this.startTime;
 
-            if (impactPrefab != null)
+            if (this.impactPrefab != null)
             {
-                var closestPoint = other.ClosestPoint(transform.position);
-                var impact = Instantiate(impactPrefab, closestPoint,
-                    Quaternion.LookRotation(transform.position - closestPoint));
+                var closestPoint = other.ClosestPoint(this.transform.position);
+                var impact = Instantiate(this.impactPrefab, closestPoint,
+                    Quaternion.LookRotation(this.transform.position - closestPoint));
                 Destroy(impact, 2f);
             }
 

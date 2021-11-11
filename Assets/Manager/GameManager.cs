@@ -44,9 +44,9 @@ namespace Manager
 
         private void Start()
         {
-            foreach (var _ in Enumerable.Range(0, enemyCount))
+            foreach (var _ in Enumerable.Range(0, this.enemyCount))
             {
-                var pos = Random.onUnitSphere * enemySpawnRange;
+                var pos = Random.onUnitSphere * this.enemySpawnRange;
                 this.enemyManager.SpawnNewEnemy(pos);
             }
         }

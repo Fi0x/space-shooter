@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Ship;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,12 +16,12 @@ public class DesiredSpeedDisplay : MonoBehaviour
 
     void Start()
     {
-        originalPosition = indicator.transform.localPosition;
+        this.originalPosition = this.indicator.transform.localPosition;
     }
 
     void Update()
     {
-        var thrustPercent = smh.desiredSpeed / smh.maxSpeed;
-        indicator.transform.localPosition = new Vector3(originalPosition.x, originalPosition.y + thrustPercent * maxValue, originalPosition.z);
+        var thrustPercent = this.smh.desiredSpeed / this.smh.maxSpeed;
+        this.indicator.transform.localPosition = new Vector3(this.originalPosition.x, this.originalPosition.y + thrustPercent * this.maxValue, this.originalPosition.z);
     }
 }

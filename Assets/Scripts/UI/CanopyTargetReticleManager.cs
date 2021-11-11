@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Ship;
 using UnityEngine;
 
 public class CanopyTargetReticleManager : MonoBehaviour
@@ -8,6 +9,7 @@ public class CanopyTargetReticleManager : MonoBehaviour
     [SerializeField] private WeaponManager weaponManager;
     [SerializeField] private Sprite crosshair;
     [SerializeField] private Sprite crosshairHitmarker;
+    [SerializeField] private Camera cameraRef;
 
 
     private IEnumerator animationCoroutine = null;
@@ -19,7 +21,7 @@ public class CanopyTargetReticleManager : MonoBehaviour
     void Start()
     {
         this.spriteObject = new GameObject("Target Crosshair");
-        this.spriteObject.transform.parent = transform;
+        this.spriteObject.transform.parent = this.transform;
 
         this.spriteRenderer = this.spriteObject.AddComponent<SpriteRenderer>();
         this.spriteRenderer.sprite = this.crosshair;
@@ -28,9 +30,9 @@ public class CanopyTargetReticleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var ownPosition = this.gameObject.transform.position;
+        var ownPosition = this.cameraRef.transform.position;
         var spritePositionOnSphere = ownPosition +
-                                     (weaponManager.Target - ownPosition).normalized *
+                                     (this.weaponManager.Target - ownPosition).normalized *
                                      this.uiRadius;
         this.spriteObject.transform.position = spritePositionOnSphere;
         this.spriteObject.transform.LookAt(this.transform, this.transform.parent.up);
@@ -40,19 +42,20 @@ public class CanopyTargetReticleManager : MonoBehaviour
     {
         if (this.animationCoroutine != null)
         {
-            StopCoroutine(this.animationCoroutine);
+            this.StopCoroutine(this.animationCoroutine);
         }
 
-        this.animationCoroutine = spriteAnimator();
-        StartCoroutine(this.animationCoroutine);
+        this.animationCoroutine = this.SpriteAnimator();
+        this.StartCoroutine(this.animationCoroutine);
     }
 
-    IEnumerator spriteAnimator()
+    IEnumerator SpriteAnimator()
     {
         this.spriteRenderer.sprite = this.crosshairHitmarker;
         yield return new WaitForSeconds(0.1f);
         this.spriteRenderer.sprite = this.crosshair;
     }
+
 
 
 

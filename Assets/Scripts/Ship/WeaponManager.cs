@@ -9,7 +9,7 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private InputHandler inputHandler;
 
-    public Vector3 Target => target.position;
+    public Vector3 Target => this.target.position;
 
     [SerializeField] private UnityEvent enemyHitEvent = new UnityEvent();
     public UnityEvent EnemyHitEvent => this.enemyHitEvent;
@@ -20,10 +20,10 @@ public class WeaponManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isShooting != this.inputHandler.IsShooting)
+        if (this.isShooting != this.inputHandler.IsShooting)
         {
-            isShooting = !isShooting;
-            FiremodeChangedEvent.Invoke(isShooting);
+            this.isShooting = !this.isShooting;
+            this.FiremodeChangedEvent.Invoke(this.isShooting);
         }
     }
 }

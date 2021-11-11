@@ -14,16 +14,16 @@ public class EnemyProjectile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        direction = (GameManager.Instance.Player.transform.position - this.transform.position).normalized;
-        rigidBody = GetComponent<Rigidbody>();
+        this.direction = (GameManager.Instance.Player.transform.position - this.transform.position).normalized;
+        this.rigidBody = this.GetComponent<Rigidbody>();
 
-        Destroy(gameObject, 20.0f);
+        Destroy(this.gameObject, 20.0f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        rigidBody.velocity = direction * speed;
+        this.rigidBody.velocity = this.direction * this.speed;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,10 +32,10 @@ public class EnemyProjectile : MonoBehaviour
         {
             if(other.TryGetComponent(out Health health))
             {
-                health.TakeDamage(damage);
+                health.TakeDamage(this.damage);
 
             }
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
     }
 }

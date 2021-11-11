@@ -1,4 +1,5 @@
 using System;
+using Ship;
 using UnityEngine;
 using Random = System.Random;
 
@@ -14,13 +15,13 @@ public class SpaceDust : MonoBehaviour
 
     void FixedUpdate()
     {
-        var maxShipSpeed = smh.maxSpeed + smh.maxSpeedBoost;
-        var shipSpeed = smh.shipRigidbody.velocity.magnitude;
+        var maxShipSpeed = this.smh.maxSpeed + this.smh.maxSpeedBoost;
+        var shipSpeed = this.smh.shipRigidbody.velocity.magnitude;
         
-        var emission = particleSystem.emission;
+        var emission = this.particleSystem.emission;
         emission.rateOverTime = ParticlesOverTime / maxShipSpeed * shipSpeed;
 
-        var main = particleSystem.main;
+        var main = this.particleSystem.main;
         main.startSize = (MaxParticleSize - MinParticleSize) / maxShipSpeed * shipSpeed + MinParticleSize;
         main.startLifetime = MaxLifetime * 1.1f - shipSpeed / maxShipSpeed;
     }

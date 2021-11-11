@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Ship;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,6 @@ public class FlightModeDisplay : MonoBehaviour
 
     void Update()
     {
-        textComponent.text = $"Flight control mode: {smh.currentFlightModel}";
+        this.textComponent.text = $"Flight control mode: {this.smh.currentFlightModel}";
     }
 }
