@@ -760,13 +760,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maximumOffset: {x: 0.2, y: 0.2, z: 0.2}
-  inputMapping: {x: 10, y: 10, z: 5}
-  lerpValue: 0.204
+  maximumOffset: {x: 0.2, y: 0.2, z: 0.1}
+  inputMapping: {x: 300, y: 300, z: 60}
+  lerpValue: 0.066
   movementHandler: {fileID: 1469893905}
-  currentPositionalOffset: {x: 0, y: 0, z: 0}
-  currentInertiaVelocity: {x: 0, y: 0, z: 0}
   currentAngularInertia: {x: 0, y: 0, z: 0}
+  currentPositionalInertial: {x: 0, y: 0, z: 0}
   camera: {fileID: 369608058}
 --- !u!224 &422027830 stripped
 RectTransform:
@@ -2540,8 +2539,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyManager: {fileID: 2068146921}
   player: {fileID: 1469893903}
-  enemySpawnRange: 100
-  enemyCount: 2
+  enemySpawnRange: 300
+  enemyCount: 0
 --- !u!4 &1318674889
 Transform:
   m_ObjectHideFlags: 0
@@ -7440,19 +7439,17 @@ MonoBehaviour:
   accelerationBackwards: 45
   accelerationLateral: 40
   maxSpeed: 200
-  maxSpeedBoost: 150
+  maxSpeedBoost: 75
   minBrakeSpeed: 0.02
   stabilizationMultiplier: 8
+  speedMatchDeadzone: 0.5
   shipObject: {fileID: 1469893903}
   inputHandler: {fileID: 0}
   shipRigidbody: {fileID: 0}
   isStrafing: 0
   desiredSpeed: 0
   currentSpeed: 0
-  currentXForce: 0
-  currentYForce: 0
-  currentZForce: 0
-  currentFlightModel: 
+  currentFlightModel: Custom
 --- !u!114 &1469893906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7488,11 +7485,11 @@ MonoBehaviour:
   strafeLeftKey: 97
   strafeRightKey: 100
   brakingKey: 120
-  boosterKey: 304
-  flightModeSwitchKey: 116
+  boosterKey: 0
+  flightModeSwitchKey: 0
   debugForceShootingTrue: 0
   thrustAdjustment: 1
-  pauseKey: 112
+  pauseKey: 0
 --- !u!136 &1469893909
 CapsuleCollider:
   m_ObjectHideFlags: 0

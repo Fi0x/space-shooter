@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
@@ -20,16 +21,23 @@ namespace Ship
         [SerializeField] public float maxSpeedBoost = 75f;
         [SerializeField] private float minBrakeSpeed = 0.02f;
         [SerializeField] public float stabilizationMultiplier = 3;
+        [SerializeField] private float speedMatchDeadzone = 0.01f;
 
         [HideInInspector] public GameObject shipObject;
         [HideInInspector] public InputHandler inputHandler;
         [HideInInspector] public Rigidbody shipRigidbody;
 
-        [HideInInspector] public bool isStrafing;
-        [HideInInspector] public float desiredSpeed;
-        [HideInInspector] public float currentSpeed;
+        [SerializeField, ReadOnlyInspector] public bool isStrafing;
+        [SerializeField, ReadOnlyInspector] public float desiredSpeed;
+        [SerializeField, ReadOnlyInspector] public float currentSpeed;
 
-        [HideInInspector] public string currentFlightModel = "Custom";
+        [SerializeField, ReadOnlyInspector] public string currentFlightModel = "Custom";
+
+        /// <summary>
+        /// This Event in invoked <b>after</b> forces have been applied onto the Ship's Rigidbody.
+        /// The Camera uses this event to modify its position after forces.
+        /// </summary>
+        public event Action ForcesAppliedEvent;
 
 #if DEBUG
         private GUIStyle textStyle;
@@ -86,6 +94,8 @@ namespace Ship
             this.HandleThrust(thrust, strafe, boosting);
             this.currentSpeed = Stabilization.StabilizeShip(this, boosting);
 
+            this.ForcesAppliedEvent?.Invoke();
+
             if (this.inputHandler.SwitchFlightModel)
             {
                 FlightModel.NextFlightModel(this);
@@ -106,47 +116,92 @@ namespace Ship
             this.shipRigidbody.angularVelocity = modifiedWorldAngularVelocity;
         }
 
-        private void HandleThrust(float thrust, float strafe, bool boosting)
+        /// <summary>
+        /// Handles any types of Ship Movement before stabilization
+        /// </summary>
+        /// <param name="dThrust">Change in Thrust. As of now this is either +1 or -1 and affects the "speed target"</param>
+        /// <param name="strafeX">Change Left/Right Thrust. As of now, this is either +1 or -1.</param>
+        /// <param name="isBoosting">Is Player holding down Boost Button</param>
+        private void HandleThrust(float dThrust, float strafeX, bool isBoosting)
         {
-            this.desiredSpeed += thrust;
+            this.desiredSpeed += dThrust;
             if (this.desiredSpeed > this.maxSpeed)
+            {
                 this.desiredSpeed = this.maxSpeed;
-            else if (this.desiredSpeed < 0) this.desiredSpeed = 0;
+            }
+            else if (this.desiredSpeed < 0)
+            {
+                this.desiredSpeed = 0;
+            }
 
-            var actualSpeed = this.shipObject.transform.forward;
-            var forwardSpeed = Vector3.Dot(actualSpeed, this.shipRigidbody.velocity);
+            var currentForwardDirection = this.shipObject.transform.forward;
+
+            // See https://i.imgur.com/p70W4s6.png
+            var currentEffectiveForwardSpeed = Vector3.Dot(currentForwardDirection, this.shipRigidbody.velocity);
 
             if (this.inputHandler.Braking)
             {
                 this.desiredSpeed = 0;
-                if(forwardSpeed > 0)
-                    this.ApplyBraking(-this.accelerationBackwards);
-                else
-                    this.ApplyBraking(this.accelerationForwards);
-            }
-            else
-            {
-                var thrustForce = 0f;
-                var boostedSpeed = this.desiredSpeed + (boosting ? this.maxSpeedBoost : 0);
-                if (boostedSpeed > forwardSpeed) thrustForce = this.accelerationForwards * (boosting ? 2 : 1);
-                else if (boostedSpeed < forwardSpeed) thrustForce = -this.accelerationBackwards;
-                this.shipRigidbody.AddForce(actualSpeed * thrustForce);
             }
 
-            this.isStrafing = strafe != 0;
-            if (this.isStrafing)
+
+            var targetSpeed = this.desiredSpeed + (isBoosting ? this.maxSpeedBoost : 0);
+
+            // Check small deviations around target speed ("Deadzone")
+
+            if (currentEffectiveForwardSpeed + this.speedMatchDeadzone > targetSpeed &&
+                currentEffectiveForwardSpeed - this.speedMatchDeadzone < targetSpeed)
             {
-                var strafeForce = strafe * this.accelerationLateral;
-                this.shipRigidbody.AddForce(this.shipObject.transform.right * strafeForce);
+                // Inside Deadzone. Check if currently speed is zero. If this is the case, set the velocity to 0
+                if (targetSpeed == 0f)
+                {
+                    // Set forward velocity to 0
+                    this.shipRigidbody.velocity = Vector3.Scale(new Vector3(1, 1, 0), this.shipRigidbody.velocity);
+                }
             }
+            else if (targetSpeed > currentEffectiveForwardSpeed)
+            {
+                var thrustForce = this.accelerationForwards * (isBoosting ? 2 : 1);
+                this.shipRigidbody.AddForce(currentForwardDirection * thrustForce);
+
+                var newEffectiveForwardSpeed = Vector3.Dot(currentForwardDirection, this.shipRigidbody.velocity);
+                if (targetSpeed < newEffectiveForwardSpeed)
+                {
+                    // "overshot" target when thrusting.
+                    // clamp value
+                    var shipRigidbodyVelocity = this.shipRigidbody.velocity;
+                    this.shipRigidbody.velocity = shipRigidbodyVelocity.normalized *
+                                      (shipRigidbodyVelocity.magnitude / newEffectiveForwardSpeed);
+                }
+
+            }
+            else if (targetSpeed < currentEffectiveForwardSpeed)
+            {
+                var thrustForce = -this.accelerationBackwards;
+                this.shipRigidbody.AddForce(currentForwardDirection * thrustForce);
+
+                var newEffectiveForwardSpeed = Vector3.Dot(currentForwardDirection, this.shipRigidbody.velocity);
+                if (targetSpeed > newEffectiveForwardSpeed)
+                {
+                    // "overshot" target when thrusting.
+                    // clamp value
+                    var shipRigidbodyVelocity = this.shipRigidbody.velocity;
+                    this.shipRigidbody.velocity = shipRigidbodyVelocity.normalized *
+                                                  (shipRigidbodyVelocity.magnitude / newEffectiveForwardSpeed);
+                }
+            }
+
+            this.HandleStrafing(strafeX);
         }
 
-        private void ApplyBraking(float brakingForce)
+        private void HandleStrafing(float strafeX)
         {
-            if (this.shipRigidbody.velocity.sqrMagnitude < this.minBrakeSpeed)
-                this.shipRigidbody.velocity = Vector3.zero;
-            else
-                this.shipRigidbody.AddForce(this.shipObject.transform.forward * brakingForce);
+            this.isStrafing = strafeX != 0;
+            if (this.isStrafing)
+            {
+                var strafeForce = strafeX * this.accelerationLateral;
+                this.shipRigidbody.AddForce(this.shipObject.transform.right * strafeForce);
+            }
         }
     }
 }
