@@ -13,7 +13,6 @@ namespace Ship
             // Local X
             var localX = smh.shipObject.transform.right;
             var dotProductCurrentDirectionXAxis = Vector3.Dot(localX, vNow);
-
 #if DEBUG
             ShipMovementHandler.DotX = dotProductCurrentDirectionXAxis;
 #endif
@@ -62,7 +61,9 @@ namespace Ship
             }
 
             var localZ = smh.shipObject.transform.forward;
-            return Vector3.Dot(localZ, vNow);
+            var dotProductCurrentDirectionZAxis = Vector3.Dot(localZ, vNow);
+
+            return dotProductCurrentDirectionZAxis;
         }
     }
 }

@@ -60,8 +60,8 @@ namespace World
 
         private void CreateAsteroids()
         {
-            var offset = new Vector3(sectorCount.x / 2f, sectorCount.y / 2f, sectorCount.z / 2f);
-            offset.Scale(sectorSize);
+            var offset = new Vector3(this.sectorCount.x / 2f, this.sectorCount.y / 2f, this.sectorCount.z / 2f);
+            offset.Scale(this.sectorSize);
 
 #if DEBUG
             sectorData = new SerializedDictionary<(int x, int y, int z), SectorDataDebug>();
@@ -137,7 +137,7 @@ namespace World
 #if DEBUG
         private void OnDrawGizmos()
         {
-            foreach (var entry in sectorData.Values)
+            foreach (var entry in this.sectorData.Values)
             {
                 entry.DrawGizmos();
             }
@@ -146,14 +146,14 @@ namespace World
 
         private void Teardown()
         {
-            foreach (Transform child in transform)
+            foreach (Transform child in this.transform)
             {
                 Destroy(child.gameObject);
             }
 #if DEBUG
-            sectorData = null;
-#endif 
-            isConstructed = false;
+            this.sectorData = null;
+#endif
+            this.isConstructed = false;
         }
     }
 #if DEBUG
@@ -162,13 +162,13 @@ namespace World
     {
         internal SectorDataDebug(int lowerX, int upperX, int lowerY, int upperY, int lowerZ, int upperZ, bool isPopulated = false)
         {
-            sectorBounds = (lowerX, upperX, lowerY, upperY, lowerZ, upperZ);
-            corners = new[]
+            this.sectorBounds = (lowerX, upperX, lowerY, upperY, lowerZ, upperZ);
+            this.corners = new[]
             {
-                new Vector3(sectorBounds.x, sectorBounds.y, sectorBounds.Z),
-                new Vector3(sectorBounds.X, sectorBounds.Y, sectorBounds.z),
-                new Vector3(sectorBounds.X, sectorBounds.Y, sectorBounds.Z),
-                new Vector3(sectorBounds.x, sectorBounds.y, sectorBounds.z),
+                new Vector3(this.sectorBounds.x, this.sectorBounds.y, this.sectorBounds.Z),
+                new Vector3(this.sectorBounds.X, this.sectorBounds.Y, this.sectorBounds.z),
+                new Vector3(this.sectorBounds.X, this.sectorBounds.Y, this.sectorBounds.Z),
+                new Vector3(this.sectorBounds.x, this.sectorBounds.y, this.sectorBounds.z),
             };
             this.isPopulated = isPopulated;
         }
@@ -179,9 +179,9 @@ namespace World
 
         public void DrawGizmos()
         {
-            Gizmos.color = isPopulated ? Color.green : Color.yellow;
-            Gizmos.DrawLine(corners[0], corners[1]);
-            Gizmos.DrawLine(corners[2], corners[3]);
+            Gizmos.color = this.isPopulated ? Color.green : Color.yellow;
+            Gizmos.DrawLine(this.corners[0], this.corners[1]);
+            Gizmos.DrawLine(this.corners[2], this.corners[3]);
         }
     }
 #endif

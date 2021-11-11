@@ -52,76 +52,76 @@ public class EnemyAI : MonoBehaviour
         this.state = State.Roaming;
 
         // Patroling
-        minDistanceFromPlayer = 75.0f;
-        maxDistanceFromPlayer = 250.0f;
-        roamingPosition = GetRoamingPosition();
+        this.minDistanceFromPlayer = 75.0f;
+        this.maxDistanceFromPlayer = 250.0f;
+        this.roamingPosition = this.GetRoamingPosition();
 
-        reachedPositionMaxDistance = 2.0f;
+        this.reachedPositionMaxDistance = 2.0f;
 
-        speed = 20.0f;
+        this.speed = 20.0f;
 
         // Attack
-        waitForAttack = 2.0f;
-        timeBetweenAttacks = waitForAttack;
+        this.waitForAttack = 2.0f;
+        this.timeBetweenAttacks = this.waitForAttack;
 
         // Ranges
-        sightRange = 125.0f;
-        attackRange = 75.0f;
+        this.sightRange = 125.0f;
+        this.attackRange = 75.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch (state)
+        switch (this.state)
         {
             case State.Roaming:
 
                 // rotate towards position
-                FaceTarget(roamingPosition);
+                this.FaceTarget(this.roamingPosition);
                 // move towards position
                 this.transform.position =
-                    Vector3.MoveTowards(transform.position, roamingPosition, speed * Time.deltaTime);
+                    Vector3.MoveTowards(this.transform.position, this.roamingPosition, this.speed * Time.deltaTime);
 
                 // check if roamingPosition has been reached
-                if (Vector3.Distance(this.transform.position, roamingPosition) < reachedPositionMaxDistance)
+                if (Vector3.Distance(this.transform.position, this.roamingPosition) < this.reachedPositionMaxDistance)
                 {
                     // determine a new roamPosition
-                    roamingPosition = GetRoamingPosition();
+                    this.roamingPosition = this.GetRoamingPosition();
                 }
 
-                CheckState();
+                this.CheckState();
                 break;
 
 
             case State.ChasePlayer:
 
                 // rotate towards position
-                FaceTarget(GameManager.Instance.Player.transform.position);
+                this.FaceTarget(GameManager.Instance.Player.transform.position);
                 // move towards Player
                 this.transform.position =
-                    Vector3.MoveTowards(transform.position, GameManager.Instance.Player.transform.position, speed * Time.deltaTime);
+                    Vector3.MoveTowards(this.transform.position, GameManager.Instance.Player.transform.position, this.speed * Time.deltaTime);
 
-                CheckState();
+                this.CheckState();
                 break;
 
 
             case State.AttackPlayer:
 
                 // rotate towards Player
-                FaceTarget(GameManager.Instance.Player.transform.position);
+                this.FaceTarget(GameManager.Instance.Player.transform.position);
 
                 // Attack
-                waitForAttack -= Time.deltaTime;
-                if (waitForAttack < 0f
-                    && IsFacingTarget(this.transform.forward, GameManager.Instance.Player.transform.position - this.transform.position,
+                this.waitForAttack -= Time.deltaTime;
+                if (this.waitForAttack < 0f
+                    && this.IsFacingTarget(this.transform.forward, GameManager.Instance.Player.transform.position - this.transform.position,
                         10))
                 {
-                    waitForAttack = timeBetweenAttacks;
+                    this.waitForAttack = this.timeBetweenAttacks;
 
-                    Attack();
+                    this.Attack();
                 }
 
-                CheckState();
+                this.CheckState();
                 break;
         }
     }
@@ -129,7 +129,7 @@ public class EnemyAI : MonoBehaviour
     private void CheckState()
     {
         // Check for sightRange 
-        if (Vector3.Distance(this.transform.position, GameManager.Instance.Player.transform.position) <= sightRange)
+        if (Vector3.Distance(this.transform.position, GameManager.Instance.Player.transform.position) <= this.sightRange)
         {
             this.state = State.ChasePlayer;
         }
@@ -139,7 +139,7 @@ public class EnemyAI : MonoBehaviour
         }
 
         // Check for attackRange
-        if (Vector3.Distance(this.transform.position, GameManager.Instance.Player.transform.position) <= attackRange)
+        if (Vector3.Distance(this.transform.position, GameManager.Instance.Player.transform.position) <= this.attackRange)
         {
             this.state = State.AttackPlayer;
         }
@@ -147,9 +147,9 @@ public class EnemyAI : MonoBehaviour
 
     private void FaceTarget(Vector3 lookDirection)
     {
-        Vector3 direction = (lookDirection - transform.position).normalized;
+        Vector3 direction = (lookDirection - this.transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, direction.y, direction.z));
-        this.transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 
     private float GetAngle(Vector3 first, Vector3 second)
@@ -164,18 +164,17 @@ public class EnemyAI : MonoBehaviour
 
     private Vector3 GetRoamingPosition()
     {
-        return GameManager.Instance.Player.transform.position +
-               GetRandomDir() * UnityEngine.Random.Range(minDistanceFromPlayer, maxDistanceFromPlayer);
+        return GameManager.Instance.Player.transform.position + this.GetRandomDir() * Random.Range(this.minDistanceFromPlayer, this.maxDistanceFromPlayer);
     }
 
     private Vector3 GetRandomDir()
     {
-        return new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f),
-            UnityEngine.Random.Range(-1f, 1f));
+        return new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f),
+            Random.Range(-1f, 1f));
     }
 
     private void Attack()
     {
-       Instantiate(projectilePrefab, AttackPoint.position, transform.rotation);
+       Instantiate(this.projectilePrefab, this.AttackPoint.position, this.transform.rotation);
     }
 }

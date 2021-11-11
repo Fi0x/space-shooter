@@ -1,4 +1,5 @@
 using System.Linq;
+using Ship;
 using UnityEngine;
 using World;
 using Random = UnityEngine.Random;
@@ -12,9 +13,9 @@ namespace Manager
         [SerializeField] private int enemySpawnRange = 300;
         [SerializeField] private int enemyCount = 5;
 
-        public GameObject Player => player;
+        public GameObject Player => this.player;
 
-        public EnemyManager EnemyManager => enemyManager;
+        public EnemyManager EnemyManager => this.enemyManager;
         
         private LevelBuilder LevelBuilder { get; set; }
         
@@ -41,7 +42,7 @@ namespace Manager
 
         private void Awake()
         {
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(this.gameObject);
             _instance = this;
         }
 
@@ -67,9 +68,9 @@ namespace Manager
 
         private void SpawnEnemies()
         {
-            foreach (var _ in Enumerable.Range(0, enemyCount))
+            foreach (var _ in Enumerable.Range(0, this.enemyCount))
             {
-                var pos = Random.onUnitSphere * enemySpawnRange;
+                var pos = Random.onUnitSphere * this.enemySpawnRange;
                 enemyManager.SpawnNewEnemy(pos);
             }
         }
