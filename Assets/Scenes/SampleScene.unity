@@ -1327,6 +1327,7 @@ MonoBehaviour:
   weaponManager: {fileID: 1469893911}
   crosshair: {fileID: 90552832038109653, guid: 5d8a99f745cb1b475b5756115b6f00f5, type: 3}
   crosshairHitmarker: {fileID: 8838231677444702852, guid: 5d8a99f745cb1b475b5756115b6f00f5, type: 3}
+  cameraRef: {fileID: 369608060}
 --- !u!114 &763038476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2540,7 +2541,7 @@ MonoBehaviour:
   enemyManager: {fileID: 2068146921}
   player: {fileID: 1469893903}
   enemySpawnRange: 300
-  enemyCount: 0
+  enemyCount: 5
 --- !u!4 &1318674889
 Transform:
   m_ObjectHideFlags: 0
@@ -7485,8 +7486,8 @@ MonoBehaviour:
   strafeLeftKey: 97
   strafeRightKey: 100
   brakingKey: 120
-  boosterKey: 0
-  flightModeSwitchKey: 0
+  boosterKey: 304
+  flightModeSwitchKey: 116
   debugForceShootingTrue: 0
   thrustAdjustment: 1
   pauseKey: 0
