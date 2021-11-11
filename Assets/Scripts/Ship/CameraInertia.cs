@@ -81,7 +81,6 @@ namespace Ship
                 this.transform.InverseTransformDirection(velocityDifferenceToLastFrame);
             // The velocity "normalized" to one second
             var velocityDifferenceNormalized = velocityDifferenceToLastFrameInLocalPosition / Time.fixedDeltaTime;
-            Debug.Log(velocityDifferenceNormalized);
             // Value is divided by inputMapping
             var differenceScaledToInput = this.ScalePositionToInput(velocityDifferenceNormalized);
             var appliedMappingCurve = this.ApplyMappingCurveToInput(differenceScaledToInput);
