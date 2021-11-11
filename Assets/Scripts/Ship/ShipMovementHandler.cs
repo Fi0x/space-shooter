@@ -47,9 +47,9 @@ namespace Ship
                 }
             };
 #endif
-            shipObject = gameObject;
-            inputHandler = shipObject.GetComponent<InputHandler>();
-            shipRigidbody = shipObject.GetComponent<Rigidbody>();
+            this.shipObject = this.gameObject;
+            this.inputHandler = this.shipObject.GetComponent<InputHandler>();
+            this.shipRigidbody = this.shipObject.GetComponent<Rigidbody>();
 
             FlightModel.StoreCustomFlightModel(this);
             FlightModel.LoadFlightModel(this,"Custom");
@@ -65,83 +65,88 @@ namespace Ship
 
             if (Application.isEditor)
             {
-                var position = shipObject.transform.position;
+                var position = this.shipObject.transform.position;
                 Handles.Label(position,
-                    $"angV=({inputHandler.Pitch}, {inputHandler.Roll}, {inputHandler.Yaw}); V=({shipRigidbody.velocity.magnitude})",
+                    $"angV=({this.inputHandler.Pitch}, {this.inputHandler.Roll}, {this.inputHandler.Yaw}); V=({this.shipRigidbody.velocity.magnitude})",
                     this.textStyle);
                 Handles.color = Color.red;
-                Handles.DrawLine(position, position + shipObject.transform.forward * 20f);
+                Handles.DrawLine(position, position + this.shipObject.transform.forward * 20f);
                 Handles.color = Color.green;
-                Handles.DrawLine(position, position + shipRigidbody.velocity);
-                Handles.Label(position + shipObject.transform.right * 2, $"dotX:{DotX}", this.textStyle);
-                Handles.Label(position + shipObject.transform.up * 2, $"dotY:{DotY}", this.textStyle);
+                Handles.DrawLine(position, position + this.shipRigidbody.velocity);
+                Handles.Label(position + this.shipObject.transform.right * 2, $"dotX:{DotX}", this.textStyle);
+                Handles.Label(position + this.shipObject.transform.up * 2, $"dotY:{DotY}", this.textStyle);
             }
         }
 #endif
 
         private void FixedUpdate()
         {
-            var (pitch, roll, yaw, thrust, strafe, _, boosting) = inputHandler.CurrentInputState;
-            HandleAngularVelocity(pitch, yaw, roll, boosting);
-            HandleThrust(thrust, strafe, boosting);
-            currentSpeed = Stabilization.StabilizeShip(this, boosting);
+            var (pitch, roll, yaw, thrust, strafe, _, boosting) = this.inputHandler.CurrentInputState;
+            this.HandleAngularVelocity(pitch, yaw, roll, boosting);
+            this.HandleThrust(thrust, strafe, boosting);
+            this.currentSpeed = Stabilization.StabilizeShip(this, boosting);
 
-            if (inputHandler.SwitchFlightModel)
+            if (this.inputHandler.SwitchFlightModel)
             {
                 FlightModel.NextFlightModel(this);
-                inputHandler.SwitchFlightModel = false;
+                this.inputHandler.SwitchFlightModel = false;
             }
         }
 
         private void HandleAngularVelocity(float pitch, float yaw, float roll, bool boosting)
         {
-            var currentWorldAngularVelocity = shipRigidbody.angularVelocity;
-            var currentLocalAngularVelocity = shipObject.transform.InverseTransformDirection(currentWorldAngularVelocity);
+            var currentWorldAngularVelocity = this.shipRigidbody.angularVelocity;
+            var currentLocalAngularVelocity = this.shipObject.transform.InverseTransformDirection(currentWorldAngularVelocity);
 
             var boostMult = boosting ? 0.5f : 1f;
-            var angularForce = new Vector3(-pitch * pitchSpeed * boostMult, yaw * yawSpeed * boostMult, -roll * rollSpeed);
+            var angularForce = new Vector3(-pitch * this.pitchSpeed * boostMult, yaw * this.yawSpeed * boostMult, -roll * this.rollSpeed);
             currentLocalAngularVelocity += angularForce;
 
-            var modifiedWorldAngularVelocity = shipObject.transform.TransformDirection(currentLocalAngularVelocity);
-            shipRigidbody.angularVelocity = modifiedWorldAngularVelocity;
+            var modifiedWorldAngularVelocity = this.shipObject.transform.TransformDirection(currentLocalAngularVelocity);
+            this.shipRigidbody.angularVelocity = modifiedWorldAngularVelocity;
         }
 
         private void HandleThrust(float thrust, float strafe, bool boosting)
         {
-            desiredSpeed += thrust;
-            if (desiredSpeed > maxSpeed) desiredSpeed = maxSpeed;
-            else if (desiredSpeed < 0) desiredSpeed = 0;
+            this.desiredSpeed += thrust;
+            if (this.desiredSpeed > this.maxSpeed)
+                this.desiredSpeed = this.maxSpeed;
+            else if (this.desiredSpeed < 0) this.desiredSpeed = 0;
 
-            var actualSpeed = shipObject.transform.forward;
-            var forwardSpeed = Vector3.Dot(actualSpeed, shipRigidbody.velocity);
+            var actualSpeed = this.shipObject.transform.forward;
+            var forwardSpeed = Vector3.Dot(actualSpeed, this.shipRigidbody.velocity);
 
-            if (inputHandler.Braking)
+            if (this.inputHandler.Braking)
             {
-                desiredSpeed = 0;
-                if(forwardSpeed > 0) ApplyBraking(-accelerationBackwards);
-                else ApplyBraking(accelerationForwards);
+                this.desiredSpeed = 0;
+                if(forwardSpeed > 0)
+                    this.ApplyBraking(-this.accelerationBackwards);
+                else
+                    this.ApplyBraking(this.accelerationForwards);
             }
             else
             {
                 var thrustForce = 0f;
-                var boostedSpeed = desiredSpeed + (boosting ? maxSpeedBoost : 0);
-                if (boostedSpeed > forwardSpeed) thrustForce = accelerationForwards * (boosting ? 2 : 1);
-                else if (boostedSpeed < forwardSpeed) thrustForce = -accelerationBackwards;
-                shipRigidbody.AddForce(actualSpeed * thrustForce);
+                var boostedSpeed = this.desiredSpeed + (boosting ? this.maxSpeedBoost : 0);
+                if (boostedSpeed > forwardSpeed) thrustForce = this.accelerationForwards * (boosting ? 2 : 1);
+                else if (boostedSpeed < forwardSpeed) thrustForce = -this.accelerationBackwards;
+                this.shipRigidbody.AddForce(actualSpeed * thrustForce);
             }
 
-            isStrafing = strafe != 0;
-            if (isStrafing)
+            this.isStrafing = strafe != 0;
+            if (this.isStrafing)
             {
-                var strafeForce = strafe * accelerationLateral;
-                shipRigidbody.AddForce(shipObject.transform.right * strafeForce);
+                var strafeForce = strafe * this.accelerationLateral;
+                this.shipRigidbody.AddForce(this.shipObject.transform.right * strafeForce);
             }
         }
 
         private void ApplyBraking(float brakingForce)
         {
-            if (shipRigidbody.velocity.sqrMagnitude < minBrakeSpeed) shipRigidbody.velocity = Vector3.zero;
-            else shipRigidbody.AddForce(shipObject.transform.forward * brakingForce);
+            if (this.shipRigidbody.velocity.sqrMagnitude < this.minBrakeSpeed)
+                this.shipRigidbody.velocity = Vector3.zero;
+            else
+                this.shipRigidbody.AddForce(this.shipObject.transform.forward * brakingForce);
         }
     }
 }

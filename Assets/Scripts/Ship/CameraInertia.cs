@@ -96,11 +96,11 @@ public class CameraInertia : MonoBehaviour
 
     private (float x, float y, float z) ScalePositionToInput(Vector3 velocityDifferenceNormalized)
     {
-        var x = velocityDifferenceNormalized.x / inputMapping.x;
+        var x = velocityDifferenceNormalized.x / this.inputMapping.x;
         x = Mathf.Clamp(x, -1, 1);
-        var y = velocityDifferenceNormalized.y / inputMapping.y;
+        var y = velocityDifferenceNormalized.y / this.inputMapping.y;
         y = Mathf.Clamp(y, -1, 1);
-        var z = velocityDifferenceNormalized.z / inputMapping.z;
+        var z = velocityDifferenceNormalized.z / this.inputMapping.z;
         z = Mathf.Clamp(z, -1, 1);
 
         return (x, y, z);
@@ -108,8 +108,8 @@ public class CameraInertia : MonoBehaviour
 
     private void HandleRotation()
     {
-        currentAngularInertia = this.shipRigidbody.angularVelocity;
-        var swapYZ = new Vector3(currentAngularInertia.x, currentAngularInertia.z, currentAngularInertia.y * 4f);
+        this.currentAngularInertia = this.shipRigidbody.angularVelocity;
+        var swapYZ = new Vector3(this.currentAngularInertia.x, this.currentAngularInertia.z, this.currentAngularInertia.y * 4f);
 
         this.gameObject.transform.localRotation = this.originalLocalRotation * Quaternion.Euler(-swapYZ);
     }

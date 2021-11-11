@@ -17,24 +17,24 @@ public class Health : MonoBehaviour
     void Start()
     {
         //
-        maxHealth = 1000;
-        currentHealth = maxHealth;
+        this.maxHealth = 1000;
+        this.currentHealth = this.maxHealth;
 
         //
-        healthBar = GetComponentInChildren<HealthBar>();
+        this.healthBar = this.GetComponentInChildren<HealthBar>();
 
         //
-        healthBar.SetMaxHealth(maxHealth);
+        this.healthBar.SetMaxHealth(this.maxHealth);
     }
 
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
-        healthBar.SetCurrentHealth(currentHealth);
+        this.currentHealth -= damage;
+        this.healthBar.SetCurrentHealth(this.currentHealth);
 
-        if(currentHealth <= 0)
+        if(this.currentHealth <= 0)
         {
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         } 
     }
 }

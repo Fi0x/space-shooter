@@ -11,6 +11,6 @@ public class FlightModeDisplay : MonoBehaviour
 
     void Update()
     {
-        textComponent.text = $"Flight control mode: {smh.currentFlightModel}";
+        this.textComponent.text = $"Flight control mode: {this.smh.currentFlightModel}";
     }
 }

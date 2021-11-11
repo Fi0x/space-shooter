@@ -41,34 +41,33 @@ namespace World
         // Start is called before the first frame update
         void Start()
         {
-            if (asteroidPrefabs.Count == 0)
+            if (this.asteroidPrefabs.Count == 0)
             {
                 Debug.LogError("No Asteroids defined. Cannot spawn Prefabs");
                 return;
             }
 
-            if (isConstructed) 
-                Teardown();
-            
-            Construct();
+            if (this.isConstructed) this.Teardown();
+
+            this.Construct();
         }
 
         private void Construct()
         {
-            var offset = new Vector3(sectorCount.x / 2f, sectorCount.y / 2f, sectorCount.z / 2f);
-            offset.Scale(sectorSize);
+            var offset = new Vector3(this.sectorCount.x / 2f, this.sectorCount.y / 2f, this.sectorCount.z / 2f);
+            offset.Scale(this.sectorSize);
 
 #if DEBUG
             this.sectorData = new SerializedDictionary<(int x, int y, int z), SectorDataDebug>();
 #endif
             this.random = new System.Random(this.seed);
-            for (int x = 0; x < sectorCount.x; x++)
+            for (int x = 0; x < this.sectorCount.x; x++)
             {
-                float xDensityValue = this.xCrossSectionDensity.Evaluate((float) x / sectorCount.x);
-                for (int y = 0; y < sectorCount.y; y++)
+                float xDensityValue = this.xCrossSectionDensity.Evaluate((float) x / this.sectorCount.x);
+                for (int y = 0; y < this.sectorCount.y; y++)
                 {
-                    float yDensityValue = this.yCrossSectionDensity.Evaluate((float) y / sectorCount.y);
-                    for (int z = 0; z < sectorCount.z; z++)
+                    float yDensityValue = this.yCrossSectionDensity.Evaluate((float) y / this.sectorCount.y);
+                    for (int z = 0; z < this.sectorCount.z; z++)
                     {
                         double probability = yDensityValue * xDensityValue * this.random.NextDouble();
                         bool populateWithAsteroid = (1 - probability < this.probabilityCutoff);
@@ -119,14 +118,14 @@ namespace World
 
         private void Teardown()
         {
-            foreach (Transform child in transform)
+            foreach (Transform child in this.transform)
             {
                 Destroy(child.gameObject);
             }
 #if DEBUG
-            sectorData = null;
-#endif 
-            isConstructed = false;
+            this.sectorData = null;
+#endif
+            this.isConstructed = false;
         }
     }
 #if DEBUG
@@ -138,10 +137,10 @@ namespace World
             this.sectorBounds = (lowerX, upperX, lowerY, upperY, lowerZ, upperZ);
             this.corners = new[]
             {
-                new Vector3(sectorBounds.x, sectorBounds.y, sectorBounds.Z),
-                new Vector3(sectorBounds.X, sectorBounds.Y, sectorBounds.z),
-                new Vector3(sectorBounds.X, sectorBounds.Y, sectorBounds.Z),
-                new Vector3(sectorBounds.x, sectorBounds.y, sectorBounds.z),
+                new Vector3(this.sectorBounds.x, this.sectorBounds.y, this.sectorBounds.Z),
+                new Vector3(this.sectorBounds.X, this.sectorBounds.Y, this.sectorBounds.z),
+                new Vector3(this.sectorBounds.X, this.sectorBounds.Y, this.sectorBounds.Z),
+                new Vector3(this.sectorBounds.x, this.sectorBounds.y, this.sectorBounds.z),
             };
             this.isPopulated = isPopulated;
         }
@@ -152,9 +151,9 @@ namespace World
 
         public void DrawGizmos()
         {
-            Gizmos.color = isPopulated ? Color.green : Color.yellow;
-            Gizmos.DrawLine(corners[0], corners[1]);
-            Gizmos.DrawLine(corners[2], corners[3]);
+            Gizmos.color = this.isPopulated ? Color.green : Color.yellow;
+            Gizmos.DrawLine(this.corners[0], this.corners[1]);
+            Gizmos.DrawLine(this.corners[2], this.corners[3]);
         }
     }
 #endif

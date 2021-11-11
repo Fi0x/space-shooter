@@ -21,7 +21,7 @@ namespace Manager
 
         public void SpawnNewEnemy(Vector3 position)
         {
-            var enemy = Instantiate(enemyPrefab, position, Random.rotation, this.transform);
+            var enemy = Instantiate(this.enemyPrefab, position, Random.rotation, this.transform);
             var sensorTarget = enemy.GetComponent<SensorTarget>();
             sensorTarget.TargetDestroyedEvent += target => this.enemies.Remove(target);
             sensorTarget.Init(SensorTarget.TargetType.Ship, SensorTarget.TargetAllegiance.Hostile);

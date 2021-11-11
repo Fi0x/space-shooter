@@ -69,7 +69,7 @@ public class InputHandler : MonoBehaviour
         var mouseAxes = (x: Input.GetAxis("Mouse X"), y: Input.GetAxis("Mouse Y"));
         this.CurrentInputState = this.CalculateAppliedMovement(mouseAxes);
         this.IsShooting = Input.GetMouseButton(0) || this.debugForceShootingTrue;
-        if (Input.GetKeyDown(pauseKey))
+        if (Input.GetKeyDown(this.pauseKey))
         {
             Debug.Log("Paused");
             if(PauseMenu.IsPaused) PauseMenu.Resume();
@@ -104,19 +104,19 @@ public class InputHandler : MonoBehaviour
                 break;
         }
 
-        if (Input.GetKey(accelerateKey) && !Input.GetKey(decelerateKey)) thrust += thrustAdjustment;
-        if (Input.GetKey(decelerateKey) && !Input.GetKey(accelerateKey)) thrust -= thrustAdjustment;
+        if (Input.GetKey(this.accelerateKey) && !Input.GetKey(this.decelerateKey)) thrust += this.thrustAdjustment;
+        if (Input.GetKey(this.decelerateKey) && !Input.GetKey(this.accelerateKey)) thrust -= this.thrustAdjustment;
 
-        if (Input.GetKey(strafeLeftKey) && !Input.GetKey(strafeRightKey)) strafe--;
-        if (Input.GetKey(strafeRightKey) && !Input.GetKey(strafeLeftKey)) strafe++;
+        if (Input.GetKey(this.strafeLeftKey) && !Input.GetKey(this.strafeRightKey)) strafe--;
+        if (Input.GetKey(this.strafeRightKey) && !Input.GetKey(this.strafeLeftKey)) strafe++;
 
-        if (Input.GetKey(rollLeftKey) && !Input.GetKey(rollRightKey)) roll = -1;
-        if (Input.GetKey(rollRightKey) && !Input.GetKey(rollLeftKey)) roll = 1;
+        if (Input.GetKey(this.rollLeftKey) && !Input.GetKey(this.rollRightKey)) roll = -1;
+        if (Input.GetKey(this.rollRightKey) && !Input.GetKey(this.rollLeftKey)) roll = 1;
 
-        var isBraking = Input.GetKey(brakingKey);
-        var isBoosting = Input.GetKey(boosterKey);
+        var isBraking = Input.GetKey(this.brakingKey);
+        var isBoosting = Input.GetKey(this.boosterKey);
 
-        if (Input.GetKeyDown(flightModeSwitchKey)) SwitchFlightModel = true;
+        if (Input.GetKeyDown(this.flightModeSwitchKey)) this.SwitchFlightModel = true;
 
         return (pitch, roll, yaw, thrust, strafe, isBraking, isBoosting);
     }

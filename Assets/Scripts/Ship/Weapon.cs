@@ -21,7 +21,7 @@ public class Weapon : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        this.firemodeChangedEvent += FiremodeChangedEventHandler;
+        this.firemodeChangedEvent += this.FiremodeChangedEventHandler;
         this.weaponManager.FiremodeChangedEvent.AddListener(this.firemodeChangedEvent);
     }
 
@@ -46,15 +46,15 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        if (isShooting)
+        if (this.isShooting)
         {
-            if (timeSinceLastFire > fireRate)
+            if (this.timeSinceLastFire > this.fireRate)
             {
                 this.Fire();
-                timeSinceLastFire -= fireRate;
+                this.timeSinceLastFire -= this.fireRate;
             }
 
-            timeSinceLastFire += Time.fixedDeltaTime;
+            this.timeSinceLastFire += Time.fixedDeltaTime;
         }
 
 
@@ -65,7 +65,7 @@ public class Weapon : MonoBehaviour
 
     private void Fire()
     {
-        var projectile = Instantiate(projectilePrefab);
+        var projectile = Instantiate(this.projectilePrefab);
         var ownPosition = this.gameObject.transform.position;
         projectile.transform.position = ownPosition;
         var shotDirection = this.weaponManager.Target - ownPosition;

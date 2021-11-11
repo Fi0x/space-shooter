@@ -30,12 +30,12 @@ namespace Ship.Sensors
 
         public void Init(TargetType targetType, TargetAllegiance targetAllegiance)
         {
-            if (isInit)
+            if (this.isInit)
             {
                 throw new Exception("Script already initialized");
             }
 
-            isInit = true;
+            this.isInit = true;
 
             this.targetType = targetType;
             this.allegiance = targetAllegiance;

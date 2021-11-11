@@ -7,7 +7,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Start()
     {
-        pauseMenu = gameObject;
+        pauseMenu = this.gameObject;
         pauseMenu.SetActive(IsPaused);
         Time.timeScale = IsPaused ? 0f : 1;
     }

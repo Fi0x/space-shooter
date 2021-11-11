@@ -19,7 +19,7 @@ public class CanopyTargetReticleManager : MonoBehaviour
     void Start()
     {
         this.spriteObject = new GameObject("Target Crosshair");
-        this.spriteObject.transform.parent = transform;
+        this.spriteObject.transform.parent = this.transform;
 
         this.spriteRenderer = this.spriteObject.AddComponent<SpriteRenderer>();
         this.spriteRenderer.sprite = this.crosshair;
@@ -30,7 +30,7 @@ public class CanopyTargetReticleManager : MonoBehaviour
     {
         var ownPosition = this.gameObject.transform.position;
         var spritePositionOnSphere = ownPosition +
-                                     (weaponManager.Target - ownPosition).normalized *
+                                     (this.weaponManager.Target - ownPosition).normalized *
                                      this.uiRadius;
         this.spriteObject.transform.position = spritePositionOnSphere;
         this.spriteObject.transform.LookAt(this.transform, this.transform.parent.up);
@@ -40,11 +40,11 @@ public class CanopyTargetReticleManager : MonoBehaviour
     {
         if (this.animationCoroutine != null)
         {
-            StopCoroutine(this.animationCoroutine);
+            this.StopCoroutine(this.animationCoroutine);
         }
 
-        this.animationCoroutine = spriteAnimator();
-        StartCoroutine(this.animationCoroutine);
+        this.animationCoroutine = this.spriteAnimator();
+        this.StartCoroutine(this.animationCoroutine);
     }
 
     IEnumerator spriteAnimator()
