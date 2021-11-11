@@ -59,7 +59,7 @@ namespace Ship.Sensors
 
         private void OnSensorTargetDestroyedEventHandler(SensorTarget _)
         {
-            Destroy(this.gameObject);
+            if(this.gameObject) Destroy(this.gameObject);
             this.SensorObjectDestroyedEvent?.Invoke(this);
         }
 

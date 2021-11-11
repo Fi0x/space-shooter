@@ -1,13 +1,13 @@
 using System.Linq;
+using Ship;
 using UnityEngine;
+using World;
 using Random = UnityEngine.Random;
 
 namespace Manager
 {
     public class GameManager : MonoBehaviour
     {
-        private static GameManager _instance;
-
         [SerializeField] private EnemyManager enemyManager;
         [SerializeField] private GameObject player;
         [SerializeField] private int enemySpawnRange = 300;
@@ -16,13 +16,17 @@ namespace Manager
         public GameObject Player => this.player;
 
         public EnemyManager EnemyManager => this.enemyManager;
+        
+        private LevelBuilder LevelBuilder { get; set; }
+        
+        public static bool IsGamePaused { get; set; }
 
         public void NotifyAboutNewPlayerInstance(GameObject newPlayer)
         {
             this.player = newPlayer;
         }
 
-
+        private static GameManager _instance;
         public static GameManager Instance
         {
             get
@@ -44,11 +48,38 @@ namespace Manager
 
         private void Start()
         {
+            LevelBuilder = gameObject.GetComponent<LevelBuilder>();
+            LoadNextLevel();
+        }
+
+        public void LoadNextLevel()
+        {
+            EnemyManager.RemoveAllEnemies();
+            LevelBuilder.LoadRandomLevel();
+            SpawnEnemies();
+            SpawnPlayer();
+        }
+
+        public static void ChangePauseState()
+        {
+            if(IsGamePaused) PauseMenu.Resume();
+            else PauseMenu.Pause();
+        }
+
+        private void SpawnEnemies()
+        {
             foreach (var _ in Enumerable.Range(0, this.enemyCount))
             {
                 var pos = Random.onUnitSphere * this.enemySpawnRange;
-                this.enemyManager.SpawnNewEnemy(pos);
+                enemyManager.SpawnNewEnemy(pos);
             }
+        }
+
+        private void SpawnPlayer()
+        {
+            player.transform.position = new Vector3(0, 0, 0);
+            player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            player.GetComponent<ShipMovementHandler>().desiredSpeed = 0;
         }
     }
 }

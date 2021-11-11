@@ -1,5 +1,6 @@
 #define FIX_POSITION
 
+using Manager;
 using UnityEngine;
 
 public class InputHandler : MonoBehaviour
@@ -46,13 +47,10 @@ public class InputHandler : MonoBehaviour
     public float Roll => this.CurrentInputState.roll;
     public float Pitch => this.CurrentInputState.pitch;
     public float Yaw => this.CurrentInputState.yaw;
-    public float Thrust => this.CurrentInputState.thrust;
 
     public bool IsShooting { get; private set; }
 
     public bool Braking => this.CurrentInputState.braking;
-
-    public bool Boosting => this.CurrentInputState.boosting;
 
     public bool SwitchFlightModel { get; set; }
 
@@ -63,18 +61,12 @@ public class InputHandler : MonoBehaviour
 #endif
     }
 
-    // Update is called once per frame
     private void Update()
     {
         var mouseAxes = (x: Input.GetAxis("Mouse X"), y: Input.GetAxis("Mouse Y"));
-        this.CurrentInputState = this.CalculateAppliedMovement(mouseAxes);
-        this.IsShooting = Input.GetMouseButton(0) || this.debugForceShootingTrue;
-        if (Input.GetKeyDown(this.pauseKey))
-        {
-            Debug.Log("Paused");
-            if(PauseMenu.IsPaused) PauseMenu.Resume();
-            else PauseMenu.Pause();
-        }
+        CurrentInputState = CalculateAppliedMovement(mouseAxes);
+        if (Input.GetKeyDown(pauseKey)) GameManager.ChangePauseState();
+        IsShooting = Input.GetMouseButton(0) || this.debugForceShootingTrue;
     }
 
     private (float pitch, float roll, float yaw, float thrust, float strafe, bool braking, bool boosting) CalculateAppliedMovement((float x, float y) mouseAxes)
