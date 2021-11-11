@@ -21,7 +21,7 @@ namespace Ship
         [SerializeField] public float maxSpeedBoost = 75f;
         [SerializeField] private float minBrakeSpeed = 0.02f;
         [SerializeField] public float stabilizationMultiplier = 3;
-        [SerializeField] private float speedMatchDeadzone = 0.01f;
+        [SerializeField] private float speedMatchDeadZone = 0.01f;
 
         [HideInInspector] public GameObject shipObject;
         [HideInInspector] public InputHandler inputHandler;
@@ -60,7 +60,7 @@ namespace Ship
             this.shipRigidbody = this.shipObject.GetComponent<Rigidbody>();
 
             FlightModel.StoreCustomFlightModel(this);
-            FlightModel.LoadFlightModel(this,"Custom");
+            FlightModel.LoadFlightModel(this,"Hyper");
         }
 
 #if DEBUG
@@ -70,7 +70,7 @@ namespace Ship
             {
                 return;
             }
-
+            
             if (Application.isEditor)
             {
                 var position = this.shipObject.transform.position;
@@ -101,6 +101,9 @@ namespace Ship
                 FlightModel.NextFlightModel(this);
                 this.inputHandler.SwitchFlightModel = false;
             }
+            
+            // Necessary to allow full-stop
+            if(this.shipRigidbody.velocity.sqrMagnitude < this.minBrakeSpeed) this.shipRigidbody.velocity = Vector3.zero;
         }
 
         private void HandleAngularVelocity(float pitch, float yaw, float roll, bool boosting)
@@ -147,12 +150,12 @@ namespace Ship
 
             var targetSpeed = this.desiredSpeed + (isBoosting ? this.maxSpeedBoost : 0);
 
-            // Check small deviations around target speed ("Deadzone")
+            // Check small deviations around target speed ("DeadZone")
 
-            if (currentEffectiveForwardSpeed + this.speedMatchDeadzone > targetSpeed &&
-                currentEffectiveForwardSpeed - this.speedMatchDeadzone < targetSpeed)
+            if (currentEffectiveForwardSpeed + this.speedMatchDeadZone > targetSpeed &&
+                currentEffectiveForwardSpeed - this.speedMatchDeadZone < targetSpeed)
             {
-                // Inside Deadzone. Check if currently speed is zero. If this is the case, set the velocity to 0
+                // Inside DeadZone. Check if currently speed is zero. If this is the case, set the velocity to 0
                 if (targetSpeed == 0f)
                 {
                     // Set forward velocity to 0
