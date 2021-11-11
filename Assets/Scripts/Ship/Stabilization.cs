@@ -63,7 +63,7 @@ namespace Ship
             var localZ = smh.shipObject.transform.forward;
             var dotProductCurrentDirectionZAxis = Vector3.Dot(localZ, vNow);
 
-            return (dotProductCurrentDirectionXAxis, dotProductCurrentDirectionYAxis, dotProductCurrentDirectionZAxis);
+            return dotProductCurrentDirectionZAxis;
         }
     }
 }

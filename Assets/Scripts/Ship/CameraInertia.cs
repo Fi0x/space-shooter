@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Ship;
 using UnityEngine;
 
 public class CameraInertia : MonoBehaviour
@@ -66,6 +67,9 @@ public class CameraInertia : MonoBehaviour
     private void HandlePosition()
     {
         var velocityDifferenceToLastFrame = this.velocityLastFrame - this.shipRigidbody.velocity;
+        Debug.Log(velocityDifferenceToLastFrame.magnitude);
+
+
         this.velocityLastFrame = this.shipRigidbody.velocity;
         // The velocity "normalized" to one second
         var velocityDifferenceNormalized = velocityDifferenceToLastFrame / Time.fixedDeltaTime;
@@ -73,9 +77,13 @@ public class CameraInertia : MonoBehaviour
         var differenceScaledToInput = this.ScalePositionToInput(velocityDifferenceNormalized);
         var appliedMappingCurve = this.ApplyMappingCurveToInput(differenceScaledToInput);
         var appliedOutputMapping = Vector3.Scale(appliedMappingCurve, this.maximumOffset);
-        var addedToOriginalLocalPosition = appliedOutputMapping + this.originalLocalPosition;
+        var positionToLerpFrom = appliedOutputMapping + this.originalLocalPosition;
+
+
+
         this.transform.localPosition =
-            Vector3.Lerp(this.transform.localPosition, addedToOriginalLocalPosition, this.lerpValue);
+            Vector3.Lerp(this.transform.localPosition,positionToLerpFrom, this.lerpValue);
+
     }
 
     private Vector3 ApplyMappingCurveToInput((float x, float y, float z) input)
