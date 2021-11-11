@@ -111,16 +111,27 @@ namespace World
 
         private void PlacePortal()
         {
-            //TODO: Place jump-gate correctly
-            var rotation = Quaternion.Euler(random.Next(360), random.Next(360), random.Next(360));
             var position = new Vector3(
-                sectorSize.x * sectorCount.x * (random.Next(2) == 0 ? -1 : 1) * 0.5f,
-                sectorSize.y * sectorCount.y * (random.Next(2) == 0 ? -1 : 1) * 0.5f,
-                sectorSize.z * sectorCount.z * (random.Next(2) == 0 ? -1 : 1) * 0.5f);
-            
-            Debug.Log("Jump gate pos: " + position);
-            
-            Instantiate(jumpGatePrefab, position, rotation, transform);
+                sectorSize.x * sectorCount.x * probabilityCutoff * 0.7f,
+                sectorSize.y * sectorCount.y * probabilityCutoff * 0.7f,
+                sectorSize.z * sectorCount.z * probabilityCutoff * 0.7f);
+            for (var x = 0; x < 2; x++)
+            {
+                for (var y = 0; y < 2; y++)
+                {
+                    for (var z = 0; z < 2; z++)
+                    {
+                        var rotation = Quaternion.Euler(random.Next(360), random.Next(360), random.Next(360));
+                        Instantiate(jumpGatePrefab, position, rotation, transform);
+
+                        position.z *= -1;
+                    }
+
+                    position.y *= -1;
+                }
+
+                position.x *= -1;
+            }
         }
 
 #if DEBUG
