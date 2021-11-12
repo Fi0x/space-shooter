@@ -8,11 +8,13 @@ namespace UI
     {
         [SerializeField] private GameObject pauseObject;
         [SerializeField] private GameObject settingsObject;
+        [SerializeField] private GameObject keyBindObject;
         [SerializeField] private Text menuTitle;
         
         private static GameObject _overlayMenu;
         private static GameObject _pauseMenu;
         private static GameObject _settingsMenu;
+        private static GameObject _keyBindMenu;
         private static Text _menuTitle;
 
         private void Start()
@@ -20,6 +22,7 @@ namespace UI
             _overlayMenu = this.gameObject;
             _pauseMenu = this.pauseObject;
             _settingsMenu = this.settingsObject;
+            _keyBindMenu = this.keyBindObject;
             _menuTitle = this.menuTitle;
             
             if(GameManager.IsGamePaused) Pause();
@@ -37,6 +40,7 @@ namespace UI
             _menuTitle.text = "Menu";
             _pauseMenu.SetActive(true);
             _settingsMenu.SetActive(false);
+            _keyBindMenu.SetActive(false);
         }
 
         public static void Resume()
@@ -58,6 +62,15 @@ namespace UI
             _menuTitle.text = "Settings";
             _pauseMenu.SetActive(false);
             _settingsMenu.SetActive(true);
+            _keyBindMenu.SetActive(false);
+        }
+
+        public static void KeyBinds()
+        {
+            _menuTitle.text = "Key Binds";
+            _pauseMenu.SetActive(false);
+            _settingsMenu.SetActive(false);
+            _keyBindMenu.SetActive(true);
         }
 
         public static void BackToMainOverlay()
@@ -65,6 +78,8 @@ namespace UI
             _menuTitle.text = "Menu";
             _pauseMenu.SetActive(true);
             _settingsMenu.SetActive(false);
+            _settingsMenu.SetActive(false);
+            _keyBindMenu.SetActive(false);
         }
     }
 }
