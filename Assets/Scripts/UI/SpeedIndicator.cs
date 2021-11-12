@@ -1,4 +1,3 @@
-using Ship;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +8,7 @@ namespace UI
 
         [Header("SpeedIndicator")]
         [SerializeField] private Slider slider;
+        [SerializeField] private RectTransform fill;
 
         private float offset = 30;
 
@@ -20,12 +20,23 @@ namespace UI
         public void SetMaxSpeed(float maxSpeed)
         {
             this.offset = maxSpeed;
-            this.slider.maxValue = 2 * maxSpeed;
+            this.slider.maxValue = maxSpeed;
         }
 
         public void SetCurrentSpeed(float speed)
         {
-            var calculatedValue = speed + this.offset;
+            var calculatedValue = speed;
+            
+            if (speed >= 0)
+            {
+                this.fill.localRotation = Quaternion.Euler(0, 0, 0);
+            }
+            else
+            {
+                this.fill.localRotation = Quaternion.Euler(180, 0, 0);
+                calculatedValue *= -1;
+            }
+            
             if (calculatedValue < 0) calculatedValue = 0;
             if (calculatedValue > this.slider.maxValue) calculatedValue = this.slider.maxValue;
             this.slider.value = calculatedValue;
