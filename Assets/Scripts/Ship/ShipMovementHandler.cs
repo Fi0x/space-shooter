@@ -1,4 +1,5 @@
 using System;
+using Manager;
 using UnityEditor;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
@@ -111,8 +112,12 @@ namespace Ship
             var currentWorldAngularVelocity = this.shipRigidbody.angularVelocity;
             var currentLocalAngularVelocity = this.shipObject.transform.InverseTransformDirection(currentWorldAngularVelocity);
 
-            var boostMult = boosting ? 0.5f : 1f;
-            var angularForce = new Vector3(-pitch * this.pitchSpeed * boostMult, yaw * this.yawSpeed * boostMult, -roll * this.rollSpeed);
+            var mouseMultiplier = (boosting ? 0.5f : 1f) * InputManager.MouseSensitivity;
+            var pitchForce = -pitch * this.pitchSpeed * mouseMultiplier;
+            var yawForce = yaw * this.yawSpeed * mouseMultiplier;
+            var rollForce = -roll * this.rollSpeed;
+            
+            var angularForce = new Vector3(pitchForce, yawForce, rollForce);
             currentLocalAngularVelocity += angularForce;
 
             var modifiedWorldAngularVelocity = this.shipObject.transform.TransformDirection(currentLocalAngularVelocity);

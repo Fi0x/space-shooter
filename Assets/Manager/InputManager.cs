@@ -17,7 +17,7 @@ namespace Manager
         public static KeyCode BoostKey = KeyCode.LeftShift;
         public static KeyCode FlightModeSwitchKey = KeyCode.T;
         public static KeyCode PauseKey = KeyCode.P;
-        public static float MouseSensitivity = 0.5f;
+        public static float MouseSensitivity = 0.25f;
 
         private static Button _nextBindKey;
         private static KeyCode _mostRecentKey;
