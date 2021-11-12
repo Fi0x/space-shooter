@@ -51,8 +51,8 @@ namespace Ship
 
         private void Update()
         {
-            if(KeyManager.WaitingForKeyInput) return;
-            if (Input.GetKeyDown(KeyManager.PauseKey)) GameManager.ChangePauseState();
+            if(InputManager.WaitingForKeyInput) return;
+            if (Input.GetKeyDown(InputManager.PauseKey)) GameManager.ChangePauseState();
             if(GameManager.IsGamePaused) return;
             var mouseAxes = (x: Input.GetAxis("Mouse X"), y: Input.GetAxis("Mouse Y"));
             this.CurrentInputState = this.CalculateAppliedMovement(mouseAxes);
@@ -86,19 +86,19 @@ namespace Ship
                     break;
             }
 
-            if (Input.GetKey(KeyManager.AccelerateKey) && !Input.GetKey(KeyManager.DecelerateKey)) thrust += this.thrustAdjustment;
-            if (Input.GetKey(KeyManager.DecelerateKey) && !Input.GetKey(KeyManager.AccelerateKey)) thrust -= this.thrustAdjustment;
+            if (Input.GetKey(InputManager.AccelerateKey) && !Input.GetKey(InputManager.DecelerateKey)) thrust += this.thrustAdjustment;
+            if (Input.GetKey(InputManager.DecelerateKey) && !Input.GetKey(InputManager.AccelerateKey)) thrust -= this.thrustAdjustment;
 
-            if (Input.GetKey(KeyManager.StrafeLeftKey) && !Input.GetKey(KeyManager.StrafeRightKey)) strafe--;
-            if (Input.GetKey(KeyManager.StrafeRightKey) && !Input.GetKey(KeyManager.StrafeLeftKey)) strafe++;
+            if (Input.GetKey(InputManager.StrafeLeftKey) && !Input.GetKey(InputManager.StrafeRightKey)) strafe--;
+            if (Input.GetKey(InputManager.StrafeRightKey) && !Input.GetKey(InputManager.StrafeLeftKey)) strafe++;
 
-            if (Input.GetKey(KeyManager.RollLeftKey) && !Input.GetKey(KeyManager.RollRightKey)) roll = -1;
-            if (Input.GetKey(KeyManager.RollRightKey) && !Input.GetKey(KeyManager.RollLeftKey)) roll = 1;
+            if (Input.GetKey(InputManager.RollLeftKey) && !Input.GetKey(InputManager.RollRightKey)) roll = -1;
+            if (Input.GetKey(InputManager.RollRightKey) && !Input.GetKey(InputManager.RollLeftKey)) roll = 1;
 
-            var isBraking = Input.GetKey(KeyManager.BrakingKey);
-            var isBoosting = Input.GetKey(KeyManager.BoostKey);
+            var isBraking = Input.GetKey(InputManager.BrakingKey);
+            var isBoosting = Input.GetKey(InputManager.BoostKey);
 
-            if (Input.GetKeyDown(KeyManager.FlightModeSwitchKey)) this.SwitchFlightModel = true;
+            if (Input.GetKeyDown(InputManager.FlightModeSwitchKey)) this.SwitchFlightModel = true;
 
             return (pitch, roll, yaw, thrust, strafe, isBraking, isBoosting);
         }

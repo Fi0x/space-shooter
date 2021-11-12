@@ -8,7 +8,7 @@ namespace UI
     {
         private void Start()
         {
-            var text = KeyManager.GetKeyCodeForName(this.gameObject.name);
+            var text = InputManager.GetKeyCodeForName(this.gameObject.name);
             this.gameObject.GetComponentInChildren<Text>().text = text;
         }
     }

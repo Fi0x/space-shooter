@@ -3,20 +3,21 @@ using UnityEngine.UI;
 
 namespace Manager
 {
-    public class KeyManager : MonoBehaviour
+    public class InputManager : MonoBehaviour
     {
         public static bool WaitingForKeyInput { get; private set; }
 
-        public static KeyCode RollLeftKey = KeyCode.Q;
-        public static KeyCode RollRightKey = KeyCode.E;
         public static KeyCode AccelerateKey = KeyCode.W;
         public static KeyCode DecelerateKey = KeyCode.S;
+        public static KeyCode RollLeftKey = KeyCode.Q;
+        public static KeyCode RollRightKey = KeyCode.E;
         public static KeyCode StrafeLeftKey = KeyCode.A;
         public static KeyCode StrafeRightKey = KeyCode.D;
         public static KeyCode BrakingKey = KeyCode.X;
         public static KeyCode BoostKey = KeyCode.LeftShift;
         public static KeyCode FlightModeSwitchKey = KeyCode.T;
         public static KeyCode PauseKey = KeyCode.P;
+        public static float MouseSensitivity = 0.5f;
 
         private static Button _nextBindKey;
         private static KeyCode _mostRecentKey;
@@ -33,10 +34,10 @@ namespace Manager
 
         public static string GetKeyCodeForName(string keyName) => keyName switch
         {
-            "BtnRollLeft" => RollLeftKey.ToString(),
-            "BtnRollRight" => RollRightKey.ToString(),
             "BtnAccelerate" => AccelerateKey.ToString(),
             "BtnDecelerate" => DecelerateKey.ToString(),
+            "BtnRollLeft" => RollLeftKey.ToString(),
+            "BtnRollRight" => RollRightKey.ToString(),
             "BtnStrafeLeft" => StrafeLeftKey.ToString(),
             "BtnStrafeRight" => StrafeRightKey.ToString(),
             "BtnBraking" => BrakingKey.ToString(),
