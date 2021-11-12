@@ -14,14 +14,14 @@ public class DesiredSpeedDisplay : MonoBehaviour
 
     private Vector3 originalPosition;
 
-    void Start()
+    private void Start()
     {
         this.originalPosition = this.indicator.transform.localPosition;
     }
 
-    void Update()
+    private void Update()
     {
-        var thrustPercent = this.smh.desiredSpeed / this.smh.maxSpeed;
+        var thrustPercent = this.smh.desiredSpeed / (this.smh.maxSpeed + this.smh.maxSpeedBoost);
         this.indicator.transform.localPosition = new Vector3(this.originalPosition.x, this.originalPosition.y + thrustPercent * this.maxValue, this.originalPosition.z);
     }
 }
