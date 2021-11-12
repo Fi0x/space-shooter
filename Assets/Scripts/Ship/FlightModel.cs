@@ -1,9 +1,11 @@
-using UnityEngine;
+using System;
 
 namespace Ship
 {
     public static class FlightModel
     {
+        public static event EventHandler<FlightModelChangedEventArgs> FlightModelChangedEvent;
+        
         public static void StoreCustomFlightModel(ShipMovementHandler smh)
         {
             foreach (var mode in Modes)
@@ -61,6 +63,13 @@ namespace Ship
             smh.stabilizationMultiplier = newMode.mode.StabilizationFactor;
 
             smh.currentFlightModel = newMode.name;
+
+            var eventArgs = new FlightModelChangedEventArgs
+            {
+                NewMaxSpeed = newMode.mode.MaxSpeed,
+                NewBoostSpeed = newMode.mode.MaxBoost
+            };
+            FlightModelChangedEvent?.Invoke(null, eventArgs);
         }
 
         private static readonly (string name, Mode mode)[] Modes =
@@ -138,6 +147,12 @@ namespace Ship
                 StabilizationFactor = 2
             })
         };
+        
+        public class FlightModelChangedEventArgs : EventArgs
+        {
+            public float NewMaxSpeed;
+            public float NewBoostSpeed;
+        }
 
         private class Mode
         {
