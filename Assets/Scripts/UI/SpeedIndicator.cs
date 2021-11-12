@@ -1,3 +1,4 @@
+using Manager;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,16 +6,21 @@ namespace UI
 {
     public class SpeedIndicator : MonoBehaviour
     {
-
         [Header("SpeedIndicator")]
         [SerializeField] private Slider slider;
         [SerializeField] private RectTransform fill;
+        [SerializeField] private GameObject spaceDust;
 
         private float offset = 30;
 
         private void Start()
         {
             this.slider.value = this.offset;
+            this.gameObject.SetActive(SettingsManager.IsSpeedIndicatorVisible);
+            this.spaceDust.SetActive(SettingsManager.IsSpaceDustVisible);
+
+            SettingsManager.SpeedIndicatorVisibilityChanged += (sender, args) => { this.gameObject.SetActive(SettingsManager.IsSpeedIndicatorVisible); };
+            SettingsManager.SpaceDustVisibilityChanged += (sender, args) => { this.spaceDust.SetActive(SettingsManager.IsSpaceDustVisible); };
         }
 
         public void SetMaxSpeed(float maxSpeed)

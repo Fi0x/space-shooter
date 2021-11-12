@@ -112,7 +112,7 @@ namespace Ship
             var currentWorldAngularVelocity = this.shipRigidbody.angularVelocity;
             var currentLocalAngularVelocity = this.shipObject.transform.InverseTransformDirection(currentWorldAngularVelocity);
 
-            var mouseMultiplier = (boosting ? 0.5f : 1f) * InputManager.MouseSensitivity;
+            var mouseMultiplier = (boosting ? 0.5f : 1f) * SettingsManager.MouseSensitivity;
             var pitchForce = -pitch * this.pitchSpeed * mouseMultiplier;
             var yawForce = yaw * this.yawSpeed * mouseMultiplier;
             var rollForce = -roll * this.rollSpeed;
