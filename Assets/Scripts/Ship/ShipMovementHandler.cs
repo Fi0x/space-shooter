@@ -1,4 +1,5 @@
 using System;
+using Manager;
 using UnityEditor;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
@@ -21,7 +22,7 @@ namespace Ship
         [SerializeField] public float maxSpeedBoost = 75f;
         [SerializeField] private float minBrakeSpeed = 0.02f;
         [SerializeField] public float stabilizationMultiplier = 3;
-        [SerializeField] private float speedMatchDeadzone = 0.01f;
+        [SerializeField] private float speedMatchDeadZone = 0.01f;
 
         [HideInInspector] public GameObject shipObject;
         [HideInInspector] public InputHandler inputHandler;
@@ -60,7 +61,7 @@ namespace Ship
             this.shipRigidbody = this.shipObject.GetComponent<Rigidbody>();
 
             FlightModel.StoreCustomFlightModel(this);
-            FlightModel.LoadFlightModel(this,"Custom");
+            FlightModel.LoadFlightModel(this,"Hyper");
         }
 
 #if DEBUG
@@ -70,7 +71,7 @@ namespace Ship
             {
                 return;
             }
-
+            
             if (Application.isEditor)
             {
                 var position = this.shipObject.transform.position;
@@ -89,6 +90,9 @@ namespace Ship
 
         private void FixedUpdate()
         {
+            // Necessary to allow full-stop
+            if(this.shipRigidbody.velocity.sqrMagnitude < this.minBrakeSpeed) this.shipRigidbody.velocity = Vector3.zero;
+            
             var (pitch, roll, yaw, thrust, strafe, _, boosting) = this.inputHandler.CurrentInputState;
             this.HandleAngularVelocity(pitch, yaw, roll, boosting);
             this.HandleThrust(thrust, strafe, boosting);
@@ -108,8 +112,12 @@ namespace Ship
             var currentWorldAngularVelocity = this.shipRigidbody.angularVelocity;
             var currentLocalAngularVelocity = this.shipObject.transform.InverseTransformDirection(currentWorldAngularVelocity);
 
-            var boostMult = boosting ? 0.5f : 1f;
-            var angularForce = new Vector3(-pitch * this.pitchSpeed * boostMult, yaw * this.yawSpeed * boostMult, -roll * this.rollSpeed);
+            var mouseMultiplier = (boosting ? 0.5f : 1f) * InputManager.MouseSensitivity;
+            var pitchForce = -pitch * this.pitchSpeed * mouseMultiplier;
+            var yawForce = yaw * this.yawSpeed * mouseMultiplier;
+            var rollForce = -roll * this.rollSpeed;
+            
+            var angularForce = new Vector3(pitchForce, yawForce, rollForce);
             currentLocalAngularVelocity += angularForce;
 
             var modifiedWorldAngularVelocity = this.shipObject.transform.TransformDirection(currentLocalAngularVelocity);
@@ -147,12 +155,12 @@ namespace Ship
 
             var targetSpeed = this.desiredSpeed + (isBoosting ? this.maxSpeedBoost : 0);
 
-            // Check small deviations around target speed ("Deadzone")
+            // Check small deviations around target speed ("DeadZone")
 
-            if (currentEffectiveForwardSpeed + this.speedMatchDeadzone > targetSpeed &&
-                currentEffectiveForwardSpeed - this.speedMatchDeadzone < targetSpeed)
+            if (currentEffectiveForwardSpeed + this.speedMatchDeadZone > targetSpeed &&
+                currentEffectiveForwardSpeed - this.speedMatchDeadZone < targetSpeed)
             {
-                // Inside Deadzone. Check if currently speed is zero. If this is the case, set the velocity to 0
+                // Inside DeadZone. Check if currently speed is zero. If this is the case, set the velocity to 0
                 if (targetSpeed == 0f)
                 {
                     // Set forward velocity to 0

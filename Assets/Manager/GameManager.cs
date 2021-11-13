@@ -1,5 +1,6 @@
 using System.Linq;
 using Ship;
+using UI;
 using UnityEngine;
 using World;
 using Random = UnityEngine.Random;
@@ -48,22 +49,22 @@ namespace Manager
 
         private void Start()
         {
-            LevelBuilder = gameObject.GetComponent<LevelBuilder>();
-            LoadNextLevel();
+            this.LevelBuilder = this.gameObject.GetComponent<LevelBuilder>();
+            this.LoadNextLevel();
         }
 
         public void LoadNextLevel()
         {
-            EnemyManager.RemoveAllEnemies();
-            LevelBuilder.LoadRandomLevel();
-            SpawnEnemies();
-            SpawnPlayer();
+            this.EnemyManager.RemoveAllEnemies();
+            this.LevelBuilder.LoadRandomLevel();
+            this.SpawnEnemies();
+            this.SpawnPlayer();
         }
 
         public static void ChangePauseState()
         {
-            if(IsGamePaused) PauseMenu.Resume();
-            else PauseMenu.Pause();
+            if(IsGamePaused) OverlayMenu.Resume();
+            else OverlayMenu.Pause();
         }
 
         private void SpawnEnemies()
@@ -71,15 +72,15 @@ namespace Manager
             foreach (var _ in Enumerable.Range(0, this.enemyCount))
             {
                 var pos = Random.onUnitSphere * this.enemySpawnRange;
-                enemyManager.SpawnNewEnemy(pos);
+                this.enemyManager.SpawnNewEnemy(pos);
             }
         }
 
         private void SpawnPlayer()
         {
-            player.transform.position = new Vector3(0, 0, 0);
-            player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            player.GetComponent<ShipMovementHandler>().desiredSpeed = 0;
+            this.player.transform.position = new Vector3(0, 0, 0);
+            this.player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            this.player.GetComponent<ShipMovementHandler>().desiredSpeed = 0;
         }
     }
 }

@@ -79,9 +79,9 @@ namespace Ship
             }),
             ("Normal", new Mode
             {
-                RotPitch = 0.3f,
+                RotPitch = 1.2f,
                 RotRoll = 0.2f,
-                RotYaw = 0.2f,
+                RotYaw = 0.8f,
                 AccForward = 40,
                 AccBackwards = 35,
                 AccLateral = 30,
@@ -91,9 +91,9 @@ namespace Ship
             }),
             ("Hyper", new Mode
             {
-                RotPitch = 0.5f,
+                RotPitch = 2f,
                 RotRoll = 0.5f,
-                RotYaw = 0.3f,
+                RotYaw = 1.2f,
                 AccForward = 50,
                 AccBackwards = 45,
                 AccLateral = 40,
@@ -103,9 +103,9 @@ namespace Ship
             }),
             ("Dominik", new Mode
             {
-                RotPitch = 0.5f,
+                RotPitch = 2f,
                 RotRoll = 0.5f,
-                RotYaw = 0.3f,
+                RotYaw = 1.2f,
                 AccForward = 50,
                 AccBackwards = 45,
                 AccLateral = 40,
@@ -115,9 +115,9 @@ namespace Ship
             }),
             ("Waldemar", new Mode
             {
-                RotPitch = 0.3f,
+                RotPitch = 1.2f,
                 RotRoll = 0.2f,
-                RotYaw = 0.2f,
+                RotYaw = 0.8f,
                 AccForward = 40,
                 AccBackwards = 35,
                 AccLateral = 20,
@@ -127,9 +127,9 @@ namespace Ship
             }),
             ("Tobi", new Mode
             {
-                RotPitch = 0.3f,
+                RotPitch = 1.2f,
                 RotRoll = 0.2f,
-                RotYaw = 0.2f,
+                RotYaw = 0.8f,
                 AccForward = 40,
                 AccBackwards = 35,
                 AccLateral = 35,

@@ -3,113 +3,104 @@
 using Manager;
 using UnityEngine;
 
-public class InputHandler : MonoBehaviour
+namespace Ship
 {
-    private enum HorizontalAxisMode
+    public class InputHandler : MonoBehaviour
     {
-        Yaw,
-        Roll
-    }
+        private enum HorizontalAxisMode
+        {
+            Yaw,
+            Roll
+        }
 
-    private enum VerticalAxisMode
-    {
-        Pitch,
-        PitchInverted,
-        Thrust
-    }
+        private enum VerticalAxisMode
+        {
+            Pitch,
+            PitchInverted,
+            Thrust
+        }
 
-    [Header("Rotation Controls")] [SerializeField]
-    private HorizontalAxisMode xAxisMouseMode;
+        [Header("Rotation Controls")] [SerializeField]
+        private HorizontalAxisMode xAxisMouseMode;
 
-    [SerializeField] private VerticalAxisMode yAxisMouseMode;
-    [SerializeField] private KeyCode rollLeftKey;
-    [SerializeField] private KeyCode rollRightKey;
+        [SerializeField] private VerticalAxisMode yAxisMouseMode;
 
-    [Header("Movement Controls")] [SerializeField]
-    private KeyCode accelerateKey;
+        [Header("Movement Controls")]
+        [SerializeField] private bool debugForceShootingTrue;
+        [SerializeField] private float thrustAdjustment = 1;
 
-    [SerializeField] private KeyCode decelerateKey;
-    [SerializeField] private KeyCode strafeLeftKey;
-    [SerializeField] private KeyCode strafeRightKey;
-    [SerializeField] private KeyCode brakingKey;
-    [SerializeField] private KeyCode boosterKey;
-    [SerializeField] private KeyCode flightModeSwitchKey;
-    [SerializeField] private bool debugForceShootingTrue;
-    [SerializeField] private float thrustAdjustment = 1;
+        public (float pitch, float roll, float yaw, float thrust, float strafe, bool braking, bool boosting) CurrentInputState { get; private set; } = (0f, 0f, 0f, 0f, 0f, false, false);
 
-    [Header("Menu Controls")] [SerializeField]
-    private KeyCode pauseKey;
+        // Getters
+        public float Roll => this.CurrentInputState.roll;
+        public float Pitch => this.CurrentInputState.pitch;
+        public float Yaw => this.CurrentInputState.yaw;
 
+        public bool IsShooting { get; private set; }
 
-    public (float pitch, float roll, float yaw, float thrust, float strafe, bool braking, bool boosting) CurrentInputState { get; private set; } = (0f, 0f, 0f, 0f, 0f, false, false);
+        public bool Braking => this.CurrentInputState.braking;
 
-    // Getters
-    public float Roll => this.CurrentInputState.roll;
-    public float Pitch => this.CurrentInputState.pitch;
-    public float Yaw => this.CurrentInputState.yaw;
+        public bool SwitchFlightModel { get; set; }
 
-    public bool IsShooting { get; private set; }
-
-    public bool Braking => this.CurrentInputState.braking;
-
-    public bool SwitchFlightModel { get; set; }
-
-    private void Start()
-    {
+        private void Start()
+        {
 #if FIX_POSITION
-        Cursor.lockState = CursorLockMode.Locked;
+            Cursor.lockState = CursorLockMode.Locked;
 #endif
-    }
-
-    private void Update()
-    {
-        var mouseAxes = (x: Input.GetAxis("Mouse X"), y: Input.GetAxis("Mouse Y"));
-        CurrentInputState = CalculateAppliedMovement(mouseAxes);
-        if (Input.GetKeyDown(pauseKey)) GameManager.ChangePauseState();
-        IsShooting = Input.GetMouseButton(0) || this.debugForceShootingTrue;
-    }
-
-    private (float pitch, float roll, float yaw, float thrust, float strafe, bool braking, bool boosting) CalculateAppliedMovement((float x, float y) mouseAxes)
-    {
-        float pitch = 0, roll = 0, yaw = 0, thrust = 0, strafe = 0;
-
-        switch (this.xAxisMouseMode)
-        {
-            case HorizontalAxisMode.Roll:
-                roll = mouseAxes.x;
-                break;
-            case HorizontalAxisMode.Yaw:
-                yaw = mouseAxes.x;
-                break;
         }
 
-        switch (this.yAxisMouseMode)
+        private void Update()
         {
-            case VerticalAxisMode.Pitch:
-                pitch = mouseAxes.y;
-                break;
-            case VerticalAxisMode.PitchInverted:
-                pitch = -mouseAxes.y;
-                break;
-            case VerticalAxisMode.Thrust:
-                thrust = mouseAxes.y;
-                break;
+            if(InputManager.WaitingForKeyInput) return;
+            if (Input.GetKeyDown(InputManager.PauseKey)) GameManager.ChangePauseState();
+            if(GameManager.IsGamePaused) return;
+            var mouseAxes = (x: Input.GetAxis("Mouse X"), y: Input.GetAxis("Mouse Y"));
+            this.CurrentInputState = this.CalculateAppliedMovement(mouseAxes);
+            this.IsShooting = Input.GetMouseButton(0) || this.debugForceShootingTrue;
         }
 
-        if (Input.GetKey(this.accelerateKey) && !Input.GetKey(this.decelerateKey)) thrust += this.thrustAdjustment;
-        if (Input.GetKey(this.decelerateKey) && !Input.GetKey(this.accelerateKey)) thrust -= this.thrustAdjustment;
+        private (float pitch, float roll, float yaw, float thrust, float strafe, bool braking, bool boosting) CalculateAppliedMovement((float x, float y) mouseAxes)
+        {
+            float pitch = 0, roll = 0, yaw = 0, thrust = 0, strafe = 0;
 
-        if (Input.GetKey(this.strafeLeftKey) && !Input.GetKey(this.strafeRightKey)) strafe--;
-        if (Input.GetKey(this.strafeRightKey) && !Input.GetKey(this.strafeLeftKey)) strafe++;
+            switch (this.xAxisMouseMode)
+            {
+                case HorizontalAxisMode.Roll:
+                    roll = mouseAxes.x;
+                    break;
+                case HorizontalAxisMode.Yaw:
+                    yaw = mouseAxes.x;
+                    break;
+            }
 
-        if (Input.GetKey(this.rollLeftKey) && !Input.GetKey(this.rollRightKey)) roll = -1;
-        if (Input.GetKey(this.rollRightKey) && !Input.GetKey(this.rollLeftKey)) roll = 1;
+            switch (this.yAxisMouseMode)
+            {
+                case VerticalAxisMode.Pitch:
+                    pitch = mouseAxes.y;
+                    break;
+                case VerticalAxisMode.PitchInverted:
+                    pitch = -mouseAxes.y;
+                    break;
+                case VerticalAxisMode.Thrust:
+                    thrust = mouseAxes.y;
+                    break;
+            }
 
-        var isBraking = Input.GetKey(this.brakingKey);
-        var isBoosting = Input.GetKey(this.boosterKey);
+            if (Input.GetKey(InputManager.AccelerateKey) && !Input.GetKey(InputManager.DecelerateKey)) thrust += this.thrustAdjustment;
+            if (Input.GetKey(InputManager.DecelerateKey) && !Input.GetKey(InputManager.AccelerateKey)) thrust -= this.thrustAdjustment;
 
-        if (Input.GetKeyDown(this.flightModeSwitchKey)) this.SwitchFlightModel = true;
+            if (Input.GetKey(InputManager.StrafeLeftKey) && !Input.GetKey(InputManager.StrafeRightKey)) strafe--;
+            if (Input.GetKey(InputManager.StrafeRightKey) && !Input.GetKey(InputManager.StrafeLeftKey)) strafe++;
 
-        return (pitch, roll, yaw, thrust, strafe, isBraking, isBoosting);
+            if (Input.GetKey(InputManager.RollLeftKey) && !Input.GetKey(InputManager.RollRightKey)) roll = -1;
+            if (Input.GetKey(InputManager.RollRightKey) && !Input.GetKey(InputManager.RollLeftKey)) roll = 1;
+
+            var isBraking = Input.GetKey(InputManager.BrakingKey);
+            var isBoosting = Input.GetKey(InputManager.BoostKey);
+
+            if (Input.GetKeyDown(InputManager.FlightModeSwitchKey)) this.SwitchFlightModel = true;
+
+            return (pitch, roll, yaw, thrust, strafe, isBraking, isBoosting);
+        }
     }
 }

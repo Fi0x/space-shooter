@@ -1,29 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
-public class WeaponManager : MonoBehaviour
+namespace Ship
 {
-    [SerializeField] private Transform target;
-    [SerializeField] private InputHandler inputHandler;
-
-    public Vector3 Target => this.target.position;
-
-    [SerializeField] private UnityEvent enemyHitEvent = new UnityEvent();
-    public UnityEvent EnemyHitEvent => this.enemyHitEvent;
-    public UnityEvent<bool> FiremodeChangedEvent { get; } = new UnityEvent<bool>();
-    private bool isShooting = false;
-
-
-    // Update is called once per frame
-    void Update()
+    public class WeaponManager : MonoBehaviour
     {
-        if (this.isShooting != this.inputHandler.IsShooting)
+        [SerializeField] private Transform target;
+        [SerializeField] private InputHandler inputHandler;
+
+        public Vector3 Target => this.target.position;
+
+        [SerializeField] private UnityEvent enemyHitEvent = new UnityEvent();
+        public UnityEvent EnemyHitEvent => this.enemyHitEvent;
+        public UnityEvent<bool> FireModeChangedEvent { get; } = new UnityEvent<bool>();
+        private bool isShooting;
+
+        private void Update()
         {
+            if (this.isShooting == this.inputHandler.IsShooting)
+                return;
+
             this.isShooting = !this.isShooting;
-            this.FiremodeChangedEvent.Invoke(this.isShooting);
+            this.FireModeChangedEvent.Invoke(this.isShooting);
         }
     }
 }
