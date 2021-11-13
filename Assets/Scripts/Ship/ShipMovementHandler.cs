@@ -34,6 +34,8 @@ namespace Ship
 
         [SerializeField, ReadOnlyInspector] public string currentFlightModel = "Custom";
 
+        public static float TotalMaxSpeed { get; set; }
+
         /// <summary>
         /// This Event in invoked <b>after</b> forces have been applied onto the Ship's Rigidbody.
         /// The Camera uses this event to modify its position after forces.
@@ -62,6 +64,8 @@ namespace Ship
 
             FlightModel.StoreCustomFlightModel(this);
             FlightModel.LoadFlightModel(this,"Hyper");
+
+            TotalMaxSpeed = this.maxSpeed + this.maxSpeedBoost;
         }
 
 #if DEBUG
