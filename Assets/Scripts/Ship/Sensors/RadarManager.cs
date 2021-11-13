@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Manager;
 using UnityEngine;
 
@@ -16,6 +14,7 @@ namespace Ship.Sensors
         [SerializeField] private Sprite shipTargetSprite;
         [SerializeField] private Sprite stationTargetSprite;
         [SerializeField] private Sprite missileTargetSprite;
+        [SerializeField] private Sprite jumpGateTargetSprite;
 
         [SerializeField] private Color friendlyColor;
         [SerializeField] private Color neutralColor;
@@ -28,10 +27,12 @@ namespace Ship.Sensors
         public Sprite SpriteShip => this.shipTargetSprite;
         public Sprite SpriteStation => this.stationTargetSprite;
         public Sprite SpriteMissile => this.missileTargetSprite;
+        public Sprite SpriteJumpGate => this.jumpGateTargetSprite;
 
-        public Transform OwnPosition => this.ownPosition;
+        public delegate void NewRadarObjectSpawnedDelegate(GameObject enemy);
 
-
+        public static event NewRadarObjectSpawnedDelegate NewRadarObjectSpawnedEvent;
+        
         private void Start()
         {
             foreach (var entry in GameManager.Instance.EnemyManager.Enemies)
@@ -39,8 +40,12 @@ namespace Ship.Sensors
                 this.HandleNewSensorTargetCreated(entry);
             }
 
-            GameManager.Instance.EnemyManager.NewEnemySpawnedEvent += enemy =>
-                this.HandleNewSensorTargetCreated(enemy.GetComponent<SensorTarget>());
+            foreach (var entry in GameManager.Instance.LevelBuilder.Portals)
+            {
+                this.HandleNewSensorTargetCreated(entry);
+            }
+
+            NewRadarObjectSpawnedEvent += enemy => this.HandleNewSensorTargetCreated(enemy.GetComponent<SensorTarget>());
         }
 
 
@@ -50,6 +55,11 @@ namespace Ship.Sensors
             var rotationToApply = this.transform.worldToLocalMatrix.rotation;
             var withRotation = rotationToApply * relativeToRadar;
             return withRotation.normalized * (this.realDistanceToSensorDistance.Evaluate(relativeToRadar.magnitude) * this.radarRadius);
+        }
+
+        public static void InvokeRadarObjectSpawnedEvent(GameObject newObject)
+        {
+            NewRadarObjectSpawnedEvent?.Invoke(newObject);
         }
 
         private void HandleNewSensorTargetCreated(SensorTarget target)

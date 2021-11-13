@@ -7,17 +7,6 @@ namespace Ship.Sensors
     {
         public delegate void TargetDestroyed(SensorTarget target);
 
-        public enum TargetAllegiance
-        {
-            Friendly, Neutral, Hostile
-        }
-
-        public enum TargetType
-        {
-            Ship, Station, Missile
-        }
-
-
         [SerializeField] [ReadOnlyInspector] private TargetAllegiance allegiance;
         [SerializeField] [ReadOnlyInspector] private TargetType targetType;
         [SerializeField] [ReadOnlyInspector] private bool isInit = false;
@@ -28,7 +17,7 @@ namespace Ship.Sensors
 
         public event TargetDestroyed TargetDestroyedEvent;
 
-        public void Init(TargetType targetType, TargetAllegiance targetAllegiance)
+        public void Init(TargetType initialTargetType, TargetAllegiance targetAllegiance)
         {
             if (this.isInit)
             {
@@ -37,13 +26,28 @@ namespace Ship.Sensors
 
             this.isInit = true;
 
-            this.targetType = targetType;
+            this.targetType = initialTargetType;
             this.allegiance = targetAllegiance;
         }
 
         private void OnDestroy()
         {
             this.TargetDestroyedEvent?.Invoke(this);
+        }
+
+        public enum TargetAllegiance
+        {
+            Friendly,
+            Neutral,
+            Hostile
+        }
+
+        public enum TargetType
+        {
+            Ship,
+            Station,
+            Missile,
+            JumpGate
         }
     }
 }

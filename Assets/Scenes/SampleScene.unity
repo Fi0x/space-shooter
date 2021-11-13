@@ -5918,6 +5918,7 @@ MonoBehaviour:
   sectorData:
     m_Values: []
   isConstructed: 0
+  portals: []
 --- !u!114 &1318674891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12739,6 +12740,7 @@ MonoBehaviour:
   shipTargetSprite: {fileID: -9154230928176334115, guid: 66d6d6551e3f0d191aa03a09410f76c2, type: 3}
   stationTargetSprite: {fileID: 1003607296872550789, guid: 66d6d6551e3f0d191aa03a09410f76c2, type: 3}
   missileTargetSprite: {fileID: 366635945936629851, guid: 66d6d6551e3f0d191aa03a09410f76c2, type: 3}
+  jumpGateTargetSprite: {fileID: -1283007199816395724, guid: 66d6d6551e3f0d191aa03a09410f76c2, type: 3}
   friendlyColor: {r: 0.10376089, g: 0.4339623, b: 0, a: 1}
   neutralColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
   hostileColor: {r: 0.5566038, g: 0, b: 0, a: 1}
