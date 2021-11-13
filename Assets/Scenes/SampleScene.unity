@@ -5910,6 +5910,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   probabilityCutoff: 0.449
+  jumpGateProbability: 0.14
   asteroidPrefabs:
   - {fileID: 8026507357531248318, guid: 3c1f367bcf308592897026cdfca03215, type: 3}
   - {fileID: 2221158870545068552, guid: b130227b70c3ba45dbf05435bb283891, type: 3}

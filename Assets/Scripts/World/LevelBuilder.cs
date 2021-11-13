@@ -30,6 +30,7 @@ namespace World
         [SerializeField] private AnimationCurve xCrossSectionDensity;
         [SerializeField] private AnimationCurve yCrossSectionDensity;
         [SerializeField, Range(0, 1)] private float probabilityCutoff;
+        [SerializeField, Range(0, 1)] private float jumpGateProbability;
         [SerializeField] private List<GameObject> asteroidPrefabs;
         [SerializeField] private GameObject jumpGatePrefab;
         // Settings end
@@ -115,6 +116,7 @@ namespace World
 
         private void PlacePortal()
         {
+            var runsWithoutPlacing = 0;
             var position = new Vector3(
                 this.sectorSize.x * this.sectorCount.x * this.probabilityCutoff * 0.7f,
                 this.sectorSize.y * this.sectorCount.y * this.probabilityCutoff * 0.7f,
@@ -125,14 +127,21 @@ namespace World
                 {
                     for (var z = 0; z < 2; z++)
                     {
-                        var rotation = Quaternion.Euler(this.random.Next(360), this.random.Next(360), this.random.Next(360));
+                        if (this.random.NextDouble() < this.jumpGateProbability || runsWithoutPlacing >= 7)
+                        {
+                            var rotation = Quaternion.Euler(this.random.Next(360), this.random.Next(360), this.random.Next(360));
                         
-                        var gate = Instantiate(this.jumpGatePrefab, position, rotation, this.transform);
-                        var sensorTarget = gate.GetComponent<SensorTarget>();
-                        sensorTarget.TargetDestroyedEvent += target => this.portals.Remove(target);
-                        sensorTarget.Init(SensorTarget.TargetType.JumpGate, SensorTarget.TargetAllegiance.Friendly);
-                        this.portals.Add(sensorTarget);
-                        RadarManager.InvokeRadarObjectSpawnedEvent(gate);
+                            var gate = Instantiate(this.jumpGatePrefab, position, rotation, this.transform);
+                            var sensorTarget = gate.GetComponent<SensorTarget>();
+                            sensorTarget.TargetDestroyedEvent += target => this.portals.Remove(target);
+                            sensorTarget.Init(SensorTarget.TargetType.JumpGate, SensorTarget.TargetAllegiance.Friendly);
+                            this.portals.Add(sensorTarget);
+                            RadarManager.InvokeRadarObjectSpawnedEvent(gate);
+                        }
+                        else
+                        {
+                            runsWithoutPlacing++;
+                        }
 
                         position.z *= -1;
                     }
