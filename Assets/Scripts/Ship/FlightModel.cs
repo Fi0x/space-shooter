@@ -63,6 +63,7 @@ namespace Ship
             smh.stabilizationMultiplier = newMode.mode.StabilizationFactor;
 
             smh.currentFlightModel = newMode.name;
+            ShipMovementHandler.TotalMaxSpeed = newMode.mode.MaxSpeed + newMode.mode.MaxBoost;
 
             var eventArgs = new FlightModelChangedEventArgs
             {

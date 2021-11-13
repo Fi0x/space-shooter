@@ -3965,7 +3965,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 763038473}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73e6af15e329004d18d7ab4b0947f2bb, type: 3}
   m_Name: 
@@ -15579,7 +15579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cab7c97417d6c3b5fb8433a28008e224, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 100
+  speed: 200
   fireRate: 0.2
   damageOverTime:
     serializedVersion: 2
@@ -15606,7 +15606,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   projectilePrefab: {fileID: 7276553157955487200, guid: af77ec5ac4ec70c429a163e7a324129b, type: 3}
-  ship: {fileID: 1469893910}
   weaponManager: {fileID: 1469893911}
 --- !u!1 &2068146920
 GameObject:

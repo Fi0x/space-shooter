@@ -9793,7 +9793,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.2
+  m_Radius: 1
   m_Height: 2
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
@@ -9829,6 +9829,9 @@ MonoBehaviour:
   impactPrefab: {fileID: 1090185056321137668, guid: aa213270453c3d24dbbfb1f24620d17e, type: 3}
   rb: {fileID: 6143299078952737090}
   timeToLive: 2
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &8019890946928196669
 GameObject:
   m_ObjectHideFlags: 0
@@ -9919,9 +9922,7 @@ VFXRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  - {fileID: 0}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

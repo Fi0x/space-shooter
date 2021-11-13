@@ -5,11 +5,9 @@ namespace Ship
 {
     public class Weapon : MonoBehaviour
     {
-        [SerializeField] private float speed = 100f;
         [SerializeField] private float fireRate = 0.5f;
         [SerializeField] private AnimationCurve damageOverTime;
         [SerializeField] private GameObject projectilePrefab;
-        [SerializeField] private Rigidbody ship;
         [SerializeField] private WeaponManager weaponManager;
 
         private bool isShooting;
@@ -17,7 +15,6 @@ namespace Ship
 
         private UnityAction<bool> fireModeChangedEvent;
 
-        // Start is called before the first frame update
         private void Start()
         {
             this.fireModeChangedEvent += this.FireModeChangedEventHandler;
@@ -42,7 +39,6 @@ namespace Ship
             this.weaponManager.FireModeChangedEvent.RemoveListener(this.fireModeChangedEvent);
         }
 
-        // Update is called once per frame
         private void FixedUpdate()
         {
             if (this.isShooting)
@@ -65,7 +61,7 @@ namespace Ship
             var ownPosition = this.gameObject.transform.position;
             projectile.transform.position = ownPosition;
             var shotDirection = this.weaponManager.Target - ownPosition;
-            var projectileDirectionAndVelocity = this.ship.velocity + shotDirection.normalized * this.speed;
+            var projectileDirectionAndVelocity = 1.2f * ShipMovementHandler.TotalMaxSpeed * shotDirection.normalized;
             var projectileScript = projectile.GetComponent<SphereProjectile>();
             projectileScript.InitializeDirection(projectileDirectionAndVelocity, LayerMask.GetMask("Enemy", "Scenery"), this.damageOverTime, this.transform.rotation);
             projectileScript.ProjectileHitSomethingEvent += layer =>

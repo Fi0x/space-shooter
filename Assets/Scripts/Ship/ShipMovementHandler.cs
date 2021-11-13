@@ -34,6 +34,8 @@ namespace Ship
 
         [SerializeField, ReadOnlyInspector] public string currentFlightModel = "Custom";
 
+        public static float TotalMaxSpeed { get; set; }
+
         /// <summary>
         /// This Event in invoked <b>after</b> forces have been applied onto the Ship's Rigidbody.
         /// The Camera uses this event to modify its position after forces.
@@ -62,6 +64,8 @@ namespace Ship
 
             FlightModel.StoreCustomFlightModel(this);
             FlightModel.LoadFlightModel(this,"Hyper");
+
+            TotalMaxSpeed = this.maxSpeed + this.maxSpeedBoost;
         }
 
 #if DEBUG
@@ -93,10 +97,10 @@ namespace Ship
             // Necessary to allow full-stop
             if(this.shipRigidbody.velocity.sqrMagnitude < this.minBrakeSpeed) this.shipRigidbody.velocity = Vector3.zero;
             
-            var (pitch, roll, yaw, thrust, strafe, _, boosting) = this.inputHandler.CurrentInputState;
-            this.HandleAngularVelocity(pitch, yaw, roll, boosting);
-            this.HandleThrust(thrust, strafe, boosting);
-            this.currentSpeed = Stabilization.StabilizeShip(this, boosting);
+            var (pitch, roll, yaw, thrust, strafe, _, _) = this.inputHandler.CurrentInputState;
+            this.HandleAngularVelocity(pitch, yaw, roll);
+            this.HandleThrust(thrust, strafe);
+            this.currentSpeed = Stabilization.StabilizeShip(this);
 
             this.ForcesAppliedEvent?.Invoke();
 
@@ -107,12 +111,12 @@ namespace Ship
             }
         }
 
-        private void HandleAngularVelocity(float pitch, float yaw, float roll, bool boosting)
+        private void HandleAngularVelocity(float pitch, float yaw, float roll)
         {
             var currentWorldAngularVelocity = this.shipRigidbody.angularVelocity;
             var currentLocalAngularVelocity = this.shipObject.transform.InverseTransformDirection(currentWorldAngularVelocity);
 
-            var mouseMultiplier = (boosting ? 0.5f : 1f) * SettingsManager.MouseSensitivity;
+            var mouseMultiplier = (this.inputHandler.IsBoosting ? 0.5f : 1f) * SettingsManager.MouseSensitivity;
             var pitchForce = -pitch * this.pitchSpeed * mouseMultiplier;
             var yawForce = yaw * this.yawSpeed * mouseMultiplier;
             var rollForce = -roll * this.rollSpeed;
@@ -130,7 +134,7 @@ namespace Ship
         /// <param name="dThrust">Change in Thrust. As of now this is either +1 or -1 and affects the "speed target"</param>
         /// <param name="strafeX">Change Left/Right Thrust. As of now, this is either +1 or -1.</param>
         /// <param name="isBoosting">Is Player holding down Boost Button</param>
-        private void HandleThrust(float dThrust, float strafeX, bool isBoosting)
+        private void HandleThrust(float dThrust, float strafeX)
         {
             if (this.inputHandler.Braking)
             {
@@ -138,7 +142,7 @@ namespace Ship
             }
             else
             {
-                this.desiredSpeed += dThrust;
+                this.desiredSpeed += dThrust * (this.maxSpeed + this.maxSpeedBoost) * 0.01f;
                 
                 if (this.desiredSpeed > this.maxSpeed)
                     this.desiredSpeed = this.maxSpeed;
@@ -151,7 +155,11 @@ namespace Ship
             // See https://i.imgur.com/p70W4s6.png
             var currentEffectiveForwardSpeed = Vector3.Dot(currentForwardDirection, this.shipRigidbody.velocity);
 
-            var targetSpeed = this.desiredSpeed + (isBoosting && this.desiredSpeed > 0 ? this.maxSpeedBoost : 0);
+            var targetSpeed = this.desiredSpeed;
+            if (this.inputHandler.IsBoosting)
+            {
+                targetSpeed = this.maxSpeed + this.maxSpeedBoost;
+            }
 
             // Check small deviations around target speed ("DeadZone")
 
@@ -167,7 +175,7 @@ namespace Ship
             }
             else if (targetSpeed > currentEffectiveForwardSpeed)
             {
-                var thrustForce = this.accelerationForwards * (isBoosting ? 2 : 1);
+                var thrustForce = this.accelerationForwards * (this.inputHandler.IsBoosting ? 2 : 1);
                 this.shipRigidbody.AddForce(currentForwardDirection * thrustForce);
 
                 var newEffectiveForwardSpeed = Vector3.Dot(currentForwardDirection, this.shipRigidbody.velocity);

@@ -27,7 +27,6 @@ namespace Ship
 
         [Header("Movement Controls")]
         [SerializeField] private bool debugForceShootingTrue;
-        [SerializeField] private float thrustAdjustment = 1;
 
         public (float pitch, float roll, float yaw, float thrust, float strafe, bool braking, bool boosting) CurrentInputState { get; private set; } = (0f, 0f, 0f, 0f, 0f, false, false);
 
@@ -37,6 +36,7 @@ namespace Ship
         public float Yaw => this.CurrentInputState.yaw;
 
         public bool IsShooting { get; private set; }
+        public bool IsBoosting => this.CurrentInputState.boosting;
 
         public bool Braking => this.CurrentInputState.braking;
 
@@ -86,8 +86,8 @@ namespace Ship
                     break;
             }
 
-            if (Input.GetKey(InputManager.AccelerateKey) && !Input.GetKey(InputManager.DecelerateKey)) thrust += this.thrustAdjustment;
-            if (Input.GetKey(InputManager.DecelerateKey) && !Input.GetKey(InputManager.AccelerateKey)) thrust -= this.thrustAdjustment;
+            if (Input.GetKey(InputManager.AccelerateKey) && !Input.GetKey(InputManager.DecelerateKey)) thrust ++;
+            if (Input.GetKey(InputManager.DecelerateKey) && !Input.GetKey(InputManager.AccelerateKey)) thrust --;
 
             if (Input.GetKey(InputManager.StrafeLeftKey) && !Input.GetKey(InputManager.StrafeRightKey)) strafe--;
             if (Input.GetKey(InputManager.StrafeRightKey) && !Input.GetKey(InputManager.StrafeLeftKey)) strafe++;
