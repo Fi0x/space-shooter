@@ -5,7 +5,7 @@ namespace Ship
 {
     public static class Stabilization
     {
-        public static float StabilizeShip(ShipMovementHandler smh, bool boosting)
+        public static float StabilizeShip(ShipMovementHandler smh)
         {
             var vNow= smh.shipRigidbody.velocity;
             
@@ -19,9 +19,10 @@ namespace Ship
 
             if (!smh.isStrafing && Mathf.Abs(dotProductCurrentDirectionXAxis) > 0.05f)
             {
-                float multiplier = smh.stabilizationMultiplier * (boosting ? 5 : 1);
-                if (dotProductCurrentDirectionXAxis > 0) multiplier = Math.Min(dotProductCurrentDirectionXAxis, multiplier);
-                else multiplier = Math.Max(dotProductCurrentDirectionXAxis, -multiplier);
+                var multiplier = smh.stabilizationMultiplier * (smh.inputHandler.IsBoosting ? 5 : 1);
+                multiplier = dotProductCurrentDirectionXAxis > 0
+                    ? Math.Min(dotProductCurrentDirectionXAxis, multiplier)
+                    : Math.Max(dotProductCurrentDirectionXAxis, -multiplier);
                 smh.shipRigidbody.AddForce(multiplier * smh.accelerationLateral * -localX);
                 if (dotProductCurrentDirectionXAxis > 0)
                 {
@@ -44,9 +45,10 @@ namespace Ship
 
             if (Mathf.Abs(dotProductCurrentDirectionYAxis) > 0.05f)
             {
-                float multiplier = smh.stabilizationMultiplier * (boosting ? 5 : 1);
-                if (dotProductCurrentDirectionYAxis > 0) multiplier = Math.Min(dotProductCurrentDirectionYAxis, multiplier);
-                else multiplier = Math.Max(dotProductCurrentDirectionYAxis, -multiplier);
+                var multiplier = smh.stabilizationMultiplier * (smh.inputHandler.IsBoosting ? 5 : 1);
+                multiplier = dotProductCurrentDirectionYAxis > 0
+                    ? Math.Min(dotProductCurrentDirectionYAxis, multiplier)
+                    : Math.Max(dotProductCurrentDirectionYAxis, -multiplier);
                 smh.shipRigidbody.AddForce(multiplier * smh.accelerationLateral * -localY);
                 if (dotProductCurrentDirectionYAxis > 0)
                 {
