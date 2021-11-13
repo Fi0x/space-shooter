@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Ship.Sensors;
 using UnityEngine;
 using UnityEngine.Rendering;
 using Random = System.Random;
@@ -29,6 +30,7 @@ namespace World
         [SerializeField] private AnimationCurve xCrossSectionDensity;
         [SerializeField] private AnimationCurve yCrossSectionDensity;
         [SerializeField, Range(0, 1)] private float probabilityCutoff;
+        [SerializeField, Range(0, 1)] private float jumpGateProbability;
         [SerializeField] private List<GameObject> asteroidPrefabs;
         [SerializeField] private GameObject jumpGatePrefab;
         // Settings end
@@ -38,24 +40,27 @@ namespace World
         [SerializeField, ReadOnlyInspector] private SerializedDictionary<(int x, int y, int z),SectorDataDebug> sectorData;
 #endif
         [SerializeField, ReadOnlyInspector] private bool isConstructed;
+        
+        [SerializeField, ReadOnlyInspector] private List<SensorTarget> portals = new List<SensorTarget>();
+        public IReadOnlyList<SensorTarget> Portals => this.portals;
 
         private Random random;
 
         public void LoadRandomLevel()
         {
-            seed = new Random().Next();
+            this.seed = new Random().Next();
             
-            if (asteroidPrefabs.Count == 0)
+            if (this.asteroidPrefabs.Count == 0)
             {
                 Debug.LogError("No Asteroids defined. Cannot spawn Prefabs");
                 return;
             }
 
-            if (isConstructed)
-                Teardown();
+            if (this.isConstructed)
+                this.Teardown();
             
-            CreateAsteroids();
-            PlacePortal();
+            this.CreateAsteroids();
+            this.PlacePortal();
         }
 
         private void CreateAsteroids()
@@ -64,28 +69,28 @@ namespace World
             offset.Scale(this.sectorSize);
 
 #if DEBUG
-            sectorData = new SerializedDictionary<(int x, int y, int z), SectorDataDebug>();
+            this.sectorData = new SerializedDictionary<(int x, int y, int z), SectorDataDebug>();
 #endif
-            random = new Random(seed);
-            for (var x = 0; x < sectorCount.x; x++)
+            this.random = new Random(this.seed);
+            for (var x = 0; x < this.sectorCount.x; x++)
             {
-                var xDensityValue = xCrossSectionDensity.Evaluate((float) x / sectorCount.x);
-                for (var y = 0; y < sectorCount.y; y++)
+                var xDensityValue = this.xCrossSectionDensity.Evaluate((float) x / this.sectorCount.x);
+                for (var y = 0; y < this.sectorCount.y; y++)
                 {
-                    var yDensityValue = yCrossSectionDensity.Evaluate((float) y / sectorCount.y);
-                    for (var z = 0; z < sectorCount.z; z++)
+                    var yDensityValue = this.yCrossSectionDensity.Evaluate((float) y / this.sectorCount.y);
+                    for (var z = 0; z < this.sectorCount.z; z++)
                     {
-                        var probability = yDensityValue * xDensityValue * random.NextDouble();
-                        var populateWithAsteroid = (1 - probability < probabilityCutoff);
+                        var probability = yDensityValue * xDensityValue * this.random.NextDouble();
+                        var populateWithAsteroid = (1 - probability < this.probabilityCutoff);
 
 #if DEBUG
                         var newSectorData = new SectorDataDebug(
-                            sectorCount.x * sectorSize.x,
-                            (1 + sectorCount.x) * sectorSize.x,
-                            sectorCount.y * sectorSize.y,
-                            (1 + sectorCount.y) * sectorSize.y,
-                            sectorCount.z * sectorSize.z,
-                            (1 + sectorCount.z) * sectorSize.z,
+                            this.sectorCount.x * this.sectorSize.x,
+                            (1 + this.sectorCount.x) * this.sectorSize.x,
+                            this.sectorCount.y * this.sectorSize.y,
+                            (1 + this.sectorCount.y) * this.sectorSize.y,
+                            this.sectorCount.z * this.sectorSize.z,
+                            (1 + this.sectorCount.z) * this.sectorSize.z,
                             populateWithAsteroid
                         );
                         sectorData[(x, y, z)] = newSectorData;
@@ -93,15 +98,15 @@ namespace World
                         if(!populateWithAsteroid) continue;
                         
                         var position = new Vector3(
-                            (.5f + x) * sectorSize.x,
-                            (.5f + y) * sectorSize.y,
-                            (.5f + z) * sectorSize.z
+                            (.5f + x) * this.sectorSize.x,
+                            (.5f + y) * this.sectorSize.y,
+                            (.5f + z) * this.sectorSize.z
                         ) - offset;
 
-                        var rotation = Quaternion.Euler(random.Next(360), random.Next(360), random.Next(360));
-                        var prefabToUse = asteroidPrefabs[random.Next(asteroidPrefabs.Count)];
+                        var rotation = Quaternion.Euler(this.random.Next(360), this.random.Next(360), this.random.Next(360));
+                        var prefabToUse = this.asteroidPrefabs[this.random.Next(this.asteroidPrefabs.Count)];
 
-                        Instantiate(prefabToUse, position, rotation, transform);
+                        Instantiate(prefabToUse, position, rotation, this.transform);
                     }
                 }
             }
@@ -111,18 +116,32 @@ namespace World
 
         private void PlacePortal()
         {
+            var runsWithoutPlacing = 0;
             var position = new Vector3(
-                sectorSize.x * sectorCount.x * probabilityCutoff * 0.7f,
-                sectorSize.y * sectorCount.y * probabilityCutoff * 0.7f,
-                sectorSize.z * sectorCount.z * probabilityCutoff * 0.7f);
+                this.sectorSize.x * this.sectorCount.x * this.probabilityCutoff * 0.7f,
+                this.sectorSize.y * this.sectorCount.y * this.probabilityCutoff * 0.7f,
+                this.sectorSize.z * this.sectorCount.z * this.probabilityCutoff * 0.7f);
             for (var x = 0; x < 2; x++)
             {
                 for (var y = 0; y < 2; y++)
                 {
                     for (var z = 0; z < 2; z++)
                     {
-                        var rotation = Quaternion.Euler(random.Next(360), random.Next(360), random.Next(360));
-                        Instantiate(jumpGatePrefab, position, rotation, transform);
+                        if (this.random.NextDouble() < this.jumpGateProbability || runsWithoutPlacing >= 7)
+                        {
+                            var rotation = Quaternion.Euler(this.random.Next(360), this.random.Next(360), this.random.Next(360));
+                        
+                            var gate = Instantiate(this.jumpGatePrefab, position, rotation, this.transform);
+                            var sensorTarget = gate.GetComponent<SensorTarget>();
+                            sensorTarget.TargetDestroyedEvent += target => this.portals.Remove(target);
+                            sensorTarget.Init(SensorTarget.TargetType.JumpGate, SensorTarget.TargetAllegiance.Friendly);
+                            this.portals.Add(sensorTarget);
+                            RadarManager.InvokeRadarObjectSpawnedEvent(gate);
+                        }
+                        else
+                        {
+                            runsWithoutPlacing++;
+                        }
 
                         position.z *= -1;
                     }
@@ -162,19 +181,19 @@ namespace World
     {
         internal SectorDataDebug(int lowerX, int upperX, int lowerY, int upperY, int lowerZ, int upperZ, bool isPopulated = false)
         {
-            this.sectorBounds = (lowerX, upperX, lowerY, upperY, lowerZ, upperZ);
+            this.SectorBounds = (lowerX, upperX, lowerY, upperY, lowerZ, upperZ);
             this.corners = new[]
             {
-                new Vector3(this.sectorBounds.x, this.sectorBounds.y, this.sectorBounds.Z),
-                new Vector3(this.sectorBounds.X, this.sectorBounds.Y, this.sectorBounds.z),
-                new Vector3(this.sectorBounds.X, this.sectorBounds.Y, this.sectorBounds.Z),
-                new Vector3(this.sectorBounds.x, this.sectorBounds.y, this.sectorBounds.z),
+                new Vector3(this.SectorBounds.x, this.SectorBounds.y, this.SectorBounds.Z),
+                new Vector3(this.SectorBounds.X, this.SectorBounds.Y, this.SectorBounds.z),
+                new Vector3(this.SectorBounds.X, this.SectorBounds.Y, this.SectorBounds.Z),
+                new Vector3(this.SectorBounds.x, this.SectorBounds.y, this.SectorBounds.z),
             };
             this.isPopulated = isPopulated;
         }
 
         private Vector3[] corners;
-        [SerializeField] public (int x, int X, int y, int Y, int z, int Z) sectorBounds;
+        public (int x, int X, int y, int Y, int z, int Z) SectorBounds;
         [SerializeField] public bool isPopulated;
 
         public void DrawGizmos()
