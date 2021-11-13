@@ -112,7 +112,7 @@ namespace Ship
             var currentWorldAngularVelocity = this.shipRigidbody.angularVelocity;
             var currentLocalAngularVelocity = this.shipObject.transform.InverseTransformDirection(currentWorldAngularVelocity);
 
-            var mouseMultiplier = (boosting ? 0.5f : 1f) * InputManager.MouseSensitivity;
+            var mouseMultiplier = (boosting ? 0.5f : 1f) * SettingsManager.MouseSensitivity;
             var pitchForce = -pitch * this.pitchSpeed * mouseMultiplier;
             var yawForce = yaw * this.yawSpeed * mouseMultiplier;
             var rollForce = -roll * this.rollSpeed;
@@ -132,14 +132,18 @@ namespace Ship
         /// <param name="isBoosting">Is Player holding down Boost Button</param>
         private void HandleThrust(float dThrust, float strafeX, bool isBoosting)
         {
-            this.desiredSpeed += dThrust;
-            if (this.desiredSpeed > this.maxSpeed)
-            {
-                this.desiredSpeed = this.maxSpeed;
-            }
-            else if (this.desiredSpeed < 0)
+            if (this.inputHandler.Braking)
             {
                 this.desiredSpeed = 0;
+            }
+            else
+            {
+                this.desiredSpeed += dThrust;
+                
+                if (this.desiredSpeed > this.maxSpeed)
+                    this.desiredSpeed = this.maxSpeed;
+                else if (this.desiredSpeed < -this.maxSpeed)
+                    this.desiredSpeed = -this.maxSpeed;
             }
 
             var currentForwardDirection = this.shipObject.transform.forward;
@@ -147,13 +151,7 @@ namespace Ship
             // See https://i.imgur.com/p70W4s6.png
             var currentEffectiveForwardSpeed = Vector3.Dot(currentForwardDirection, this.shipRigidbody.velocity);
 
-            if (this.inputHandler.Braking)
-            {
-                this.desiredSpeed = 0;
-            }
-
-
-            var targetSpeed = this.desiredSpeed + (isBoosting ? this.maxSpeedBoost : 0);
+            var targetSpeed = this.desiredSpeed + (isBoosting && this.desiredSpeed > 0 ? this.maxSpeedBoost : 0);
 
             // Check small deviations around target speed ("DeadZone")
 
