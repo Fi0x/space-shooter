@@ -27,6 +27,9 @@ namespace Manager
             
             _speedIndicatorToggle.isOn = true;
             _spaceDustToggle.isOn = true;
+            
+            SpeedIndicatorVisibilityChanged?.Invoke(null, null);
+            SpaceDustVisibilityChanged?.Invoke(null, null);
         }
 
         public static void InvokeSpeedIndicatorVisibilityChange()

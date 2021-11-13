@@ -16,9 +16,6 @@ namespace UI
         private void Start()
         {
             this.slider.value = this.offset;
-            this.gameObject.SetActive(SettingsManager.IsSpeedIndicatorVisible);
-            this.spaceDust.SetActive(SettingsManager.IsSpaceDustVisible);
-
             SettingsManager.SpeedIndicatorVisibilityChanged += (sender, args) => { this.gameObject.SetActive(SettingsManager.IsSpeedIndicatorVisible); };
             SettingsManager.SpaceDustVisibilityChanged += (sender, args) => { this.spaceDust.SetActive(SettingsManager.IsSpaceDustVisible); };
         }
