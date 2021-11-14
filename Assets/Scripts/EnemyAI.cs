@@ -42,7 +42,6 @@ public class EnemyAI : MonoBehaviour
     // Boid
     [SerializeField] private Boid boid;
     [SerializeField] private BoidController boidController;
-    [SerializeField] private SceneController sceneController;
 
     // Start is called before the first frame update
     void Start()
@@ -73,14 +72,14 @@ public class EnemyAI : MonoBehaviour
         sightRange = 125.0f;
         attackRange = 75.0f;
 
-        sceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
-        boidController = gameObject.GetComponent<BoidController>();
+        boidController = GameObject.Find("BoidController").GetComponent<BoidController>();
         
+        /*
         if (!sceneController.boids.Contains(boid))
         {
             sceneController.boids.Add(boid);
         }
-        
+        */
     }
 
     // Update is called once per frame
@@ -110,7 +109,8 @@ public class EnemyAI : MonoBehaviour
                 }
                 */
 
-                boid.SimulateMovement(sceneController.boids, Time.deltaTime, (roamingPosition - transform.position).normalized);
+                boid.SimulateMovement(boidController.GetOtherBoids(boid.SwarmIndex), 
+                    Time.deltaTime, (roamingPosition - transform.position).normalized);
                 
 
                 //Debug.Log(Vector3.Distance(this.transform.position, roamingPosition));
@@ -199,7 +199,7 @@ public class EnemyAI : MonoBehaviour
 
     private Vector3 GetRoamingPosition()
     {
-        //return new Vector3(-256, 107, 136);
+        return new Vector3(-256, 107, 136);
         
         return GameManager.Instance.Player.transform.position +
                GetRandomDir() * UnityEngine.Random.Range(minDistanceFromPlayer, maxDistanceFromPlayer);

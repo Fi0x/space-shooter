@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 429333123813247737}
   - component: {fileID: 3651637442931774677}
   - component: {fileID: -397256906301617565}
+  - component: {fileID: 1449598148}
   m_Layer: 7
   m_Name: Basic Enemy
   m_TagString: Enemy
@@ -128,7 +129,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -157,6 +158,8 @@ MonoBehaviour:
   sightRange: 0
   attackRange: 0
   boid: {fileID: 0}
+  boidController: {fileID: 0}
+  sceneController: {fileID: 0}
 --- !u!114 &3651637442931774677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,6 +188,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directions: []
+  seperationWeight: 0.5
+  alignmentWeight: 0.34
+  cohesionWeight: 0.16
+--- !u!114 &1449598148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429333123813247712}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb0519bcf141f84e9ed6a7326997b67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seperationWeight: 0.5
+  alignmentWeight: 0.34
+  cohesionWeight: 0.16
 --- !u!1 &429333124123432733
 GameObject:
   m_ObjectHideFlags: 0
