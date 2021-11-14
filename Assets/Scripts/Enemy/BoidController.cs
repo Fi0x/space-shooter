@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Manager;
 
 public class BoidController : MonoBehaviour
 {
@@ -14,6 +15,14 @@ public class BoidController : MonoBehaviour
     [SerializeField]
     private GameObject EnemyPrefab;
 
+    [SerializeField]
+    private int minEnemyCount;
+    [SerializeField]
+    private int maxEnemyCount;
+
+    [SerializeField]
+    private EnemyManager enemyManager;
+
     
     // Called on LevelSetup, instantiates Swarms of Enemies
     public void InitializeBoids(int SwarmCount_, Vector3[] spawnPositions)
@@ -26,16 +35,30 @@ public class BoidController : MonoBehaviour
             boids[i] = new List<Boid>();
         }
 
+        Debug.Log("InitializeBoids, spawnPositions.Length: " + spawnPositions.Length);
         for (int i = 0; i < spawnPositions.Length; i++)
         {
-            int enemyCount = UnityEngine.Random.Range(4, 9);
+            int enemyCount = UnityEngine.Random.Range(minEnemyCount, maxEnemyCount);
 
 
             GameObject swarm = new GameObject("Swarm" + i);
 
             for (int j = 0; j < enemyCount; j++) 
             {
-                Instantiate(EnemyPrefab, spawnPositions[i] + Random.onUnitSphere * 10, Quaternion.identity, swarm.transform);
+                GameObject boid = Instantiate(EnemyPrefab, spawnPositions[i] + Random.onUnitSphere * 10, 
+                    Quaternion.identity);
+
+                EnemyAI enemyAIScript = boid.GetComponent<EnemyAI>();
+                enemyAIScript.InitiliazeEnemyAI(this);
+
+                Boid boidScript = boid.GetComponent<Boid>();
+                boidScript.SwarmIndex = i;
+                
+
+                enemyManager.NotifyAboutNewEnemySpawned(boid);
+
+                // Add to list
+                boids[i].Add(boidScript);
             }
         }
     }
@@ -44,6 +67,7 @@ public class BoidController : MonoBehaviour
     // returns the other boids in the swarm to simulate the movement
     public List<Boid> GetOtherBoids(int SwarmIndex)
     {
+        Debug.Log(boids[SwarmIndex].Count);
         return boids[SwarmIndex];
     }
 

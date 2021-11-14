@@ -10,7 +10,7 @@ public class Boid : MonoBehaviour
     float goldenRatio = (1 + Mathf.Sqrt(5)) / 2;
 
     // boid settings
-    public int SwarmIndex { get; set; }
+    [SerializeField] public int SwarmIndex;
     public float NoClumpingRadius { get; set; }
     public float LocalAreaRadius { get; set; }
     public float Speed { get; set; }
@@ -21,6 +21,8 @@ public class Boid : MonoBehaviour
     public float alignmentWeight = 0.34f;
     public float cohesionWeight = 0.16f;
 
+    float ColliderRadius;
+
 
     // Start is called before the first frame update
     void Start()
@@ -29,8 +31,10 @@ public class Boid : MonoBehaviour
 
         Speed = 10f;
         SteeringSpeed = 100f;
-        NoClumpingRadius = 5f;
-        LocalAreaRadius = 10f;
+        NoClumpingRadius = 17.5f;
+        LocalAreaRadius = 50f;
+
+        ColliderRadius = 12.0f;
     }
 
     // Update is called once per frame
@@ -65,8 +69,8 @@ public class Boid : MonoBehaviour
         RaycastHit hit;
 
         
-        float radius = 1.0f;
-        float ViewRadius = 15.0f;
+        float radius = ColliderRadius;
+        float ViewRadius = 17.25f;
         LayerMask layerMask = LayerMask.GetMask("Scenery");
         for (int i = 0; i < directions.Length; i++)
         {
@@ -169,7 +173,7 @@ public class Boid : MonoBehaviour
 
 
         //apply steering
-        if (steering != Vector3.zero)
+        //if (steering != Vector3.zero)
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(steering), SteeringSpeed * time);
 
         Debug.DrawRay(transform.position, transform.TransformDirection(steering), Color.red, 0.5f);

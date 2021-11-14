@@ -43,8 +43,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private Boid boid;
     [SerializeField] private BoidController boidController;
 
-    // Start is called before the first frame update
-    void Start()
+    public void InitiliazeEnemyAI(BoidController boidController)
     {
         // Boid
         boid = this.GetComponent<Boid>();
@@ -58,7 +57,7 @@ public class EnemyAI : MonoBehaviour
         // Patroling
         minDistanceFromPlayer = 75.0f;
         maxDistanceFromPlayer = 250.0f;
-        roamingPosition = GetRoamingPosition();
+        //roamingPosition = GetRoamingPosition();
 
         reachedPositionMaxDistance = 20.0f;
 
@@ -72,7 +71,7 @@ public class EnemyAI : MonoBehaviour
         sightRange = 125.0f;
         attackRange = 75.0f;
 
-        boidController = GameObject.Find("BoidController").GetComponent<BoidController>();
+        this.boidController = boidController;
     }
 
     // Update is called once per frame
@@ -135,6 +134,7 @@ public class EnemyAI : MonoBehaviour
 
     private void CheckState()
     {
+        /*
         // Check for sightRange 
         if (Vector3.Distance(this.transform.position, GameManager.Instance.Player.transform.position) <= sightRange)
         {
@@ -150,6 +150,9 @@ public class EnemyAI : MonoBehaviour
         {
             this.state = State.AttackPlayer;
         }
+        */
+
+        state = State.Roaming;
     }
 
     private void FaceTarget(Vector3 lookDirection)
