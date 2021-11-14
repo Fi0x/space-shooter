@@ -32,9 +32,9 @@ public class CanopyDirectionIndicator : MonoBehaviour
     private void Update()
     {
         var ownPosition = this.gameObject.transform.position;
-        var shipMovementDirection = ship.velocity.normalized;
-        var spritePositionPrograde = ownPosition + shipMovementDirection * radius;
-        var spritePositionRetrograde = ownPosition + -shipMovementDirection * radius;
+        var shipMovementDirection = this.ship.velocity.normalized;
+        var spritePositionPrograde = ownPosition + shipMovementDirection * this.radius;
+        var spritePositionRetrograde = ownPosition + -shipMovementDirection * this.radius;
 
         this.prograde.transform.position = spritePositionPrograde;
         this.prograde.transform.LookAt(this.transform, this.transform.parent.up);

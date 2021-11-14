@@ -10,12 +10,12 @@ public class BillBoard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cam = Camera.main.transform;
+        this.cam = Camera.main.transform;
     }
 
     void LateUpdate()
     {
         // BillBoard
-        transform.LookAt(transform.position + cam.forward);
+        this.transform.LookAt(this.transform.position + this.cam.forward);
     }
 }

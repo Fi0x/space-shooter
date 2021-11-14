@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Ship.Sensors;
 using UnityEngine;
@@ -14,19 +13,22 @@ namespace Manager
 
         public IReadOnlyList<SensorTarget> Enemies => this.enemies;
 
-        public delegate void NewEnemySpawnedDelegate(GameObject enemy);
-
-        public event NewEnemySpawnedDelegate NewEnemySpawnedEvent;
-
-
         public void SpawnNewEnemy(Vector3 position)
         {
-            var enemy = Instantiate(enemyPrefab, position, Random.rotation, this.transform);
+            var enemy = Instantiate(this.enemyPrefab, position, Random.rotation, this.transform);
             var sensorTarget = enemy.GetComponent<SensorTarget>();
             sensorTarget.TargetDestroyedEvent += target => this.enemies.Remove(target);
             sensorTarget.Init(SensorTarget.TargetType.Ship, SensorTarget.TargetAllegiance.Hostile);
             this.enemies.Add(sensorTarget);
-            this.NewEnemySpawnedEvent?.Invoke(enemy);
+            RadarManager.InvokeRadarObjectSpawnedEvent(enemy);
+        }
+
+        public void RemoveAllEnemies()
+        {
+            foreach (var enemy in this.Enemies)
+            {
+                Destroy(enemy.gameObject);
+            }
         }
     }
 }

@@ -1,29 +1,27 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Ship;
+using UI;
 using UnityEngine;
 
-public class Speed : MonoBehaviour
+namespace Components
 {
-    [Header("Speed")]
-    [SerializeField] private ShipMovementHandler smh;
-
-    private SpeedIndicator speedIndicator;
-
-    void Start()
+    public class Speed : MonoBehaviour
     {
-        speedIndicator = GetComponentInParent<SpeedIndicator>();
-        
-        speedIndicator.SetMaxSpeed(smh.maxSpeed);
-    }
+        [Header("Speed")]
+        [SerializeField] private ShipMovementHandler smh;
 
-    private void Update()
-    {
-        UpdateIndicator();
-    }
+        private SpeedIndicator speedIndicator;
 
-    private void UpdateIndicator()
-    {
-        speedIndicator.SetCurrentSpeed(smh.currentSpeed);
+        private void Start()
+        {
+            this.speedIndicator = this.GetComponentInParent<SpeedIndicator>();
+            this.speedIndicator.SetMaxSpeed(this.smh.maxSpeed + this.smh.maxSpeedBoost);
+
+            FlightModel.FlightModelChangedEvent += (sender, args) => { this.speedIndicator.SetMaxSpeed(args.NewMaxSpeed + args.NewBoostSpeed); };
+        }
+
+        private void Update()
+        {
+            this.speedIndicator.SetCurrentSpeed(this.smh.currentSpeed);
+        }
     }
 }
