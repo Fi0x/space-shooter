@@ -52,4 +52,14 @@ public class BoidController : MonoBehaviour
     {
         boids[SwarmIndex].Remove(boid);
     }
+
+
+    // Sets a new roaming position for the Swarm, once one of them reaches it
+    public void SetNewRoamingPosition(int SwarmIndex, Vector3 newRoamingPos)
+    {
+        foreach(Boid boid in boids[SwarmIndex])
+        {
+            boid.GetComponent<EnemyAI>().roamingPosition = newRoamingPos;
+        }
+    }
 }

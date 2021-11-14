@@ -1,146 +1,188 @@
+using System.Collections;
 using System.Collections.Generic;
 using Manager;
-using Ship;
 using UnityEngine;
 
-namespace Enemy
+public class EnemyAI : MonoBehaviour
 {
-    public class EnemyAI : MonoBehaviour
+    public enum State
     {
-        [Header("AI")]
-        [SerializeField] [ReadOnlyInspector] private State state;
-        [SerializeField] private List<Transform> attackPoints;
+        Roaming,
+        ChasePlayer,
+        AttackPlayer,
+    }
 
-        [Header("Roaming")]
-        [SerializeField] [ReadOnlyInspector] private Vector3 roamingPosition;
-        [SerializeField] private float reachedPositionMaxDistance;
-        [SerializeField] private float minDistanceFromPlayer;
-        [SerializeField] private float maxDistanceFromPlayer;
-        [SerializeField] private float speed;
+    [Header("AI")]
+    //
+    [SerializeField] [ReadOnlyInspector] private State state;
+    [SerializeField] private Transform AttackPoint;
 
-        [Header("Attack")]
-        [SerializeField] private float timeBetweenAttacks;
-        [SerializeField] [ReadOnlyInspector] private float waitForAttack;
-        [SerializeField] private GameObject projectilePrefab;
+    // Patroling
+    [Header("Roaming")]
+    //
+    [SerializeField] [ReadOnlyInspector] public Vector3 roamingPosition;
+    [SerializeField] float reachedPositionMaxDistance;
+    [SerializeField] private float minDistanceFromPlayer;
+    [SerializeField] private float maxDistanceFromPlayer;
+    [SerializeField] private float speed;
 
-        [Header("Ranges")]
-        [SerializeField] private float sightRange;
-        [SerializeField] private float attackRange;
+    // Attacking
+    [Header("Attack")]
+    //
+    [SerializeField] private float timeBetweenAttacks;
+    [SerializeField] [ReadOnlyInspector] private float waitForAttack;
+    [SerializeField] private GameObject projectilePrefab;
 
-        private void Start()
+    // Ranges
+    [Header("Ranges")]
+    //
+    [SerializeField] private float sightRange;
+    [SerializeField] private float attackRange;
+
+    // Boid
+    [SerializeField] private Boid boid;
+    [SerializeField] private BoidController boidController;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        // Boid
+        boid = this.GetComponent<Boid>();
+
+        // get AttackPoint
+        this.transform.Find("AttackPoint");
+
+        // Start in RoamState
+        this.state = State.Roaming;
+
+        // Patroling
+        minDistanceFromPlayer = 75.0f;
+        maxDistanceFromPlayer = 250.0f;
+        roamingPosition = GetRoamingPosition();
+
+        reachedPositionMaxDistance = 20.0f;
+
+        speed = 20.0f;
+
+        // Attack
+        waitForAttack = 2.0f;
+        timeBetweenAttacks = waitForAttack;
+
+        // Ranges
+        sightRange = 125.0f;
+        attackRange = 75.0f;
+
+        boidController = GameObject.Find("BoidController").GetComponent<BoidController>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        switch (state)
         {
-            // Start in RoamState
+            case State.Roaming:
+
+                boid.SimulateMovement(boidController.GetOtherBoids(boid.SwarmIndex), 
+                    Time.deltaTime, (roamingPosition - transform.position).normalized);
+                
+
+                //Debug.Log(Vector3.Distance(this.transform.position, roamingPosition));
+                // check if roamingPosition has been reached
+                if (Vector3.Distance(this.transform.position, roamingPosition) < reachedPositionMaxDistance)
+                {
+                    // determine a new roamPosition
+                    //roamingPosition = GetRoamingPosition();
+
+                    boidController.SetNewRoamingPosition(boid.SwarmIndex, GetRoamingPosition());
+                }
+
+                CheckState();
+                break;
+
+
+            case State.ChasePlayer:
+
+                // rotate towards position
+                FaceTarget(GameManager.Instance.Player.transform.position);
+                // move towards Player
+                this.transform.position =
+                    Vector3.MoveTowards(transform.position, GameManager.Instance.Player.transform.position, speed / 4 * Time.deltaTime);
+
+                CheckState();
+                break;
+
+
+            case State.AttackPlayer:
+
+                // rotate towards Player
+                FaceTarget(GameManager.Instance.Player.transform.position);
+
+                // Attack
+                waitForAttack -= Time.deltaTime;
+                if (waitForAttack < 0f
+                    && IsFacingTarget(this.transform.forward, GameManager.Instance.Player.transform.position - this.transform.position,
+                        10))
+                {
+                    waitForAttack = timeBetweenAttacks;
+
+                    Attack();
+                }
+
+                CheckState();
+                break;
+        }
+    }
+
+    private void CheckState()
+    {
+        // Check for sightRange 
+        if (Vector3.Distance(this.transform.position, GameManager.Instance.Player.transform.position) <= sightRange)
+        {
+            this.state = State.ChasePlayer;
+        }
+        else
+        {
             this.state = State.Roaming;
-
-            // Patrolling
-            this.minDistanceFromPlayer = 75.0f;
-            this.maxDistanceFromPlayer = 250.0f;
-            this.roamingPosition = this.GetRoamingPosition();
-
-            this.reachedPositionMaxDistance = 2.0f;
-
-            this.speed = 20.0f;
-
-            // Attack
-            this.waitForAttack = 2.0f;
-            this.timeBetweenAttacks = this.waitForAttack;
-
-            // Ranges
-            this.sightRange = 125.0f;
-            this.attackRange = 75.0f;
-
-            FlightModel.FlightModelChangedEvent += (sender, args) => { this.speed = args.NewMaxSpeed * 0.8f; };
         }
 
-        private void Update()
+        // Check for attackRange
+        if (Vector3.Distance(this.transform.position, GameManager.Instance.Player.transform.position) <= attackRange)
         {
-            switch (this.state)
-            {
-                case State.Roaming:
-                    // rotate towards position
-                    this.FaceTarget(this.roamingPosition);
-                    // move towards position
-                    this.transform.position = Vector3.MoveTowards(this.transform.position, this.roamingPosition, this.speed * Time.deltaTime);
-                    // check if roamingPosition has been reached
-                    if (Vector3.Distance(this.transform.position, this.roamingPosition) < this.reachedPositionMaxDistance)
-                    {
-                        // determine a new roamPosition
-                        this.roamingPosition = this.GetRoamingPosition();
-                    }
-                    this.CheckState();
-                    break;
-                case State.ChasePlayer:
-                    // rotate towards position
-                    var playerPos = GameManager.Instance.Player.transform.position;
-                    this.FaceTarget(playerPos);
-                    // move towards Player
-                    this.transform.position = Vector3.MoveTowards(this.transform.position, playerPos, this.speed * Time.deltaTime);
-                    this.CheckState();
-                    break;
-                case State.AttackPlayer:
-                    // rotate towards Player
-                    this.FaceTarget(GameManager.Instance.Player.transform.position);
-                    // Attack
-                    this.waitForAttack -= Time.deltaTime;
-                    if (this.waitForAttack < 0f && IsFacingTarget(this.transform.forward, GameManager.Instance.Player.transform.position - this.transform.position, 10))
-                    {
-                        this.waitForAttack = this.timeBetweenAttacks;
-                        this.Attack();
-                    }
-                    this.CheckState();
-                    break;
-            }
+            this.state = State.AttackPlayer;
         }
+    }
 
-        private void CheckState()
-        {
-            // Check for sightRange
-            this.state = Vector3.Distance(this.transform.position, GameManager.Instance.Player.transform.position) <= this.sightRange
-                ? State.ChasePlayer
-                : State.Roaming;
+    private void FaceTarget(Vector3 lookDirection)
+    {
+        Vector3 direction = (lookDirection - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, direction.y, direction.z));
+        this.transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+    }
 
-            // Check for attackRange
-            if (Vector3.Distance(this.transform.position, GameManager.Instance.Player.transform.position) <= this.attackRange)
-            {
-                this.state = State.AttackPlayer;
-            }
-        }
+    private float GetAngle(Vector3 first, Vector3 second)
+    {
+        return Vector3.Angle(first, second);
+    }
 
-        private void FaceTarget(Vector3 lookDirection)
-        {
-            var direction = (lookDirection - this.transform.position).normalized;
-            var lookRotation = Quaternion.LookRotation(new Vector3(direction.x, direction.y, direction.z));
-            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, lookRotation, Time.deltaTime * 5f);
-        }
+    private bool IsFacingTarget(Vector3 forward, Vector3 direction, float tolerance)
+    {
+        return Vector3.Angle(forward, direction) < tolerance ? true : false;
+    }
 
-        private static bool IsFacingTarget(Vector3 forward, Vector3 direction, float tolerance)
-        {
-            return Vector3.Angle(forward, direction) < tolerance;
-        }
+    private Vector3 GetRoamingPosition()
+    {        
+        return GameManager.Instance.Player.transform.position +
+               GetRandomDir() * UnityEngine.Random.Range(minDistanceFromPlayer, maxDistanceFromPlayer);
+    }
 
-        private Vector3 GetRoamingPosition()
-        {
-            return GameManager.Instance.Player.transform.position + GetRandomDir() * Random.Range(this.minDistanceFromPlayer, this.maxDistanceFromPlayer);
-        }
+    private Vector3 GetRandomDir()
+    {
+        return new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f),
+            UnityEngine.Random.Range(-1f, 1f));
+    }
 
-        private static Vector3 GetRandomDir()
-        {
-            return new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
-        }
-
-        private void Attack()
-        {
-            foreach (var attackPoint in this.attackPoints)
-            {
-                Instantiate(this.projectilePrefab, attackPoint.position, this.transform.rotation);
-            }
-        }
-    
-        private enum State
-        {
-            Roaming,
-            ChasePlayer,
-            AttackPlayer,
-        }
+    private void Attack()
+    {
+       Instantiate(projectilePrefab, AttackPoint.position, transform.rotation);
     }
 }
