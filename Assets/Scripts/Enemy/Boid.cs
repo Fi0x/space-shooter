@@ -91,7 +91,7 @@ public class Boid : MonoBehaviour
     {
         //Debug.DrawRay(transform.position, transform.forward * 5, Color.green, 0.2f);
         RaycastHit hit;
-        if (Physics.SphereCast(transform.position, 1.0f, direction, out hit, 15.0f, LayerMask.GetMask("Scenery")))
+        if (Physics.SphereCast(transform.position, ColliderRadius, direction, out hit, 17.25f, LayerMask.GetMask("Scenery")))
         {
             
             return true;

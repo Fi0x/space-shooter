@@ -134,7 +134,7 @@ public class EnemyAI : MonoBehaviour
 
     private void CheckState()
     {
-        /*
+        
         // Check for sightRange 
         if (Vector3.Distance(this.transform.position, GameManager.Instance.Player.transform.position) <= sightRange)
         {
@@ -150,9 +150,9 @@ public class EnemyAI : MonoBehaviour
         {
             this.state = State.AttackPlayer;
         }
-        */
+        
 
-        state = State.Roaming;
+        //state = State.Roaming;
     }
 
     private void FaceTarget(Vector3 lookDirection)
