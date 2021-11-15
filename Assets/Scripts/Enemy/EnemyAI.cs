@@ -94,6 +94,13 @@ public class EnemyAI : MonoBehaviour
 
                     boidController.SetNewRoamingPosition(boid.SwarmIndex, GetRoamingPosition());
                 }*/
+                if(Vector3.Distance(transform.position, roamingPosition) < reachedPositionMaxDistance)
+                {
+                    // determine a new RoamingPosition
+                    boidController.SetNewRoamingPosition();
+                }
+
+                boid.MoveUnit();
 
                 CheckState();
                 break;

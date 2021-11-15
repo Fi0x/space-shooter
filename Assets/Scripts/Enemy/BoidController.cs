@@ -62,6 +62,7 @@ public class BoidController : MonoBehaviour
         GetRoamingPosition();
     }
 
+    /*
     private void Update()
     {
         for (int i = 0; i < allUnits.Length; i++)
@@ -71,9 +72,10 @@ public class BoidController : MonoBehaviour
                 GetRoamingPosition();
             }
 
-            allUnits[i].MoveUnit();
+            //allUnits[i].MoveUnit();
         }
     }
+    */
 
     /*
     private void GenerateUnits()
@@ -105,6 +107,7 @@ public class BoidController : MonoBehaviour
             allUnits[i].AssignFlock(this);
             allUnits[i].InitializeSpeed(UnityEngine.Random.Range(minSpeed, maxSpeed));
             allUnits[i].BoidHelper();
+            allUnits[i].GetComponent<EnemyAI>().InitiliazeEnemyAI(this);
         }
     }
 
@@ -121,6 +124,11 @@ public class BoidController : MonoBehaviour
         GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
         cube.transform.position = newRoamingPosition;
         cube.GetComponent<MeshRenderer>().material.color = Color.red;
+    }
+
+    public void SetNewRoamingPosition()
+    {
+        GetRoamingPosition();
     }
 
 }
