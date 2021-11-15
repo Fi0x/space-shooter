@@ -1,40 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
+using Manager;
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [Header("Health")]
-    //
-    [SerializeField]
     private int maxHealth;
-    [SerializeField]
+    public int MaxHealth
+    {
+        get => this.maxHealth;
+        set
+        {
+            this.maxHealth = value;
+            this.HealthBar.SetMaxHealth(this.MaxHealth);
+        }
+    }
+
     private int currentHealth;
+    public int CurrentHealth
+    {
+        get => this.currentHealth;
+        set
+        {
+            this.currentHealth = value;
+            if (this.currentHealth > this.MaxHealth) this.currentHealth = this.MaxHealth;
+            this.HealthBar.SetCurrentHealth(this.currentHealth);
+        }
+    }
 
     private HealthBar healthBar;
-
-    // Start is called before the first frame update
-    void Start()
+    private HealthBar HealthBar
     {
-        //
-        this.maxHealth = 1000;
-        this.currentHealth = this.maxHealth;
+        get
+        {
+            if(!this.healthBar) this.healthBar = this.GetComponentInChildren<HealthBar>();
+            return this.healthBar;
+        }
+    }
 
-        //
-        this.healthBar = this.GetComponentInChildren<HealthBar>();
-
-        //
-        this.healthBar.SetMaxHealth(this.maxHealth);
+    private void Start()
+    {
+        this.MaxHealth = 1000;
+        this.CurrentHealth = this.MaxHealth;
     }
 
     public void TakeDamage(int damage)
     {
-        this.currentHealth -= damage;
-        this.healthBar.SetCurrentHealth(this.currentHealth);
-
-        if(this.currentHealth <= 0)
-        {
-            Destroy(this.gameObject);
-        } 
+        this.CurrentHealth -= damage;
+        
+        if(this.CurrentHealth <= 0) GameManager.GameOver();
     }
 }
