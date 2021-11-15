@@ -11,6 +11,7 @@ namespace Manager
     {
         [SerializeField] private EnemyManager enemyManager;
         [SerializeField] private GameObject player;
+        [SerializeField] private int playerDefaultHealth = 1000;
         [SerializeField] private int enemySpawnRange = 300;
         [SerializeField] private int enemyCount = 5;
 
@@ -67,6 +68,11 @@ namespace Manager
             else OverlayMenu.Pause();
         }
 
+        public static void GameOver()
+        {
+            //TODO
+        }
+
         private void SpawnEnemies()
         {
             foreach (var _ in Enumerable.Range(0, this.enemyCount))
@@ -81,6 +87,9 @@ namespace Manager
             this.player.transform.position = new Vector3(0, 0, 0);
             this.player.GetComponent<Rigidbody>().velocity = Vector3.zero;
             this.player.GetComponent<ShipMovementHandler>().desiredSpeed = 0;
+            var playerHealth = this.player.GetComponent<Health>();
+            playerHealth.MaxHealth = this.playerDefaultHealth;
+            playerHealth.CurrentHealth = this.playerDefaultHealth;
         }
     }
 }
