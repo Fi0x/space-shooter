@@ -110,10 +110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb88f7ef104ad77409f0b1294ee9b420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FOVAngle: 360
+  smoothDamp: 1
   directions: []
-  seperationWeight: 0.5
-  alignmentWeight: 0.34
-  cohesionWeight: 0.16
 --- !u!114 &1544793552462117733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,7 +120,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429333123813247712}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a24fdd01adb59b43980b888c8913ae4, type: 3}
   m_Name: 

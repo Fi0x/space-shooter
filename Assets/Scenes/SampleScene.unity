@@ -6390,6 +6390,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1229726816}
   m_CullTransparentMesh: 1
+--- !u!1 &1237703531
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1237703532}
+  - component: {fileID: 1237703533}
+  m_Layer: 0
+  m_Name: Flock
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1237703532
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237703531}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 50, y: 0, z: 50}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1237703533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237703531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58b75bfab1f46fe46b20a1a756b8aa40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flockUnitPrefab: {fileID: -397256906301617565, guid: 93f0741716cf79c1094b9b5108c04537, type: 3}
+  flockSize: 10
+  spawnBounds: {x: 0, y: 0, z: 0}
+  _minSpeed: 100
+  _maxSpeed: 100
+  _cohesionDistance: 100
+  _avoidanceDistance: 100
+  _alignmentDistance: 100
+  _obstacleDistance: 20
+  _cohesionWeight: 1
+  _avoidanceWeight: 1.2
+  _alignmentWeight: 1
+  _obstacleWeight: 100
+  _roamingPosition: {x: 0, y: 0, z: 0}
+  roamingPosReachedDistance: 25
+  minDistanceFromPlayer: 75
+  maxDistanceFromPlayer: 250
 --- !u!1 &1250208536
 GameObject:
   m_ObjectHideFlags: 0
@@ -15635,11 +15695,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58b75bfab1f46fe46b20a1a756b8aa40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SwarmCount: 0
-  EnemyPrefab: {fileID: 429333123813247712, guid: 93f0741716cf79c1094b9b5108c04537, type: 3}
-  minEnemyCount: 3
-  maxEnemyCount: 8
-  enemyManager: {fileID: 2068146921}
+  flockUnitPrefab: {fileID: 0}
+  flockSize: 0
+  spawnBounds: {x: 0, y: 0, z: 0}
+  _minSpeed: 0
+  _maxSpeed: 0
+  _cohesionDistance: 0
+  _avoidanceDistance: 0
+  _alignmentDistance: 0
+  _obstacleDistance: 0
+  _cohesionWeight: 0
+  _avoidanceWeight: 0
+  _alignmentWeight: 0
+  _obstacleWeight: 0
+  _roamingPosition: {x: 0, y: 0, z: 0}
+  roamingPosReachedDistance: 0
+  minDistanceFromPlayer: 0
+  maxDistanceFromPlayer: 0
 --- !u!1 &2101636425
 GameObject:
   m_ObjectHideFlags: 0

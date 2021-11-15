@@ -78,7 +78,7 @@ namespace Manager
                 pos[i] = player.transform.position + Random.onUnitSphere * enemySpawnRange;
             }
 
-            boidController.InitializeBoids(this.swarmCount, pos);
+            //boidController.InitializeBoids(this.swarmCount, pos);
 
             //this.enemyManager.SpawnNewEnemy(pos);
                 

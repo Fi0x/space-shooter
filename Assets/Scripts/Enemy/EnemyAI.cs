@@ -80,7 +80,7 @@ public class EnemyAI : MonoBehaviour
         switch (state)
         {
             case State.Roaming:
-
+                /*
                 boid.SimulateMovement(boidController.GetOtherBoids(boid.SwarmIndex), 
                     Time.deltaTime, (roamingPosition - transform.position).normalized);
                 
@@ -93,7 +93,7 @@ public class EnemyAI : MonoBehaviour
                     //roamingPosition = GetRoamingPosition();
 
                     boidController.SetNewRoamingPosition(boid.SwarmIndex, GetRoamingPosition());
-                }
+                }*/
 
                 CheckState();
                 break;
