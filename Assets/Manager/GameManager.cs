@@ -24,6 +24,8 @@ namespace Manager
         
         public static bool IsGamePaused { get; set; }
 
+        private static int level;
+
         public void NotifyAboutNewPlayerInstance(GameObject newPlayer)
         {
             this.player = newPlayer;
@@ -57,6 +59,7 @@ namespace Manager
 
         public void LoadNextLevel()
         {
+            level++;
             this.EnemyManager.RemoveAllEnemies();
             this.LevelBuilder.LoadRandomLevel();
             this.SpawnEnemies();
@@ -76,7 +79,7 @@ namespace Manager
 
         private void SpawnEnemies()
         {
-            foreach (var _ in Enumerable.Range(0, this.enemyCount))
+            foreach (var _ in Enumerable.Range(0, this.enemyCount + level))
             {
                 var pos = Random.onUnitSphere * this.enemySpawnRange;
                 this.enemyManager.SpawnNewEnemy(pos);
