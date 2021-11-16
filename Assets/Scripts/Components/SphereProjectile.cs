@@ -8,17 +8,17 @@ namespace Components
     {
         public GameObject muzzlePrefab;
         public GameObject impactPrefab;
-    
+
         private bool isInit;
         [SerializeField] private Rigidbody rb;
         [SerializeField] private float timeToLive;
+        [SerializeField] private GameObject trail;
 
         private AnimationCurve damageOverTime;
         private double startTime;
 
         public event Action<int> ProjectileHitSomethingEvent;
-
-
+        
         private void Start()
         {
             Destroy(this.gameObject, this.timeToLive);
@@ -33,6 +33,9 @@ namespace Components
                 var muzzle = Instantiate(this.muzzlePrefab, this.transform);
                 Destroy(muzzle, 1f);
             }
+            
+            this.trail.SetActive(false);
+            this.Invoke(nameof(this.MakeTrailVisible), 0.4f);
         }
 
         public void InitializeDirection(Vector3 velocity, AnimationCurve damageOverTimeCurve, Quaternion rotation)
@@ -53,7 +56,6 @@ namespace Components
 
         private void OnTriggerEnter(Collider other)
         {
-
             if (ShouldCollide(other))
             {
                 var timeOnImpact = Time.timeAsDouble - this.startTime;
@@ -79,7 +81,11 @@ namespace Components
         private static bool ShouldCollide(Component c)
         {
             return c.gameObject.layer == LayerMask.NameToLayer("Scenery") || c.gameObject.layer == LayerMask.NameToLayer("Enemy");
-            //return (this.layerMask & c.gameObject.layer) > 0;
+        }
+
+        private void MakeTrailVisible()
+        {
+            this.trail.SetActive(true);
         }
     }
 }
