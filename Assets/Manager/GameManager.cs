@@ -1,4 +1,5 @@
 using System.Linq;
+using Components;
 using Ship;
 using UI;
 using UnityEngine;
@@ -22,6 +23,8 @@ namespace Manager
         public LevelBuilder LevelBuilder { get; private set; }
         
         public static bool IsGamePaused { get; set; }
+
+        private static int level;
 
         public void NotifyAboutNewPlayerInstance(GameObject newPlayer)
         {
@@ -56,6 +59,7 @@ namespace Manager
 
         public void LoadNextLevel()
         {
+            level++;
             this.EnemyManager.RemoveAllEnemies();
             this.LevelBuilder.LoadRandomLevel();
             this.SpawnEnemies();
@@ -70,12 +74,12 @@ namespace Manager
 
         public static void GameOver()
         {
-            //TODO
+            //TODO: Display Game-over screen
         }
 
         private void SpawnEnemies()
         {
-            foreach (var _ in Enumerable.Range(0, this.enemyCount))
+            foreach (var _ in Enumerable.Range(0, this.enemyCount + level))
             {
                 var pos = Random.onUnitSphere * this.enemySpawnRange;
                 this.enemyManager.SpawnNewEnemy(pos);
