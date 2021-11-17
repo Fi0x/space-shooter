@@ -54,7 +54,8 @@ public class BoidController : MonoBehaviour
     [SerializeField] private float minDistanceFromPlayer;
     [SerializeField] private float maxDistanceFromPlayer;
 
-    public Boid[] allUnits { get; set; }
+    //public Boid[] allUnits { get; set; }
+    public List<Boid> allUnits { get; set; }
 
     private void Start()
     {
@@ -97,10 +98,11 @@ public class BoidController : MonoBehaviour
     
     private void GenerateUnits()
     {
-        allUnits = new Boid[flockSize];
+        allUnits = new List<Boid>();
 
         for(int i = 0; i < flockSize; i++)
         {
+            /*
             var randomVector = transform.position + Random.onUnitSphere * 10;
             var rotation = Quaternion.Euler(0, 0, 0);
             allUnits[i] = Instantiate(flockUnitPrefab, randomVector, rotation);
@@ -111,6 +113,20 @@ public class BoidController : MonoBehaviour
 
             // parent
             allUnits[i].transform.SetParent(this.transform);
+            */
+
+            var randomVector = transform.position + Random.onUnitSphere * 10;
+            var rotation = Quaternion.Euler(0, 0, 0);
+            Boid boid = Instantiate(flockUnitPrefab, randomVector, rotation);
+            boid.AssignFlock(this);
+            boid.InitializeSpeed(UnityEngine.Random.Range(minSpeed, maxSpeed));
+            boid.BoidHelper();
+            boid.GetComponent<EnemyAI>().InitiliazeEnemyAI(this);
+
+            // parent
+            boid.transform.SetParent(this.transform);
+            // Add to List
+            allUnits.Add(boid);
         }
     }
 
@@ -134,4 +150,11 @@ public class BoidController : MonoBehaviour
         GetRoamingPosition();
     }
 
+
+
+    // removes Boid from allUnits
+    public void RemoveBoid(Boid boid)
+    {
+        allUnits.Remove(boid);
+    }
 }

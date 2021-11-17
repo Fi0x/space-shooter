@@ -34,6 +34,11 @@ public class Health : MonoBehaviour
 
         if(this.currentHealth <= 0)
         {
+            // if object is a Boid, remove it from the Flock
+            if(TryGetComponent(out Boid boid))
+            {
+                boid.RemoveBoidFromAssignedFlock();
+            }
             Destroy(this.gameObject);
         } 
     }

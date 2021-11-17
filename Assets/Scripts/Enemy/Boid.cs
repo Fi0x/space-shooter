@@ -54,10 +54,10 @@ public class Boid : MonoBehaviour
 
         if (IsHeadingForCollision(moveVector))
         {
-            Debug.Log("IsHeadingForCollision");
+            //Debug.Log("IsHeadingForCollision");
             obstacleVector = FindUnobstructedDirection();
-            Debug.Log("obstacleVector: " + obstacleVector);
-            Debug.Log("transform.forward: " + myTransform.forward);
+            //Debug.Log("obstacleVector: " + obstacleVector);
+            //Debug.Log("transform.forward: " + myTransform.forward);
             obstacleVector = obstacleVector.normalized;
         }
 
@@ -101,7 +101,7 @@ public class Boid : MonoBehaviour
         avoidanceNeighbours.Clear();
         alignmentNeighbours.Clear();
         var allUnits = assignedFlock.allUnits;
-        for (int i = 0; i < allUnits.Length; i++)
+        for (int i = 0; i < allUnits.Count; i++)
         {
             var currentUnit = allUnits[i];
             if (currentUnit != this)
@@ -261,5 +261,13 @@ public class Boid : MonoBehaviour
             directions[i] = new Vector3(x, y, z);
             //Debug.DrawRay(transform.position, directions[i] *  10, Color.red);
         }
+    }
+
+
+
+    // remove Boid from assignedFlock
+    public void RemoveBoidFromAssignedFlock()
+    {
+        assignedFlock.RemoveBoid(this);
     }
 }
