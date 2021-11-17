@@ -127,6 +127,9 @@ public class BoidController : MonoBehaviour
             boid.transform.SetParent(this.transform);
             // Add to List
             allUnits.Add(boid);
+
+            // notify about sensortarget
+            Manager.GameManager.Instance.EnemyManager.NotifyAboutNewEnemySpawned(boid.gameObject);
         }
     }
 
