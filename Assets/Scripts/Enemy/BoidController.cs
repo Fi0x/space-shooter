@@ -108,6 +108,9 @@ public class BoidController : MonoBehaviour
             allUnits[i].InitializeSpeed(UnityEngine.Random.Range(minSpeed, maxSpeed));
             allUnits[i].BoidHelper();
             allUnits[i].GetComponent<EnemyAI>().InitiliazeEnemyAI(this);
+
+            // parent
+            allUnits[i].transform.SetParent(this.transform);
         }
     }
 
