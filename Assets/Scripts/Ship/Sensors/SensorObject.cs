@@ -66,5 +66,10 @@ namespace Ship.Sensors
             var linePoints = new[] {newLocalPosition, newLocalPositionFloor};
             this.lineRenderer.SetPositions(linePoints);
         }
+
+        private void OnDisable()
+        {
+            this.target.TargetDestroyedEvent -= this.OnSensorTargetDestroyedEventHandler;
+        }
     }
 }
