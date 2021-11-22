@@ -15,6 +15,8 @@ public class SpaceDustVFXG : MonoBehaviour
         var shipSpeed = this.smh.shipRigidbody.velocity.magnitude;
 
         var value = (float)shipSpeed / maxShipSpeed;
+        var direction = (transform.worldToLocalMatrix * smh.shipRigidbody.velocity).normalized;
+        vfx.SetVector3("Direction", direction);
         vfx.SetFloat("Speed", value);
     }
 }
