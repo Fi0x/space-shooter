@@ -8,6 +8,7 @@ public class SpaceDustVFXG : MonoBehaviour
 {
     [SerializeField] private VisualEffect vfx;
     [SerializeField] private ShipMovementHandler smh;
+    private Vector3 direction;
 
     void FixedUpdate()
     {
@@ -15,7 +16,7 @@ public class SpaceDustVFXG : MonoBehaviour
         var shipSpeed = this.smh.shipRigidbody.velocity.magnitude;
 
         var value = (float)shipSpeed / maxShipSpeed;
-        var direction = (transform.worldToLocalMatrix * smh.shipRigidbody.velocity).normalized;
+        direction = Vector3.RotateTowards(direction, transform.InverseTransformDirection(smh.shipRigidbody.velocity.normalized),0.5f, 1.0f);
         vfx.SetVector3("Direction", direction);
         vfx.SetFloat("Speed", value);
     }
