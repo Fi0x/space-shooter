@@ -1,3 +1,4 @@
+using Ship;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -59,6 +60,25 @@ public class Boid : MonoBehaviour
             //Debug.Log("obstacleVector: " + obstacleVector);
             //Debug.Log("transform.forward: " + myTransform.forward);
             obstacleVector = obstacleVector.normalized;
+        } else
+        {
+            
+            Vector3 flockCenterVector = Vector3.zero;
+            for(int i = 0; i < assignedFlock.allUnits.Count; i++)
+            {
+                flockCenterVector += assignedFlock.allUnits[i].transform.position;
+            }
+            flockCenterVector /= assignedFlock.allUnits.Count;
+
+            if (Vector3.Distance(flockCenterVector, myTransform.position) > 50)
+            {
+                Vector3 flockCenterDirection = flockCenterVector - myTransform.position;
+                speed *= 1.5f;
+                moveVector = flockCenterDirection.normalized * speed;
+                myTransform.forward = moveVector;
+                myTransform.position += moveVector * Time.deltaTime;
+                return;
+            }
         }
 
         moveVector += obstacleVector * assignedFlock.obstacleWeight;
@@ -79,6 +99,7 @@ public class Boid : MonoBehaviour
 
     private void CalculateSpeed()
     {
+        speed = ShipMovementHandler.TotalMaxSpeed / 10;
         speed = 20.0f;
         return;
         if (cohesionNeighbours.Count == 0)

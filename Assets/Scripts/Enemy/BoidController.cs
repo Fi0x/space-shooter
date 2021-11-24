@@ -143,9 +143,11 @@ public class BoidController : MonoBehaviour
 
         _roamingPosition = newRoamingPosition;
 
+        /*
         GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
         cube.transform.position = newRoamingPosition;
         cube.GetComponent<MeshRenderer>().material.color = Color.red;
+        */
     }
 
     public void SetNewRoamingPosition()
