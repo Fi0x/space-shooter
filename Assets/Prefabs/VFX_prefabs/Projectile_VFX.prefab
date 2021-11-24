@@ -9829,9 +9829,7 @@ MonoBehaviour:
   impactPrefab: {fileID: 1090185056321137668, guid: aa213270453c3d24dbbfb1f24620d17e, type: 3}
   rb: {fileID: 6143299078952737090}
   timeToLive: 2
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
+  trail: {fileID: 3429988761347343811}
 --- !u!1 &8019890946928196669
 GameObject:
   m_ObjectHideFlags: 0

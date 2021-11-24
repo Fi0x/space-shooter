@@ -1,4 +1,5 @@
 using System.Linq;
+using Components;
 using Ship;
 using UI;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace Manager
     {
         [SerializeField] private EnemyManager enemyManager;
         [SerializeField] private GameObject player;
+        [SerializeField] private int playerDefaultHealth = 1000;
         [SerializeField] private int enemySpawnRange = 300;
         [SerializeField] private int swarmCount = 1;
 
@@ -23,6 +25,8 @@ namespace Manager
         public LevelBuilder LevelBuilder { get; private set; }
         
         public static bool IsGamePaused { get; set; }
+
+        private static int level;
 
         public void NotifyAboutNewPlayerInstance(GameObject newPlayer)
         {
@@ -57,6 +61,7 @@ namespace Manager
 
         public void LoadNextLevel()
         {
+            level++;
             this.EnemyManager.RemoveAllEnemies();
             this.LevelBuilder.LoadRandomLevel();
             this.SpawnEnemies();
@@ -67,6 +72,11 @@ namespace Manager
         {
             if(IsGamePaused) OverlayMenu.Resume();
             else OverlayMenu.Pause();
+        }
+
+        public static void GameOver()
+        {
+            //TODO: Display Game-over screen
         }
 
         private void SpawnEnemies()
@@ -90,6 +100,9 @@ namespace Manager
             this.player.transform.position = new Vector3(0, 0, 0);
             this.player.GetComponent<Rigidbody>().velocity = Vector3.zero;
             this.player.GetComponent<ShipMovementHandler>().desiredSpeed = 0;
+            var playerHealth = this.player.GetComponent<Health>();
+            playerHealth.MaxHealth = this.playerDefaultHealth;
+            playerHealth.CurrentHealth = this.playerDefaultHealth;
         }
     }
 }
