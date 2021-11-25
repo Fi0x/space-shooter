@@ -1767,7 +1767,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1318674891}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Manager.InputManager, Assembly-CSharp
         m_MethodName: NextKeyToBind
         m_Mode: 2
@@ -2502,7 +2502,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1318674891}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Manager.InputManager, Assembly-CSharp
         m_MethodName: NextKeyToBind
         m_Mode: 2
@@ -2748,7 +2748,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1318674891}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Manager.InputManager, Assembly-CSharp
         m_MethodName: NextKeyToBind
         m_Mode: 2
@@ -3253,7 +3253,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1318674892}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Manager.SettingsManager, Assembly-CSharp
         m_MethodName: InvokeSpaceDustVisibilityChange
         m_Mode: 1
@@ -4920,7 +4920,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1318674891}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Manager.InputManager, Assembly-CSharp
         m_MethodName: NextKeyToBind
         m_Mode: 2
@@ -5633,7 +5633,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1318674891}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Manager.InputManager, Assembly-CSharp
         m_MethodName: NextKeyToBind
         m_Mode: 2
@@ -6016,7 +6016,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1318674891}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Manager.InputManager, Assembly-CSharp
         m_MethodName: NextKeyToBind
         m_Mode: 2
@@ -6228,7 +6228,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1318674891}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Manager.InputManager, Assembly-CSharp
         m_MethodName: NextKeyToBind
         m_Mode: 2
@@ -7064,8 +7064,6 @@ GameObject:
   - component: {fileID: 1318674889}
   - component: {fileID: 1318674888}
   - component: {fileID: 1318674890}
-  - component: {fileID: 1318674891}
-  - component: {fileID: 1318674892}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -7089,7 +7087,8 @@ MonoBehaviour:
   player: {fileID: 1469893903}
   playerDefaultHealth: 1000
   enemySpawnRange: 300
-  enemyCount: 5
+  swarmCount: 1
+  boidController: {fileID: 2068146923}
 --- !u!4 &1318674889
 Transform:
   m_ObjectHideFlags: 0
@@ -7341,7 +7340,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1318674892}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Manager.SettingsManager, Assembly-CSharp
         m_MethodName: InvokeSpeedIndicatorVisibilityChange
         m_Mode: 1
@@ -7500,7 +7499,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 727722974}
   m_HandleRect: {fileID: 727722973}
   m_Direction: 2
-  m_Value: 0.2
+  m_Value: 0.22857143
   m_Size: 0.9999971
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -7640,7 +7639,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1318674891}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Manager.InputManager, Assembly-CSharp
         m_MethodName: NextKeyToBind
         m_Mode: 2
@@ -7786,7 +7785,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1318674891}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Manager.InputManager, Assembly-CSharp
         m_MethodName: NextKeyToBind
         m_Mode: 2
@@ -13716,7 +13715,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1318674891}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Manager.InputManager, Assembly-CSharp
         m_MethodName: NextKeyToBind
         m_Mode: 2
@@ -15706,6 +15705,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2068146922}
   - component: {fileID: 2068146921}
+  - component: {fileID: 2068146923}
   m_Layer: 0
   m_Name: Enemies
   m_TagString: Untagged
@@ -15741,6 +15741,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2068146923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068146920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58b75bfab1f46fe46b20a1a756b8aa40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flockUnitPrefab: {fileID: 0}
+  flockSize: 0
+  spawnBounds: {x: 0, y: 0, z: 0}
+  _minSpeed: 0
+  _maxSpeed: 0
+  _cohesionDistance: 0
+  _avoidanceDistance: 0
+  _alignmentDistance: 0
+  _obstacleDistance: 0
+  _cohesionWeight: 0
+  _avoidanceWeight: 0
+  _alignmentWeight: 0
+  _obstacleWeight: 0
+  _roamingPosition: {x: 0, y: 0, z: 0}
+  roamingPosReachedDistance: 0
+  minDistanceFromPlayer: 0
+  maxDistanceFromPlayer: 0
 --- !u!1 &2101636425
 GameObject:
   m_ObjectHideFlags: 0
@@ -15817,6 +15846,71 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2101636425}
   m_CullTransparentMesh: 1
+--- !u!1001 &5591749321830443784
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5591749320746751832, guid: c1afecaacb96e584c977697356e98106, type: 3}
+      propertyPath: m_Name
+      value: FlockSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591749320746751833, guid: c1afecaacb96e584c977697356e98106, type: 3}
+      propertyPath: maxFlocks
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591749320746751833, guid: c1afecaacb96e584c977697356e98106, type: 3}
+      propertyPath: minFlocks
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591749320746751834, guid: c1afecaacb96e584c977697356e98106, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591749320746751834, guid: c1afecaacb96e584c977697356e98106, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591749320746751834, guid: c1afecaacb96e584c977697356e98106, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591749320746751834, guid: c1afecaacb96e584c977697356e98106, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591749320746751834, guid: c1afecaacb96e584c977697356e98106, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591749320746751834, guid: c1afecaacb96e584c977697356e98106, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591749320746751834, guid: c1afecaacb96e584c977697356e98106, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591749320746751834, guid: c1afecaacb96e584c977697356e98106, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591749320746751834, guid: c1afecaacb96e584c977697356e98106, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591749320746751834, guid: c1afecaacb96e584c977697356e98106, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591749320746751834, guid: c1afecaacb96e584c977697356e98106, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c1afecaacb96e584c977697356e98106, type: 3}
 --- !u!1001 &8824902618792612448
 PrefabInstance:
   m_ObjectHideFlags: 0

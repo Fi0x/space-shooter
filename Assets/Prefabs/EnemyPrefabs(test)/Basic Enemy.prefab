@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 429333123813247742}
   - component: {fileID: 429333123813247743}
   - component: {fileID: 429333123813247738}
-  - component: {fileID: 429333123813247737}
   - component: {fileID: 3651637442931774677}
+  - component: {fileID: -397256906301617565}
+  - component: {fileID: 1544793552462117733}
   m_Layer: 7
   m_Name: Basic Enemy
   m_TagString: Enemy
@@ -77,36 +78,10 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &429333123813247737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 429333123813247712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 572f3b9ce60f95c428bb0f95d265b33b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  state: 0
-  attackPoints:
-  - {fileID: 429333124123432732}
-  - {fileID: 4961875227451673628}
-  roamingPosition: {x: 0, y: 0, z: 0}
-  reachedPositionMaxDistance: 0
-  minDistanceFromPlayer: 0
-  maxDistanceFromPlayer: 0
-  speed: 0
-  timeBetweenAttacks: 0
-  waitForAttack: 0
-  projectilePrefab: {fileID: 7276553157955487200, guid: 58d48bb45d8d3e749be06bd4b3f5e245, type: 3}
-  sightRange: 0
-  attackRange: 0
 --- !u!114 &3651637442931774677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,6 +97,47 @@ MonoBehaviour:
   allegiance: 0
   targetType: 0
   isInit: 0
+--- !u!114 &-397256906301617565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429333123813247712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb88f7ef104ad77409f0b1294ee9b420, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FOVAngle: 360
+  smoothDamp: 1
+  directions: []
+--- !u!114 &1544793552462117733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429333123813247712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a24fdd01adb59b43980b888c8913ae4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  AttackPoint: {fileID: 429333124123432732}
+  roamingPosition: {x: 0, y: 0, z: 0}
+  reachedPositionMaxDistance: 0
+  minDistanceFromPlayer: 0
+  maxDistanceFromPlayer: 0
+  speed: 0
+  timeBetweenAttacks: 0
+  waitForAttack: 0
+  projectilePrefab: {fileID: 7276553157955487200, guid: 58d48bb45d8d3e749be06bd4b3f5e245, type: 3}
+  sightRange: 0
+  attackRange: 0
+  boid: {fileID: 0}
+  boidController: {fileID: 0}
 --- !u!1 &429333124123432733
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,7 +14,9 @@ namespace Manager
         [SerializeField] private GameObject player;
         [SerializeField] private int playerDefaultHealth = 1000;
         [SerializeField] private int enemySpawnRange = 300;
-        [SerializeField] private int enemyCount = 5;
+        [SerializeField] private int swarmCount = 1;
+
+        [SerializeField] private BoidController boidController;
 
         public GameObject Player => this.player;
 
@@ -79,11 +81,18 @@ namespace Manager
 
         private void SpawnEnemies()
         {
-            foreach (var _ in Enumerable.Range(0, this.enemyCount + level))
+            Vector3[] pos = new Vector3[this.swarmCount];
+
+            for (int i = 0; i < pos.Length; i++)
             {
-                var pos = Random.onUnitSphere * this.enemySpawnRange;
-                this.enemyManager.SpawnNewEnemy(pos);
+                pos[i] = player.transform.position + Random.onUnitSphere * enemySpawnRange;
             }
+
+            //boidController.InitializeBoids(this.swarmCount, pos);
+
+            //this.enemyManager.SpawnNewEnemy(pos);
+                
+            
         }
 
         private void SpawnPlayer()

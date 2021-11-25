@@ -11,11 +11,11 @@ namespace Manager
 
         [SerializeField] [ReadOnlyInspector] private List<SensorTarget> enemies = new List<SensorTarget>();
 
+
         public IReadOnlyList<SensorTarget> Enemies => this.enemies;
 
-        public void SpawnNewEnemy(Vector3 position)
+        public void NotifyAboutNewEnemySpawned(GameObject enemy)
         {
-            var enemy = Instantiate(this.enemyPrefab, position, Random.rotation, this.transform);
             var sensorTarget = enemy.GetComponent<SensorTarget>();
             sensorTarget.TargetDestroyedEvent += target => this.enemies.Remove(target);
             sensorTarget.Init(SensorTarget.TargetType.Ship, SensorTarget.TargetAllegiance.Hostile);
@@ -31,4 +31,5 @@ namespace Manager
             }
         }
     }
+
 }

@@ -47,13 +47,12 @@ namespace Components
 
         public void TakeDamage(int damage)
         {
-            this.CurrentHealth -= damage;
-
-            if (this.CurrentHealth <= 0)
+            // if object is a Boid, remove it from the Flock
+            if(TryGetComponent(out Boid boid))
             {
-                if(this.isPlayer) GameManager.GameOver();
-                else Destroy(this.gameObject);
+                boid.RemoveBoidFromAssignedFlock();
             }
-        }
+            Destroy(this.gameObject);
+        } 
     }
 }
