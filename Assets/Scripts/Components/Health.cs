@@ -1,4 +1,3 @@
-using Manager;
 using UnityEngine;
 
 namespace Components
