@@ -1,3 +1,4 @@
+using Components;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -61,9 +62,9 @@ namespace Ship
             var ownPosition = this.gameObject.transform.position;
             projectile.transform.position = ownPosition;
             var shotDirection = this.weaponManager.Target - ownPosition;
-            var projectileDirectionAndVelocity = 1.2f * ShipMovementHandler.TotalMaxSpeed * shotDirection.normalized;
+            var projectileDirectionAndVelocity = 1.5f * ShipMovementHandler.TotalMaxSpeed * shotDirection.normalized;
             var projectileScript = projectile.GetComponent<SphereProjectile>();
-            projectileScript.InitializeDirection(projectileDirectionAndVelocity, LayerMask.GetMask("Enemy", "Scenery"), this.damageOverTime, this.transform.rotation);
+            projectileScript.InitializeDirection(projectileDirectionAndVelocity, this.damageOverTime, this.transform.rotation);
             projectileScript.ProjectileHitSomethingEvent += layer =>
             {
                 var targetLayer = LayerMask.NameToLayer("Enemy");

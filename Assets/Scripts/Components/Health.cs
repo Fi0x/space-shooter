@@ -1,39 +1,56 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+namespace Components
 {
-    [Header("Health")]
-    //
-    [SerializeField]
-    private int maxHealth;
-    [SerializeField]
-    private int currentHealth;
-
-    private HealthBar healthBar;
-
-    // Start is called before the first frame update
-    void Start()
+    public class Health : MonoBehaviour
     {
-        //
-        this.maxHealth = 1000;
-        this.currentHealth = this.maxHealth;
-
-        //
-        this.healthBar = this.GetComponentInChildren<HealthBar>();
-
-        //
-        this.healthBar.SetMaxHealth(this.maxHealth);
-    }
-
-    public void TakeDamage(int damage)
-    {
-        this.currentHealth -= damage;
-        this.healthBar.SetCurrentHealth(this.currentHealth);
-
-        if(this.currentHealth <= 0)
+        [SerializeField] private bool isPlayer;
+        private int maxHealth;
+        public int MaxHealth
         {
+            get => this.maxHealth;
+            set
+            {
+                this.maxHealth = value;
+                this.HealthBar.SetMaxHealth(this.MaxHealth);
+            }
+        }
+
+        private int currentHealth;
+        public int CurrentHealth
+        {
+            get => this.currentHealth;
+            set
+            {
+                this.currentHealth = value;
+                if (this.currentHealth > this.MaxHealth) this.currentHealth = this.MaxHealth;
+                this.HealthBar.SetCurrentHealth(this.currentHealth);
+            }
+        }
+
+        private HealthBar healthBar;
+        private HealthBar HealthBar
+        {
+            get
+            {
+                if(!this.healthBar) this.healthBar = this.GetComponentInChildren<HealthBar>();
+                return this.healthBar;
+            }
+        }
+
+        private void Start()
+        {
+            this.MaxHealth = 1000;
+            this.CurrentHealth = this.MaxHealth;
+        }
+
+        public void TakeDamage(int damage)
+        {
+            // if object is a Boid, remove it from the Flock
+            if(TryGetComponent(out Boid boid))
+            {
+                boid.RemoveBoidFromAssignedFlock();
+            }
             Destroy(this.gameObject);
         } 
     }

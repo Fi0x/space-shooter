@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81180773991d8724ab7f2d216912b564, type: 3}
   m_Name: ChromaticAberration
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.149
+    m_Value: 0
     min: 0
     max: 1
 --- !u!114 &-2654424348104052072
@@ -213,7 +213,7 @@ MonoBehaviour:
     min: 0
   tint:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_Value: {r: 0.33169612, g: 0.29681382, b: 0.5471698, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
