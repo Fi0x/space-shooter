@@ -1,3 +1,4 @@
+using Manager;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,5 +15,9 @@ public class Startup
     {
         var overlayMenuPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/UI/OverlayMenu.prefab");
         Object.Instantiate(overlayMenuPrefab);
+
+        var playerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Player/Player.prefab");
+        var playerObject = Object.Instantiate(playerPrefab);
+        GameManager.Instance.NotifyAboutNewPlayerInstance(playerObject);
     }
 }

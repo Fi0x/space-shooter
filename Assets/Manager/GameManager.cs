@@ -51,6 +51,7 @@ namespace Manager
         {
             DontDestroyOnLoad(this.gameObject);
             _instance = this;
+            this.player = GameObject.Find("Player");
         }
 
         private void Start()
