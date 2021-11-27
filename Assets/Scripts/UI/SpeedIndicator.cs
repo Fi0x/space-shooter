@@ -16,8 +16,8 @@ namespace UI
         private void Start()
         {
             this.slider.value = this.offset;
-            SettingsManager.SpeedIndicatorVisibilityChanged += (sender, args) => { this.gameObject.SetActive(SettingsManager.IsSpeedIndicatorVisible); };
-            SettingsManager.SpaceDustVisibilityChanged += (sender, args) => { this.spaceDust.SetActive(SettingsManager.IsSpaceDustVisible); };
+            OverlayMenu.SpeedIndicatorVisibilityChanged += (sender, args) => { this.gameObject.SetActive(args.NewBoolValue); };
+            OverlayMenu.SpaceDustVisibilityChanged += (sender, args) => { this.spaceDust.SetActive(args.NewBoolValue); };
         }
 
         public void SetMaxSpeed(float maxSpeed)

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,8 @@ namespace Manager
 
         private static Button _nextBindKey;
         private static KeyCode _mostRecentKey;
+        
+        public static InputManager Instance { get; private set; }
 
         public void NextKeyToBind(Button keyButton)
         {
@@ -86,6 +89,11 @@ namespace Manager
 
             _nextBindKey.gameObject.GetComponentInChildren<Text>().text = newKey.ToString();
             _mostRecentKey = newKey;
+        }
+
+        private void Start()
+        {
+            Instance = this;
         }
 
         private void Update()
