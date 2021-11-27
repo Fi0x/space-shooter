@@ -16,14 +16,9 @@ namespace Enemy
         [SerializeField] private float minSpawnRange = 300;
         [SerializeField] private float maxSpawnRange = 400;
 
-        private void Start()
+        public void SpawnFlocks()
         {
             var flockCount = Random.Range(this.minFlocks, this.maxFlocks);
-            this.SpawnFlocks(flockCount);
-        }
-
-        private void SpawnFlocks(int flockCount)
-        {
             for(var i = 0; i < flockCount; i++)
             {
                 var randomDirection = new Vector3(

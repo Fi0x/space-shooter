@@ -18,6 +18,10 @@ public class Startup
 
         var playerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Player/Player.prefab");
         var playerObject = Object.Instantiate(playerPrefab);
-        GameManager.Instance.NotifyAboutNewPlayerInstance(playerObject);
+
+        var gameManagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/GameController.prefab");
+        var gameManagerScript = Object.Instantiate(gameManagerPrefab).GetComponent<GameManager>();
+        
+        gameManagerScript.NotifyAboutNewPlayerInstance(playerObject);
     }
 }

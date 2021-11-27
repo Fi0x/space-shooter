@@ -13,11 +13,8 @@ namespace Manager
     {
         [SerializeField] private EnemyManager enemyManager;
         [SerializeField] private LevelBuilder levelBuilder;
+        [SerializeField] private FlockSpawner flockSpawner;
         [SerializeField] private int playerDefaultHealth = 1000;
-        [SerializeField] private int enemySpawnRange = 300;
-        [SerializeField] private int swarmCount = 1;
-
-        [SerializeField] private BoidController boidController;
 
         public GameObject Player { get; private set; }
 
@@ -65,7 +62,7 @@ namespace Manager
             level++;
             this.EnemyManager.RemoveAllEnemies();
             this.LevelBuilder.LoadRandomLevel();
-            this.SpawnEnemies();
+            this.flockSpawner.SpawnFlocks();
             this.SpawnPlayer();
         }
 
@@ -78,16 +75,6 @@ namespace Manager
         public static void GameOver()
         {
             //TODO: Display Game-over screen
-        }
-
-        private void SpawnEnemies()
-        {
-            var pos = new Vector3[this.swarmCount];
-
-            for (var i = 0; i < pos.Length; i++)
-            {
-                pos[i] = this.Player.transform.position + Random.onUnitSphere * this.enemySpawnRange;
-            }
         }
 
         private void SpawnPlayer()
