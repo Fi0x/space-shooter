@@ -125,11 +125,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  AttackPoint: {fileID: 429333124123432732}
+  attackPoints:
+  - {fileID: 429333124123432732}
+  - {fileID: 4961875227451673628}
   roamingPosition: {x: 0, y: 0, z: 0}
   reachedPositionMaxDistance: 0
-  minDistanceFromPlayer: 0
-  maxDistanceFromPlayer: 0
   speed: 0
   timeBetweenAttacks: 0
   waitForAttack: 0

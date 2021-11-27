@@ -13,8 +13,8 @@ namespace UI
         {
             this.slider = this.gameObject.GetComponent<Slider>();
             
-            this.valueField.text = $"{SettingsManager.MouseSensitivity}";
-            this.slider.value = SettingsManager.MouseSensitivity;
+            this.valueField.text = $"{InputManager.MouseSensitivity}";
+            this.slider.value = InputManager.MouseSensitivity;
         }
 
         public void SliderUpdated()
@@ -22,7 +22,7 @@ namespace UI
             var newValue = this.slider.value;
 
             this.valueField.text = $"{newValue}";
-            SettingsManager.MouseSensitivity = newValue;
+            InputManager.MouseSensitivity = newValue;
         }
 
         public void ValueUpdated()
@@ -41,7 +41,7 @@ namespace UI
             }
 
             this.slider.value = newValue;
-            SettingsManager.MouseSensitivity = newValue;
+            InputManager.MouseSensitivity = newValue;
         }
     }
 }

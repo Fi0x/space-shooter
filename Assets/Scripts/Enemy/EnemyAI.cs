@@ -1,198 +1,123 @@
-using System.Collections;
-using System.Collections.Generic;
 using Manager;
+using Ship;
 using UnityEngine;
 
-public class EnemyAI : MonoBehaviour
+namespace Enemy
 {
-    public enum State
+    public class EnemyAI : MonoBehaviour
     {
-        Roaming,
-        ChasePlayer,
-        AttackPlayer,
-    }
+        [Header("AI")]
+        [SerializeField] [ReadOnlyInspector] private State state;
+        [SerializeField] private Transform[] attackPoints;
 
-    [Header("AI")]
-    //
-    [SerializeField] [ReadOnlyInspector] private State state;
-    [SerializeField] private Transform AttackPoint;
+        [Header("Roaming")]
+        [SerializeField] [ReadOnlyInspector] public Vector3 roamingPosition;
+        [SerializeField] private float reachedPositionMaxDistance;
+        [SerializeField] private float speed;
 
-    // Patroling
-    [Header("Roaming")]
-    //
-    [SerializeField] [ReadOnlyInspector] public Vector3 roamingPosition;
-    [SerializeField] float reachedPositionMaxDistance;
-    [SerializeField] private float minDistanceFromPlayer;
-    [SerializeField] private float maxDistanceFromPlayer;
-    [SerializeField] private float speed;
+        [Header("Attack")]
+        [SerializeField] private float timeBetweenAttacks;
+        [SerializeField] [ReadOnlyInspector] private float waitForAttack;
+        [SerializeField] private GameObject projectilePrefab;
 
-    // Attacking
-    [Header("Attack")]
-    //
-    [SerializeField] private float timeBetweenAttacks;
-    [SerializeField] [ReadOnlyInspector] private float waitForAttack;
-    [SerializeField] private GameObject projectilePrefab;
+        [Header("Ranges")]
+        [SerializeField] private float sightRange;
+        [SerializeField] private float attackRange;
 
-    // Ranges
-    [Header("Ranges")]
-    //
-    [SerializeField] private float sightRange;
-    [SerializeField] private float attackRange;
+        [Header("Boid")]
+        [SerializeField] private Boid boid;
+        [SerializeField] private BoidController boidController;
 
-    // Boid
-    [SerializeField] private Boid boid;
-    [SerializeField] private BoidController boidController;
-
-    public void InitiliazeEnemyAI(BoidController boidController)
-    {
-        // Boid
-        boid = this.GetComponent<Boid>();
-
-        // get AttackPoint
-        this.transform.Find("AttackPoint");
-
-        // Start in RoamState
-        this.state = State.Roaming;
-
-        // Patroling
-        minDistanceFromPlayer = 75.0f;
-        maxDistanceFromPlayer = 250.0f;
-        //roamingPosition = GetRoamingPosition();
-
-        reachedPositionMaxDistance = 20.0f;
-
-        speed = 20.0f;
-
-        // Attack
-        waitForAttack = 2.0f;
-        timeBetweenAttacks = waitForAttack;
-
-        // Ranges
-        sightRange = 125.0f;
-        attackRange = 75.0f;
-
-        this.boidController = boidController;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        switch (state)
+        public void InitializeEnemyAI(BoidController controller)
         {
-            case State.Roaming:
-                /*
-                boid.SimulateMovement(boidController.GetOtherBoids(boid.SwarmIndex), 
-                    Time.deltaTime, (roamingPosition - transform.position).normalized);
-                
+            this.boid = this.GetComponent<Boid>();
 
-                //Debug.Log(Vector3.Distance(this.transform.position, roamingPosition));
-                // check if roamingPosition has been reached
-                if (Vector3.Distance(this.transform.position, roamingPosition) < reachedPositionMaxDistance)
-                {
-                    // determine a new roamPosition
-                    //roamingPosition = GetRoamingPosition();
-
-                    boidController.SetNewRoamingPosition(boid.SwarmIndex, GetRoamingPosition());
-                }*/
-                if(Vector3.Distance(transform.position, roamingPosition) < reachedPositionMaxDistance)
-                {
-                    // determine a new RoamingPosition
-                    boidController.SetNewRoamingPosition();
-                }
-
-                boid.MoveUnit();
-
-                CheckState();
-                break;
-
-
-            case State.ChasePlayer:
-
-                // rotate towards position
-                FaceTarget(GameManager.Instance.Player.transform.position);
-                // move towards Player
-                this.transform.position =
-                    Vector3.MoveTowards(transform.position, GameManager.Instance.Player.transform.position, speed / 4 * Time.deltaTime);
-
-                CheckState();
-                break;
-
-
-            case State.AttackPlayer:
-
-                // rotate towards Player
-                FaceTarget(GameManager.Instance.Player.transform.position);
-
-                // Attack
-                waitForAttack -= Time.deltaTime;
-                if (waitForAttack < 0f
-                    && IsFacingTarget(this.transform.forward, GameManager.Instance.Player.transform.position - this.transform.position,
-                        10))
-                {
-                    waitForAttack = timeBetweenAttacks;
-
-                    Attack();
-                }
-
-                CheckState();
-                break;
-        }
-    }
-
-    private void CheckState()
-    {
-        
-        // Check for sightRange 
-        if (Vector3.Distance(this.transform.position, GameManager.Instance.Player.transform.position) <= sightRange)
-        {
-            this.state = State.ChasePlayer;
-        }
-        else
-        {
             this.state = State.Roaming;
+            this.reachedPositionMaxDistance = 20.0f;
+            this.speed = ShipMovementHandler.TotalMaxSpeed * 0.8f;
+
+            this.waitForAttack = 2.0f;
+            this.timeBetweenAttacks = this.waitForAttack;
+            this.sightRange = 125.0f;
+            this.attackRange = 75.0f;
+
+            this.boidController = controller;
         }
 
-        // Check for attackRange
-        if (Vector3.Distance(this.transform.position, GameManager.Instance.Player.transform.position) <= attackRange)
+        private void Update()
         {
-            this.state = State.AttackPlayer;
+            switch (this.state)
+            {
+                case State.Roaming:
+                    this.RoamAround();
+                    break;
+                case State.ChasePlayer:
+                    this.ChasePlayer();
+                    break;
+                case State.AttackPlayer:
+                    this.AttackPlayer();
+                    break;
+            }
         }
+
+        private void ChasePlayer()
+        {
+            this.FaceTarget(GameManager.Instance.Player.transform.position);
+            this.transform.position = Vector3.MoveTowards(
+                this.transform.position,
+                GameManager.Instance.Player.transform.position,
+                this.speed / 4 * Time.deltaTime);
         
+            this.CheckState();
+        }
 
-        //state = State.Roaming;
-    }
+        private void AttackPlayer()
+        {
+            this.FaceTarget(GameManager.Instance.Player.transform.position);
 
-    private void FaceTarget(Vector3 lookDirection)
-    {
-        Vector3 direction = (lookDirection - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, direction.y, direction.z));
-        this.transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-    }
+            this.waitForAttack -= Time.deltaTime;
+            if (this.waitForAttack < 0f
+                && Vector3.Angle(this.transform.forward, GameManager.Instance.Player.transform.position - this.transform.position) < 10)
+            {
+                this.waitForAttack = this.timeBetweenAttacks;
+                foreach (var attackPoint in this.attackPoints)
+                    Instantiate(this.projectilePrefab, attackPoint.position, this.transform.rotation);
+            }
 
-    private float GetAngle(Vector3 first, Vector3 second)
-    {
-        return Vector3.Angle(first, second);
-    }
+            this.CheckState();
+        }
 
-    private bool IsFacingTarget(Vector3 forward, Vector3 direction, float tolerance)
-    {
-        return Vector3.Angle(forward, direction) < tolerance ? true : false;
-    }
+        private void RoamAround()
+        {
+            if(Vector3.Distance(this.transform.position, this.roamingPosition) < this.reachedPositionMaxDistance)
+                this.boidController.SetNewRoamingPosition();
+                
+            this.boid.MoveUnit();
+            this.CheckState();
+        }
 
-    private Vector3 GetRoamingPosition()
-    {        
-        return GameManager.Instance.Player.transform.position +
-               GetRandomDir() * UnityEngine.Random.Range(minDistanceFromPlayer, maxDistanceFromPlayer);
-    }
+        private void CheckState()
+        {
+            this.state = Vector3.Distance(this.transform.position, GameManager.Instance.Player.transform.position) <= this.sightRange
+                ? this.state = State.ChasePlayer
+                : this.state = State.Roaming;
 
-    private Vector3 GetRandomDir()
-    {
-        return new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f),
-            UnityEngine.Random.Range(-1f, 1f));
-    }
+            if (Vector3.Distance(this.transform.position, GameManager.Instance.Player.transform.position) <= this.attackRange)
+                this.state = State.AttackPlayer;
+        }
 
-    private void Attack()
-    {
-       Instantiate(projectilePrefab, AttackPoint.position, transform.rotation);
+        private void FaceTarget(Vector3 lookDirection)
+        {
+            var direction = (lookDirection - this.transform.position).normalized;
+            var lookRotation = Quaternion.LookRotation(new Vector3(direction.x, direction.y, direction.z));
+            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, lookRotation, Time.deltaTime * 5f);
+        }
+    
+        private enum State
+        {
+            Roaming,
+            ChasePlayer,
+            AttackPlayer,
+        }
     }
 }
