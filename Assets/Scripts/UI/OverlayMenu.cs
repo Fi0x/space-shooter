@@ -1,3 +1,4 @@
+using System;
 using Manager;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,12 +11,19 @@ namespace UI
         [SerializeField] private GameObject settingsObject;
         [SerializeField] private GameObject keyBindObject;
         [SerializeField] private Text menuTitle;
-        
+        [SerializeField] private Toggle speedIndicatorToggle;
+        [SerializeField] private Toggle spaceDustToggle;
+
         private static GameObject _overlayMenu;
         private static GameObject _pauseMenu;
         private static GameObject _settingsMenu;
         private static GameObject _keyBindMenu;
         private static Text _menuTitle;
+        private static Toggle _speedIndicatorToggle;
+        private static Toggle _spaceDustToggle;
+
+        public static event EventHandler<BoolEventChangerArgs> SpeedIndicatorVisibilityChanged;
+        public static event EventHandler<BoolEventChangerArgs> SpaceDustVisibilityChanged;
 
         private void Start()
         {
@@ -24,9 +32,17 @@ namespace UI
             _settingsMenu = this.settingsObject;
             _keyBindMenu = this.keyBindObject;
             _menuTitle = this.menuTitle;
+            _speedIndicatorToggle = this.speedIndicatorToggle;
+            _spaceDustToggle = this.spaceDustToggle;
+            
+            _speedIndicatorToggle.isOn = true;
+            _spaceDustToggle.isOn = true;
             
             if(GameManager.IsGamePaused) Pause();
             else Resume();
+            
+            SpeedIndicatorVisibilityChanged?.Invoke(null, new BoolEventChangerArgs { NewBoolValue = _speedIndicatorToggle.isOn });
+            SpaceDustVisibilityChanged?.Invoke(null, new BoolEventChangerArgs { NewBoolValue = _spaceDustToggle.isOn });
         }
 
         public static void Pause()
@@ -81,5 +97,19 @@ namespace UI
             _settingsMenu.SetActive(false);
             _keyBindMenu.SetActive(false);
         }
+
+        public static void InvokeSpeedIndicatorVisibilityChange()
+        {
+            SpeedIndicatorVisibilityChanged?.Invoke(null, new BoolEventChangerArgs { NewBoolValue = _speedIndicatorToggle.isOn });
+        }
+        public static void InvokeSpaceDustVisibilityChange()
+        {
+            SpaceDustVisibilityChanged?.Invoke(null, new BoolEventChangerArgs { NewBoolValue = _spaceDustToggle.isOn });
+        }
+    }
+
+    public class BoolEventChangerArgs : EventArgs
+    {
+        public bool NewBoolValue;
     }
 }

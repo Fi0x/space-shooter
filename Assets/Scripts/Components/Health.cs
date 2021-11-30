@@ -1,3 +1,5 @@
+using Enemy;
+using Manager;
 using UnityEngine;
 
 namespace Components
@@ -46,12 +48,17 @@ namespace Components
 
         public void TakeDamage(int damage)
         {
-            // if object is a Boid, remove it from the Flock
-            if(TryGetComponent(out Boid boid))
-            {
+            this.CurrentHealth -= damage;
+            if(this.CurrentHealth > 0)
+                return;
+            
+            if(this.TryGetComponent(out Boid boid))
                 boid.RemoveBoidFromAssignedFlock();
-            }
-            Destroy(this.gameObject);
+            
+            if(this.isPlayer)
+                GameManager.GameOver();
+            else
+                Destroy(this.gameObject);
         } 
     }
 }

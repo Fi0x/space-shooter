@@ -1,5 +1,6 @@
 using System.Linq;
 using Components;
+using Enemy;
 using Ship;
 using UI;
 using UnityEngine;
@@ -11,18 +12,15 @@ namespace Manager
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private EnemyManager enemyManager;
-        [SerializeField] private GameObject player;
+        [SerializeField] private LevelBuilder levelBuilder;
+        [SerializeField] private FlockSpawner flockSpawner;
         [SerializeField] private int playerDefaultHealth = 1000;
-        [SerializeField] private int enemySpawnRange = 300;
-        [SerializeField] private int swarmCount = 1;
 
-        [SerializeField] private BoidController boidController;
-
-        public GameObject Player => this.player;
+        public GameObject Player { get; private set; }
 
         public EnemyManager EnemyManager => this.enemyManager;
-        
-        public LevelBuilder LevelBuilder { get; private set; }
+
+        public LevelBuilder LevelBuilder => this.levelBuilder;
         
         public static bool IsGamePaused { get; set; }
 
@@ -30,7 +28,7 @@ namespace Manager
 
         public void NotifyAboutNewPlayerInstance(GameObject newPlayer)
         {
-            this.player = newPlayer;
+            this.Player = newPlayer;
         }
 
         private static GameManager _instance;
@@ -51,11 +49,11 @@ namespace Manager
         {
             DontDestroyOnLoad(this.gameObject);
             _instance = this;
+            this.Player = GameObject.Find("Player");
         }
 
         private void Start()
         {
-            this.LevelBuilder = this.gameObject.GetComponent<LevelBuilder>();
             this.LoadNextLevel();
         }
 
@@ -64,7 +62,7 @@ namespace Manager
             level++;
             this.EnemyManager.RemoveAllEnemies();
             this.LevelBuilder.LoadRandomLevel();
-            this.SpawnEnemies();
+            this.flockSpawner.SpawnFlocks();
             this.SpawnPlayer();
         }
 
@@ -79,28 +77,12 @@ namespace Manager
             //TODO: Display Game-over screen
         }
 
-        private void SpawnEnemies()
-        {
-            Vector3[] pos = new Vector3[this.swarmCount];
-
-            for (int i = 0; i < pos.Length; i++)
-            {
-                pos[i] = player.transform.position + Random.onUnitSphere * enemySpawnRange;
-            }
-
-            //boidController.InitializeBoids(this.swarmCount, pos);
-
-            //this.enemyManager.SpawnNewEnemy(pos);
-                
-            
-        }
-
         private void SpawnPlayer()
         {
-            this.player.transform.position = new Vector3(0, 0, 0);
-            this.player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            this.player.GetComponent<ShipMovementHandler>().desiredSpeed = 0;
-            var playerHealth = this.player.GetComponent<Health>();
+            this.Player.transform.position = new Vector3(0, 0, 0);
+            this.Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            this.Player.GetComponent<ShipMovementHandler>().desiredSpeed = 0;
+            var playerHealth = this.Player.GetComponent<Health>();
             playerHealth.MaxHealth = this.playerDefaultHealth;
             playerHealth.CurrentHealth = this.playerDefaultHealth;
         }

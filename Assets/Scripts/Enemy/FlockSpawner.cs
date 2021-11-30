@@ -1,39 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Manager;
 
-public class FlockSpawner : MonoBehaviour
+namespace Enemy
 {
-    [Header("Flock Prefab")]
-    [SerializeField] private GameObject flockPrefab;
-
-    [Header("Flock Count")]
-    [SerializeField] private int minFlocks;
-    [SerializeField] private int maxFlocks;
-
-    [Header("Spawn Ranges")]
-    [SerializeField] private float minSpawnRange;
-    [SerializeField] private float maxSpawnRange;
-
-    // Start is called before the first frame update
-    void Start()
+    public class FlockSpawner : MonoBehaviour
     {
-        int flockCount = Random.Range(minFlocks, maxFlocks);
+        [Header("Flock Prefab")]
+        [SerializeField] private GameObject flockPrefab;
 
-        for(int i = 0; i < flockCount; i++)
+        [Header("Flock Count")]
+        [SerializeField] private int minFlocks = 1;
+        [SerializeField] private int maxFlocks = 5;
+
+        [Header("Spawn Ranges")]
+        [SerializeField] private float minSpawnRange = 300;
+        [SerializeField] private float maxSpawnRange = 400;
+
+        public void SpawnFlocks()
         {
-            Vector3 randomDirection = new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f),
-            UnityEngine.Random.Range(-1f, 1f));
-
-            float spawnRange = Random.Range(minSpawnRange, maxSpawnRange);
-
-
-            Vector3 spawnPosition = GameManager.Instance.Player.transform.position + randomDirection * spawnRange;
-
-            Instantiate(flockPrefab, spawnPosition, Quaternion.identity);
+            var flockCount = Random.Range(this.minFlocks, this.maxFlocks);
+            for(var i = 0; i < flockCount; i++)
+            {
+                var randomDirection = new Vector3(
+                    Random.Range(-1f, 1f),
+                    Random.Range(-1f, 1f),
+                    Random.Range(-1f, 1f));
+                var spawnRange = Random.Range(this.minSpawnRange, this.maxSpawnRange);
+                var spawnPosition = GameManager.Instance.Player.transform.position + randomDirection * spawnRange;
+                
+                Instantiate(this.flockPrefab, spawnPosition, Quaternion.identity);
+            }
         }
     }
-
-    
 }

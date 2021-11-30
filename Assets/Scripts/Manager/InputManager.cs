@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,8 +6,8 @@ namespace Manager
 {
     public class InputManager : MonoBehaviour
     {
-        public static bool WaitingForKeyInput { get; private set; }
-
+        public static float MouseSensitivity = 0.25f;
+        
         public static KeyCode AccelerateKey = KeyCode.W;
         public static KeyCode DecelerateKey = KeyCode.S;
         public static KeyCode RollLeftKey = KeyCode.Q;
@@ -20,6 +21,9 @@ namespace Manager
 
         private static Button _nextBindKey;
         private static KeyCode _mostRecentKey;
+        
+        public static InputManager Instance { get; private set; }
+        public static bool WaitingForKeyInput { get; private set; }
 
         public void NextKeyToBind(Button keyButton)
         {
@@ -86,6 +90,11 @@ namespace Manager
 
             _nextBindKey.gameObject.GetComponentInChildren<Text>().text = newKey.ToString();
             _mostRecentKey = newKey;
+        }
+
+        private void Start()
+        {
+            Instance = this;
         }
 
         private void Update()
