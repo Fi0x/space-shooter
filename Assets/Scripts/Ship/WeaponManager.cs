@@ -17,7 +17,7 @@ namespace Ship
 
         private void Update()
         {
-            if (this.isShooting == this.inputHandler.IsShooting)
+            if (this.isShooting == this.inputHandler.CurrentInputState.Shooting)
                 return;
 
             this.isShooting = !this.isShooting;

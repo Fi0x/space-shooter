@@ -6,8 +6,8 @@ using Vector3 = UnityEngine.Vector3;
 
 namespace Ship
 {
-    [RequireComponent(typeof(InputHandler))]
-    public class ShipMovementHandler : MonoBehaviour
+    [RequireComponent(typeof(InputHandler))] [Obsolete]
+    public class sShipMovementHandler : MonoBehaviour
     {
         [Header("Rotation Forces")]
         [SerializeField] public float pitchSpeed = 1f;
@@ -97,9 +97,9 @@ namespace Ship
             // Necessary to allow full-stop
             if(this.shipRigidbody.velocity.sqrMagnitude < this.minBrakeSpeed) this.shipRigidbody.velocity = Vector3.zero;
             
-            var (pitch, roll, yaw, thrust, strafe, _, _) = this.inputHandler.CurrentInputState;
-            this.HandleAngularVelocity(pitch, yaw, roll);
-            this.HandleThrust(thrust, strafe);
+            var input = this.inputHandler.CurrentInputState;
+            this.HandleAngularVelocity(input.Pitch, input.Yaw, input.Roll);
+            this.HandleThrust(input.Thrust, input.Strafe);
             this.currentSpeed = Stabilization.StabilizeShip(this);
 
             this.ForcesAppliedEvent?.Invoke();

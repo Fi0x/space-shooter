@@ -6,26 +6,25 @@ namespace Ship
     {
         public static event EventHandler<FlightModelChangedEventArgs> FlightModelChangedEvent;
         
-        public static void StoreCustomFlightModel(ShipMovementHandler smh)
+        public static void StoreCustomFlightModel(ShipMovementHandler2Settings smh)
         {
-            foreach (var mode in Modes)
+            foreach (var (name, mode) in Modes)
             {
-                if (!mode.name.Equals("Custom")) continue;
+                if (!name.Equals("Custom")) continue;
 
-                var m = mode.mode;
-                m.RotPitch = smh.pitchSpeed;
-                m.RotRoll = smh.rollSpeed;
-                m.RotYaw = smh.yawSpeed;
-                m.AccForward = smh.accelerationForwards;
-                m.AccBackwards = smh.accelerationBackwards;
-                m.AccLateral = smh.accelerationLateral;
-                m.MaxSpeed = smh.maxSpeed;
-                m.MaxBoost = smh.maxSpeedBoost;
-                m.StabilizationFactor = smh.stabilizationMultiplier;
+                mode.RotPitch = smh.PitchSpeed;
+                mode.RotRoll = smh.RollSpeed;
+                mode.RotYaw = smh.YawSpeed;
+                mode.AccForward = smh.AccelerationForwards;
+                mode.AccBackwards = smh.AccelerationBackwards;
+                mode.AccLateral = smh.AccelerationLateral;
+                mode.MaxSpeed = smh.MaxSpeed;
+                mode.MaxBoost = smh.MaxSpeedBoost;
+                mode.StabilizationFactor = smh.StabilizationMultiplier;
             }
         }
 
-        public static void LoadFlightModel(ShipMovementHandler smh, string modelName)
+        public static void LoadFlightModel(ShipMovementHandler2Settings smh, string modelName)
         {
             foreach (var mode in Modes)
             {
@@ -36,12 +35,12 @@ namespace Ship
             }
         }
 
-        public static void NextFlightModel(ShipMovementHandler smh)
+        public static void NextFlightModel(ShipMovementHandler2Settings smh)
         {
             var newMode = Modes[0];
             for (var idx = 0; idx < Modes.Length; idx++)
             {
-                if(!Modes[idx].name.Equals(smh.currentFlightModel)) continue;
+                if(!Modes[idx].name.Equals(smh.ProfileName)) continue;
                 if(idx + 1 == Modes.Length) break;
                 
                 newMode = Modes[idx + 1];
@@ -50,20 +49,9 @@ namespace Ship
             SetFlightModel(smh, newMode);
         }
 
-        private static void SetFlightModel(ShipMovementHandler smh, (string name, Mode mode) newMode)
+        private static void SetFlightModel(ShipMovementHandler2Settings smh, (string name, Mode mode) newMode)
         {
-            smh.pitchSpeed = newMode.mode.RotPitch;
-            smh.rollSpeed = newMode.mode.RotRoll;
-            smh.yawSpeed = newMode.mode.RotYaw;
-            smh.accelerationForwards = newMode.mode.AccForward;
-            smh.accelerationBackwards = newMode.mode.AccBackwards;
-            smh.accelerationLateral = newMode.mode.AccLateral;
-            smh.maxSpeed = newMode.mode.MaxSpeed;
-            smh.maxSpeedBoost = newMode.mode.MaxBoost;
-            smh.stabilizationMultiplier = newMode.mode.StabilizationFactor;
-
-            smh.currentFlightModel = newMode.name;
-            ShipMovementHandler.TotalMaxSpeed = newMode.mode.MaxSpeed + newMode.mode.MaxBoost;
+            smh.ApplyNewProfile(newMode.mode, newMode.name);
 
             var eventArgs = new FlightModelChangedEventArgs
             {
@@ -155,7 +143,7 @@ namespace Ship
             public float NewBoostSpeed;
         }
 
-        private class Mode
+        internal class Mode
         {
             public float RotPitch;
             public float RotRoll;
