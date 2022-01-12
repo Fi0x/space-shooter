@@ -86,7 +86,7 @@ namespace Enemy
 
         private void CalculateSpeed()
         {
-            speed = ShipMovementHandler.TotalMaxSpeed / 10;
+            //speed = ShipMovementHandler.TotalMaxSpeed / 10;
             speed = 20.0f;
         }
 

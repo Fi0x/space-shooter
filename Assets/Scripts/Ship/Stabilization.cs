@@ -5,6 +5,7 @@ namespace Ship
 {
     public static class Stabilization
     {
+        /*
         public static float StabilizeShip(ShipMovementHandler smh)
         {
             var vNow= smh.shipRigidbody.velocity;
@@ -67,5 +68,6 @@ namespace Ship
 
             return dotProductCurrentDirectionZAxis;
         }
+        */
     }
 }

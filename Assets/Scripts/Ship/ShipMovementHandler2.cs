@@ -16,6 +16,13 @@ namespace Ship
         private Rigidbody shipRB;
         private InputHandler inputHandler;
         private float desiredSpeed;
+        public Rigidbody ShipRB => this.shipRB;
+        public InputHandler InputHandler => this.inputHandler;
+
+        public ShipMovementHandler2Settings Settings => this.settings;
+
+        public float TotalMaxSpeed => this.totalMaxSpeed;
+        public event Action<float, float> DesiredSpeedChangedEvent;
 
         /// <summary>
         /// This Event in invoked <b>after</b> forces have been applied onto the Ship's Rigidbody.
@@ -75,6 +82,12 @@ namespace Ship
                     // Clamp if at max reverse speed
                     this.desiredSpeed = -this.settings.MaxSpeed;
                 }
+
+                if (input.Thrust != 0)
+                {
+                    this.DesiredSpeedChangedEvent?.Invoke(this.desiredSpeed, this.TotalMaxSpeed);
+                }
+
             }
         }
 
@@ -93,17 +106,11 @@ namespace Ship
 
             var differenceCurrentDirectionToTargetLocalSpace = targetVectorLocalSpace - currentDirectionLocalSpace;
 
-
-            #region Lateral Thrust
             this.HandleLateralThrust(
-                differenceCurrentDirectionToTargetLocalSpace,
-                currentDirection,
-                targetVectorLocalSpace);
-            #endregion
+                differenceCurrentDirectionToTargetLocalSpace, currentDirectionLocalSpace, targetVectorLocalSpace);
 
-            #region Main Thrust
             this.HandleMainThrust(differenceCurrentDirectionToTargetLocalSpace, targetVectorLocalSpace);
-            #endregion
+
 
 
             /*
@@ -160,6 +167,7 @@ namespace Ship
         private void HandleSettingsUpdatedEvent(ShipMovementHandler2Settings settings)
         {
             this.totalMaxSpeed = settings.MaxSpeed + settings.MaxSpeedBoost;
+            this.SettingsUpdatedEvent?.Invoke(settings);
         }
 
         private void HandleMainThrust(Vector3 differenceCurrentDirectionToTargetLocalSpace, Vector3 targetVectorLocalSpace)
@@ -286,5 +294,7 @@ namespace Ship
         {
             this.desiredSpeed = newSpeed;
         }
+
+        public event Action<ShipMovementHandler2Settings> SettingsUpdatedEvent;
     }
 }

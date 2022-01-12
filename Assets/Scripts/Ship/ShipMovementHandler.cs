@@ -62,8 +62,8 @@ namespace Ship
             this.inputHandler = this.shipObject.GetComponent<InputHandler>();
             this.shipRigidbody = this.shipObject.GetComponent<Rigidbody>();
 
-            FlightModel.StoreCustomFlightModel(this);
-            FlightModel.LoadFlightModel(this,"Hyper");
+           // FlightModel.StoreCustomFlightModel(this);
+           // FlightModel.LoadFlightModel(this,"Hyper");
 
             TotalMaxSpeed = this.maxSpeed + this.maxSpeedBoost;
         }
@@ -100,13 +100,13 @@ namespace Ship
             var input = this.inputHandler.CurrentInputState;
             this.HandleAngularVelocity(input.Pitch, input.Yaw, input.Roll);
             this.HandleThrust(input.Thrust, input.Strafe);
-            this.currentSpeed = Stabilization.StabilizeShip(this);
+            //this.currentSpeed = Stabilization.StabilizeShip(this);
 
             this.ForcesAppliedEvent?.Invoke();
 
             if (this.inputHandler.SwitchFlightModel)
             {
-                FlightModel.NextFlightModel(this);
+                //FlightModel.NextFlightModel(this);
                 this.inputHandler.SwitchFlightModel = false;
             }
         }

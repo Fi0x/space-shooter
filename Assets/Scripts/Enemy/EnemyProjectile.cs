@@ -21,7 +21,9 @@ namespace Enemy
 
         private void Update()
         {
-            this.rigidBody.velocity = 1.1f * ShipMovementHandler.TotalMaxSpeed * this.direction;
+            // TODO
+            //this.rigidBody.velocity = 1.1f * ShipMovementHandler.TotalMaxSpeed * this.direction;
+            this.rigidBody.velocity = 1.1f * 20f * this.direction;
         }
 
         private void OnTriggerEnter(Collider other)

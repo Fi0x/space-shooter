@@ -6,7 +6,7 @@ using Random = System.Random;
 public class SpaceDust : MonoBehaviour
 {
     [SerializeField] private ParticleSystem particleSystem;
-    [SerializeField] private ShipMovementHandler smh;
+    [SerializeField] private ShipMovementHandler2 smh;
 
     private const int ParticlesOverTime = 100;
     private const float MinParticleSize = 0.1f;
@@ -15,8 +15,8 @@ public class SpaceDust : MonoBehaviour
 
     void FixedUpdate()
     {
-        var maxShipSpeed = this.smh.maxSpeed + this.smh.maxSpeedBoost;
-        var shipSpeed = this.smh.shipRigidbody.velocity.magnitude;
+        var maxShipSpeed = this.smh.Settings.MaxSpeed + this.smh.Settings.MaxSpeedBoost;
+        var shipSpeed = this.smh.ShipRB.velocity.magnitude;
         
         var emission = this.particleSystem.emission;
         emission.rateOverTime = ParticlesOverTime / maxShipSpeed * shipSpeed;
