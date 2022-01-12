@@ -1,3 +1,4 @@
+#define DEBUG_GIZMO
 using System;
 using Manager;
 using UnityEngine;
@@ -13,10 +14,10 @@ namespace Ship
 
 
         private GameObject shipObject;
-        private Rigidbody shipRB;
+        private Rigidbody shipRb;
         private InputHandler inputHandler;
         private float desiredSpeed;
-        public Rigidbody ShipRB => this.shipRB;
+        public Rigidbody ShipRB => this.shipRb;
         public InputHandler InputHandler => this.inputHandler;
 
         public ShipMovementHandler2Settings Settings => this.settings;
@@ -43,7 +44,7 @@ namespace Ship
         private void Start()
         {
             this.shipObject = this.gameObject;
-            this.shipRB = this.shipObject.GetComponent<Rigidbody>();
+            this.shipRb = this.shipObject.GetComponent<Rigidbody>();
             this.inputHandler = this.shipObject.GetComponent<InputHandler>();
 
             // TODO: Flight Model Loading
@@ -99,9 +100,18 @@ namespace Ship
                 targetVector += Vector3.right * input.Strafe * 10f;
             }
 
-            var currentDirection = this.shipRB.velocity;
-            var currentDirectionLocalSpace = this.transform.TransformDirection(currentDirection);
-            var targetVectorLocalSpace = this.transform.TransformDirection(targetVector);
+            var currentDirection = this.shipRb.velocity;
+#if DEBUG_GIZMO
+            Debug.DrawLine(this.shipRb.position, this.shipRb.position + currentDirection, Color.magenta);
+            Debug.DrawLine(this.shipRb.position, this.shipRb.position + Vector3.right * currentDirection.x, Color.red);
+            Debug.DrawLine(this.shipRb.position, this.shipRb.position + Vector3.up * currentDirection.y, Color.green);
+            Debug.DrawLine(this.shipRb.position, this.shipRb.position + Vector3.forward * currentDirection.z, Color.blue);
+            Debug.DrawLine(this.shipRb.position, this.shipRb.position + targetVector, Color.yellow);
+
+#endif
+
+            var currentDirectionLocalSpace = this.transform.InverseTransformDirection(currentDirection);
+            var targetVectorLocalSpace = this.transform.InverseTransformDirection(targetVector);
 
             var differenceCurrentDirectionToTargetLocalSpace = targetVectorLocalSpace - currentDirectionLocalSpace;
 
@@ -173,29 +183,29 @@ namespace Ship
         {
             if (differenceCurrentDirectionToTargetLocalSpace.z != 0)
             {
-                var currentVelocityLocal = this.transform.InverseTransformDirection(this.shipRB.velocity);
+                var currentVelocityLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
                 if (differenceCurrentDirectionToTargetLocalSpace.z > 0)
                 {
-                    this.shipRB.AddRelativeForce(Vector3.forward * this.settings.AccelerationForwards * Time.fixedDeltaTime);
-                    var velocityAfterForceLocal = this.transform.InverseTransformDirection(this.shipRB.velocity);
+                    this.shipRb.AddRelativeForce(Vector3.forward * this.settings.AccelerationForwards * Time.fixedDeltaTime);
+                    var velocityAfterForceLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
                     if (!this.IsValueInBetween(currentVelocityLocal.z, targetVectorLocalSpace.z,
                         velocityAfterForceLocal.z))
                     {
                         var newForceLocal = velocityAfterForceLocal;
                         newForceLocal.z = targetVectorLocalSpace.z;
-                        this.shipRB.velocity = this.transform.TransformDirection(newForceLocal);
+                        this.shipRb.velocity = this.transform.TransformDirection(newForceLocal);
                     }
                 }
                 else
                 {
-                    this.shipRB.AddRelativeForce(Vector3.back * this.settings.AccelerationBackwards * Time.fixedDeltaTime);
-                    var velocityAfterForceLocal = this.transform.InverseTransformDirection(this.shipRB.velocity);
+                    this.shipRb.AddRelativeForce(Vector3.back * this.settings.AccelerationBackwards * Time.fixedDeltaTime);
+                    var velocityAfterForceLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
                     if (!this.IsValueInBetween(currentVelocityLocal.z, targetVectorLocalSpace.z,
                         velocityAfterForceLocal.z))
                     {
                         var newForceLocal = velocityAfterForceLocal;
                         newForceLocal.z = targetVectorLocalSpace.z;
-                        this.shipRB.velocity = this.transform.TransformDirection(newForceLocal);
+                        this.shipRb.velocity = this.transform.TransformDirection(newForceLocal);
                     }
                 }
             }
@@ -208,9 +218,9 @@ namespace Ship
             {
                 var lateralForceToApplyLocalSpace = Vector3.Scale(Vector3.one - Vector3.forward,
                     -differenceCurrentDirectionToTargetLocalSpace).normalized * this.settings.AccelerationLateral;
-                this.shipRB.AddRelativeForce(lateralForceToApplyLocalSpace);
+                this.shipRb.AddRelativeForce(lateralForceToApplyLocalSpace);
                 // Check for Overflow
-                var newCurrentDirectionLocalSpace = this.transform.InverseTransformDirection(this.shipRB.velocity);
+                var newCurrentDirectionLocalSpace = this.transform.InverseTransformDirection(this.shipRb.velocity);
 
                 var needClamp = false;
 
@@ -242,7 +252,7 @@ namespace Ship
                     newCurrentDirectionLocalSpace.y = targetVectorLocalSpace.y;
                     var newCurrentDirectionWorldSpace =
                         this.transform.TransformDirection(newCurrentDirectionLocalSpace);
-                    this.shipRB.velocity = newCurrentDirectionWorldSpace;
+                    this.shipRb.velocity = newCurrentDirectionWorldSpace;
                 }
             }
 
@@ -274,7 +284,7 @@ namespace Ship
 
         private void HandleAngularVelocity(InputHandler.InputState input)
         {
-            var currentWorldAngularVelocity = this.shipRB.angularVelocity;
+            var currentWorldAngularVelocity = this.shipRb.angularVelocity;
             var currentLocalAngularVelocity = this.shipObject.transform.InverseTransformDirection(currentWorldAngularVelocity);
 
             var mouseMultiplier = (this.inputHandler.IsBoosting ? 0.5f : 1f) * InputManager.MouseSensitivity;
@@ -286,7 +296,7 @@ namespace Ship
             currentLocalAngularVelocity += angularForce;
 
             var modifiedWorldAngularVelocity = this.shipObject.transform.TransformDirection(currentLocalAngularVelocity);
-            this.shipRB.angularVelocity = modifiedWorldAngularVelocity;
+            this.shipRb.angularVelocity = modifiedWorldAngularVelocity;
         }
 
         public void SetNewTargetSpeed(int newSpeed)
