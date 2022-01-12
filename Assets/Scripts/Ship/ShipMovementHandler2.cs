@@ -8,7 +8,7 @@ namespace Ship
     {
         [Header("Settings")] [SerializeField] private ShipMovementHandler2Settings settings;
 
-        [Header("Debug Data")] [SerializeField]
+        [Header("Debug Data")] [SerializeField, ReadOnlyInspector]
         private float totalMaxSpeed;
 
 
@@ -64,6 +64,7 @@ namespace Ship
 
         private void ApplyInputChanges(InputHandler.InputState input)
         {
+            var oldDesiredSpeed = this.desiredSpeed;
             if (input.Braking)
             {
                 this.desiredSpeed = 0f;
@@ -82,12 +83,10 @@ namespace Ship
                     // Clamp if at max reverse speed
                     this.desiredSpeed = -this.settings.MaxSpeed;
                 }
-
-                if (input.Thrust != 0)
-                {
-                    this.DesiredSpeedChangedEvent?.Invoke(this.desiredSpeed, this.TotalMaxSpeed);
-                }
-
+            }
+            if (Math.Abs(this.desiredSpeed - oldDesiredSpeed) > 0.1)
+            {
+                this.DesiredSpeedChangedEvent?.Invoke(this.desiredSpeed, this.TotalMaxSpeed);
             }
         }
 

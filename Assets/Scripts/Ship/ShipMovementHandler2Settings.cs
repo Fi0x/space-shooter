@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Ship
 {
+    [CreateAssetMenu(fileName = "ShipMovementHandlerDefaultSettings", menuName = "ScriptableObject/Ship/ShipMovementHandlerSettings", order = 50)]
     public class ShipMovementHandler2Settings : ScriptableObject
     {
         [SerializeField]
