@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df50680e77d14f19806ef622d7461fca, type: 3}
   m_Name: ShipMovementHandlerDefaultSettings
   m_EditorClassIdentifier: 
-  profileName: Uninitialized
+  profileName: Custom
   pitchSpeed: 1
-  rollSpeed: 2
+  rollSpeed: 1
   yawSpeed: 0.8
   accelerationForwards: 2
-  accelerationBackwards: 1
-  accelerationLateral: 1
+  accelerationBackwards: 2
+  accelerationLateral: 0.2
   maxSpeed: 150
   maxSpeedBoost: 75
   minBrakeSpeed: 0.02

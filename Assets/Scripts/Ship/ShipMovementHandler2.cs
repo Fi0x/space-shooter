@@ -47,6 +47,7 @@ namespace Ship
             this.shipRb = this.shipObject.GetComponent<Rigidbody>();
             this.inputHandler = this.shipObject.GetComponent<InputHandler>();
 
+
             // TODO: Flight Model Loading
             FlightModel.StoreCustomFlightModel(this.settings);
             FlightModel.LoadFlightModel(this.settings, "Custom");
@@ -97,7 +98,7 @@ namespace Ship
             var targetVector = shipForward * this.desiredSpeed;
             if (input.Strafe != 0.0f)
             {
-                targetVector += Vector3.right * input.Strafe * 10f;
+                targetVector += this.transform.TransformDirection(Vector3.right * input.Strafe * 10f);
             }
 
             var currentDirection = this.shipRb.velocity;
@@ -118,144 +119,144 @@ namespace Ship
             this.HandleLateralThrust(
                 differenceCurrentDirectionToTargetLocalSpace, currentDirectionLocalSpace, targetVectorLocalSpace);
 
-            this.HandleMainThrust(differenceCurrentDirectionToTargetLocalSpace, targetVectorLocalSpace);
+            // Update values
+            currentDirectionLocalSpace = this.transform.InverseTransformDirection(currentDirection);
+            differenceCurrentDirectionToTargetLocalSpace = targetVectorLocalSpace - currentDirectionLocalSpace;
+            this.HandleMainThrust(differenceCurrentDirectionToTargetLocalSpace.z, targetVectorLocalSpace.z);
 
 
 
-            /*
-            // Apply X Correction
-            if (targetVectorLocalSpace.x < currentDirectionLocalSpace.x)
-            {
-                this.shipRB.AddRelativeForce(Vector3.right * this.settings.AccelerationLateral * Time.fixedDeltaTime);
-                if (targetVectorLocalSpace.x > this.transform.TransformDirection(this.shipRB.velocity).x)
-                {
-                    // Overflew target – clamp to target
-                    var currentDirectionAfterForceApplicationLocalSpace =
-                        this.transform.TransformDirection(this.shipRB.velocity);
-                    this.shipRB.velocity = this.transform.InverseTransformDirection(new Vector3(targetVector.x,  currentDirectionAfterForceApplicationLocalSpace.y));
-                }
-            }
-            else if (targetVectorLocalSpace.x < currentDirectionLocalSpace.x)
-            {
-                this.shipRB.AddRelativeForce(Vector3.left * this.settings.AccelerationLateral * Time.fixedDeltaTime);
-                if (targetVectorLocalSpace.x < this.transform.TransformDirection(this.shipRB.velocity).x)
-                {
-                    // Overflew target – clamp to target
-                    var currentDirectionAfterForceApplicationLocalSpace =
-                        this.transform.TransformDirection(this.shipRB.velocity);
-                    this.shipRB.velocity = this.transform.InverseTransformDirection(new Vector3(targetVector.x,
-                        currentDirectionAfterForceApplicationLocalSpace.y));
-                }
-            }
-            // Apply Y Correction
-            if (targetVectorLocalSpace.y > currentDirectionLocalSpace.y)
-            {
-                this.shipRB.AddRelativeForce(Vector3.up * this.settings.AccelerationLateral * Time.fixedDeltaTime);
-                if (targetVectorLocalSpace.y < this.transform.TransformDirection(this.shipRB.velocity).y)
-                {
-                    // Overflew target – clamp to target
-                    var currentDirectionAfterForceApplicationLocalSpace =
-                        this.transform.TransformDirection(this.shipRB.velocity);
-                    this.shipRB.velocity = this.transform.InverseTransformDirection(new Vector3(currentDirectionAfterForceApplicationLocalSpace.x, targetVector.y));
-                }
-            }
-            else if (targetVectorLocalSpace.y < currentDirectionLocalSpace.y)
-            {
-                this.shipRB.AddRelativeForce(Vector3.down * this.settings.AccelerationLateral * Time.fixedDeltaTime);
-                if (targetVectorLocalSpace.y > this.transform.TransformDirection(this.shipRB.velocity).y)
-                {
-                    // Overflew target – clamp to target
-                    var currentDirectionAfterForceApplicationLocalSpace =
-                        this.transform.TransformDirection(this.shipRB.velocity);
-                    this.shipRB.velocity = this.transform.InverseTransformDirection(new Vector3(currentDirectionAfterForceApplicationLocalSpace.x, targetVector.y));
-                }
-            }
-            */
         }
 
         private void HandleSettingsUpdatedEvent(ShipMovementHandler2Settings settings)
         {
             this.totalMaxSpeed = settings.MaxSpeed + settings.MaxSpeedBoost;
-            this.SettingsUpdatedEvent?.Invoke(settings);
         }
 
-        private void HandleMainThrust(Vector3 differenceCurrentDirectionToTargetLocalSpace, Vector3 targetVectorLocalSpace)
+        private void HandleMainThrust(float deltaZLocalSpace, float zTargetLocalSpace)
         {
-            if (differenceCurrentDirectionToTargetLocalSpace.z != 0)
+            if (!(Math.Abs(deltaZLocalSpace) > 0.1))
             {
-                var currentVelocityLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
-                if (differenceCurrentDirectionToTargetLocalSpace.z > 0)
+                // Nothing to do. Z-Axis is within allowed Margin of Error.
+                return;
+            }
+            var currentVelocityLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
+            if (deltaZLocalSpace > 0)
+            {
+                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.shipRb,
+                    Vector3.forward * this.settings.AccelerationForwards * Time.fixedDeltaTime);
+                if (!this.IsValueInBetween(currentVelocityLocal.z, zTargetLocalSpace,
+                    velocityAfterForceLocal.z))
                 {
-                    this.shipRb.AddRelativeForce(Vector3.forward * this.settings.AccelerationForwards * Time.fixedDeltaTime);
-                    var velocityAfterForceLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
-                    if (!this.IsValueInBetween(currentVelocityLocal.z, targetVectorLocalSpace.z,
-                        velocityAfterForceLocal.z))
-                    {
-                        var newForceLocal = velocityAfterForceLocal;
-                        newForceLocal.z = targetVectorLocalSpace.z;
-                        this.shipRb.velocity = this.transform.TransformDirection(newForceLocal);
-                    }
+                    Debug.LogWarning("Clamping Z+");
+                    var newForceLocal = currentVelocityLocal;
+                    newForceLocal.z = zTargetLocalSpace;
+                    this.shipRb.velocity = this.transform.TransformDirection(newForceLocal);
                 }
-                else
+            }
+            else
+            {
+                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.back * this.settings.AccelerationBackwards *
+                    Time.fixedDeltaTime);
+                if (!this.IsValueInBetween(currentVelocityLocal.z, zTargetLocalSpace,
+                    velocityAfterForceLocal.z))
                 {
-                    this.shipRb.AddRelativeForce(Vector3.back * this.settings.AccelerationBackwards * Time.fixedDeltaTime);
-                    var velocityAfterForceLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
-                    if (!this.IsValueInBetween(currentVelocityLocal.z, targetVectorLocalSpace.z,
-                        velocityAfterForceLocal.z))
-                    {
-                        var newForceLocal = velocityAfterForceLocal;
-                        newForceLocal.z = targetVectorLocalSpace.z;
-                        this.shipRb.velocity = this.transform.TransformDirection(newForceLocal);
-                    }
+                    Debug.LogWarning("Clamping Z-");
+                    var newForceLocal = currentVelocityLocal;
+                    newForceLocal.z = zTargetLocalSpace;
+                    this.shipRb.velocity = this.transform.TransformDirection(newForceLocal);
                 }
             }
         }
 
         private void HandleLateralThrust(Vector3 differenceCurrentDirectionToTargetLocalSpace, Vector3 currentDirectionLocalSpace, Vector3 targetVectorLocalSpace)
         {
-            if (differenceCurrentDirectionToTargetLocalSpace.x != 0 ||
-                differenceCurrentDirectionToTargetLocalSpace.y != 0)
+            if (Math.Abs(differenceCurrentDirectionToTargetLocalSpace.x) > 0.1f)
             {
-                var lateralForceToApplyLocalSpace = Vector3.Scale(Vector3.one - Vector3.forward,
-                    -differenceCurrentDirectionToTargetLocalSpace).normalized * this.settings.AccelerationLateral;
-                this.shipRb.AddRelativeForce(lateralForceToApplyLocalSpace);
-                // Check for Overflow
-                var newCurrentDirectionLocalSpace = this.transform.InverseTransformDirection(this.shipRb.velocity);
-
-                var needClamp = false;
-
-                if (differenceCurrentDirectionToTargetLocalSpace.x != 0)
-                {
-                    // Check if x is outside currentDir and target. if that's the case, clamp.
-                    var xOutsideBounds = !this.IsValueInBetween(currentDirectionLocalSpace.x,
-                        newCurrentDirectionLocalSpace.x, differenceCurrentDirectionToTargetLocalSpace.x);
-                    if (xOutsideBounds)
-                    {
-                        needClamp = true;
-                    }
-                }
-                else
-                {
-                    // Just as a fallback if x is zero. This is because we need to be able to check if an overflow
-                    // has occurred. This cannot be done if the change only occured on the Y Axis.
-                    var yOutsideBounds = !this.IsValueInBetween(currentDirectionLocalSpace.y,
-                        newCurrentDirectionLocalSpace.y, differenceCurrentDirectionToTargetLocalSpace.y);
-                    if (yOutsideBounds)
-                    {
-                        needClamp = true;
-                    }
-                }
-
-                if (needClamp)
-                {
-                    newCurrentDirectionLocalSpace.x = targetVectorLocalSpace.x;
-                    newCurrentDirectionLocalSpace.y = targetVectorLocalSpace.y;
-                    var newCurrentDirectionWorldSpace =
-                        this.transform.TransformDirection(newCurrentDirectionLocalSpace);
-                    this.shipRb.velocity = newCurrentDirectionWorldSpace;
-                }
+                this.HandleLateralX(differenceCurrentDirectionToTargetLocalSpace.x, targetVectorLocalSpace.x);
             }
 
+            if (Math.Abs(differenceCurrentDirectionToTargetLocalSpace.y) > 0.1f)
+            {
+                this.HandleLateralY(differenceCurrentDirectionToTargetLocalSpace.y, targetVectorLocalSpace.y);
+            }
+
+            return;
+
+
+
+        }
+
+        private void HandleLateralY(float deltaYLocalSpace, float yTargetLocalSpace)
+        {
+            if (!(Math.Abs(deltaYLocalSpace) > 0.1))
+            {
+                // Nothing to do. Z-Axis is within allowed Margin of Error.
+                return;
+            }
+            var currentVelocityLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
+            if (deltaYLocalSpace > 0)
+            {
+                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.shipRb,
+                    Vector3.up * this.settings.AccelerationLateral * Time.fixedDeltaTime);
+                if (!this.IsValueInBetween(currentVelocityLocal.y, yTargetLocalSpace,
+                    velocityAfterForceLocal.y))
+                {
+                    Debug.LogWarning("Clamping Y+");
+                    var newForceLocal = currentVelocityLocal;
+                    newForceLocal.y = yTargetLocalSpace;
+                    this.shipRb.velocity = this.transform.TransformDirection(newForceLocal);
+                }
+            }
+            else
+            {
+                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.down * this.settings.AccelerationLateral *
+                    Time.fixedDeltaTime);
+                if (!this.IsValueInBetween(currentVelocityLocal.y, yTargetLocalSpace,
+                    velocityAfterForceLocal.y))
+                {
+                    Debug.LogWarning("Clamping Y-");
+                    var newForceLocal = currentVelocityLocal;
+                    newForceLocal.y = yTargetLocalSpace;
+                    this.shipRb.velocity = this.transform.TransformDirection(newForceLocal);
+                }
+            }
+        }
+
+        private void HandleLateralX(float deltaXLocalSpace, float xTargetLocalSpace)
+        {
+            if (!(Math.Abs(deltaXLocalSpace) > 0.1))
+            {
+                // Nothing to do. Z-Axis is within allowed Margin of Error.
+                return;
+            }
+            var currentVelocityLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
+            if (deltaXLocalSpace > 0)
+            {
+                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.shipRb,
+                    Vector3.right * this.settings.AccelerationLateral * Time.fixedDeltaTime);
+                if (!this.IsValueInBetween(currentVelocityLocal.x, xTargetLocalSpace,
+                    velocityAfterForceLocal.x))
+                {
+                    Debug.LogWarning("Clamping X+");
+                    var newForceLocal = currentVelocityLocal;
+                    newForceLocal.x = xTargetLocalSpace;
+                    this.shipRb.velocity = this.transform.TransformDirection(newForceLocal);
+                }
+            }
+            else
+            {
+                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.left * this.settings.AccelerationLateral *
+                    Time.fixedDeltaTime);
+                if (!this.IsValueInBetween(currentVelocityLocal.x, xTargetLocalSpace,
+                    velocityAfterForceLocal.x))
+                {
+                    Debug.LogWarning("Clamping X-");
+                    var newForceLocal = currentVelocityLocal;
+                    newForceLocal.x = xTargetLocalSpace;
+                    this.shipRb.velocity = this.transform.TransformDirection(newForceLocal);
+                }
+            }
         }
 
         private bool IsValueInBetween(float bound1, float bound2, float valueToCheck, bool boundsInclusive = false)
@@ -271,6 +272,9 @@ namespace Ship
                 lower = bound2;
                 upper = bound1;
             }
+
+
+            Debug.Log($"Lower: {Math.Round(lower,5)}, Upper: {Math.Round(upper,5)}, V: {Math.Round(valueToCheck, 5)}");
 
             if (boundsInclusive)
             {
@@ -304,6 +308,18 @@ namespace Ship
             this.desiredSpeed = newSpeed;
         }
 
-        public event Action<ShipMovementHandler2Settings> SettingsUpdatedEvent;
+        private Vector3 ModifyVelocityImmediate(Rigidbody rb, Vector3 force)
+        {
+            var actualChange = force / rb.mass;
+            rb.velocity += actualChange;
+            return rb.velocity;
+        }
+
+        private Vector3 ModifyVelocityImmediateLocal(Rigidbody rb, Vector3 force)
+        {
+            var actualChange = this.transform.TransformDirection(force) / rb.mass;
+            rb.velocity += actualChange;
+            return this.transform.InverseTransformDirection(rb.velocity);
+        }
     }
 }
