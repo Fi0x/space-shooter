@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df50680e77d14f19806ef622d7461fca, type: 3}
-  m_Name: ShipMovementHandlerDefaultSettings
+  m_Name: Tes
   m_EditorClassIdentifier: 
-  profileName: Test1
+  profileName: Test437
   pitchSpeed: 1
-  rollSpeed: 0.4
+  rollSpeed: 2
   yawSpeed: 0.8
-  accelerationForwards: 50
-  accelerationBackwards: 50
-  accelerationLateral: 50
+  accelerationForwards: 2
+  accelerationBackwards: 1
+  accelerationLateral: 1
   maxLateralSpeed: 50
   maxSpeed: 150
   maxSpeedBoost: 75

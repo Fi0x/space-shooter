@@ -106,10 +106,11 @@ namespace Ship
 
             if (this.inputHandler.SwitchFlightModel)
             {
-                //FlightModel.NextFlightModel(this);
+                //this.HandleNewFlightModelSelected();
                 this.inputHandler.SwitchFlightModel = false;
             }
         }
+
 
         private void HandleAngularVelocity(float pitch, float yaw, float roll)
         {

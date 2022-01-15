@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ship
 {
@@ -20,11 +21,13 @@ namespace Ship
         [SerializeField] private float accelerationForwards = 2f;
         [SerializeField] private float accelerationBackwards = 1f;
         [SerializeField] private float accelerationLateral = 1f;
+        [SerializeField] private float maxLateralSpeed = 50f;
         [SerializeField] private float maxSpeed = 150f;
         [SerializeField] private float maxSpeedBoost = 75f;
-        [SerializeField] private float minBrakeSpeed = 0.02f;
-        [SerializeField] private float stabilizationMultiplier = 3;
-        [SerializeField] private float speedMatchDeadZone = 0.01f;
+        [SerializeField, Obsolete] private float minBrakeSpeed = 0.02f;
+        [SerializeField, Obsolete] private float stabilizationMultiplier = 3;
+        [FormerlySerializedAs("speedMatchDeadZone")] [SerializeField] private float correctionDeadZone = 0.01f;
+        
 
         internal float PitchSpeed
         {
@@ -74,12 +77,14 @@ namespace Ship
             private set => this.maxSpeedBoost = value;
         }
 
+        [Obsolete]
         internal float MinBrakeSpeed
         {
             get => this.minBrakeSpeed;
             private set => this.minBrakeSpeed = value;
         }
 
+        [Obsolete]
         internal float StabilizationMultiplier
         {
             get => this.stabilizationMultiplier;
@@ -88,8 +93,8 @@ namespace Ship
 
         internal float SpeedMatchDeadZone
         {
-            get => this.speedMatchDeadZone;
-            private set => this.speedMatchDeadZone = value;
+            get => this.correctionDeadZone;
+            private set => this.correctionDeadZone = value;
         }
 
         internal string ProfileName
@@ -98,23 +103,10 @@ namespace Ship
             private set => this.profileName = value;
         }
 
-        internal void ApplyNewProfile(FlightModel.Mode mode, string profileName)
+        public float LateralMaxSpeed
         {
-            this.PitchSpeed = mode.RotPitch;
-            this.RollSpeed = mode.RotRoll;
-            this.YawSpeed = mode.RotYaw;
-            this.AccelerationForwards = mode.AccForward;
-            this.AccelerationBackwards = mode.AccBackwards;
-            this.AccelerationLateral = mode.AccLateral;
-            this.MaxSpeed = mode.MaxSpeed;
-            this.MaxSpeedBoost = mode.MaxBoost;
-            this.StabilizationMultiplier = mode.StabilizationFactor;
-
-            this.profileName = profileName;
-
-            this.SettingsChangedEvent?.Invoke(this);
+            get => this.maxLateralSpeed;
+            private set => this.maxLateralSpeed = value;
         }
-
-        internal event Action<ShipMovementHandler2Settings> SettingsChangedEvent;
     }
 }

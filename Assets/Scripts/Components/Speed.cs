@@ -19,11 +19,18 @@ namespace Components
         private void OnEnable()
         {
             this.smh.DesiredSpeedChangedEvent += this.HandleDesiredSpeedChangedEvent;
+            this.smh.SettingsUpdatedEvent += this.HandleSettingsUpdatedEvent;
+        }
+
+        private void HandleSettingsUpdatedEvent(ShipMovementHandler2Settings _)
+        {
+            this.speedIndicator.SetMaxSpeed(this.smh.TotalMaxSpeed);
         }
 
         private void OnDisable()
         {
             this.smh.DesiredSpeedChangedEvent -= this.HandleDesiredSpeedChangedEvent;
+            this.smh.SettingsUpdatedEvent -= this.HandleSettingsUpdatedEvent;
         }
 
 
@@ -31,13 +38,11 @@ namespace Components
         {
             this.speedIndicator = this.GetComponentInParent<SpeedIndicator>();
             this.speedIndicator.SetMaxSpeed(this.smh.TotalMaxSpeed);
-
-            FlightModel.FlightModelChangedEvent += (sender, args) => { this.speedIndicator.SetMaxSpeed(args.NewMaxSpeed + args.NewBoostSpeed); };
         }
 
         private void Update()
         {
-           // this.speedIndicator.SetCurrentSpeed(this.smh.currentSpeed);
+           this.speedIndicator.SetCurrentSpeed(this.smh.EffectiveForwardSpeed);
         }
     }
 }

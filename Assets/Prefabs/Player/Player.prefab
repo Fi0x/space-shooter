@@ -1613,7 +1613,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9b8f1e080046e29eeda7db290c1b35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settings: {fileID: 11400000, guid: 854197c235e57c67daaa37823ea270e8, type: 2}
+  settings:
+  - {fileID: 11400000, guid: 854197c235e57c67daaa37823ea270e8, type: 2}
+  - {fileID: 11400000, guid: e156c6bc598143122a909b66fd4a0bda, type: 2}
+  - {fileID: 11400000, guid: 2aa71b5aa5fc5c98291d6912e3c1ffba, type: 2}
+  currentSettingsIndex: 0
   totalMaxSpeed: 0
 --- !u!54 &3300866360858875058
 Rigidbody:

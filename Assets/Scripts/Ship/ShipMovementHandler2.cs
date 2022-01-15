@@ -1,5 +1,7 @@
 #define DEBUG_GIZMO
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Manager;
 using UnityEngine;
 
@@ -7,7 +9,8 @@ namespace Ship
 {
     public class ShipMovementHandler2 : MonoBehaviour
     {
-        [Header("Settings")] [SerializeField] private ShipMovementHandler2Settings settings;
+        [Header("Settings")] [SerializeField] private List<ShipMovementHandler2Settings> settings;
+        [SerializeField] private int currentSettingsIndex = 0;
 
         [Header("Debug Data")] [SerializeField, ReadOnlyInspector]
         private float totalMaxSpeed;
@@ -20,9 +23,13 @@ namespace Ship
         public Rigidbody ShipRB => this.shipRb;
         public InputHandler InputHandler => this.inputHandler;
 
-        public ShipMovementHandler2Settings Settings => this.settings;
+        public ShipMovementHandler2Settings Settings => this.settings[this.currentSettingsIndex];
 
         public float TotalMaxSpeed => this.totalMaxSpeed;
+        public float CurrentSpeed { get; private set; } = 0;
+
+        public event Action<ShipMovementHandler2Settings> SettingsUpdatedEvent;
+
         public event Action<float, float> DesiredSpeedChangedEvent;
 
         /// <summary>
@@ -31,27 +38,26 @@ namespace Ship
         /// </summary>
         public event Action ForcesAppliedEvent;
 
-        private void OnEnable()
-        {
-            this.settings.SettingsChangedEvent += this.HandleSettingsUpdatedEvent;
-        }
-
-        private void OnDisable()
-        {
-            this.settings.SettingsChangedEvent -= this.HandleSettingsUpdatedEvent;
-        }
-
         private void Start()
         {
             this.shipObject = this.gameObject;
             this.shipRb = this.shipObject.GetComponent<Rigidbody>();
             this.inputHandler = this.shipObject.GetComponent<InputHandler>();
 
+            this.totalMaxSpeed = this.Settings.MaxSpeed + this.Settings.MaxSpeedBoost;
+        }
 
-            // TODO: Flight Model Loading
-            FlightModel.StoreCustomFlightModel(this.settings);
-            FlightModel.LoadFlightModel(this.settings, "Custom");
-            this.totalMaxSpeed = this.settings.MaxSpeed + this.settings.MaxSpeedBoost;
+        private void Awake()
+        {
+            // Check for nulls in List. This is a common bug in serialized Lists.
+            var withoutNulls = this.settings.Where(entry => entry != null).ToList();
+
+            var nullCount = this.settings.Count - withoutNulls.Count;
+            if (nullCount > 0)
+            {
+                Debug.LogError($"Found {nullCount} Null values. They have been removed for now");
+                this.settings = withoutNulls;
+            }
         }
 
         private void FixedUpdate()
@@ -61,8 +67,12 @@ namespace Ship
 
             this.HandleAngularVelocity(input);
             this.ModifyShipVector(input);
-
+            this.CurrentSpeed = this.ShipRB.velocity.magnitude;
+            this.EffectiveForwardSpeed = this.transform.InverseTransformDirection(this.ShipRB.velocity).z;
+            this.ForcesAppliedEvent?.Invoke();
         }
+
+        public float EffectiveForwardSpeed { get; private set; }
 
         private void ApplyInputChanges(InputHandler.InputState input)
         {
@@ -73,23 +83,35 @@ namespace Ship
             }
             else
             {
-                this.desiredSpeed += input.Thrust * (this.settings.MaxSpeed + this.settings.MaxSpeedBoost) * 0.01f;
+                this.desiredSpeed += input.Thrust * (this.Settings.MaxSpeed + this.Settings.MaxSpeedBoost) * 0.01f;
 
-                if (this.desiredSpeed > this.settings.MaxSpeed)
+                if (this.desiredSpeed > this.Settings.MaxSpeed)
                 {
                     // Clamp if at max speed
-                    this.desiredSpeed = this.settings.MaxSpeed;
+                    this.desiredSpeed = this.Settings.MaxSpeed;
                 }
-                else if (this.desiredSpeed < -this.settings.MaxSpeed)
+                else if (this.desiredSpeed < -this.Settings.MaxSpeed)
                 {
                     // Clamp if at max reverse speed
-                    this.desiredSpeed = -this.settings.MaxSpeed;
+                    this.desiredSpeed = -this.Settings.MaxSpeed;
                 }
             }
             if (Math.Abs(this.desiredSpeed - oldDesiredSpeed) > 0.1)
             {
                 this.DesiredSpeedChangedEvent?.Invoke(this.desiredSpeed, this.TotalMaxSpeed);
             }
+
+            if (this.inputHandler.SwitchFlightModel)
+            {
+                this.inputHandler.SwitchFlightModel = false;
+                this.HandleNewFlightModelSelected();
+            }
+        }
+
+        private void HandleNewFlightModelSelected()
+        {
+            this.currentSettingsIndex = (this.currentSettingsIndex + 1) % this.settings.Count;
+            this.HandleSettingsUpdatedEvent();
         }
 
         private void ModifyShipVector(InputHandler.InputState input)
@@ -98,7 +120,7 @@ namespace Ship
             var targetVector = shipForward * this.desiredSpeed;
             if (input.Strafe != 0.0f)
             {
-                targetVector += this.transform.TransformDirection(Vector3.right * input.Strafe * 10f);
+                targetVector += this.transform.TransformDirection(Vector3.right * input.Strafe * this.Settings.LateralMaxSpeed);
             }
 
             var currentDirection = this.shipRb.velocity;
@@ -108,7 +130,6 @@ namespace Ship
             Debug.DrawLine(this.shipRb.position, this.shipRb.position + Vector3.up * currentDirection.y, Color.green);
             Debug.DrawLine(this.shipRb.position, this.shipRb.position + Vector3.forward * currentDirection.z, Color.blue);
             Debug.DrawLine(this.shipRb.position, this.shipRb.position + targetVector, Color.yellow);
-
 #endif
 
             var currentDirectionLocalSpace = this.transform.InverseTransformDirection(currentDirection);
@@ -128,9 +149,11 @@ namespace Ship
 
         }
 
-        private void HandleSettingsUpdatedEvent(ShipMovementHandler2Settings settings)
+        private void HandleSettingsUpdatedEvent()
         {
-            this.totalMaxSpeed = settings.MaxSpeed + settings.MaxSpeedBoost;
+            var currentSettings = this.Settings;
+            this.totalMaxSpeed = currentSettings.MaxSpeed + currentSettings.MaxSpeedBoost;
+            this.SettingsUpdatedEvent?.Invoke(currentSettings);
         }
 
         private void HandleMainThrust(float deltaZLocalSpace, float zTargetLocalSpace)
@@ -144,7 +167,7 @@ namespace Ship
             if (deltaZLocalSpace > 0)
             {
                 var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.shipRb,
-                    Vector3.forward * this.settings.AccelerationForwards * Time.fixedDeltaTime);
+                    Vector3.forward * this.Settings.AccelerationForwards * Time.fixedDeltaTime);
                 if (!this.IsValueInBetween(currentVelocityLocal.z, zTargetLocalSpace,
                     velocityAfterForceLocal.z))
                 {
@@ -156,7 +179,7 @@ namespace Ship
             }
             else
             {
-                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.back * this.settings.AccelerationBackwards *
+                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.back * this.Settings.AccelerationBackwards *
                     Time.fixedDeltaTime);
                 if (!this.IsValueInBetween(currentVelocityLocal.z, zTargetLocalSpace,
                     velocityAfterForceLocal.z))
@@ -198,7 +221,7 @@ namespace Ship
             if (deltaYLocalSpace > 0)
             {
                 var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.shipRb,
-                    Vector3.up * this.settings.AccelerationLateral * Time.fixedDeltaTime);
+                    Vector3.up * this.Settings.AccelerationLateral * Time.fixedDeltaTime);
                 if (!this.IsValueInBetween(currentVelocityLocal.y, yTargetLocalSpace,
                     velocityAfterForceLocal.y))
                 {
@@ -210,7 +233,7 @@ namespace Ship
             }
             else
             {
-                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.down * this.settings.AccelerationLateral *
+                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.down * this.Settings.AccelerationLateral *
                     Time.fixedDeltaTime);
                 if (!this.IsValueInBetween(currentVelocityLocal.y, yTargetLocalSpace,
                     velocityAfterForceLocal.y))
@@ -234,7 +257,7 @@ namespace Ship
             if (deltaXLocalSpace > 0)
             {
                 var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.shipRb,
-                    Vector3.right * this.settings.AccelerationLateral * Time.fixedDeltaTime);
+                    Vector3.right * this.Settings.AccelerationLateral * Time.fixedDeltaTime);
                 if (!this.IsValueInBetween(currentVelocityLocal.x, xTargetLocalSpace,
                     velocityAfterForceLocal.x))
                 {
@@ -246,7 +269,7 @@ namespace Ship
             }
             else
             {
-                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.left * this.settings.AccelerationLateral *
+                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.left * this.Settings.AccelerationLateral *
                     Time.fixedDeltaTime);
                 if (!this.IsValueInBetween(currentVelocityLocal.x, xTargetLocalSpace,
                     velocityAfterForceLocal.x))
@@ -292,9 +315,9 @@ namespace Ship
             var currentLocalAngularVelocity = this.shipObject.transform.InverseTransformDirection(currentWorldAngularVelocity);
 
             var mouseMultiplier = (this.inputHandler.IsBoosting ? 0.5f : 1f) * InputManager.MouseSensitivity;
-            var pitchForce = -input.Pitch * this.settings.PitchSpeed * mouseMultiplier;
-            var yawForce = input.Yaw * this.settings.YawSpeed * mouseMultiplier;
-            var rollForce = -input.Roll * this.settings.RollSpeed;
+            var pitchForce = -input.Pitch * this.Settings.PitchSpeed * mouseMultiplier;
+            var yawForce = input.Yaw * this.Settings.YawSpeed * mouseMultiplier;
+            var rollForce = -input.Roll * this.Settings.RollSpeed;
 
             var angularForce = new Vector3(pitchForce, yawForce, rollForce);
             currentLocalAngularVelocity += angularForce;
