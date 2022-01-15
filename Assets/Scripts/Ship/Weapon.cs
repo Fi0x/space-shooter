@@ -13,7 +13,7 @@ namespace Ship
 
         private bool isShooting;
         private float timeSinceLastFire;
-        private ShipMovementHandler2 shipMovementHandler;
+        private ShipMovementHandler shipMovementHandler;
 
         private UnityAction<bool> fireModeChangedEvent;
 
@@ -21,7 +21,7 @@ namespace Ship
         {
             this.fireModeChangedEvent += this.FireModeChangedEventHandler;
             this.weaponManager.FireModeChangedEvent.AddListener(this.fireModeChangedEvent);
-            this.shipMovementHandler = this.weaponManager.GetParentShipGameObject().GetComponent<ShipMovementHandler2>();
+            this.shipMovementHandler = this.weaponManager.GetParentShipGameObject().GetComponent<ShipMovementHandler>();
         }
 
         private void FireModeChangedEventHandler(bool newFireMode)

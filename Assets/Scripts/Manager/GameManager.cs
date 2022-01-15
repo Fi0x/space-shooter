@@ -81,7 +81,7 @@ namespace Manager
         {
             this.Player.transform.position = new Vector3(0, 0, 0);
             this.Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            this.Player.GetComponent<ShipMovementHandler2>().SetNewTargetSpeed(0);
+            this.Player.GetComponent<ShipMovementHandler>().SetNewTargetSpeed(0);
             var playerHealth = this.Player.GetComponent<Health>();
             playerHealth.MaxHealth = this.playerDefaultHealth;
             playerHealth.CurrentHealth = this.playerDefaultHealth;

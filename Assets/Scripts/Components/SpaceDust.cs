@@ -6,7 +6,7 @@ using Random = System.Random;
 public class SpaceDust : MonoBehaviour
 {
     [SerializeField] private ParticleSystem particleSystem;
-    [SerializeField] private ShipMovementHandler2 smh;
+    [SerializeField] private ShipMovementHandler smh;
 
     private const int ParticlesOverTime = 100;
     private const float MinParticleSize = 0.1f;

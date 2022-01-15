@@ -36,7 +36,7 @@ namespace Ship
 
 
 
-        [SerializeField] private ShipMovementHandler2 movementHandler;
+        [SerializeField] private ShipMovementHandler movementHandler;
 
         [Header("ReadOnly")]
         //

@@ -8,7 +8,7 @@ namespace UI
     public class DesiredSpeedDisplay : MonoBehaviour
     {
         [Header("Speed")]
-        [SerializeField] private ShipMovementHandler2 smh;
+        [SerializeField] private ShipMovementHandler smh;
         [SerializeField] private Image indicator;
         [SerializeField] private float maxValue = 175;
 

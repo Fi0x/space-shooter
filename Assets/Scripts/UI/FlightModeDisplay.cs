@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class FlightModeDisplay : MonoBehaviour
 {
-    [SerializeField] private ShipMovementHandler2 smh;
+    [SerializeField] private ShipMovementHandler smh;
     [SerializeField] private Text textComponent;
 
     void Update()

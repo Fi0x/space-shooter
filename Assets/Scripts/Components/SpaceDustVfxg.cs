@@ -8,7 +8,7 @@ namespace Components
     public class SpaceDustVfxg : MonoBehaviour
     {
         [SerializeField] private VisualEffect vfx;
-        [SerializeField] private ShipMovementHandler2 smh;
+        [SerializeField] private ShipMovementHandler smh;
 
         private float fractionToDisplay = 0.5f;
 

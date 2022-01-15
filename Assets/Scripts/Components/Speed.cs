@@ -7,7 +7,7 @@ namespace Components
     public class Speed : MonoBehaviour
     {
         [Header("Speed")]
-        [SerializeField] private ShipMovementHandler2 smh;
+        [SerializeField] private ShipMovementHandler smh;
 
         private SpeedIndicator speedIndicator;
 
@@ -22,7 +22,7 @@ namespace Components
             this.smh.SettingsUpdatedEvent += this.HandleSettingsUpdatedEvent;
         }
 
-        private void HandleSettingsUpdatedEvent(ShipMovementHandler2Settings _)
+        private void HandleSettingsUpdatedEvent(ShipMovementHandlerSettings _)
         {
             this.speedIndicator.SetMaxSpeed(this.smh.TotalMaxSpeed);
         }

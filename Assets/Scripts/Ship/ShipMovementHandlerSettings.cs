@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 namespace Ship
 {
     [CreateAssetMenu(fileName = "ShipMovementHandlerDefaultSettings", menuName = "ScriptableObject/Ship/ShipMovementHandlerSettings", order = 50)]
-    public class ShipMovementHandler2Settings : ScriptableObject
+    public class ShipMovementHandlerSettings : ScriptableObject
     {
         [SerializeField]
         private string profileName = "Uninitialized";
