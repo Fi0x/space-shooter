@@ -24,6 +24,7 @@ namespace UI
         private void HandleDesiredSpeedChangedEvent(float speed, float maxSpeed)
         {
             this.fractionToDisplay = speed / maxSpeed;
+
         }
 
         private void OnDisable()
@@ -43,6 +44,7 @@ namespace UI
         private void Update()
         {
             var yOffset = this.maxValue * (this.inputHandler.IsBoosting ? 1 : this.fractionToDisplay);
+            //var yOffset = this.maxValue * this.fractionToDisplay;
             this.indicator.transform.localPosition = new Vector3(this.originalPosition.x, this.originalPosition.y + yOffset, this.originalPosition.z);
         }
     }

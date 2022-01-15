@@ -83,22 +83,39 @@ namespace Ship
             }
             else
             {
-                this.desiredSpeed += input.Thrust * (this.Settings.MaxSpeed + this.Settings.MaxSpeedBoost) * 0.01f;
+                if (input.Boosting)
+                {
+                    if (this.desiredSpeed < 0)
+                    {
+                        this.desiredSpeed = -this.TotalMaxSpeed;
+                    }
+                    else
+                    {
+                        this.desiredSpeed = this.TotalMaxSpeed;
+                    }
+                }
+                else
+                {
+                    this.desiredSpeed += input.Thrust * (this.Settings.MaxSpeed) * 0.01f;
 
-                if (this.desiredSpeed > this.Settings.MaxSpeed)
-                {
-                    // Clamp if at max speed
-                    this.desiredSpeed = this.Settings.MaxSpeed;
+                    var maxSpeed = this.Settings.MaxSpeed;
+                    if (this.desiredSpeed > maxSpeed)
+                    {
+                        // Clamp if at max speed
+                        this.desiredSpeed = maxSpeed;
+                    }
+                    else if (this.desiredSpeed < -maxSpeed)
+                    {
+                        // Clamp if at max reverse speed
+                        this.desiredSpeed = -maxSpeed;
+                    }
                 }
-                else if (this.desiredSpeed < -this.Settings.MaxSpeed)
-                {
-                    // Clamp if at max reverse speed
-                    this.desiredSpeed = -this.Settings.MaxSpeed;
-                }
+
+
             }
             if (Math.Abs(this.desiredSpeed - oldDesiredSpeed) > 0.1)
             {
-                this.DesiredSpeedChangedEvent?.Invoke(this.desiredSpeed, this.TotalMaxSpeed);
+                this.DesiredSpeedChangedEvent?.Invoke(this.desiredSpeed, this.Settings.MaxSpeed);
             }
 
             if (this.inputHandler.SwitchFlightModel)
