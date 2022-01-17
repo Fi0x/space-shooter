@@ -1,3 +1,4 @@
+using System;
 using Ship;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,21 +14,37 @@ namespace UI
 
         private InputHandler inputHandler;
         private Vector3 originalPosition;
-        private float maxTotalSpeed;
+        private float fractionToDisplay = 0.5f;
+
+        private void OnEnable()
+        {
+            this.smh.DesiredSpeedChangedEvent += this.HandleDesiredSpeedChangedEvent;
+        }
+
+        private void HandleDesiredSpeedChangedEvent(float speed, float maxSpeed)
+        {
+            this.fractionToDisplay = speed / maxSpeed;
+
+        }
+
+        private void OnDisable()
+        {
+            this.smh.DesiredSpeedChangedEvent -= this.HandleDesiredSpeedChangedEvent;
+        }
+
+
+
 
         private void Start()
         {
             this.originalPosition = this.indicator.transform.localPosition;
-            this.maxTotalSpeed = this.smh.maxSpeed + this.smh.maxSpeedBoost;
-            this.inputHandler = this.smh.inputHandler;
-
-            FlightModel.FlightModelChangedEvent += (sender, args) => { this.maxTotalSpeed = args.NewMaxSpeed + args.NewBoostSpeed; };
+            this.inputHandler = this.smh.InputHandler;
         }
 
         private void Update()
         {
-            var thrustPercent = this.smh.desiredSpeed / this.maxTotalSpeed;
-            var yOffset = this.maxValue * (this.inputHandler.IsBoosting ? 1 : thrustPercent);
+            var yOffset = this.maxValue * (this.inputHandler.IsBoosting ? 1 : this.fractionToDisplay);
+            //var yOffset = this.maxValue * this.fractionToDisplay;
             this.indicator.transform.localPosition = new Vector3(this.originalPosition.x, this.originalPosition.y + yOffset, this.originalPosition.z);
         }
     }
