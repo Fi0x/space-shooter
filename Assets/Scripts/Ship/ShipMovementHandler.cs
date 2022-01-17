@@ -188,7 +188,6 @@ namespace Ship
                 if (!this.IsValueInBetween(currentVelocityLocal.z, zTargetLocalSpace,
                     velocityAfterForceLocal.z))
                 {
-                    Debug.LogWarning("Clamping Z+");
                     var newForceLocal = currentVelocityLocal;
                     newForceLocal.z = zTargetLocalSpace;
                     this.shipRb.velocity = this.transform.TransformDirection(newForceLocal);
@@ -201,7 +200,6 @@ namespace Ship
                 if (!this.IsValueInBetween(currentVelocityLocal.z, zTargetLocalSpace,
                     velocityAfterForceLocal.z))
                 {
-                    Debug.LogWarning("Clamping Z-");
                     var newForceLocal = currentVelocityLocal;
                     newForceLocal.z = zTargetLocalSpace;
                     this.shipRb.velocity = this.transform.TransformDirection(newForceLocal);
@@ -220,11 +218,6 @@ namespace Ship
             {
                 this.HandleLateralY(differenceCurrentDirectionToTargetLocalSpace.y, targetVectorLocalSpace.y);
             }
-
-            return;
-
-
-
         }
 
         private void HandleLateralY(float deltaYLocalSpace, float yTargetLocalSpace)
@@ -242,7 +235,6 @@ namespace Ship
                 if (!this.IsValueInBetween(currentVelocityLocal.y, yTargetLocalSpace,
                     velocityAfterForceLocal.y))
                 {
-                    Debug.LogWarning("Clamping Y+");
                     var newForceLocal = currentVelocityLocal;
                     newForceLocal.y = yTargetLocalSpace;
                     this.shipRb.velocity = this.transform.TransformDirection(newForceLocal);
@@ -255,7 +247,6 @@ namespace Ship
                 if (!this.IsValueInBetween(currentVelocityLocal.y, yTargetLocalSpace,
                     velocityAfterForceLocal.y))
                 {
-                    Debug.LogWarning("Clamping Y-");
                     var newForceLocal = currentVelocityLocal;
                     newForceLocal.y = yTargetLocalSpace;
                     this.shipRb.velocity = this.transform.TransformDirection(newForceLocal);
@@ -278,7 +269,6 @@ namespace Ship
                 if (!this.IsValueInBetween(currentVelocityLocal.x, xTargetLocalSpace,
                     velocityAfterForceLocal.x))
                 {
-                    Debug.LogWarning("Clamping X+");
                     var newForceLocal = currentVelocityLocal;
                     newForceLocal.x = xTargetLocalSpace;
                     this.shipRb.velocity = this.transform.TransformDirection(newForceLocal);
@@ -291,7 +281,6 @@ namespace Ship
                 if (!this.IsValueInBetween(currentVelocityLocal.x, xTargetLocalSpace,
                     velocityAfterForceLocal.x))
                 {
-                    Debug.LogWarning("Clamping X-");
                     var newForceLocal = currentVelocityLocal;
                     newForceLocal.x = xTargetLocalSpace;
                     this.shipRb.velocity = this.transform.TransformDirection(newForceLocal);
@@ -312,9 +301,6 @@ namespace Ship
                 lower = bound2;
                 upper = bound1;
             }
-
-
-            Debug.Log($"Lower: {Math.Round(lower,5)}, Upper: {Math.Round(upper,5)}, V: {Math.Round(valueToCheck, 5)}");
 
             if (boundsInclusive)
             {
