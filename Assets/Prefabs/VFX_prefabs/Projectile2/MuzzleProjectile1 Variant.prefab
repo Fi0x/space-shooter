@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4949760523642991789
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5338839266056552372, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552372, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552372, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552372, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552372, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552372, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552372, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552372, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552372, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552372, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552372, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552377, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_Name
+      value: MuzzleProjectile1 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552378, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552378, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552378, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552379, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552379, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Name
+      value: Color
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552379, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Name
+      value: Color 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552379, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.x
+      value: 1.7960786
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552379, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.y
+      value: 0.35733494
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552379, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.z
+      value: 1.3904433
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552379, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Value.x
+      value: 3.5921571
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552379, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Value.y
+      value: 0.7146699
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552379, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Value.z
+      value: 1.9048533
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552379, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338839266056552379, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}

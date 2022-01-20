@@ -22,6 +22,9 @@ public class Startup
         var gameManagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/GameController.prefab");
         var gameManagerScript = Object.Instantiate(gameManagerPrefab).GetComponent<GameManager>();
         
+        var audioManagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/AudioManager.prefab");
+        var audioManager = Object.Instantiate(audioManagerPrefab);
+        
         gameManagerScript.NotifyAboutNewPlayerInstance(playerObject);
     }
 }
