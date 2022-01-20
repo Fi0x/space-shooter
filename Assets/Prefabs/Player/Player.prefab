@@ -996,7 +996,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  projectilePrefab: {fileID: 4496975871354837890, guid: a0a7eed553613104984a94cbf72b4382, type: 3}
+  projectilePrefab: {fileID: 7276553157955487200, guid: af77ec5ac4ec70c429a163e7a324129b, type: 3}
   weaponManager: {fileID: 3300866360858875059}
 --- !u!1 &3300866360278854118
 GameObject:
