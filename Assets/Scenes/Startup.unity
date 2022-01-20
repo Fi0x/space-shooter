@@ -152,6 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407cd8351b854e0478f358a845f0560d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelSceneName: SampleScene
+  overlayMenuPrefab: {fileID: 243280529640456282, guid: 3ca40f708acfd8447b7e68a4e2b62658, type: 3}
+  playerPrefab: {fileID: 3300866360858875051, guid: eb0684947c05d0242992087803751413, type: 3}
+  gameControllerPrefab: {fileID: 895869049893343043, guid: 4e8ffcd01f03d0840bd723e2843c660e, type: 3}
 --- !u!4 &672987885
 Transform:
   m_ObjectHideFlags: 0

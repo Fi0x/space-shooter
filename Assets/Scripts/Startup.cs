@@ -3,7 +3,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[InitializeOnLoad]
 public class Startup
 {
     static Startup()
