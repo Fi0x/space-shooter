@@ -8,6 +8,7 @@ public class BootScript : MonoBehaviour
     [SerializeField] private GameObject overlayMenuPrefab;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject gameControllerPrefab;
+    [SerializeField] private GameObject audioManagerPrefab;
 
     private bool loadStarted;
     
@@ -33,6 +34,8 @@ public class BootScript : MonoBehaviour
         Instantiate(this.overlayMenuPrefab);
         var playerObject = Instantiate(this.playerPrefab);
         var gameManagerScript = Instantiate(this.gameControllerPrefab).GetComponent<GameManager>();
+        
+        Instantiate(this.audioManagerPrefab);
         
         gameManagerScript.NotifyAboutNewPlayerInstance(playerObject);
 
