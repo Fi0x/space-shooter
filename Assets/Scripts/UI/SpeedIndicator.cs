@@ -44,5 +44,10 @@ namespace UI
             if (calculatedValue > this.slider.maxValue) calculatedValue = this.slider.maxValue;
             this.slider.value = calculatedValue;
         }
+
+        public void SetBoostingState(bool boostingStateLastFrame)
+        {
+            this.fill.GetComponent<Image>().color = boostingStateLastFrame ? Color.red : Color.yellow;
+        }
     }
 }

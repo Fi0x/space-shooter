@@ -1610,27 +1610,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3300866360858875051}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5b177c6bfae38fd6adf886ea06f3355, type: 3}
+  m_Script: {fileID: 11500000, guid: ba9b8f1e080046e29eeda7db290c1b35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pitchSpeed: 0.5
-  rollSpeed: 0.5
-  yawSpeed: 0.3
-  accelerationForwards: 50
-  accelerationBackwards: 45
-  accelerationLateral: 40
-  maxSpeed: 200
-  maxSpeedBoost: 75
-  minBrakeSpeed: 0.02
-  stabilizationMultiplier: 8
-  speedMatchDeadZone: 0.01
-  shipObject: {fileID: 3300866360858875051}
-  inputHandler: {fileID: 0}
-  shipRigidbody: {fileID: 0}
-  isStrafing: 0
-  desiredSpeed: 0
-  currentSpeed: 0
-  currentFlightModel: Custom
+  settings:
+  - {fileID: 11400000, guid: 854197c235e57c67daaa37823ea270e8, type: 2}
+  - {fileID: 11400000, guid: e156c6bc598143122a909b66fd4a0bda, type: 2}
+  - {fileID: 11400000, guid: 2aa71b5aa5fc5c98291d6912e3c1ffba, type: 2}
+  currentSettingsIndex: 0
+  totalMaxSpeed: 0
 --- !u!54 &3300866360858875058
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1675,6 +1663,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 3300866361131783241}
   inputHandler: {fileID: 3300866360858875063}
+  ship: {fileID: 3300866360858875051}
   enemyHitEvent:
     m_PersistentCalls:
       m_Calls:

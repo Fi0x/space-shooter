@@ -34,7 +34,8 @@ namespace Enemy
 
             this.state = State.Roaming;
             this.reachedPositionMaxDistance = 20.0f;
-            this.speed = ShipMovementHandler.TotalMaxSpeed * 0.8f;
+            //this.speed = ShipMovementHandler.TotalMaxSpeed * 0.8f;
+            this.speed = 20f; // TODO
 
             this.waitForAttack = 2.0f;
             this.timeBetweenAttacks = this.waitForAttack;

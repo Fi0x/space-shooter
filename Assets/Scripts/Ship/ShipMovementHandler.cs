@@ -1,40 +1,36 @@
+#define DEBUG_GIZMO
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Manager;
-using UnityEditor;
 using UnityEngine;
-using Vector3 = UnityEngine.Vector3;
 
 namespace Ship
 {
-    [RequireComponent(typeof(InputHandler))]
     public class ShipMovementHandler : MonoBehaviour
     {
-        [Header("Rotation Forces")]
-        [SerializeField] public float pitchSpeed = 1f;
-        [SerializeField] public float rollSpeed = 2f;
-        [SerializeField] public float yawSpeed = 0.8f;
+        [Header("Settings")] [SerializeField] private List<ShipMovementHandlerSettings> settings;
+        [SerializeField] private int currentSettingsIndex = 0;
 
-        [Header("Movement Forces")]
-        [SerializeField] public float accelerationForwards = 2f;
-        [SerializeField] public float accelerationBackwards = 1f;
-        [SerializeField] public float accelerationLateral = 1f;
-        [SerializeField] public float maxSpeed = 150f;
-        [SerializeField] public float maxSpeedBoost = 75f;
-        [SerializeField] private float minBrakeSpeed = 0.02f;
-        [SerializeField] public float stabilizationMultiplier = 3;
-        [SerializeField] private float speedMatchDeadZone = 0.01f;
+        [Header("Debug Data")] [SerializeField, ReadOnlyInspector]
+        private float totalMaxSpeed;
 
-        [HideInInspector] public GameObject shipObject;
-        [HideInInspector] public InputHandler inputHandler;
-        [HideInInspector] public Rigidbody shipRigidbody;
 
-        [SerializeField, ReadOnlyInspector] public bool isStrafing;
-        [SerializeField, ReadOnlyInspector] public float desiredSpeed;
-        [SerializeField, ReadOnlyInspector] public float currentSpeed;
+        private GameObject shipObject;
+        private Rigidbody shipRb;
+        private InputHandler inputHandler;
+        private float desiredSpeed;
+        public Rigidbody ShipRB => this.shipRb;
+        public InputHandler InputHandler => this.inputHandler;
 
-        [SerializeField, ReadOnlyInspector] public string currentFlightModel = "Custom";
+        public ShipMovementHandlerSettings Settings => this.settings[this.currentSettingsIndex];
 
-        public static float TotalMaxSpeed { get; set; }
+        public float TotalMaxSpeed => this.totalMaxSpeed;
+        public float CurrentSpeed { get; private set; } = 0;
+
+        public event Action<ShipMovementHandlerSettings> SettingsUpdatedEvent;
+
+        public event Action<float, float> DesiredSpeedChangedEvent;
 
         /// <summary>
         /// This Event in invoked <b>after</b> forces have been applied onto the Ship's Rigidbody.
@@ -42,180 +38,314 @@ namespace Ship
         /// </summary>
         public event Action ForcesAppliedEvent;
 
-#if DEBUG
-        private GUIStyle textStyle;
-        public static float DotX, DotY;
-#endif
-
         private void Start()
         {
-#if DEBUG
-            this.textStyle = new GUIStyle()
-            {
-                normal = new GUIStyleState()
-                {
-                    textColor = Color.green
-                }
-            };
-#endif
             this.shipObject = this.gameObject;
+            this.shipRb = this.shipObject.GetComponent<Rigidbody>();
             this.inputHandler = this.shipObject.GetComponent<InputHandler>();
-            this.shipRigidbody = this.shipObject.GetComponent<Rigidbody>();
 
-            FlightModel.StoreCustomFlightModel(this);
-            FlightModel.LoadFlightModel(this,"Hyper");
-
-            TotalMaxSpeed = this.maxSpeed + this.maxSpeedBoost;
+            this.totalMaxSpeed = this.Settings.MaxSpeed + this.Settings.MaxSpeedBoost;
         }
 
-#if DEBUG
-        private void OnDrawGizmos()
+        private void Awake()
         {
-            if (!Application.isPlaying)
+            // Check for nulls in List. This is a common error in serialized Lists.
+            var withoutNulls = this.settings.Where(entry => entry != null).ToList();
+
+            var nullCount = this.settings.Count - withoutNulls.Count;
+            if (nullCount > 0)
             {
-                return;
-            }
-            
-            if (Application.isEditor)
-            {
-                var position = this.shipObject.transform.position;
-                Handles.Label(position,
-                    $"angV=({this.inputHandler.Pitch}, {this.inputHandler.Roll}, {this.inputHandler.Yaw}); V=({this.shipRigidbody.velocity.magnitude})",
-                    this.textStyle);
-                Handles.color = Color.red;
-                Handles.DrawLine(position, position + this.shipObject.transform.forward * 20f);
-                Handles.color = Color.green;
-                Handles.DrawLine(position, position + this.shipRigidbody.velocity);
-                Handles.Label(position + this.shipObject.transform.right * 2, $"dotX:{DotX}", this.textStyle);
-                Handles.Label(position + this.shipObject.transform.up * 2, $"dotY:{DotY}", this.textStyle);
+                Debug.LogError($"Found {nullCount} Null values. They have been removed for now");
+                this.settings = withoutNulls;
             }
         }
-#endif
 
         private void FixedUpdate()
         {
-            // Necessary to allow full-stop
-            if(this.shipRigidbody.velocity.sqrMagnitude < this.minBrakeSpeed) this.shipRigidbody.velocity = Vector3.zero;
-            
-            var (pitch, roll, yaw, thrust, strafe, _, _) = this.inputHandler.CurrentInputState;
-            this.HandleAngularVelocity(pitch, yaw, roll);
-            this.HandleThrust(thrust, strafe);
-            this.currentSpeed = Stabilization.StabilizeShip(this);
+            var input = this.inputHandler.CurrentInputState;
+            this.ApplyInputChanges(input);
 
+            this.HandleAngularVelocity(input);
+            this.ModifyShipVector(input);
+            this.CurrentSpeed = this.ShipRB.velocity.magnitude;
+            this.EffectiveForwardSpeed = this.transform.InverseTransformDirection(this.ShipRB.velocity).z;
             this.ForcesAppliedEvent?.Invoke();
+        }
+
+        public float EffectiveForwardSpeed { get; private set; }
+
+        private void ApplyInputChanges(InputHandler.InputState input)
+        {
+            var oldDesiredSpeed = this.desiredSpeed;
+            if (input.Braking)
+            {
+                this.desiredSpeed = 0f;
+            }
+            else
+            {
+                if (input.Boosting)
+                {
+                    if (this.desiredSpeed < 0)
+                    {
+                        this.desiredSpeed = -this.TotalMaxSpeed;
+                    }
+                    else
+                    {
+                        this.desiredSpeed = this.TotalMaxSpeed;
+                    }
+                }
+                else
+                {
+                    this.desiredSpeed += input.Thrust * (this.Settings.MaxSpeed) * 0.01f;
+
+                    var maxSpeed = this.Settings.MaxSpeed;
+                    if (this.desiredSpeed > maxSpeed)
+                    {
+                        // Clamp if at max speed
+                        this.desiredSpeed = maxSpeed;
+                    }
+                    else if (this.desiredSpeed < -maxSpeed)
+                    {
+                        // Clamp if at max reverse speed
+                        this.desiredSpeed = -maxSpeed;
+                    }
+                }
+
+
+            }
+            if (Math.Abs(this.desiredSpeed - oldDesiredSpeed) > 0.1)
+            {
+                this.DesiredSpeedChangedEvent?.Invoke(this.desiredSpeed, this.Settings.MaxSpeed);
+            }
 
             if (this.inputHandler.SwitchFlightModel)
             {
-                FlightModel.NextFlightModel(this);
                 this.inputHandler.SwitchFlightModel = false;
+                this.HandleNewFlightModelSelected();
             }
         }
 
-        private void HandleAngularVelocity(float pitch, float yaw, float roll)
+        private void HandleNewFlightModelSelected()
         {
-            var currentWorldAngularVelocity = this.shipRigidbody.angularVelocity;
+            this.currentSettingsIndex = (this.currentSettingsIndex + 1) % this.settings.Count;
+            this.HandleSettingsUpdatedEvent();
+        }
+
+        private void ModifyShipVector(InputHandler.InputState input)
+        {
+            var shipForward = this.shipObject.transform.forward;
+            var targetVector = shipForward * this.desiredSpeed;
+            if (input.Strafe != 0.0f)
+            {
+                targetVector += this.transform.TransformDirection(Vector3.right * input.Strafe * this.Settings.LateralMaxSpeed);
+            }
+
+            var currentDirection = this.shipRb.velocity;
+#if DEBUG_GIZMO
+            Debug.DrawLine(this.shipRb.position, this.shipRb.position + currentDirection, Color.magenta);
+            Debug.DrawLine(this.shipRb.position, this.shipRb.position + Vector3.right * currentDirection.x, Color.red);
+            Debug.DrawLine(this.shipRb.position, this.shipRb.position + Vector3.up * currentDirection.y, Color.green);
+            Debug.DrawLine(this.shipRb.position, this.shipRb.position + Vector3.forward * currentDirection.z, Color.blue);
+            Debug.DrawLine(this.shipRb.position, this.shipRb.position + targetVector, Color.yellow);
+#endif
+
+            var currentDirectionLocalSpace = this.transform.InverseTransformDirection(currentDirection);
+            var targetVectorLocalSpace = this.transform.InverseTransformDirection(targetVector);
+
+            var differenceCurrentDirectionToTargetLocalSpace = targetVectorLocalSpace - currentDirectionLocalSpace;
+
+            this.HandleLateralThrust(
+                differenceCurrentDirectionToTargetLocalSpace, currentDirectionLocalSpace, targetVectorLocalSpace);
+
+            // Update values
+            currentDirectionLocalSpace = this.transform.InverseTransformDirection(currentDirection);
+            differenceCurrentDirectionToTargetLocalSpace = targetVectorLocalSpace - currentDirectionLocalSpace;
+            this.HandleMainThrust(differenceCurrentDirectionToTargetLocalSpace.z, targetVectorLocalSpace.z);
+
+
+
+        }
+
+        private void HandleSettingsUpdatedEvent()
+        {
+            var currentSettings = this.Settings;
+            this.totalMaxSpeed = currentSettings.MaxSpeed + currentSettings.MaxSpeedBoost;
+            this.SettingsUpdatedEvent?.Invoke(currentSettings);
+        }
+
+        private void HandleMainThrust(float deltaZLocalSpace, float zTargetLocalSpace)
+        {
+            if (!(Math.Abs(deltaZLocalSpace) > 0.1))
+            {
+                // Nothing to do. Z-Axis is within allowed Margin of Error.
+                return;
+            }
+            var currentVelocityLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
+            if (deltaZLocalSpace > 0)
+            {
+                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.shipRb,
+                    Vector3.forward * this.Settings.AccelerationForwards * Time.fixedDeltaTime);
+                if (!this.IsValueInBetween(currentVelocityLocal.z, zTargetLocalSpace,
+                    velocityAfterForceLocal.z))
+                {
+                    var newForceLocal = currentVelocityLocal;
+                    newForceLocal.z = zTargetLocalSpace;
+                    this.shipRb.velocity = this.transform.TransformDirection(newForceLocal);
+                }
+            }
+            else
+            {
+                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.back * this.Settings.AccelerationBackwards *
+                    Time.fixedDeltaTime);
+                if (!this.IsValueInBetween(currentVelocityLocal.z, zTargetLocalSpace,
+                    velocityAfterForceLocal.z))
+                {
+                    var newForceLocal = currentVelocityLocal;
+                    newForceLocal.z = zTargetLocalSpace;
+                    this.shipRb.velocity = this.transform.TransformDirection(newForceLocal);
+                }
+            }
+        }
+
+        private void HandleLateralThrust(Vector3 differenceCurrentDirectionToTargetLocalSpace, Vector3 currentDirectionLocalSpace, Vector3 targetVectorLocalSpace)
+        {
+            if (Math.Abs(differenceCurrentDirectionToTargetLocalSpace.x) > 0.1f)
+            {
+                this.HandleLateralX(differenceCurrentDirectionToTargetLocalSpace.x, targetVectorLocalSpace.x);
+            }
+
+            if (Math.Abs(differenceCurrentDirectionToTargetLocalSpace.y) > 0.1f)
+            {
+                this.HandleLateralY(differenceCurrentDirectionToTargetLocalSpace.y, targetVectorLocalSpace.y);
+            }
+        }
+
+        private void HandleLateralY(float deltaYLocalSpace, float yTargetLocalSpace)
+        {
+            if (!(Math.Abs(deltaYLocalSpace) > 0.1))
+            {
+                // Nothing to do. Z-Axis is within allowed Margin of Error.
+                return;
+            }
+            var currentVelocityLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
+            if (deltaYLocalSpace > 0)
+            {
+                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.shipRb,
+                    Vector3.up * this.Settings.AccelerationLateral * Time.fixedDeltaTime);
+                if (!this.IsValueInBetween(currentVelocityLocal.y, yTargetLocalSpace,
+                    velocityAfterForceLocal.y))
+                {
+                    var newForceLocal = currentVelocityLocal;
+                    newForceLocal.y = yTargetLocalSpace;
+                    this.shipRb.velocity = this.transform.TransformDirection(newForceLocal);
+                }
+            }
+            else
+            {
+                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.down * this.Settings.AccelerationLateral *
+                    Time.fixedDeltaTime);
+                if (!this.IsValueInBetween(currentVelocityLocal.y, yTargetLocalSpace,
+                    velocityAfterForceLocal.y))
+                {
+                    var newForceLocal = currentVelocityLocal;
+                    newForceLocal.y = yTargetLocalSpace;
+                    this.shipRb.velocity = this.transform.TransformDirection(newForceLocal);
+                }
+            }
+        }
+
+        private void HandleLateralX(float deltaXLocalSpace, float xTargetLocalSpace)
+        {
+            if (!(Math.Abs(deltaXLocalSpace) > 0.1))
+            {
+                // Nothing to do. Z-Axis is within allowed Margin of Error.
+                return;
+            }
+            var currentVelocityLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
+            if (deltaXLocalSpace > 0)
+            {
+                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.shipRb,
+                    Vector3.right * this.Settings.AccelerationLateral * Time.fixedDeltaTime);
+                if (!this.IsValueInBetween(currentVelocityLocal.x, xTargetLocalSpace,
+                    velocityAfterForceLocal.x))
+                {
+                    var newForceLocal = currentVelocityLocal;
+                    newForceLocal.x = xTargetLocalSpace;
+                    this.shipRb.velocity = this.transform.TransformDirection(newForceLocal);
+                }
+            }
+            else
+            {
+                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.left * this.Settings.AccelerationLateral *
+                    Time.fixedDeltaTime);
+                if (!this.IsValueInBetween(currentVelocityLocal.x, xTargetLocalSpace,
+                    velocityAfterForceLocal.x))
+                {
+                    var newForceLocal = currentVelocityLocal;
+                    newForceLocal.x = xTargetLocalSpace;
+                    this.shipRb.velocity = this.transform.TransformDirection(newForceLocal);
+                }
+            }
+        }
+
+        private bool IsValueInBetween(float bound1, float bound2, float valueToCheck, bool boundsInclusive = false)
+        {
+            float lower, upper;
+            if (bound1 < bound2)
+            {
+                lower = bound1;
+                upper = bound2;
+            }
+            else
+            {
+                lower = bound2;
+                upper = bound1;
+            }
+
+            if (boundsInclusive)
+            {
+                return valueToCheck >= lower && valueToCheck <= upper;
+            }
+            else
+            {
+                return valueToCheck > lower && valueToCheck < upper;
+            }
+        }
+
+        private void HandleAngularVelocity(InputHandler.InputState input)
+        {
+            var currentWorldAngularVelocity = this.shipRb.angularVelocity;
             var currentLocalAngularVelocity = this.shipObject.transform.InverseTransformDirection(currentWorldAngularVelocity);
 
             var mouseMultiplier = (this.inputHandler.IsBoosting ? 0.5f : 1f) * InputManager.MouseSensitivity;
-            var pitchForce = -pitch * this.pitchSpeed * mouseMultiplier;
-            var yawForce = yaw * this.yawSpeed * mouseMultiplier;
-            var rollForce = -roll * this.rollSpeed;
-            
+            var pitchForce = -input.Pitch * this.Settings.PitchSpeed * mouseMultiplier;
+            var yawForce = input.Yaw * this.Settings.YawSpeed * mouseMultiplier;
+            var rollForce = -input.Roll * this.Settings.RollSpeed;
+
             var angularForce = new Vector3(pitchForce, yawForce, rollForce);
             currentLocalAngularVelocity += angularForce;
 
             var modifiedWorldAngularVelocity = this.shipObject.transform.TransformDirection(currentLocalAngularVelocity);
-            this.shipRigidbody.angularVelocity = modifiedWorldAngularVelocity;
+            this.shipRb.angularVelocity = modifiedWorldAngularVelocity;
         }
 
-        /// <summary>
-        /// Handles any types of Ship Movement before stabilization
-        /// </summary>
-        /// <param name="dThrust">Change in Thrust. As of now this is either +1 or -1 and affects the "speed target"</param>
-        /// <param name="strafeX">Change Left/Right Thrust. As of now, this is either +1 or -1.</param>
-        /// <param name="isBoosting">Is Player holding down Boost Button</param>
-        private void HandleThrust(float dThrust, float strafeX)
+        public void SetNewTargetSpeed(int newSpeed)
         {
-            if (this.inputHandler.Braking)
-            {
-                this.desiredSpeed = 0;
-            }
-            else
-            {
-                this.desiredSpeed += dThrust * (this.maxSpeed + this.maxSpeedBoost) * 0.01f;
-                
-                if (this.desiredSpeed > this.maxSpeed)
-                    this.desiredSpeed = this.maxSpeed;
-                else if (this.desiredSpeed < -this.maxSpeed)
-                    this.desiredSpeed = -this.maxSpeed;
-            }
-
-            var currentForwardDirection = this.shipObject.transform.forward;
-
-            // See https://i.imgur.com/p70W4s6.png
-            var currentEffectiveForwardSpeed = Vector3.Dot(currentForwardDirection, this.shipRigidbody.velocity);
-
-            var targetSpeed = this.desiredSpeed;
-            if (this.inputHandler.IsBoosting)
-            {
-                targetSpeed = this.maxSpeed + this.maxSpeedBoost;
-            }
-
-            // Check small deviations around target speed ("DeadZone")
-
-            if (currentEffectiveForwardSpeed + this.speedMatchDeadZone > targetSpeed &&
-                currentEffectiveForwardSpeed - this.speedMatchDeadZone < targetSpeed)
-            {
-                // Inside DeadZone. Check if currently speed is zero. If this is the case, set the velocity to 0
-                if (targetSpeed == 0f)
-                {
-                    // Set forward velocity to 0
-                    this.shipRigidbody.velocity = Vector3.Scale(new Vector3(1, 1, 0), this.shipRigidbody.velocity);
-                }
-            }
-            else if (targetSpeed > currentEffectiveForwardSpeed)
-            {
-                var thrustForce = this.accelerationForwards * (this.inputHandler.IsBoosting ? 2 : 1);
-                this.shipRigidbody.AddForce(currentForwardDirection * thrustForce);
-
-                var newEffectiveForwardSpeed = Vector3.Dot(currentForwardDirection, this.shipRigidbody.velocity);
-                if (targetSpeed < newEffectiveForwardSpeed)
-                {
-                    // "overshot" target when thrusting.
-                    // clamp value
-                    var shipRigidbodyVelocity = this.shipRigidbody.velocity;
-                    this.shipRigidbody.velocity = shipRigidbodyVelocity.normalized *
-                                      (shipRigidbodyVelocity.magnitude / newEffectiveForwardSpeed);
-                }
-
-            }
-            else if (targetSpeed < currentEffectiveForwardSpeed)
-            {
-                var thrustForce = -this.accelerationBackwards;
-                this.shipRigidbody.AddForce(currentForwardDirection * thrustForce);
-
-                var newEffectiveForwardSpeed = Vector3.Dot(currentForwardDirection, this.shipRigidbody.velocity);
-                if (targetSpeed > newEffectiveForwardSpeed)
-                {
-                    // "overshot" target when thrusting.
-                    // clamp value
-                    var shipRigidbodyVelocity = this.shipRigidbody.velocity;
-                    this.shipRigidbody.velocity = shipRigidbodyVelocity.normalized *
-                                                  (shipRigidbodyVelocity.magnitude / newEffectiveForwardSpeed);
-                }
-            }
-
-            this.HandleStrafing(strafeX);
+            this.desiredSpeed = newSpeed;
         }
 
-        private void HandleStrafing(float strafeX)
+        private Vector3 ModifyVelocityImmediate(Rigidbody rb, Vector3 force)
         {
-            this.isStrafing = strafeX != 0;
-            if (this.isStrafing)
-            {
-                var strafeForce = strafeX * this.accelerationLateral;
-                this.shipRigidbody.AddForce(this.shipObject.transform.right * strafeForce);
-            }
+            var actualChange = force / rb.mass;
+            rb.velocity += actualChange;
+            return rb.velocity;
+        }
+
+        private Vector3 ModifyVelocityImmediateLocal(Rigidbody rb, Vector3 force)
+        {
+            var actualChange = this.transform.TransformDirection(force) / rb.mass;
+            rb.velocity += actualChange;
+            return this.transform.InverseTransformDirection(rb.velocity);
         }
     }
 }

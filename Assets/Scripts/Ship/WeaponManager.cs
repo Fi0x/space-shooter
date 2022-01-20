@@ -7,6 +7,7 @@ namespace Ship
     {
         [SerializeField] private Transform target;
         [SerializeField] private InputHandler inputHandler;
+        [SerializeField] private GameObject ship;
 
         public Vector3 Target => this.target.position;
 
@@ -17,11 +18,16 @@ namespace Ship
 
         private void Update()
         {
-            if (this.isShooting == this.inputHandler.IsShooting)
+            if (this.isShooting == this.inputHandler.CurrentInputState.Shooting)
                 return;
 
             this.isShooting = !this.isShooting;
             this.FireModeChangedEvent.Invoke(this.isShooting);
+        }
+
+        public GameObject GetParentShipGameObject()
+        {
+            return this.ship;
         }
     }
 }

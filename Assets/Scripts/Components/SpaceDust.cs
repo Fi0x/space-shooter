@@ -15,8 +15,8 @@ public class SpaceDust : MonoBehaviour
 
     void FixedUpdate()
     {
-        var maxShipSpeed = this.smh.maxSpeed + this.smh.maxSpeedBoost;
-        var shipSpeed = this.smh.shipRigidbody.velocity.magnitude;
+        var maxShipSpeed = this.smh.Settings.MaxSpeed + this.smh.Settings.MaxSpeedBoost;
+        var shipSpeed = this.smh.ShipRB.velocity.magnitude;
         
         var emission = this.particleSystem.emission;
         emission.rateOverTime = ParticlesOverTime / maxShipSpeed * shipSpeed;
