@@ -6,7 +6,6 @@ namespace Ship
 {
     public class Weapon : MonoBehaviour
     {
-        [SerializeField] private float fireRate = 0.5f;
         [SerializeField] private AnimationCurve damageOverTime;
         [SerializeField] private GameObject projectilePrefab;
         [SerializeField] private WeaponManager weaponManager;
@@ -16,6 +15,10 @@ namespace Ship
         private ShipMovementHandler shipMovementHandler;
 
         private UnityAction<bool> fireModeChangedEvent;
+        
+        public float fireRate = 0.5f;
+        public float projectileSpeedModifier = 1.5f;
+        public float projectileDamageModifier = 1;
 
         private void Start()
         {
@@ -64,9 +67,10 @@ namespace Ship
             var ownPosition = this.gameObject.transform.position;
             projectile.transform.position = ownPosition;
             var shotDirection = this.weaponManager.Target - ownPosition;
-            var projectileDirectionAndVelocity = 1.5f * this.shipMovementHandler.TotalMaxSpeed * shotDirection.normalized;
+            var projectileDirectionAndVelocity = this.projectileSpeedModifier * this.shipMovementHandler.TotalMaxSpeed * shotDirection.normalized;
             var projectileScript = projectile.GetComponent<SphereProjectile>();
             projectileScript.InitializeDirection(projectileDirectionAndVelocity, this.damageOverTime, this.transform.rotation);
+            projectileScript.DamageMultiplier = this.projectileDamageModifier;
             projectileScript.ProjectileHitSomethingEvent += layer =>
             {
                 var targetLayer = LayerMask.NameToLayer("Enemy");

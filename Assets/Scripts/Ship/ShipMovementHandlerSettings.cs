@@ -84,7 +84,7 @@ namespace Ship
             private set => this.minBrakeSpeed = value;
         }
 
-        [Obsolete]
+        //TODO: Try to make this useful again or remove the ship-upgrade option
         internal float StabilizationMultiplier
         {
             get => this.stabilizationMultiplier;

@@ -51,51 +51,59 @@ namespace UI
                 increase = true;
                 upgradeType -= 100;
             }
-            var type = UpgradePurchasedEventArgs.Upgrade.Armor;
+            var type = Upgrade.Armor;
             switch (upgradeType)
             {
                 case 0:
-                    type = UpgradePurchasedEventArgs.Upgrade.WeaponDamage;
+                    type = Upgrade.WeaponDamage;
                     break;
                 case 1:
-                    type = UpgradePurchasedEventArgs.Upgrade.WeaponFireRate;
+                    type = Upgrade.WeaponFireRate;
                     break;
                 case 2:
-                    type = UpgradePurchasedEventArgs.Upgrade.WeaponProjectileSpeed;
+                    type = Upgrade.WeaponProjectileSpeed;
                     break;
                 case 3:
-                    type = UpgradePurchasedEventArgs.Upgrade.EngineAcceleration;
+                    type = Upgrade.EngineAcceleration;
                     break;
                 case 4:
-                    type = UpgradePurchasedEventArgs.Upgrade.EngineDeceleration;
+                    type = Upgrade.EngineDeceleration;
                     break;
                 case 5:
-                    type = UpgradePurchasedEventArgs.Upgrade.EngineLateralThrust;
+                    type = Upgrade.EngineLateralThrust;
                     break;
-                case 6:
-                    type = UpgradePurchasedEventArgs.Upgrade.EngingRotationSpeed;
+                case 61:
+                    type = Upgrade.EngingRotationSpeedPitch;
+                    break;
+                case 62:
+                    type = Upgrade.EngingRotationSpeedRoll;
+                    break;
+                case 63:
+                    type = Upgrade.EngingRotationSpeedYaw;
                     break;
                 case 7:
-                    type = UpgradePurchasedEventArgs.Upgrade.EngineStabilizationSpeed;
+                    type = Upgrade.EngineStabilizationSpeed;
                     break;
                 case 8:
-                    type = UpgradePurchasedEventArgs.Upgrade.Armor;
+                    type = Upgrade.Armor;
                     break;
+                default:
+                    return;
             }
             
             UpgradePurchasedEvent?.Invoke(null, new UpgradePurchasedEventArgs(type, increase));
         }
-    }
 
-    public class UpgradePurchasedEventArgs : EventArgs
-    {
-        public readonly Upgrade Type;
-        public readonly bool Increased;
-        
-        public UpgradePurchasedEventArgs(Upgrade upgradeType, bool increased)
+        public class UpgradePurchasedEventArgs : EventArgs
         {
-            this.Type = upgradeType;
-            this.Increased = increased;
+            public readonly Upgrade Type;
+            public readonly bool Increased;
+        
+            public UpgradePurchasedEventArgs(Upgrade upgradeType, bool increased)
+            {
+                this.Type = upgradeType;
+                this.Increased = increased;
+            }
         }
         
         public enum Upgrade
@@ -106,9 +114,12 @@ namespace UI
             EngineAcceleration,
             EngineDeceleration,
             EngineLateralThrust,
-            EngingRotationSpeed,
+            EngingRotationSpeedPitch,
+            EngingRotationSpeedRoll,
+            EngingRotationSpeedYaw,
             EngineStabilizationSpeed,
-            Armor
+            Armor,
+            Unknown
         }
     }
 }
