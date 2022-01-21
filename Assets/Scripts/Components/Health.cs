@@ -18,6 +18,9 @@ namespace Components
             }
         }
 
+        public GameObject deathVFX;
+        public float vfxLifetime = 4f;
+
         private int currentHealth;
         public int CurrentHealth
         {
@@ -51,6 +54,13 @@ namespace Components
             this.CurrentHealth -= damage;
             if(this.CurrentHealth > 0)
                 return;
+            
+            //spawn vfx
+            if (deathVFX != null)
+            {
+                GameObject vfx = Instantiate(deathVFX, transform.position, transform.rotation);
+                Destroy(vfx, vfxLifetime);
+            }
             
             if(this.TryGetComponent(out Boid boid))
                 boid.RemoveBoidFromAssignedFlock();
