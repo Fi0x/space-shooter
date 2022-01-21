@@ -1,4 +1,5 @@
 using Components;
+using UI;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -25,6 +26,26 @@ namespace Ship
             this.fireModeChangedEvent += this.FireModeChangedEventHandler;
             this.weaponManager.FireModeChangedEvent.AddListener(this.fireModeChangedEvent);
             this.shipMovementHandler = this.weaponManager.GetParentShipGameObject().GetComponent<ShipMovementHandler>();
+
+            LevelTransitionMenu.UpgradePurchasedEvent += (sender, args) =>
+            {
+                switch (args.Type)
+                {
+                    case LevelTransitionMenu.Upgrade.WeaponDamage:
+                        this.projectileDamageModifier += args.Increased ? 0.1f : -0.1f;
+                        break;
+                    case LevelTransitionMenu.Upgrade.WeaponFireRate:
+                        this.fireRate *= args.Increased ? 0.5f : 2f;
+                        break;
+                    case LevelTransitionMenu.Upgrade.WeaponProjectileSpeed:
+                        this.projectileSpeedModifier += args.Increased ? 0.1f : -0.1f;
+                        break;
+                    default:
+                        return;
+                }
+                
+                UpgradeMenuValues.InvokeUpgradeCompletedEvent(args);
+            };
         }
 
         private void FireModeChangedEventHandler(bool newFireMode)

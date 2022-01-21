@@ -1,3 +1,4 @@
+using System;
 using Components;
 using Manager;
 using Ship;
@@ -10,6 +11,14 @@ namespace UI
     {
         private Text text;
         private LevelTransitionMenu.Upgrade type;
+
+        public static event EventHandler<LevelTransitionMenu.UpgradePurchasedEventArgs> UpgradeCompletedEvent;
+
+        public static void InvokeUpgradeCompletedEvent(LevelTransitionMenu.UpgradePurchasedEventArgs args)
+        {
+            UpgradeCompletedEvent?.Invoke(null, args);
+        }
+        
         private void Start()
         {
             this.text = this.gameObject.GetComponent<Text>();
@@ -17,7 +26,7 @@ namespace UI
             
             this.text.text = this.GetCorrectValue();
 
-            LevelTransitionMenu.UpgradePurchasedEvent += this.UpdateValue;
+            UpgradeCompletedEvent += this.UpdateValue;
         }
 
         private void UpdateValue(object sender, LevelTransitionMenu.UpgradePurchasedEventArgs args)
@@ -32,7 +41,7 @@ namespace UI
             switch (this.type)
             {
                     case LevelTransitionMenu.Upgrade.WeaponDamage:
-                        return "" + 1f / GameManager.Instance.Player.GetComponentInChildren<Weapon>().projectileDamageModifier;
+                        return "" + GameManager.Instance.Player.GetComponentInChildren<Weapon>().projectileDamageModifier;
                         
                     case LevelTransitionMenu.Upgrade.WeaponFireRate:
                         return "" + 1f / GameManager.Instance.Player.GetComponentInChildren<Weapon>().fireRate;

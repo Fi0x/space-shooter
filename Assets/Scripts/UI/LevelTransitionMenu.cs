@@ -51,7 +51,8 @@ namespace UI
                 increase = true;
                 upgradeType -= 100;
             }
-            var type = Upgrade.Armor;
+
+            Upgrade type;
             switch (upgradeType)
             {
                 case 0:
