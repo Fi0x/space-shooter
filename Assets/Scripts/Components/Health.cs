@@ -19,7 +19,7 @@ namespace Components
         }
 
         public GameObject deathVFX;
-        public float vfxLifetime = 4f;
+        public float vfxLifetime = 4.5f;
 
         private int currentHealth;
         public int CurrentHealth
