@@ -45,18 +45,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flockUnitPrefab: {fileID: -397256906301617565, guid: 93f0741716cf79c1094b9b5108c04537, type: 3}
   flockSize: 10
-  spawnBounds: {x: 0, y: 0, z: 0}
-  _minSpeed: 100
-  _maxSpeed: 100
-  _cohesionDistance: 100
-  _avoidanceDistance: 100
-  _alignmentDistance: 100
-  _obstacleDistance: 20
-  _cohesionWeight: 1
-  _avoidanceWeight: 1.2
-  _alignmentWeight: 1
-  _obstacleWeight: 100
-  _roamingPosition: {x: 0, y: 0, z: 0}
+  minSpeed: 100
+  maxSpeed: 100
+  cohesionDistance: 100
+  avoidanceDistance: 100
+  alignmentDistance: 100
+  obstacleDistance: 20
+  cohesionWeight: 1
+  avoidanceWeight: 1.2
+  alignmentWeight: 1
+  obstacleWeight: 100
+  roamingPosition: {x: 0, y: 0, z: 0}
   roamingPosReachedDistance: 25
   minDistanceFromPlayer: 75
   maxDistanceFromPlayer: 250
