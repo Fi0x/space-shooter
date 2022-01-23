@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df50680e77d14f19806ef622d7461fca, type: 3}
   m_Name: CustomSettings
   m_EditorClassIdentifier: 
-  profileName: Uninitialized
+  profileName: Custom123
   pitchSpeed: 1
   rollSpeed: 2
   yawSpeed: 0.8
@@ -22,6 +22,11 @@ MonoBehaviour:
   maxLateralSpeed: 50
   maxSpeed: 150
   maxSpeedBoost: 75
-  minBrakeSpeed: 0.02
-  stabilizationMultiplier: 3
+  brakingModifier: 1
+  accelerationForwardsBoostMultiplier: 1
+  accelerationBackwardsBoostMultiplier: 1
+  accelerationLateralBoostMultiplier: 1
+  pitchSpeedBoostMultiplier: 0.2
+  rollSpeedBoostMultiplier: 0.2
+  yawSpeedBoostMultiplier: 0.2
   correctionDeadZone: 0.01

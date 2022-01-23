@@ -83,7 +83,7 @@ namespace Ship
             }
             else
             {
-                if (input.Boosting)
+                if (input.Boosting && false)
                 {
                     if (this.desiredSpeed < 0)
                     {
@@ -142,6 +142,7 @@ namespace Ship
 
             var currentDirection = this.shipRb.velocity;
 #if DEBUG_GIZMO
+            // Draws the Ships direction and target direction and the velocity components split up in global space
             Debug.DrawLine(this.shipRb.position, this.shipRb.position + currentDirection, Color.magenta);
             Debug.DrawLine(this.shipRb.position, this.shipRb.position + Vector3.right * currentDirection.x, Color.red);
             Debug.DrawLine(this.shipRb.position, this.shipRb.position + Vector3.up * currentDirection.y, Color.green);
@@ -155,7 +156,7 @@ namespace Ship
             var differenceCurrentDirectionToTargetLocalSpace = targetVectorLocalSpace - currentDirectionLocalSpace;
 
             this.HandleLateralThrust(
-                differenceCurrentDirectionToTargetLocalSpace, currentDirectionLocalSpace, targetVectorLocalSpace);
+                differenceCurrentDirectionToTargetLocalSpace, targetVectorLocalSpace);
 
             // Update values
             currentDirectionLocalSpace = this.transform.InverseTransformDirection(currentDirection);
@@ -183,9 +184,18 @@ namespace Ship
             var currentVelocityLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
             if (deltaZLocalSpace > 0)
             {
+                var effectiveAccelerationForce = this.Settings.AccelerationForwards;
+                if (this.inputHandler.IsBoosting)
+                {
+                    effectiveAccelerationForce *= this.Settings.AccelerationForwardsBoostMultiplier;
+                }
+
+                Debug.Log(effectiveAccelerationForce);
+                // TODO: Handle Braking Multiplier
+
                 var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.shipRb,
-                    Vector3.forward * this.Settings.AccelerationForwards * Time.fixedDeltaTime);
-                if (!this.IsValueInBetween(currentVelocityLocal.z, zTargetLocalSpace,
+                    Vector3.forward * effectiveAccelerationForce * Time.fixedDeltaTime);
+                if (!IsValueInBetween(currentVelocityLocal.z, zTargetLocalSpace,
                     velocityAfterForceLocal.z))
                 {
                     var newForceLocal = currentVelocityLocal;
@@ -195,9 +205,17 @@ namespace Ship
             }
             else
             {
-                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.back * this.Settings.AccelerationBackwards *
-                    Time.fixedDeltaTime);
-                if (!this.IsValueInBetween(currentVelocityLocal.z, zTargetLocalSpace,
+                var effectiveAccelerationForce = this.Settings.AccelerationBackwards;
+                if (this.inputHandler.IsBoosting)
+                {
+                    effectiveAccelerationForce *= this.Settings.AccelerationBackwardsBoostMultiplier;
+                }
+                // TODO: Handle Braking Multiplier
+
+                var velocityAfterForceLocal =
+                    this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.back * effectiveAccelerationForce * Time.fixedDeltaTime);
+
+                if (!IsValueInBetween(currentVelocityLocal.z, zTargetLocalSpace,
                     velocityAfterForceLocal.z))
                 {
                     var newForceLocal = currentVelocityLocal;
@@ -207,7 +225,7 @@ namespace Ship
             }
         }
 
-        private void HandleLateralThrust(Vector3 differenceCurrentDirectionToTargetLocalSpace, Vector3 currentDirectionLocalSpace, Vector3 targetVectorLocalSpace)
+        private void HandleLateralThrust(Vector3 differenceCurrentDirectionToTargetLocalSpace, Vector3 targetVectorLocalSpace)
         {
             if (Math.Abs(differenceCurrentDirectionToTargetLocalSpace.x) > 0.1f)
             {
@@ -228,11 +246,19 @@ namespace Ship
                 return;
             }
             var currentVelocityLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
+
+            var effectiveAccelerationLateral = this.Settings.AccelerationLateral;
+            if (this.inputHandler.IsBoosting)
+            {
+                effectiveAccelerationLateral *= this.Settings.AccelerationLateralBoostMultiplier;
+            }
+            // TODO: Handle Braking
+
             if (deltaYLocalSpace > 0)
             {
                 var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.shipRb,
-                    Vector3.up * this.Settings.AccelerationLateral * Time.fixedDeltaTime);
-                if (!this.IsValueInBetween(currentVelocityLocal.y, yTargetLocalSpace,
+                    Vector3.up * effectiveAccelerationLateral * Time.fixedDeltaTime);
+                if (!IsValueInBetween(currentVelocityLocal.y, yTargetLocalSpace,
                     velocityAfterForceLocal.y))
                 {
                     var newForceLocal = currentVelocityLocal;
@@ -242,9 +268,9 @@ namespace Ship
             }
             else
             {
-                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.down * this.Settings.AccelerationLateral *
+                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.down * effectiveAccelerationLateral *
                     Time.fixedDeltaTime);
-                if (!this.IsValueInBetween(currentVelocityLocal.y, yTargetLocalSpace,
+                if (!IsValueInBetween(currentVelocityLocal.y, yTargetLocalSpace,
                     velocityAfterForceLocal.y))
                 {
                     var newForceLocal = currentVelocityLocal;
@@ -262,11 +288,20 @@ namespace Ship
                 return;
             }
             var currentVelocityLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
+
+            var effectiveAccelerationLateral = this.Settings.AccelerationLateral;
+            if (this.inputHandler.IsBoosting)
+            {
+                effectiveAccelerationLateral *= this.Settings.AccelerationLateralBoostMultiplier;
+            }
+            // TODO: Handle Braking
+
             if (deltaXLocalSpace > 0)
             {
+
                 var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.shipRb,
-                    Vector3.right * this.Settings.AccelerationLateral * Time.fixedDeltaTime);
-                if (!this.IsValueInBetween(currentVelocityLocal.x, xTargetLocalSpace,
+                    Vector3.right * effectiveAccelerationLateral * Time.fixedDeltaTime);
+                if (!IsValueInBetween(currentVelocityLocal.x, xTargetLocalSpace,
                     velocityAfterForceLocal.x))
                 {
                     var newForceLocal = currentVelocityLocal;
@@ -276,9 +311,9 @@ namespace Ship
             }
             else
             {
-                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.left * this.Settings.AccelerationLateral *
+                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.left * effectiveAccelerationLateral *
                     Time.fixedDeltaTime);
-                if (!this.IsValueInBetween(currentVelocityLocal.x, xTargetLocalSpace,
+                if (!IsValueInBetween(currentVelocityLocal.x, xTargetLocalSpace,
                     velocityAfterForceLocal.x))
                 {
                     var newForceLocal = currentVelocityLocal;
@@ -288,7 +323,7 @@ namespace Ship
             }
         }
 
-        private bool IsValueInBetween(float bound1, float bound2, float valueToCheck, bool boundsInclusive = false)
+        private static bool IsValueInBetween(float bound1, float bound2, float valueToCheck, bool boundsInclusive = false)
         {
             float lower, upper;
             if (bound1 < bound2)
@@ -314,15 +349,23 @@ namespace Ship
 
         private void HandleAngularVelocity(InputHandler.InputState input)
         {
+            var boosting = this.inputHandler.IsBoosting;
+
             var currentWorldAngularVelocity = this.shipRb.angularVelocity;
             var currentLocalAngularVelocity = this.shipObject.transform.InverseTransformDirection(currentWorldAngularVelocity);
 
-            var mouseMultiplier = (this.inputHandler.IsBoosting ? 0.5f : 1f) * InputManager.MouseSensitivity;
-            var pitchForce = -input.Pitch * this.Settings.PitchSpeed * mouseMultiplier;
-            var yawForce = input.Yaw * this.Settings.YawSpeed * mouseMultiplier;
-            var rollForce = -input.Roll * this.Settings.RollSpeed;
+            // TODO: this is the wrong place to add this.
+            var mouseMultiplier = InputManager.MouseSensitivity;
 
-            var angularForce = new Vector3(pitchForce, yawForce, rollForce);
+            var pitchForce = (boosting ? this.Settings.PitchSpeedBoostMultiplier : 1) * this.Settings.PitchSpeed;
+            var yawForce = (boosting ? this.Settings.YawSpeedBoostMultiplier : 1) * this.Settings.YawSpeed;
+            var rollForce = (boosting ? this.Settings.RollSpeedBoostMultiplier : 1) * this.Settings.RollSpeed;
+
+            var effectivePitchForce = -input.Pitch * pitchForce * mouseMultiplier;
+            var effectiveYawForce = input.Yaw * yawForce * mouseMultiplier;
+            var effectiveRollForce = -input.Roll * rollForce;
+
+            var angularForce = new Vector3(effectivePitchForce, effectiveYawForce, effectiveRollForce);
             currentLocalAngularVelocity += angularForce;
 
             var modifiedWorldAngularVelocity = this.shipObject.transform.TransformDirection(currentLocalAngularVelocity);
