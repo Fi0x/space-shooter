@@ -180,7 +180,7 @@ namespace Enemy
         {
             RaycastHit hit;
             return Physics.SphereCast(this.myTransform.position, 1.0f, direction, out hit, this.assignedFlock.ObstacleDistance,
-                LayerMask.GetMask("BoidDetection"));
+                LayerMask.GetMask("Scenery"));
         }
 
         private Vector3 FindUnobstructedDirection()
@@ -189,7 +189,7 @@ namespace Enemy
 
             float radius = 1.0f;
             float ViewRadius = this.assignedFlock.ObstacleDistance;
-            LayerMask layerMask = LayerMask.GetMask("BoidDetection");
+            LayerMask layerMask = LayerMask.GetMask("Scenery");
             for (int i = 0; i < this.directions.Length; i++)
             {
                 Vector3 dir = this.transform.TransformDirection(this.directions[i]);
