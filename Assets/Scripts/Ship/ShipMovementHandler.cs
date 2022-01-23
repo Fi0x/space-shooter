@@ -15,6 +15,7 @@ namespace Ship
         [Header("Debug Data")] [SerializeField, ReadOnlyInspector]
         private float totalMaxSpeed;
 
+        private bool isBoosting = false;
 
         private GameObject shipObject;
         private Rigidbody shipRb;
@@ -31,6 +32,7 @@ namespace Ship
         public event Action<ShipMovementHandlerSettings> SettingsUpdatedEvent;
 
         public event Action<float, float> DesiredSpeedChangedEvent;
+        public event Action<bool> BoostingStateChangedEvent;
 
         /// <summary>
         /// This Event in invoked <b>after</b> forces have been applied onto the Ship's Rigidbody.
@@ -83,7 +85,7 @@ namespace Ship
             }
             else
             {
-                if (input.Boosting && false)
+                if (input.Boosting && false) // Disabled boost setting speed to max
                 {
                     if (this.desiredSpeed < 0)
                     {
@@ -96,7 +98,7 @@ namespace Ship
                 }
                 else
                 {
-                    this.desiredSpeed += input.Thrust * (this.Settings.MaxSpeed) * 0.01f;
+                    this.desiredSpeed += input.Thrust * this.Settings.MaxSpeed * 0.01f;
 
                     var maxSpeed = this.Settings.MaxSpeed;
                     if (this.desiredSpeed > maxSpeed)
@@ -116,6 +118,12 @@ namespace Ship
             if (Math.Abs(this.desiredSpeed - oldDesiredSpeed) > 0.1)
             {
                 this.DesiredSpeedChangedEvent?.Invoke(this.desiredSpeed, this.Settings.MaxSpeed);
+            }
+
+            if (this.isBoosting != input.Boosting)
+            {
+                this.isBoosting = input.Boosting;
+                this.BoostingStateChangedEvent?.Invoke(this.isBoosting);
             }
 
             if (this.inputHandler.SwitchFlightModel)
@@ -182,6 +190,8 @@ namespace Ship
                 return;
             }
             var currentVelocityLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
+            var isBraking = Math.Abs(currentVelocityLocal.z) > Math.Abs(zTargetLocalSpace);
+
             if (deltaZLocalSpace > 0)
             {
                 var effectiveAccelerationForce = this.Settings.AccelerationForwards;
@@ -189,10 +199,10 @@ namespace Ship
                 {
                     effectiveAccelerationForce *= this.Settings.AccelerationForwardsBoostMultiplier;
                 }
-
-                Debug.Log(effectiveAccelerationForce);
-                // TODO: Handle Braking Multiplier
-
+                if (isBraking)
+                {
+                    effectiveAccelerationForce *= this.Settings.BrakingModifier;
+                }
                 var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.shipRb,
                     Vector3.forward * effectiveAccelerationForce * Time.fixedDeltaTime);
                 if (!IsValueInBetween(currentVelocityLocal.z, zTargetLocalSpace,
@@ -210,7 +220,10 @@ namespace Ship
                 {
                     effectiveAccelerationForce *= this.Settings.AccelerationBackwardsBoostMultiplier;
                 }
-                // TODO: Handle Braking Multiplier
+                if (isBraking)
+                {
+                    effectiveAccelerationForce *= this.Settings.BrakingModifier;
+                }
 
                 var velocityAfterForceLocal =
                     this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.back * effectiveAccelerationForce * Time.fixedDeltaTime);
@@ -242,7 +255,7 @@ namespace Ship
         {
             if (!(Math.Abs(deltaYLocalSpace) > 0.1))
             {
-                // Nothing to do. Z-Axis is within allowed Margin of Error.
+                // Nothing to do. Y-Axis is within allowed Margin of Error.
                 return;
             }
             var currentVelocityLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
@@ -252,7 +265,11 @@ namespace Ship
             {
                 effectiveAccelerationLateral *= this.Settings.AccelerationLateralBoostMultiplier;
             }
-            // TODO: Handle Braking
+            var isBraking = Math.Abs(currentVelocityLocal.y) > Math.Abs(yTargetLocalSpace);
+            if (isBraking)
+            {
+                effectiveAccelerationLateral *= this.Settings.BrakingModifier;
+            }
 
             if (deltaYLocalSpace > 0)
             {
@@ -284,7 +301,7 @@ namespace Ship
         {
             if (!(Math.Abs(deltaXLocalSpace) > 0.1))
             {
-                // Nothing to do. Z-Axis is within allowed Margin of Error.
+                // Nothing to do. X-Axis is within allowed Margin of Error.
                 return;
             }
             var currentVelocityLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
@@ -294,7 +311,11 @@ namespace Ship
             {
                 effectiveAccelerationLateral *= this.Settings.AccelerationLateralBoostMultiplier;
             }
-            // TODO: Handle Braking
+            var isBraking = Math.Abs(currentVelocityLocal.x) > Math.Abs(xTargetLocalSpace);
+            if (isBraking)
+            {
+                effectiveAccelerationLateral *= this.Settings.BrakingModifier;
+            }
 
             if (deltaXLocalSpace > 0)
             {
