@@ -347,5 +347,11 @@ namespace Ship
             rb.velocity += actualChange;
             return this.transform.InverseTransformDirection(rb.velocity);
         }
+
+        // Collision
+        public void NotifyAboutCollision()
+        {
+            this.desiredSpeed = 0;
+        }
     }
 }
