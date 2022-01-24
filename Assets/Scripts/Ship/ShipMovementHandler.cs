@@ -16,6 +16,7 @@ namespace Ship
         [Header("Debug Data")] [SerializeField, ReadOnlyInspector]
         private float totalMaxSpeed;
 
+        private bool isBoosting = false;
 
         private GameObject shipObject;
         private Rigidbody shipRb;
@@ -32,6 +33,7 @@ namespace Ship
         public event Action<ShipMovementHandlerSettings> SettingsUpdatedEvent;
 
         public event Action<float, float> DesiredSpeedChangedEvent;
+        public event Action<bool> BoostingStateChangedEvent;
 
         /// <summary>
         /// This Event in invoked <b>after</b> forces have been applied onto the Ship's Rigidbody.
@@ -76,8 +78,8 @@ namespace Ship
                         else this.Settings.YawSpeed /= 1.1f;
                         break;
                     case LevelTransitionMenu.Upgrade.EngineStabilizationSpeed:
-                        if(args.Increased) this.Settings.StabilizationMultiplier *= 1.1f;
-                        else this.Settings.StabilizationMultiplier /= 1.1f;
+                        if(args.Increased) this.Settings.BrakingModifier *= 1.1f;
+                        else this.Settings.BrakingModifier /= 1.1f;
                         break;
                     default:
                         return;
@@ -123,7 +125,7 @@ namespace Ship
             }
             else
             {
-                if (input.Boosting)
+                if (input.Boosting && false) // Disabled boost setting speed to max
                 {
                     if (this.desiredSpeed < 0)
                     {
@@ -136,7 +138,7 @@ namespace Ship
                 }
                 else
                 {
-                    this.desiredSpeed += input.Thrust * (this.Settings.MaxSpeed) * 0.01f;
+                    this.desiredSpeed += input.Thrust * this.Settings.MaxSpeed * 0.01f;
 
                     var maxSpeed = this.Settings.MaxSpeed;
                     if (this.desiredSpeed > maxSpeed)
@@ -156,6 +158,12 @@ namespace Ship
             if (Math.Abs(this.desiredSpeed - oldDesiredSpeed) > 0.1)
             {
                 this.DesiredSpeedChangedEvent?.Invoke(this.desiredSpeed, this.Settings.MaxSpeed);
+            }
+
+            if (this.isBoosting != input.Boosting)
+            {
+                this.isBoosting = input.Boosting;
+                this.BoostingStateChangedEvent?.Invoke(this.isBoosting);
             }
 
             if (this.inputHandler.SwitchFlightModel)
@@ -182,6 +190,7 @@ namespace Ship
 
             var currentDirection = this.shipRb.velocity;
 #if DEBUG_GIZMO
+            // Draws the Ships direction and target direction and the velocity components split up in global space
             Debug.DrawLine(this.shipRb.position, this.shipRb.position + currentDirection, Color.magenta);
             Debug.DrawLine(this.shipRb.position, this.shipRb.position + Vector3.right * currentDirection.x, Color.red);
             Debug.DrawLine(this.shipRb.position, this.shipRb.position + Vector3.up * currentDirection.y, Color.green);
@@ -195,7 +204,7 @@ namespace Ship
             var differenceCurrentDirectionToTargetLocalSpace = targetVectorLocalSpace - currentDirectionLocalSpace;
 
             this.HandleLateralThrust(
-                differenceCurrentDirectionToTargetLocalSpace, currentDirectionLocalSpace, targetVectorLocalSpace);
+                differenceCurrentDirectionToTargetLocalSpace, targetVectorLocalSpace);
 
             // Update values
             currentDirectionLocalSpace = this.transform.InverseTransformDirection(currentDirection);
@@ -221,11 +230,22 @@ namespace Ship
                 return;
             }
             var currentVelocityLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
+            var isBraking = Math.Abs(currentVelocityLocal.z) > Math.Abs(zTargetLocalSpace);
+
             if (deltaZLocalSpace > 0)
             {
+                var effectiveAccelerationForce = this.Settings.AccelerationForwards;
+                if (this.inputHandler.IsBoosting)
+                {
+                    effectiveAccelerationForce *= this.Settings.AccelerationForwardsBoostMultiplier;
+                }
+                if (isBraking)
+                {
+                    effectiveAccelerationForce *= this.Settings.BrakingModifier;
+                }
                 var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.shipRb,
-                    Vector3.forward * this.Settings.AccelerationForwards * Time.fixedDeltaTime);
-                if (!this.IsValueInBetween(currentVelocityLocal.z, zTargetLocalSpace,
+                    Vector3.forward * effectiveAccelerationForce * Time.fixedDeltaTime);
+                if (!IsValueInBetween(currentVelocityLocal.z, zTargetLocalSpace,
                     velocityAfterForceLocal.z))
                 {
                     var newForceLocal = currentVelocityLocal;
@@ -235,9 +255,20 @@ namespace Ship
             }
             else
             {
-                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.back * this.Settings.AccelerationBackwards *
-                    Time.fixedDeltaTime);
-                if (!this.IsValueInBetween(currentVelocityLocal.z, zTargetLocalSpace,
+                var effectiveAccelerationForce = this.Settings.AccelerationBackwards;
+                if (this.inputHandler.IsBoosting)
+                {
+                    effectiveAccelerationForce *= this.Settings.AccelerationBackwardsBoostMultiplier;
+                }
+                if (isBraking)
+                {
+                    effectiveAccelerationForce *= this.Settings.BrakingModifier;
+                }
+
+                var velocityAfterForceLocal =
+                    this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.back * effectiveAccelerationForce * Time.fixedDeltaTime);
+
+                if (!IsValueInBetween(currentVelocityLocal.z, zTargetLocalSpace,
                     velocityAfterForceLocal.z))
                 {
                     var newForceLocal = currentVelocityLocal;
@@ -247,7 +278,7 @@ namespace Ship
             }
         }
 
-        private void HandleLateralThrust(Vector3 differenceCurrentDirectionToTargetLocalSpace, Vector3 currentDirectionLocalSpace, Vector3 targetVectorLocalSpace)
+        private void HandleLateralThrust(Vector3 differenceCurrentDirectionToTargetLocalSpace, Vector3 targetVectorLocalSpace)
         {
             if (Math.Abs(differenceCurrentDirectionToTargetLocalSpace.x) > 0.1f)
             {
@@ -264,15 +295,27 @@ namespace Ship
         {
             if (!(Math.Abs(deltaYLocalSpace) > 0.1))
             {
-                // Nothing to do. Z-Axis is within allowed Margin of Error.
+                // Nothing to do. Y-Axis is within allowed Margin of Error.
                 return;
             }
             var currentVelocityLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
+
+            var effectiveAccelerationLateral = this.Settings.AccelerationLateral;
+            if (this.inputHandler.IsBoosting)
+            {
+                effectiveAccelerationLateral *= this.Settings.AccelerationLateralBoostMultiplier;
+            }
+            var isBraking = Math.Abs(currentVelocityLocal.y) > Math.Abs(yTargetLocalSpace);
+            if (isBraking)
+            {
+                effectiveAccelerationLateral *= this.Settings.BrakingModifier;
+            }
+
             if (deltaYLocalSpace > 0)
             {
                 var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.shipRb,
-                    Vector3.up * this.Settings.AccelerationLateral * Time.fixedDeltaTime);
-                if (!this.IsValueInBetween(currentVelocityLocal.y, yTargetLocalSpace,
+                    Vector3.up * effectiveAccelerationLateral * Time.fixedDeltaTime);
+                if (!IsValueInBetween(currentVelocityLocal.y, yTargetLocalSpace,
                     velocityAfterForceLocal.y))
                 {
                     var newForceLocal = currentVelocityLocal;
@@ -282,9 +325,9 @@ namespace Ship
             }
             else
             {
-                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.down * this.Settings.AccelerationLateral *
+                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.down * effectiveAccelerationLateral *
                     Time.fixedDeltaTime);
-                if (!this.IsValueInBetween(currentVelocityLocal.y, yTargetLocalSpace,
+                if (!IsValueInBetween(currentVelocityLocal.y, yTargetLocalSpace,
                     velocityAfterForceLocal.y))
                 {
                     var newForceLocal = currentVelocityLocal;
@@ -298,15 +341,28 @@ namespace Ship
         {
             if (!(Math.Abs(deltaXLocalSpace) > 0.1))
             {
-                // Nothing to do. Z-Axis is within allowed Margin of Error.
+                // Nothing to do. X-Axis is within allowed Margin of Error.
                 return;
             }
             var currentVelocityLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
+
+            var effectiveAccelerationLateral = this.Settings.AccelerationLateral;
+            if (this.inputHandler.IsBoosting)
+            {
+                effectiveAccelerationLateral *= this.Settings.AccelerationLateralBoostMultiplier;
+            }
+            var isBraking = Math.Abs(currentVelocityLocal.x) > Math.Abs(xTargetLocalSpace);
+            if (isBraking)
+            {
+                effectiveAccelerationLateral *= this.Settings.BrakingModifier;
+            }
+
             if (deltaXLocalSpace > 0)
             {
+
                 var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.shipRb,
-                    Vector3.right * this.Settings.AccelerationLateral * Time.fixedDeltaTime);
-                if (!this.IsValueInBetween(currentVelocityLocal.x, xTargetLocalSpace,
+                    Vector3.right * effectiveAccelerationLateral * Time.fixedDeltaTime);
+                if (!IsValueInBetween(currentVelocityLocal.x, xTargetLocalSpace,
                     velocityAfterForceLocal.x))
                 {
                     var newForceLocal = currentVelocityLocal;
@@ -316,9 +372,9 @@ namespace Ship
             }
             else
             {
-                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.left * this.Settings.AccelerationLateral *
+                var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRB, Vector3.left * effectiveAccelerationLateral *
                     Time.fixedDeltaTime);
-                if (!this.IsValueInBetween(currentVelocityLocal.x, xTargetLocalSpace,
+                if (!IsValueInBetween(currentVelocityLocal.x, xTargetLocalSpace,
                     velocityAfterForceLocal.x))
                 {
                     var newForceLocal = currentVelocityLocal;
@@ -328,7 +384,7 @@ namespace Ship
             }
         }
 
-        private bool IsValueInBetween(float bound1, float bound2, float valueToCheck, bool boundsInclusive = false)
+        private static bool IsValueInBetween(float bound1, float bound2, float valueToCheck, bool boundsInclusive = false)
         {
             float lower, upper;
             if (bound1 < bound2)
@@ -354,15 +410,23 @@ namespace Ship
 
         private void HandleAngularVelocity(InputHandler.InputState input)
         {
+            var boosting = this.inputHandler.IsBoosting;
+
             var currentWorldAngularVelocity = this.shipRb.angularVelocity;
             var currentLocalAngularVelocity = this.shipObject.transform.InverseTransformDirection(currentWorldAngularVelocity);
 
-            var mouseMultiplier = (this.inputHandler.IsBoosting ? 0.5f : 1f) * InputManager.MouseSensitivity;
-            var pitchForce = -input.Pitch * this.Settings.PitchSpeed * mouseMultiplier;
-            var yawForce = input.Yaw * this.Settings.YawSpeed * mouseMultiplier;
-            var rollForce = -input.Roll * this.Settings.RollSpeed;
+            // TODO: this is the wrong place to add this.
+            var mouseMultiplier = InputManager.MouseSensitivity;
 
-            var angularForce = new Vector3(pitchForce, yawForce, rollForce);
+            var pitchForce = (boosting ? this.Settings.PitchSpeedBoostMultiplier : 1) * this.Settings.PitchSpeed;
+            var yawForce = (boosting ? this.Settings.YawSpeedBoostMultiplier : 1) * this.Settings.YawSpeed;
+            var rollForce = (boosting ? this.Settings.RollSpeedBoostMultiplier : 1) * this.Settings.RollSpeed;
+
+            var effectivePitchForce = -input.Pitch * pitchForce * mouseMultiplier;
+            var effectiveYawForce = input.Yaw * yawForce * mouseMultiplier;
+            var effectiveRollForce = -input.Roll * rollForce;
+
+            var angularForce = new Vector3(effectivePitchForce, effectiveYawForce, effectiveRollForce);
             currentLocalAngularVelocity += angularForce;
 
             var modifiedWorldAngularVelocity = this.shipObject.transform.TransformDirection(currentLocalAngularVelocity);

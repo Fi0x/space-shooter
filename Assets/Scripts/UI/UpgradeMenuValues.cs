@@ -68,7 +68,7 @@ namespace UI
                         return "" + Math.Round(GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.YawSpeed, 2);
                         
                     case LevelTransitionMenu.Upgrade.EngineStabilizationSpeed:
-                        return "" + Math.Round(GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.StabilizationMultiplier, 2);
+                        return "" + Math.Round(GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.BrakingModifier, 2);
                         
                     case LevelTransitionMenu.Upgrade.Armor:
                         var playerHp = GameManager.Instance.Player.GetComponent<Health>();
