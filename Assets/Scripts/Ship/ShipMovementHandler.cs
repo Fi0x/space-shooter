@@ -78,8 +78,8 @@ namespace Ship
                         else this.Settings.YawSpeed /= 1.1f;
                         break;
                     case LevelTransitionMenu.Upgrade.EngineStabilizationSpeed:
-                        if(args.Increased) this.Settings.StabilizationMultiplier *= 1.1f;
-                        else this.Settings.StabilizationMultiplier /= 1.1f;
+                        if(args.Increased) this.Settings.BrakingModifier *= 1.1f;
+                        else this.Settings.BrakingModifier /= 1.1f;
                         break;
                     default:
                         return;
