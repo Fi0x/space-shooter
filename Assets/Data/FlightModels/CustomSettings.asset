@@ -22,7 +22,7 @@ MonoBehaviour:
   maxLateralSpeed: 50
   maxSpeed: 150
   maxSpeedBoost: 75
-  brakingModifier: 1
+  brakingModifier: 1.1
   accelerationForwardsBoostMultiplier: 1
   accelerationBackwardsBoostMultiplier: 1
   accelerationLateralBoostMultiplier: 1
