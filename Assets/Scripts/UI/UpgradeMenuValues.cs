@@ -41,34 +41,34 @@ namespace UI
             switch (this.type)
             {
                     case LevelTransitionMenu.Upgrade.WeaponDamage:
-                        return "" + GameManager.Instance.Player.GetComponentInChildren<Weapon>().projectileDamageModifier;
+                        return "" + Math.Round(GameManager.Instance.Player.GetComponentInChildren<Weapon>().projectileDamageModifier, 2);
                         
                     case LevelTransitionMenu.Upgrade.WeaponFireRate:
-                        return "" + 1f / GameManager.Instance.Player.GetComponentInChildren<Weapon>().fireRate;
+                        return "" + 1f / Math.Round(GameManager.Instance.Player.GetComponentInChildren<Weapon>().fireRate, 2);
                     
                     case LevelTransitionMenu.Upgrade.WeaponProjectileSpeed:
-                        return "" + GameManager.Instance.Player.GetComponentInChildren<Weapon>().projectileSpeedModifier;
+                        return "" + Math.Round(GameManager.Instance.Player.GetComponentInChildren<Weapon>().projectileSpeedModifier, 2);
                     
                     case LevelTransitionMenu.Upgrade.EngineAcceleration:
-                        return "" + GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.AccelerationForwards;
+                        return "" + Math.Round(GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.AccelerationForwards, 2);
                         
                     case LevelTransitionMenu.Upgrade.EngineDeceleration:
-                        return "" + GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.AccelerationBackwards;
+                        return "" + Math.Round(GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.AccelerationBackwards, 2);
                         
                     case LevelTransitionMenu.Upgrade.EngineLateralThrust:
-                        return "" + GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.AccelerationLateral;
+                        return "" + Math.Round(GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.AccelerationLateral, 2);
                         
                     case LevelTransitionMenu.Upgrade.EngingRotationSpeedPitch:
-                        return "" + GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.PitchSpeed;
+                        return "" + Math.Round(GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.PitchSpeed, 2);
                         
                     case LevelTransitionMenu.Upgrade.EngingRotationSpeedRoll:
-                        return "" + GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.RollSpeed;
+                        return "" + Math.Round(GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.RollSpeed, 2);
                         
                     case LevelTransitionMenu.Upgrade.EngingRotationSpeedYaw:
-                        return "" + GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.YawSpeed;
+                        return "" + Math.Round(GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.YawSpeed, 2);
                         
                     case LevelTransitionMenu.Upgrade.EngineStabilizationSpeed:
-                        return "" + GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.StabilizationMultiplier;
+                        return "" + Math.Round(GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.StabilizationMultiplier, 2);
                         
                     case LevelTransitionMenu.Upgrade.Armor:
                         var playerHp = GameManager.Instance.Player.GetComponent<Health>();
