@@ -294,6 +294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 924b3de233c0b1946a08c55f4e24f8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transitionSceneName: LevelTransition
 --- !u!65 &5233192188027014371
 BoxCollider:
   m_ObjectHideFlags: 0

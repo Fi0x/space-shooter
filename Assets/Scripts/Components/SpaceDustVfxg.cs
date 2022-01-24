@@ -10,32 +10,23 @@ namespace Components
         [SerializeField] private VisualEffect vfx;
         [SerializeField] private ShipMovementHandler smh;
 
-        private float fractionToDisplay = 0.5f;
 
-        private void HandleDesiredSpeedChangedEvent(float speed, float maxSpeed)
-        {
-            this.fractionToDisplay = speed / maxSpeed;
-        }
-
-        private void OnEnable()
-        {
-            this.smh.DesiredSpeedChangedEvent += this.HandleDesiredSpeedChangedEvent;
-        }
-
-        private void OnDisable()
-        {
-            this.smh.DesiredSpeedChangedEvent -= this.HandleDesiredSpeedChangedEvent;
-        }
 
         private void FixedUpdate()
         {
+
             var velocity = this.smh.ShipRB.velocity;
-            var speedPercent = this.fractionToDisplay;
+            var speedPercent = this.smh.CurrentSpeed / this.smh.Settings.MaxSpeed;
             if (speedPercent < 0)
             {
                 speedPercent = -speedPercent;
             }
-            
+
+            if (speedPercent > 1f)
+            {
+                speedPercent = 1;
+            }
+
             this.vfx.SetVector3("Direction", this.transform.InverseTransformDirection(velocity.normalized));
             this.vfx.SetFloat("Speed", speedPercent);
         }

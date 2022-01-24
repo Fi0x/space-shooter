@@ -1,5 +1,6 @@
 using Enemy;
 using Manager;
+using UI;
 using UnityEngine;
 
 namespace Components
@@ -44,6 +45,15 @@ namespace Components
         {
             this.MaxHealth = 1000;
             this.CurrentHealth = this.MaxHealth;
+
+            LevelTransitionMenu.UpgradePurchasedEvent += (sender, args) =>
+            {
+                if (args.Type == LevelTransitionMenu.Upgrade.Armor)
+                {
+                    this.MaxHealth += args.Increased ? 10 : -10;
+                    UpgradeMenuValues.InvokeUpgradeCompletedEvent(args);
+                }
+            };
         }
 
         public void TakeDamage(int damage)

@@ -75,13 +75,13 @@ namespace Ship
         internal float AccelerationBackwards
         {
             get => this.accelerationBackwards;
-            private set => this.accelerationBackwards = value;
+            set => this.accelerationBackwards = value;
         }
 
         internal float AccelerationLateral
         {
             get => this.accelerationLateral;
-            private set => this.accelerationLateral = value;
+            set => this.accelerationLateral = value;
         }
 
         internal float MaxSpeed
@@ -116,7 +116,11 @@ namespace Ship
 
         public float MaxLateralSpeed => this.maxLateralSpeed;
 
-        public float BrakingModifier => this.brakingModifier;
+        public float BrakingModifier
+        {
+            get => this.brakingModifier;
+            set => this.brakingModifier = value;
+        }
 
         public float AccelerationForwardsBoostMultiplier => this.accelerationForwardsBoostMultiplier;
 
