@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manager;
+using UI;
 using UnityEngine;
 
 namespace Ship
@@ -45,6 +46,45 @@ namespace Ship
             this.inputHandler = this.shipObject.GetComponent<InputHandler>();
 
             this.totalMaxSpeed = this.Settings.MaxSpeed + this.Settings.MaxSpeedBoost;
+
+            LevelTransitionMenu.UpgradePurchasedEvent += (sender, args) =>
+            {
+                switch (args.Type)
+                {
+                    case LevelTransitionMenu.Upgrade.EngineAcceleration:
+                        if(args.Increased) this.Settings.AccelerationForwards *= 1.1f;
+                        else this.Settings.AccelerationForwards /= 1.1f;
+                        break;
+                    case LevelTransitionMenu.Upgrade.EngineDeceleration:
+                        if(args.Increased) this.Settings.AccelerationBackwards *= 1.1f;
+                        else this.Settings.AccelerationBackwards /= 1.1f;
+                        break;
+                    case LevelTransitionMenu.Upgrade.EngineLateralThrust:
+                        if(args.Increased) this.Settings.AccelerationLateral *= 1.1f;
+                        else this.Settings.AccelerationLateral /= 1.1f;
+                        break;
+                    case LevelTransitionMenu.Upgrade.EngingRotationSpeedPitch:
+                        if(args.Increased) this.Settings.PitchSpeed *= 1.1f;
+                        else this.Settings.PitchSpeed /= 1.1f;
+                        break;
+                    case LevelTransitionMenu.Upgrade.EngingRotationSpeedRoll:
+                        if(args.Increased) this.Settings.RollSpeed *= 1.1f;
+                        else this.Settings.RollSpeed /= 1.1f;
+                        break;
+                    case LevelTransitionMenu.Upgrade.EngingRotationSpeedYaw:
+                        if(args.Increased) this.Settings.YawSpeed *= 1.1f;
+                        else this.Settings.YawSpeed /= 1.1f;
+                        break;
+                    case LevelTransitionMenu.Upgrade.EngineStabilizationSpeed:
+                        if(args.Increased) this.Settings.StabilizationMultiplier *= 1.1f;
+                        else this.Settings.StabilizationMultiplier /= 1.1f;
+                        break;
+                    default:
+                        return;
+                }
+                
+                UpgradeMenuValues.InvokeUpgradeCompletedEvent(args);
+            };
         }
 
         private void Awake()

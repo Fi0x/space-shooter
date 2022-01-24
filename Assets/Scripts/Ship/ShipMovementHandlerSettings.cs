@@ -56,13 +56,13 @@ namespace Ship
         internal float AccelerationBackwards
         {
             get => this.accelerationBackwards;
-            private set => this.accelerationBackwards = value;
+            set => this.accelerationBackwards = value;
         }
 
         internal float AccelerationLateral
         {
             get => this.accelerationLateral;
-            private set => this.accelerationLateral = value;
+            set => this.accelerationLateral = value;
         }
 
         internal float MaxSpeed
@@ -84,11 +84,11 @@ namespace Ship
             private set => this.minBrakeSpeed = value;
         }
 
-        [Obsolete]
+        //TODO: Try to make this useful again or remove the ship-upgrade option
         internal float StabilizationMultiplier
         {
             get => this.stabilizationMultiplier;
-            private set => this.stabilizationMultiplier = value;
+            set => this.stabilizationMultiplier = value;
         }
 
         internal float SpeedMatchDeadZone
