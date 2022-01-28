@@ -5,7 +5,7 @@ using Ship;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace Upgrades
 {
     public class UpgradeMenuValues : MonoBehaviour
     {

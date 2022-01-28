@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manager;
-using UI;
 using UnityEngine;
+using Upgrades;
 
 namespace Ship
 {

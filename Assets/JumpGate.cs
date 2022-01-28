@@ -1,10 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Manager;
-using UI;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using Upgrades;
 
 public class JumpGate : MonoBehaviour
 {

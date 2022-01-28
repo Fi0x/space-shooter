@@ -3,7 +3,7 @@ using Manager;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace Upgrades
 {
     public class LevelTransitionMenu : MonoBehaviour
     {

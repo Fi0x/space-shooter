@@ -1,7 +1,7 @@
 using Components;
-using UI;
 using UnityEngine;
 using UnityEngine.Events;
+using Upgrades;
 
 namespace Ship
 {

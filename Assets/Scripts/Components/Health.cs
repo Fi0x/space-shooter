@@ -1,7 +1,7 @@
 using Enemy;
 using Manager;
-using UI;
 using UnityEngine;
+using Upgrades;
 
 namespace Components
 {
