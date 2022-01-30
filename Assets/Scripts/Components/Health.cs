@@ -68,7 +68,11 @@ namespace Components
             if(this.isPlayer)
                 GameManager.GameOver();
             else
+            {
+                StatCollector.EnemiesKilled++;
+                UpgradeStats.FreeUpgradePoints++;
                 Destroy(this.gameObject);
+            }
         } 
     }
 }
