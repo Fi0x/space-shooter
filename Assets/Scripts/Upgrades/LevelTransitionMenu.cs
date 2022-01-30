@@ -53,57 +53,72 @@ namespace Upgrades
             }
 
             Upgrade type;
+            var price = 1;
+            
             switch (upgradeType)
             {
                 case 0:
                     type = Upgrade.WeaponDamage;
+                    price = 1;
                     break;
                 case 1:
                     type = Upgrade.WeaponFireRate;
+                    price = 1;
                     break;
                 case 2:
                     type = Upgrade.WeaponProjectileSpeed;
+                    price = 1;
                     break;
                 case 3:
                     type = Upgrade.EngineAcceleration;
+                    price = 1;
                     break;
                 case 4:
                     type = Upgrade.EngineDeceleration;
+                    price = 1;
                     break;
                 case 5:
                     type = Upgrade.EngineLateralThrust;
+                    price = 1;
                     break;
                 case 61:
                     type = Upgrade.EngingRotationSpeedPitch;
+                    price = 1;
                     break;
                 case 62:
                     type = Upgrade.EngingRotationSpeedRoll;
+                    price = 1;
                     break;
                 case 63:
                     type = Upgrade.EngingRotationSpeedYaw;
+                    price = 1;
                     break;
                 case 7:
                     type = Upgrade.EngineStabilizationSpeed;
+                    price = 1;
                     break;
                 case 8:
                     type = Upgrade.Armor;
+                    price = 1;
                     break;
                 default:
                     return;
             }
             
-            UpgradePurchasedEvent?.Invoke(null, new UpgradePurchasedEventArgs(type, increase));
+            UpgradePurchasedEvent?.Invoke(null, new UpgradePurchasedEventArgs(type, increase, price));
         }
 
         public class UpgradePurchasedEventArgs : EventArgs
         {
             public readonly Upgrade Type;
             public readonly bool Increased;
+            public readonly int Price;
         
-            public UpgradePurchasedEventArgs(Upgrade upgradeType, bool increased)
+            public UpgradePurchasedEventArgs(Upgrade upgradeType, bool increased, int price)
             {
                 this.Type = upgradeType;
                 this.Increased = increased;
+                this.Price = price;
             }
         }
         
