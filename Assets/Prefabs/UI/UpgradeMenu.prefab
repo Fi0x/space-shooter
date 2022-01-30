@@ -1,5 +1,239 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &2947038968620716668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426893796909312078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8c8e3baac40541b1403e54ea8bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueObject: {fileID: 6024945667323958863}
+--- !u!114 &7201095417647964938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426893796926511456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8c8e3baac40541b1403e54ea8bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueObject: {fileID: 6024945667620311431}
+--- !u!114 &6312929645887808277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426893797018646391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8c8e3baac40541b1403e54ea8bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueObject: {fileID: 6024945667432663414}
+--- !u!114 &1517900652497909850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426893797150473051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8c8e3baac40541b1403e54ea8bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueObject: {fileID: 6024945667677254588}
+--- !u!114 &7331248551116687495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426893797310238321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8c8e3baac40541b1403e54ea8bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueObject: {fileID: 6024945668037559958}
+--- !u!114 &696664446025854774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426893797360718101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8c8e3baac40541b1403e54ea8bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueObject: {fileID: 6024945667238506260}
+--- !u!114 &350695788522877729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426893797616555444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8c8e3baac40541b1403e54ea8bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueObject: {fileID: 6024945666882005941}
+--- !u!114 &8303369046316438264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426893797623192703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8c8e3baac40541b1403e54ea8bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueObject: {fileID: 6024945668252177560}
+--- !u!114 &8561406099122155226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426893797916664384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8c8e3baac40541b1403e54ea8bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueObject: {fileID: 6024945666720308289}
+--- !u!114 &6763245222284392938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426893798106354854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8c8e3baac40541b1403e54ea8bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueObject: {fileID: 6024945666720308289}
+--- !u!114 &275934780735683548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426893798383315609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8c8e3baac40541b1403e54ea8bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueObject: {fileID: 6024945668252177560}
+--- !u!114 &391607895570332588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426893798469083986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8c8e3baac40541b1403e54ea8bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueObject: {fileID: 6024945666882005941}
+--- !u!114 &8541689757197262722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426893798657845235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8c8e3baac40541b1403e54ea8bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueObject: {fileID: 6024945667238506260}
+--- !u!114 &6986744225367429551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426893798697547927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8c8e3baac40541b1403e54ea8bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueObject: {fileID: 6024945668037559958}
+--- !u!114 &2888543957128167573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426893798841867944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8c8e3baac40541b1403e54ea8bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueObject: {fileID: 6024945667323958863}
+--- !u!114 &6743678448466209492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426893798892564358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8c8e3baac40541b1403e54ea8bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueObject: {fileID: 6024945667620311431}
+--- !u!114 &3594809426709233291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426893798940413373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8c8e3baac40541b1403e54ea8bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueObject: {fileID: 6024945667677254588}
+--- !u!114 &2743937111792108394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426893798984679825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8c8e3baac40541b1403e54ea8bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueObject: {fileID: 6024945667432663414}
 --- !u!1 &635801472612300115
 GameObject:
   m_ObjectHideFlags: 0
@@ -79,6 +313,58 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Free Points:'
+--- !u!114 &1244606458834739250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2380355510864270412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8c8e3baac40541b1403e54ea8bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueObject: {fileID: 8608895901934787755}
+--- !u!114 &6405977254865767521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2380355511219708586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8c8e3baac40541b1403e54ea8bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueObject: {fileID: 8608895901934787755}
+--- !u!114 &8701580930798088216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3174428378204084580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8c8e3baac40541b1403e54ea8bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueObject: {fileID: 8826382672222840677}
+--- !u!114 &264903649814860994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3174428379996204930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8c8e3baac40541b1403e54ea8bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueObject: {fileID: 8826382672222840677}
 --- !u!114 &278164628675757409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,7 +685,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8391968490305629563}
   m_HandleRect: {fileID: 8391968490305629562}
   m_Direction: 2
-  m_Value: 1.0000001
+  m_Value: 0.9999999
   m_Size: 0.68114346
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1878,12 +2164,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8391968491252635948}
+      objectReference: {fileID: 1244606458834739250}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1894,7 +2180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.LevelTransitionMenu, Assembly-CSharp
+      value: Upgrades.UpgradeButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -1998,12 +2284,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8391968491252635948}
+      objectReference: {fileID: 6405977254865767521}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -2014,7 +2300,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.LevelTransitionMenu, Assembly-CSharp
+      value: Upgrades.UpgradeButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -2042,9 +2328,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+--- !u!1 &2380355511219708586 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8186105157664270567, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_PrefabInstance: {fileID: 5805804012589976141}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8608895901934787755 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2876299091536844518, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_PrefabInstance: {fileID: 5805804012589976141}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2380355510864270412 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8186105156409220609, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
   m_PrefabInstance: {fileID: 5805804012589976141}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &2380355509935971953 stripped
@@ -2121,12 +2417,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8391968491252635948}
+      objectReference: {fileID: 264903649814860994}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -2137,7 +2433,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.LevelTransitionMenu, Assembly-CSharp
+      value: Upgrades.UpgradeButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -2241,12 +2537,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8391968491252635948}
+      objectReference: {fileID: 8701580930798088216}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -2257,7 +2553,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.LevelTransitionMenu, Assembly-CSharp
+      value: Upgrades.UpgradeButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -2285,9 +2581,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+--- !u!1 &3174428378204084580 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8186105157664270567, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_PrefabInstance: {fileID: 6743918952257450371}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8826382672222840677 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2876299091536844518, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_PrefabInstance: {fileID: 6743918952257450371}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3174428379996204930 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8186105156409220609, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
   m_PrefabInstance: {fileID: 6743918952257450371}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &3174428379319526847 stripped
@@ -2364,12 +2670,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8391968491252635948}
+      objectReference: {fileID: 7331248551116687495}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -2380,7 +2686,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.LevelTransitionMenu, Assembly-CSharp
+      value: Upgrades.UpgradeButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -2475,17 +2781,21 @@ PrefabInstance:
       value: UpgradeOption
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8391968491252635948}
+      objectReference: {fileID: 6986744225367429551}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -2496,7 +2806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.LevelTransitionMenu, Assembly-CSharp
+      value: Upgrades.UpgradeButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -2529,9 +2839,19 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8186105156800484412, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
   m_PrefabInstance: {fileID: 8391968490000306288}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &426893797310238321 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8186105156409220609, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_PrefabInstance: {fileID: 8391968490000306288}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6024945668037559958 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2876299091536844518, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_PrefabInstance: {fileID: 8391968490000306288}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &426893798697547927 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8186105157664270567, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
   m_PrefabInstance: {fileID: 8391968490000306288}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8391968490178512737
@@ -2603,12 +2923,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8391968491252635948}
+      objectReference: {fileID: 7201095417647964938}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -2619,7 +2939,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.LevelTransitionMenu, Assembly-CSharp
+      value: Upgrades.UpgradeButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -2723,12 +3043,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8391968491252635948}
+      objectReference: {fileID: 6743678448466209492}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -2739,7 +3059,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.LevelTransitionMenu, Assembly-CSharp
+      value: Upgrades.UpgradeButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -2767,6 +3087,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+--- !u!1 &426893796926511456 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8186105156409220609, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_PrefabInstance: {fileID: 8391968490178512737}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &426893798892564358 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8186105157664270567, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_PrefabInstance: {fileID: 8391968490178512737}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6024945667620311431 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2876299091536844518, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
@@ -2846,12 +3176,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8391968491252635948}
+      objectReference: {fileID: 1517900652497909850}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -2862,7 +3192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.LevelTransitionMenu, Assembly-CSharp
+      value: Upgrades.UpgradeButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -2966,12 +3296,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8391968491252635948}
+      objectReference: {fileID: 3594809426709233291}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -2982,7 +3312,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.LevelTransitionMenu, Assembly-CSharp
+      value: Upgrades.UpgradeButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -3010,14 +3340,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+--- !u!1 &6024945667677254588 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2876299091536844518, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_PrefabInstance: {fileID: 8391968490226672986}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &426893798940413373 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8186105157664270567, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_PrefabInstance: {fileID: 8391968490226672986}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &426893797808238950 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8186105156800484412, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
   m_PrefabInstance: {fileID: 8391968490226672986}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6024945667677254588 stripped
+--- !u!1 &426893797150473051 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 2876299091536844518, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8186105156409220609, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
   m_PrefabInstance: {fileID: 8391968490226672986}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8391968490757948030
@@ -3089,12 +3429,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8391968491252635948}
+      objectReference: {fileID: 8303369046316438264}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -3105,7 +3445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.LevelTransitionMenu, Assembly-CSharp
+      value: Upgrades.UpgradeButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -3209,12 +3549,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8391968491252635948}
+      objectReference: {fileID: 275934780735683548}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -3225,7 +3565,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.LevelTransitionMenu, Assembly-CSharp
+      value: Upgrades.UpgradeButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -3253,9 +3593,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+--- !u!1 &426893797623192703 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8186105156409220609, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_PrefabInstance: {fileID: 8391968490757948030}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6024945668252177560 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2876299091536844518, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_PrefabInstance: {fileID: 8391968490757948030}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &426893798383315609 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8186105157664270567, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
   m_PrefabInstance: {fileID: 8391968490757948030}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &426893797233792578 stripped
@@ -3340,12 +3690,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8391968491252635948}
+      objectReference: {fileID: 391607895570332588}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -3356,11 +3706,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.LevelTransitionMenu, Assembly-CSharp
+      value: Upgrades.UpgradeButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -3460,14 +3810,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8391968491252635948}
+      objectReference: {fileID: 350695788522877729}
+    - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 350695788522877729}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
@@ -3475,15 +3837,31 @@ PrefabInstance:
       value: UpgradeButtonPressed
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Test
+      objectReference: {fileID: 0}
+    - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.LevelTransitionMenu, Assembly-CSharp
+      value: Upgrades.UpgradeButton, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Upgrades.UpgradeButtonVisibility, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 108
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270566, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
@@ -3512,6 +3890,16 @@ RectTransform:
 --- !u!1 &6024945666882005941 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2876299091536844518, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_PrefabInstance: {fileID: 8391968491050302803}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &426893798469083986 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8186105156409220609, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_PrefabInstance: {fileID: 8391968491050302803}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &426893797616555444 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8186105157664270567, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
   m_PrefabInstance: {fileID: 8391968491050302803}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8391968491350100647
@@ -3583,12 +3971,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8391968491252635948}
+      objectReference: {fileID: 6763245222284392938}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -3599,7 +3987,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.LevelTransitionMenu, Assembly-CSharp
+      value: Upgrades.UpgradeButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -3703,12 +4091,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8391968491252635948}
+      objectReference: {fileID: 8561406099122155226}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -3719,7 +4107,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.LevelTransitionMenu, Assembly-CSharp
+      value: Upgrades.UpgradeButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -3747,9 +4135,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+--- !u!1 &426893797916664384 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8186105157664270567, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_PrefabInstance: {fileID: 8391968491350100647}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6024945666720308289 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2876299091536844518, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_PrefabInstance: {fileID: 8391968491350100647}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &426893798106354854 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8186105156409220609, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
   m_PrefabInstance: {fileID: 8391968491350100647}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &426893798764158619 stripped
@@ -3826,12 +4224,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8391968491252635948}
+      objectReference: {fileID: 2888543957128167573}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -3842,7 +4240,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.LevelTransitionMenu, Assembly-CSharp
+      value: Upgrades.UpgradeButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -3946,12 +4344,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8391968491252635948}
+      objectReference: {fileID: 2947038968620716668}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -3962,7 +4360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.LevelTransitionMenu, Assembly-CSharp
+      value: Upgrades.UpgradeButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -3990,6 +4388,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+--- !u!1 &426893796909312078 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8186105157664270567, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_PrefabInstance: {fileID: 8391968491414651049}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6024945667323958863 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2876299091536844518, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
@@ -3998,6 +4401,11 @@ GameObject:
 --- !u!224 &426893798159455381 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8186105156800484412, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_PrefabInstance: {fileID: 8391968491414651049}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &426893798841867944 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8186105156409220609, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
   m_PrefabInstance: {fileID: 8391968491414651049}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8391968491540799376
@@ -4069,12 +4477,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8391968491252635948}
+      objectReference: {fileID: 2743937111792108394}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -4085,7 +4493,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.LevelTransitionMenu, Assembly-CSharp
+      value: Upgrades.UpgradeButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4189,12 +4597,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8391968491252635948}
+      objectReference: {fileID: 6312929645887808277}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -4205,7 +4613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.LevelTransitionMenu, Assembly-CSharp
+      value: Upgrades.UpgradeButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4233,9 +4641,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+--- !u!1 &426893798984679825 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8186105156409220609, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_PrefabInstance: {fileID: 8391968491540799376}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6024945667432663414 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2876299091536844518, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_PrefabInstance: {fileID: 8391968491540799376}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &426893797018646391 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8186105157664270567, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
   m_PrefabInstance: {fileID: 8391968491540799376}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &426893798050188204 stripped
@@ -4312,12 +4730,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8391968491252635948}
+      objectReference: {fileID: 8541689757197262722}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -4328,7 +4746,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.LevelTransitionMenu, Assembly-CSharp
+      value: Upgrades.UpgradeButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8186105156409220611, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4432,12 +4850,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8391968491252635948}
+      objectReference: {fileID: 696664446025854774}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -4448,7 +4866,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.LevelTransitionMenu, Assembly-CSharp
+      value: Upgrades.UpgradeButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8186105157664270561, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4476,9 +4894,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+--- !u!1 &426893798657845235 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8186105156409220609, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_PrefabInstance: {fileID: 8391968491868174834}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &426893798241775054 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8186105156800484412, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
+  m_PrefabInstance: {fileID: 8391968491868174834}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &426893797360718101 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8186105157664270567, guid: d1b72737e1a9e2d4e98fe4b3b5c4dc53, type: 3}
   m_PrefabInstance: {fileID: 8391968491868174834}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &6024945667238506260 stripped

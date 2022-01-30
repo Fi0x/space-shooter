@@ -10,11 +10,11 @@ namespace Upgrades
     public class UpgradeMenuValues : MonoBehaviour
     {
         private Text text;
-        private LevelTransitionMenu.Upgrade type;
+        private UpgradeButton.Upgrade type;
 
-        public static event EventHandler<LevelTransitionMenu.UpgradePurchasedEventArgs> UpgradeCompletedEvent;
+        public static event EventHandler<UpgradeButton.UpgradePurchasedEventArgs> UpgradeCompletedEvent;
 
-        public static void InvokeUpgradeCompletedEvent(LevelTransitionMenu.UpgradePurchasedEventArgs args)
+        public static void InvokeUpgradeCompletedEvent(UpgradeButton.UpgradePurchasedEventArgs args)
         {
             UpgradeCompletedEvent?.Invoke(null, args);
         }
@@ -29,7 +29,7 @@ namespace Upgrades
             UpgradeCompletedEvent += this.UpdateValue;
         }
 
-        private void UpdateValue(object sender, LevelTransitionMenu.UpgradePurchasedEventArgs args)
+        private void UpdateValue(object sender, UpgradeButton.UpgradePurchasedEventArgs args)
         {
             if(args.Type != this.type)
                 return;
@@ -40,62 +40,61 @@ namespace Upgrades
         {
             switch (this.type)
             {
-                    case LevelTransitionMenu.Upgrade.WeaponDamage:
-                        return "" + Math.Round(GameManager.Instance.Player.GetComponentInChildren<Weapon>().projectileDamageModifier, 2);
+                    case UpgradeButton.Upgrade.WeaponDamage:
+                        return "" + UpgradeStats.WeaponDamageLevel;
                         
-                    case LevelTransitionMenu.Upgrade.WeaponFireRate:
-                        return "" + 1f / Math.Round(GameManager.Instance.Player.GetComponentInChildren<Weapon>().fireRate, 2);
+                    case UpgradeButton.Upgrade.WeaponFireRate:
+                        return "" + UpgradeStats.WeaponFireRateLevel;
                     
-                    case LevelTransitionMenu.Upgrade.WeaponProjectileSpeed:
-                        return "" + Math.Round(GameManager.Instance.Player.GetComponentInChildren<Weapon>().projectileSpeedModifier, 2);
+                    case UpgradeButton.Upgrade.WeaponProjectileSpeed:
+                        return "" + UpgradeStats.ProjectileVelocityLevel;
                     
-                    case LevelTransitionMenu.Upgrade.EngineAcceleration:
-                        return "" + Math.Round(GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.AccelerationForwards, 2);
+                    case UpgradeButton.Upgrade.EngineAcceleration:
+                        return "" + UpgradeStats.ShipAccelerationLevel;
                         
-                    case LevelTransitionMenu.Upgrade.EngineDeceleration:
-                        return "" + Math.Round(GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.AccelerationBackwards, 2);
+                    case UpgradeButton.Upgrade.EngineDeceleration:
+                        return "" + UpgradeStats.ShipBrakeLevel;
                         
-                    case LevelTransitionMenu.Upgrade.EngineLateralThrust:
-                        return "" + Math.Round(GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.AccelerationLateral, 2);
+                    case UpgradeButton.Upgrade.EngineLateralThrust:
+                        return "" + UpgradeStats.ShipLateralThrustLevel;
                         
-                    case LevelTransitionMenu.Upgrade.EngingRotationSpeedPitch:
-                        return "" + Math.Round(GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.PitchSpeed, 2);
+                    case UpgradeButton.Upgrade.EngineRotationSpeedPitch:
+                        return "" + UpgradeStats.ShipPitchSpeedLevel;
                         
-                    case LevelTransitionMenu.Upgrade.EngingRotationSpeedRoll:
-                        return "" + Math.Round(GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.RollSpeed, 2);
+                    case UpgradeButton.Upgrade.EngineRotationSpeedRoll:
+                        return "" + UpgradeStats.ShipRollSpeedLevel;
                         
-                    case LevelTransitionMenu.Upgrade.EngingRotationSpeedYaw:
-                        return "" + Math.Round(GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.YawSpeed, 2);
+                    case UpgradeButton.Upgrade.EngineRotationSpeedYaw:
+                        return "" + UpgradeStats.ShipYawSpeedLevel;
                         
-                    case LevelTransitionMenu.Upgrade.EngineStabilizationSpeed:
-                        return "" + Math.Round(GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.BrakingModifier, 2);
+                    case UpgradeButton.Upgrade.EngineStabilizationSpeed:
+                        return "" + UpgradeStats.ShipStabilizerLevel;
                         
-                    case LevelTransitionMenu.Upgrade.Armor:
-                        var playerHp = GameManager.Instance.Player.GetComponent<Health>();
-                        return playerHp.MaxHealth.ToString();
+                    case UpgradeButton.Upgrade.Armor:
+                        return "" + UpgradeStats.ArmorLevel;
                     
-                    case LevelTransitionMenu.Upgrade.Unknown:
+                    case UpgradeButton.Upgrade.Unknown:
                         return "?";
                     
                     default:
-                        return "0";
+                        return "1";
             }
         }
 
-        private LevelTransitionMenu.Upgrade GetUpgradeType() => this.gameObject.name switch
+        private UpgradeButton.Upgrade GetUpgradeType() => this.gameObject.name switch
         {
-            "WpnDmgValue" => LevelTransitionMenu.Upgrade.WeaponDamage,
-            "WpnRateValue" => LevelTransitionMenu.Upgrade.WeaponFireRate,
-            "WpnProjVelValue" => LevelTransitionMenu.Upgrade.WeaponProjectileSpeed,
-            "EngAccValue" => LevelTransitionMenu.Upgrade.EngineAcceleration,
-            "EngDecValue" => LevelTransitionMenu.Upgrade.EngineDeceleration,
-            "EngLatValue" => LevelTransitionMenu.Upgrade.EngineLateralThrust,
-            "EngRotPitchValue" => LevelTransitionMenu.Upgrade.EngingRotationSpeedPitch,
-            "EngRotRollValue" => LevelTransitionMenu.Upgrade.EngingRotationSpeedRoll,
-            "EngRotYawValue" => LevelTransitionMenu.Upgrade.EngingRotationSpeedYaw,
-            "EngStabValue" => LevelTransitionMenu.Upgrade.EngineStabilizationSpeed,
-            "HPValue" => LevelTransitionMenu.Upgrade.Armor,
-            _ => LevelTransitionMenu.Upgrade.Unknown
+            "WpnDmgValue" => UpgradeButton.Upgrade.WeaponDamage,
+            "WpnRateValue" => UpgradeButton.Upgrade.WeaponFireRate,
+            "WpnProjVelValue" => UpgradeButton.Upgrade.WeaponProjectileSpeed,
+            "EngAccValue" => UpgradeButton.Upgrade.EngineAcceleration,
+            "EngDecValue" => UpgradeButton.Upgrade.EngineDeceleration,
+            "EngLatValue" => UpgradeButton.Upgrade.EngineLateralThrust,
+            "EngRotPitchValue" => UpgradeButton.Upgrade.EngineRotationSpeedPitch,
+            "EngRotRollValue" => UpgradeButton.Upgrade.EngineRotationSpeedRoll,
+            "EngRotYawValue" => UpgradeButton.Upgrade.EngineRotationSpeedYaw,
+            "EngStabValue" => UpgradeButton.Upgrade.EngineStabilizationSpeed,
+            "HPValue" => UpgradeButton.Upgrade.Armor,
+            _ => UpgradeButton.Upgrade.Unknown
         };
     }
 }
