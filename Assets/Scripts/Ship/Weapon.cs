@@ -1,7 +1,7 @@
 using Components;
-using UI;
 using UnityEngine;
 using UnityEngine.Events;
+using Upgrades;
 
 namespace Ship
 {
@@ -14,12 +14,15 @@ namespace Ship
         private bool isShooting;
         private float timeSinceLastFire;
         private ShipMovementHandler shipMovementHandler;
+        private const float OriginalFireRate = 0.5f;
+        public const float OriginalProjectileSpeedModifier = 1.5f;
+        private const float OriginalProjectileDamageModifier = 1;
 
         private UnityAction<bool> fireModeChangedEvent;
         
-        public float fireRate = 0.5f;
-        public float projectileSpeedModifier = 1.5f;
-        public float projectileDamageModifier = 1;
+        private static float FireRate => OriginalFireRate * ProjectileDamageModifier / (UpgradeStats.WeaponFireRateLevel * 0.5f);
+        private static float ProjectileSpeedModifier=> OriginalProjectileSpeedModifier + UpgradeStats.ProjectileVelocityLevel * 0.1f;
+        private static float ProjectileDamageModifier => OriginalProjectileDamageModifier + UpgradeStats.WeaponDamageLevel * 0.1f;
 
         private void Start()
         {
@@ -27,18 +30,18 @@ namespace Ship
             this.weaponManager.FireModeChangedEvent.AddListener(this.fireModeChangedEvent);
             this.shipMovementHandler = this.weaponManager.GetParentShipGameObject().GetComponent<ShipMovementHandler>();
 
-            LevelTransitionMenu.UpgradePurchasedEvent += (sender, args) =>
+            UpgradeButton.UpgradePurchasedEvent += (sender, args) =>
             {
                 switch (args.Type)
                 {
-                    case LevelTransitionMenu.Upgrade.WeaponDamage:
-                        this.projectileDamageModifier += args.Increased ? 0.1f : -0.1f;
+                    case UpgradeButton.Upgrade.WeaponDamage:
+                        UpgradeStats.WeaponDamageLevel += args.Increased ? 1 : -1;
                         break;
-                    case LevelTransitionMenu.Upgrade.WeaponFireRate:
-                        this.fireRate *= args.Increased ? 0.5f : 2f;
+                    case UpgradeButton.Upgrade.WeaponFireRate:
+                        UpgradeStats.WeaponFireRateLevel += args.Increased ? 1 : -1;
                         break;
-                    case LevelTransitionMenu.Upgrade.WeaponProjectileSpeed:
-                        this.projectileSpeedModifier += args.Increased ? 0.1f : -0.1f;
+                    case UpgradeButton.Upgrade.WeaponProjectileSpeed:
+                        UpgradeStats.ProjectileVelocityLevel += args.Increased ? 1 : -1;
                         break;
                     default:
                         return;
@@ -70,10 +73,10 @@ namespace Ship
         {
             if (this.isShooting)
             {
-                if (this.timeSinceLastFire > this.fireRate)
+                if (this.timeSinceLastFire > FireRate)
                 {
                     this.Fire();
-                    this.timeSinceLastFire -= this.fireRate;
+                    this.timeSinceLastFire -= FireRate;
                 }
 
                 this.timeSinceLastFire += Time.fixedDeltaTime;
@@ -88,10 +91,10 @@ namespace Ship
             var ownPosition = this.gameObject.transform.position;
             projectile.transform.position = ownPosition;
             var shotDirection = this.weaponManager.Target - ownPosition;
-            var projectileDirectionAndVelocity = this.projectileSpeedModifier * this.shipMovementHandler.TotalMaxSpeed * shotDirection.normalized;
+            var projectileDirectionAndVelocity = ProjectileSpeedModifier * this.shipMovementHandler.TotalMaxSpeed * shotDirection.normalized;
             var projectileScript = projectile.GetComponent<SphereProjectile>();
             projectileScript.InitializeDirection(projectileDirectionAndVelocity, this.damageOverTime, this.transform.rotation);
-            projectileScript.DamageMultiplier = this.projectileDamageModifier;
+            projectileScript.DamageMultiplier = OriginalProjectileDamageModifier;
             projectileScript.ProjectileHitSomethingEvent += layer =>
             {
                 var targetLayer = LayerMask.NameToLayer("Enemy");
