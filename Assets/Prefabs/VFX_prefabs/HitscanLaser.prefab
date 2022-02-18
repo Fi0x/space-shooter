@@ -70,10 +70,10 @@ VisualEffect:
       m_Array: []
     m_Vector4f:
       m_Array:
-      - m_Value: {x: 0.016144143, y: 0.064, z: 0.02277478, w: 0}
+      - m_Value: {x: 0.0627451, y: 0.015686275, z: 0.017587252, w: 0}
         m_Name: DarkBaseColor
         m_Overridden: 1
-      - m_Value: {x: 0.09411765, y: 1.2235295, z: 0.15686275, w: 0}
+      - m_Value: {x: 1.2235296, y: 0.09608867, z: 0.10735743, w: 0}
         m_Name: CoreColor
         m_Overridden: 1
       - m_Value: {x: 2.0372927, y: 20.566954, z: 20.115263, w: 0}
