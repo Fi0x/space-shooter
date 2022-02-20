@@ -10,6 +10,7 @@ namespace UI
         [SerializeField] private GameObject pauseObject;
         [SerializeField] private GameObject settingsObject;
         [SerializeField] private GameObject keyBindObject;
+        [SerializeField] private GameObject statObject;
         [SerializeField] private Text menuTitle;
         [SerializeField] private Toggle speedIndicatorToggle;
         [SerializeField] private Toggle spaceDustToggle;
@@ -18,6 +19,7 @@ namespace UI
         private static GameObject _pauseMenu;
         private static GameObject _settingsMenu;
         private static GameObject _keyBindMenu;
+        private static GameObject _statMenu;
         private static Text _menuTitle;
         private static Toggle _speedIndicatorToggle;
         private static Toggle _spaceDustToggle;
@@ -31,6 +33,7 @@ namespace UI
             _pauseMenu = this.pauseObject;
             _settingsMenu = this.settingsObject;
             _keyBindMenu = this.keyBindObject;
+            _statMenu = this.statObject;
             _menuTitle = this.menuTitle;
             _speedIndicatorToggle = this.speedIndicatorToggle;
             _spaceDustToggle = this.spaceDustToggle;
@@ -57,6 +60,7 @@ namespace UI
             _pauseMenu.SetActive(true);
             _settingsMenu.SetActive(false);
             _keyBindMenu.SetActive(false);
+            _statMenu.SetActive(false);
         }
 
         public static void Resume()
@@ -79,6 +83,7 @@ namespace UI
             _pauseMenu.SetActive(false);
             _settingsMenu.SetActive(true);
             _keyBindMenu.SetActive(false);
+            _statMenu.SetActive(false);
         }
 
         public static void KeyBinds()
@@ -87,6 +92,16 @@ namespace UI
             _pauseMenu.SetActive(false);
             _settingsMenu.SetActive(false);
             _keyBindMenu.SetActive(true);
+            _statMenu.SetActive(false);
+        }
+
+        public static void Stats()
+        {
+            _menuTitle.text = "Stats";
+            _pauseMenu.SetActive(false);
+            _settingsMenu.SetActive(false);
+            _keyBindMenu.SetActive(false);
+            _statMenu.SetActive(true);
         }
 
         public static void BackToMainOverlay()
@@ -96,6 +111,7 @@ namespace UI
             _settingsMenu.SetActive(false);
             _settingsMenu.SetActive(false);
             _keyBindMenu.SetActive(false);
+            _statMenu.SetActive(false);
         }
 
         public static void InvokeSpeedIndicatorVisibilityChange()

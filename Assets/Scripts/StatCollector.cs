@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 public static class StatCollector
@@ -18,6 +17,14 @@ public static class StatCollector
         IntStats.Add(nameof(StatValues.LevelsCompleted), 0);
         IntStats.Add(nameof(StatValues.UpgradesPurchased), 0);
     }
+
+    public static string GetValueStringForStat(string statName)
+    {
+        if (FloatStats.ContainsKey(statName))
+            return FloatStats[statName].ToString();
+        
+        return IntStats.ContainsKey(statName) ? IntStats[statName].ToString() : null;
+    }
     
     public enum StatValues
     {
@@ -25,6 +32,7 @@ public static class StatCollector
         DamageCaused,
         EnemiesKilled,
         LevelsCompleted,
-        UpgradesPurchased
+        UpgradesPurchased,
+        TimePlayed
     }
 }
