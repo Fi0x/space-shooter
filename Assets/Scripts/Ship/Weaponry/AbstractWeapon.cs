@@ -3,6 +3,7 @@ using Ship.Weaponry.Config;
 using Ship.Weaponry.Trigger;
 using UI;
 using UnityEngine;
+using Upgrades;
 
 namespace Ship.Weaponry
 {
@@ -33,7 +34,7 @@ namespace Ship.Weaponry
             
             this.shipMovementHandler = this.weaponManager.GetParentShipGameObject().GetComponent<ShipMovementHandler>() ?? throw new NullReferenceException();
 
-            LevelTransitionMenu.UpgradePurchasedEvent += (sender, args) =>
+            UpgradeButton.UpgradePurchasedEvent += (sender, args) =>
             {
                 /* TODO 
                 switch (args.Type)
