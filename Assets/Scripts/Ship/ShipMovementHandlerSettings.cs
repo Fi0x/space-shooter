@@ -1,6 +1,6 @@
-using System;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Upgrades;
 
 namespace Ship
 {
@@ -48,47 +48,19 @@ namespace Ship
 
 
 
-        internal float PitchSpeed
-        {
-            get => this.pitchSpeed;
-            set => this.pitchSpeed = value;
-        }
+        internal float PitchSpeed => this.pitchSpeed * UpgradeStats.ShipPitchSpeedLevel;
 
-        internal float RollSpeed
-        {
-            get => this.rollSpeed;
-            set => this.rollSpeed = value;
-        }
+        internal float RollSpeed => this.rollSpeed * UpgradeStats.ShipRollSpeedLevel;
 
-        internal float YawSpeed
-        {
-            get => this.yawSpeed;
-            set => this.yawSpeed = value;
-        }
+        internal float YawSpeed => this.yawSpeed * UpgradeStats.ShipYawSpeedLevel;
 
-        internal float AccelerationForwards
-        {
-            get => this.accelerationForwards;
-            set => this.accelerationForwards = value;
-        }
+        internal float AccelerationForwards => this.accelerationForwards + UpgradeStats.ShipAccelerationLevel;
 
-        internal float AccelerationBackwards
-        {
-            get => this.accelerationBackwards;
-            set => this.accelerationBackwards = value;
-        }
+        internal float AccelerationBackwards => this.accelerationBackwards + UpgradeStats.ShipBrakeLevel;
 
-        internal float AccelerationLateral
-        {
-            get => this.accelerationLateral;
-            set => this.accelerationLateral = value;
-        }
+        internal float AccelerationLateral => this.accelerationLateral + UpgradeStats.ShipLateralThrustLevel;
 
-        internal float MaxSpeed
-        {
-            get => this.maxSpeed;
-            private set => this.maxSpeed = value;
-        }
+        internal float MaxSpeed=> this.maxSpeed;
 
         internal float MaxSpeedBoost
         {
@@ -116,11 +88,7 @@ namespace Ship
 
         public float MaxLateralSpeed => this.maxLateralSpeed;
 
-        public float BrakingModifier
-        {
-            get => this.brakingModifier;
-            set => this.brakingModifier = value;
-        }
+        public float BrakingModifier => this.brakingModifier * UpgradeStats.ShipStabilizerLevel;
 
         public float AccelerationForwardsBoostMultiplier => this.accelerationForwardsBoostMultiplier;
 

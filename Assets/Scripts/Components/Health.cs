@@ -1,7 +1,7 @@
 using Enemy;
 using Manager;
-using UI;
 using UnityEngine;
+using Upgrades;
 
 namespace Components
 {
@@ -11,7 +11,7 @@ namespace Components
         private int maxHealth;
         public int MaxHealth
         {
-            get => this.maxHealth;
+            get => this.maxHealth + UpgradeStats.ArmorLevel * 10;
             set
             {
                 this.maxHealth = value;
@@ -46,11 +46,11 @@ namespace Components
             this.MaxHealth = 1000;
             this.CurrentHealth = this.MaxHealth;
 
-            LevelTransitionMenu.UpgradePurchasedEvent += (sender, args) =>
+            UpgradeButton.UpgradePurchasedEvent += (sender, args) =>
             {
-                if (args.Type == LevelTransitionMenu.Upgrade.Armor)
+                if (args.Type == UpgradeButton.Upgrade.Armor)
                 {
-                    this.MaxHealth += args.Increased ? 10 : -10;
+                    UpgradeStats.ArmorLevel += args.Increased ? 1 : -1;
                     UpgradeMenuValues.InvokeUpgradeCompletedEvent(args);
                 }
             };
@@ -68,7 +68,11 @@ namespace Components
             if(this.isPlayer)
                 GameManager.GameOver();
             else
+            {
+                StatCollector.EnemiesKilled++;
+                UpgradeStats.FreeUpgradePoints++;
                 Destroy(this.gameObject);
+            }
         } 
     }
 }
