@@ -32,6 +32,8 @@ namespace Upgrades
         {
             UpgradeStats.FreeUpgradePoints += this.isIncrement ? -1 : 1;
             UpgradePurchasedEvent?.Invoke(null, new UpgradePurchasedEventArgs(this.type, this.isIncrement));
+
+            StatCollector.IntStats[nameof(StatCollector.StatValues.UpgradesPurchased)] += this.isIncrement ? 1 : -1;
         }
 
         private void UpdateVisibility()
