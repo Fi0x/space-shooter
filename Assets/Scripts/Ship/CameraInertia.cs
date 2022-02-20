@@ -43,7 +43,7 @@ namespace Ship
         [SerializeField, ReadOnlyInspector] private Vector3 currentAngularInertia = Vector3.zero;
         [SerializeField, ReadOnlyInspector] private Vector3 currentPositionalInertial = Vector3.zero;
 
-        [SerializeField] private Transform camera;
+        [SerializeField] private Transform playerCamera;
 
         private Vector3 velocityLastFrame = Vector3.zero;
 
@@ -55,9 +55,9 @@ namespace Ship
             var tf = this.transform;
             this.originalLocalPosition = tf.localPosition;
             this.originalLocalRotation = tf.localRotation;
-            if (this.camera == null)
+            if (this.playerCamera == null)
             {
-                this.camera = Camera.main?.gameObject.transform ??
+                this.playerCamera = Camera.main?.gameObject.transform ??
                               throw new NullReferenceException("No camera set and no Camera tagged as Main");
             }
 

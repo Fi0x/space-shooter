@@ -2,6 +2,7 @@ using System;
 using Components;
 using Manager;
 using Ship;
+using Ship.Weaponry;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,14 +41,14 @@ namespace UI
         {
             switch (this.type)
             {
-                    case LevelTransitionMenu.Upgrade.WeaponDamage:
-                        return "" + Math.Round(GameManager.Instance.Player.GetComponentInChildren<Weapon>().projectileDamageModifier, 2);
+                    //case LevelTransitionMenu.Upgrade.WeaponDamage: TODO
+                    //    return "" + Math.Round(GameManager.Instance.Player.GetComponentInChildren<AbstractWeapon>().projectileDamageModifier, 2);
                         
                     case LevelTransitionMenu.Upgrade.WeaponFireRate:
-                        return "" + 1f / Math.Round(GameManager.Instance.Player.GetComponentInChildren<Weapon>().fireRate, 2);
+                        return "" + 1f / Math.Round(GameManager.Instance.Player.GetComponentInChildren<AbstractWeapon>().WeaponTrigger.TimeBetweenShots, 2);
                     
-                    case LevelTransitionMenu.Upgrade.WeaponProjectileSpeed:
-                        return "" + Math.Round(GameManager.Instance.Player.GetComponentInChildren<Weapon>().projectileSpeedModifier, 2);
+                    //case LevelTransitionMenu.Upgrade.WeaponProjectileSpeed:
+                    //   return "" + Math.Round(GameManager.Instance.Player.GetComponentInChildren<AbstractWeapon>().projectileSpeedModifier, 2);
                     
                     case LevelTransitionMenu.Upgrade.EngineAcceleration:
                         return "" + Math.Round(GameManager.Instance.Player.GetComponent<ShipMovementHandler>().Settings.AccelerationForwards, 2);
