@@ -968,36 +968,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3300866360229414212}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cab7c97417d6c3b5fb8433a28008e224, type: 3}
+  m_Script: {fileID: 11500000, guid: c86b89a8070943c9923a720df6ec7fb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 0.2
-  damageOverTime:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 100
-      inSlope: -9.475691
-      outSlope: -9.475691
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.047634907
-    - serializedVersion: 3
-      time: 3.0014818
-      value: 0
-      inSlope: -127.66682
-      outSlope: -127.66682
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.033548553
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  projectilePrefab: {fileID: 7276553157955487200, guid: af77ec5ac4ec70c429a163e7a324129b, type: 3}
   weaponManager: {fileID: 3300866360858875059}
+  weaponConfig: {fileID: 11400000, guid: 706f0059b93556909b15ab56fd12f815, type: 2}
+  projectileSpeedModifier: 1.5
+  projectileDamageModifier: 1
 --- !u!1 &3300866360278854118
 GameObject:
   m_ObjectHideFlags: 0
@@ -6706,6 +6683,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9edb52360cca77a66afd032c579c4c31, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 9edb52360cca77a66afd032c579c4c31, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9edb52360cca77a66afd032c579c4c31, type: 3}
       propertyPath: m_Name

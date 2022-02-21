@@ -1,29 +1,30 @@
 using System;
+using Components;
+using Ship.Sensors;
 using UnityEngine;
 using UnityEngine.VFX;
 
-namespace Components
+namespace Ship.Weaponry
 {
-    public class SphereProjectile : MonoBehaviour
+    public class WeaponProjectile : MonoBehaviour
     {
-        public GameObject muzzlePrefab;
-        public GameObject impactPrefab;
+        public GameObject muzzlePrefab = null!;
+        public GameObject impactPrefab = null!;
 
         private bool isInit;
-        [SerializeField] private Rigidbody rb;
-        [SerializeField] private float timeToLive;
-        [SerializeField] private GameObject trail;
+        [SerializeField] private Rigidbody rb = null!;
+        [SerializeField] private GameObject trail = null!;
 
-        private AnimationCurve damageOverTime;
+        private AnimationCurve damageOverTimeNormalized = null!;
         private double startTime;
+        private float timeToLive;
 
-        public event Action<int> ProjectileHitSomethingEvent;
+        public event Action<int, WeaponHitInformation> ProjectileHitSomethingEvent;
 
         public float DamageMultiplier { get; set; } = 1;
         
         private void Start()
         {
-            Destroy(this.gameObject, this.timeToLive);
             var vfx = this.GetComponentInChildren<VisualEffect>();
             if (vfx != null)
             {
@@ -32,7 +33,7 @@ namespace Components
 
             if (this.muzzlePrefab != null)
             {
-                var muzzle = Instantiate(this.muzzlePrefab, this.transform);
+                var muzzle = Instantiate(this.muzzlePrefab, this.transform)!;
                 Destroy(muzzle, 1f);
             }
             
@@ -40,18 +41,22 @@ namespace Components
             this.Invoke(nameof(this.MakeTrailVisible), 0.4f);
         }
 
-        public void InitializeDirection(Vector3 velocity, AnimationCurve damageOverTimeCurve, Quaternion rotation)
+        public void Initialize(Vector3 directionAndVelocity, AnimationCurve damageOverTimeNormalized, Quaternion rotation, float ttl)
         {
+            if (damageOverTimeNormalized == null) throw new ArgumentNullException(nameof(damageOverTimeNormalized));
             if (this.isInit)
             {
                 throw new Exception("Already initialized");
             }
-            this.transform.LookAt(this.transform.position + velocity);
+
+            this.timeToLive = ttl;
+            Destroy(this.gameObject, this.timeToLive);
+            this.transform.LookAt(this.transform.position + directionAndVelocity);
 
             this.gameObject.transform.rotation = rotation;
 
-            this.damageOverTime = damageOverTimeCurve;
-            this.rb.velocity = velocity;
+            this.damageOverTimeNormalized = damageOverTimeNormalized;
+            this.rb.velocity = directionAndVelocity;
             this.isInit = true;
             this.startTime = Time.timeAsDouble;
         }
@@ -70,11 +75,19 @@ namespace Components
                     Destroy(impact, 2f);
                 }
 
+                
+                var damageTaken = (int) (DamageMultiplier * this.damageOverTimeNormalized.Evaluate((float) timeOnImpact / this.timeToLive));
+                var weaponHitInformation = new WeaponHitInformation(
+                    WeaponHitInformation.WeaponType.Projectile, 
+                    damageTaken, 
+                    other.gameObject.GetComponent<SensorTarget>()
+                );
                 if (other.gameObject.TryGetComponent(out Health health))
                 {
-                    health.TakeDamage((int)(DamageMultiplier * this.damageOverTime.Evaluate((float)timeOnImpact)));
+                    // The hit "thing" can take damage
+                    health.TakeDamage(damageTaken);
                 }
-                this.ProjectileHitSomethingEvent?.Invoke(other.gameObject.layer);
+                this.ProjectileHitSomethingEvent?.Invoke(other.gameObject.layer, weaponHitInformation);
 
                 Destroy(this.gameObject);
             }    
