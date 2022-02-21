@@ -1,11 +1,11 @@
 using Ship;
 using System.Collections;
 using System.Collections.Generic;
-using Enemy;
 using UnityEngine;
 
 namespace Enemy
 {
+
     public class Boid : MonoBehaviour
     {
         [SerializeField] private float FOVAngle;
@@ -23,13 +23,13 @@ namespace Enemy
 
         private void Awake()
         {
-            this.myTransform = this.transform;
+            myTransform = transform;
         }
 
 
         public void AssignFlock(BoidController flock)
         {
-            this.assignedFlock = flock;
+            assignedFlock = flock;
         }
 
         public void InitializeSpeed(float speed)
@@ -37,77 +37,113 @@ namespace Enemy
             this.speed = speed;
         }
 
+
+
+
         public void MoveUnit()
         {
-            this.FindNeighbours();
-            this.CalculateSpeed();
-            var cohesionVector = this.CalculateCohesionVector() * this.assignedFlock.CohesionWeight;
-            var avoidanceVector = this.CalculateAvoidanceVector() * this.assignedFlock.AvoidanceWeight;
-            var alignmentVector = this.CalculateAlignmentVector() * this.assignedFlock.AlignmentWeight;
+            FindNeighbours();
+            CalculateSpeed();
+            Vector3 cohesionVector = CalculateCohesionVector() * assignedFlock.cohesionWeight;
+            Vector3 avoidanceVector = CalculateAvoidanceVector() * assignedFlock.avoidanceWeight;
+            Vector3 alignmentVector = CalculateAlignmentVector() * assignedFlock.alignmentWeight;
 
+            /* float targetWeight = 0.2f;
+             Vector3 targetPoint = new Vector3(50, 50, 50);
+             Vector3 directionToTargetWeighted = (targetPoint - myTransform.position).normalized * targetWeight;
+            */
             var moveVector = cohesionVector + avoidanceVector + alignmentVector;
-            var obstacleVector = Vector3.zero;
 
-            if (this.IsHeadingForCollision(moveVector))
+            Vector3 obstacleVector = Vector3.zero;
+
+            if (IsHeadingForCollision(moveVector))
             {
-                obstacleVector = this.FindUnobstructedDirection();
+                //Debug.Log("IsHeadingForCollision");
+                obstacleVector = FindUnobstructedDirection();
+                //Debug.Log("obstacleVector: " + obstacleVector);
+                //Debug.Log("transform.forward: " + myTransform.forward);
                 obstacleVector = obstacleVector.normalized;
             }
             else
             {
-                var flockCenterVector = Vector3.zero;
-                for (var i = 0; i < this.assignedFlock.AllUnits.Count; i++)
-                    flockCenterVector += this.assignedFlock.AllUnits[i].transform.position;
 
-                flockCenterVector /= this.assignedFlock.AllUnits.Count;
-
-                if (Vector3.Distance(flockCenterVector, this.myTransform.position) > 50)
+                Vector3 flockCenterVector = Vector3.zero;
+                for (int i = 0; i < assignedFlock.allUnits.Count; i++)
                 {
-                    var flockCenterDirection = flockCenterVector - this.myTransform.position;
-                    this.speed *= 1.5f;
-                    moveVector = flockCenterDirection.normalized * this.speed;
-                    this.myTransform.forward = moveVector;
-                    this.myTransform.position += moveVector * Time.deltaTime;
+                    flockCenterVector += assignedFlock.allUnits[i].transform.position;
+                }
+                flockCenterVector /= assignedFlock.allUnits.Count;
+
+                if (Vector3.Distance(flockCenterVector, myTransform.position) > 50)
+                {
+                    Vector3 flockCenterDirection = flockCenterVector - myTransform.position;
+                    speed *= 1.5f;
+                    moveVector = flockCenterDirection.normalized * speed;
+                    myTransform.forward = moveVector;
+                    myTransform.position += moveVector * Time.deltaTime;
                     return;
                 }
             }
 
-            moveVector += obstacleVector * this.assignedFlock.ObstacleWeight;
+            moveVector += obstacleVector * assignedFlock.obstacleWeight;
 
-            moveVector = Vector3.SmoothDamp(this.myTransform.forward, moveVector, ref this.currentVelocity, this.smoothDamp);
-            moveVector = moveVector.normalized * this.speed;
+
+            moveVector = Vector3.SmoothDamp(myTransform.forward, moveVector, ref currentVelocity, smoothDamp);
+            moveVector = moveVector.normalized * speed;
             if (moveVector == Vector3.zero)
-                moveVector = this.transform.forward;
+            {
+                moveVector = transform.forward;
+            }
 
+            myTransform.forward = moveVector;
+            myTransform.position += moveVector * Time.deltaTime;
 
-            this.myTransform.forward = moveVector;
-            this.myTransform.position += moveVector * Time.deltaTime;
+            //Debug.DrawRay(myTransform.position, moveVector * 2, Color.red, 0.25f);
         }
 
         private void CalculateSpeed()
         {
             //speed = ShipMovementHandler.TotalMaxSpeed / 10;
-            //this.speed = 20.0f;
+            speed = 20.0f;
+            return;
+            if (cohesionNeighbours.Count == 0)
+            {
+                return;
+            }
+
+            speed = 0;
+            for (int i = 0; i < cohesionNeighbours.Count; i++)
+            {
+                speed += cohesionNeighbours[i].speed;
+            }
+            speed /= cohesionNeighbours.Count;
+            Mathf.Clamp(speed, assignedFlock.minSpeed, assignedFlock.maxSpeed);
         }
 
         private void FindNeighbours()
         {
-            this.cohesionNeighbours.Clear();
-            this.avoidanceNeighbours.Clear();
-            this.alignmentNeighbours.Clear();
-            var allUnits = this.assignedFlock.AllUnits;
+            cohesionNeighbours.Clear();
+            avoidanceNeighbours.Clear();
+            alignmentNeighbours.Clear();
+            var allUnits = assignedFlock.allUnits;
             for (int i = 0; i < allUnits.Count; i++)
             {
                 var currentUnit = allUnits[i];
                 if (currentUnit != this)
                 {
-                    float currentNeighbourDistanceSqr =
-                        Vector3.SqrMagnitude(currentUnit.transform.position - this.myTransform.position);
-                    if (currentNeighbourDistanceSqr <= this.assignedFlock.CohesionDistance * this.assignedFlock.CohesionDistance) this.cohesionNeighbours.Add(currentUnit);
-
-                    if (currentNeighbourDistanceSqr <= this.assignedFlock.AvoidanceDistance * this.assignedFlock.AvoidanceDistance) this.avoidanceNeighbours.Add(currentUnit);
-
-                    if (currentNeighbourDistanceSqr <= this.assignedFlock.AlignmentDistance * this.assignedFlock.AlignmentDistance) this.alignmentNeighbours.Add(currentUnit);
+                    float currentNeighbourDistanceSqr = Vector3.SqrMagnitude(currentUnit.transform.position - myTransform.position);
+                    if (currentNeighbourDistanceSqr <= assignedFlock.cohesionDistance * assignedFlock.cohesionDistance)
+                    {
+                        cohesionNeighbours.Add(currentUnit);
+                    }
+                    if (currentNeighbourDistanceSqr <= assignedFlock.avoidanceDistance * assignedFlock.avoidanceDistance)
+                    {
+                        avoidanceNeighbours.Add(currentUnit);
+                    }
+                    if (currentNeighbourDistanceSqr <= assignedFlock.alignmentDistance * assignedFlock.alignmentDistance)
+                    {
+                        alignmentNeighbours.Add(currentUnit);
+                    }
                 }
             }
         }
@@ -115,38 +151,42 @@ namespace Enemy
         private Vector3 CalculateCohesionVector()
         {
             var cohesionVector = Vector3.zero;
-            if (this.cohesionNeighbours.Count == 0)
+            if (cohesionNeighbours.Count == 0)
+            {
                 return cohesionVector;
+            }
 
             int neighboursInFOV = 0;
-            for (int i = 0; i < this.cohesionNeighbours.Count; i++)
+            for (int i = 0; i < cohesionNeighbours.Count; i++)
             {
-                if (this.IsInFOV(this.cohesionNeighbours[i].myTransform.position))
+                if (IsInFOV(cohesionNeighbours[i].myTransform.position))
                 {
                     neighboursInFOV++;
-                    cohesionVector += this.cohesionNeighbours[i].myTransform.position;
+                    cohesionVector += cohesionNeighbours[i].myTransform.position;
                 }
             }
 
             cohesionVector /= neighboursInFOV;
-            cohesionVector -= this.myTransform.position;
+            cohesionVector -= myTransform.position;
             cohesionVector = cohesionVector.normalized;
             return cohesionVector;
         }
 
         private Vector3 CalculateAlignmentVector()
         {
-            var alignementVector = (this.assignedFlock.RoamingPosition - this.myTransform.position).normalized;
-            if (this.alignmentNeighbours.Count == 0)
+            var alignementVector = (assignedFlock.roamingPosition - myTransform.position).normalized;
+            if (alignmentNeighbours.Count == 0)
+            {
                 return alignementVector;
+            }
 
             int neighboursInFOV = 0;
-            for (int i = 0; i < this.alignmentNeighbours.Count; i++)
+            for (int i = 0; i < alignmentNeighbours.Count; i++)
             {
-                if (this.IsInFOV(this.alignmentNeighbours[i].myTransform.position))
+                if (IsInFOV(alignmentNeighbours[i].myTransform.position))
                 {
                     neighboursInFOV++;
-                    alignementVector += this.alignmentNeighbours[i].myTransform.forward;
+                    alignementVector += alignmentNeighbours[i].myTransform.forward;
                 }
             }
 
@@ -158,16 +198,18 @@ namespace Enemy
         private Vector3 CalculateAvoidanceVector()
         {
             var avoidanceVector = Vector3.zero;
-            if (this.avoidanceNeighbours.Count == 0)
+            if (avoidanceNeighbours.Count == 0)
+            {
                 return avoidanceVector;
+            }
 
             int neighboursInFOV = 0;
-            for (int i = 0; i < this.avoidanceNeighbours.Count; i++)
+            for (int i = 0; i < avoidanceNeighbours.Count; i++)
             {
-                if (this.IsInFOV(this.avoidanceNeighbours[i].myTransform.position))
+                if (IsInFOV(avoidanceNeighbours[i].myTransform.position))
                 {
                     neighboursInFOV++;
-                    avoidanceVector += (this.myTransform.position - this.avoidanceNeighbours[i].myTransform.position);
+                    avoidanceVector += (myTransform.position - avoidanceNeighbours[i].myTransform.position);
                 }
             }
 
@@ -176,25 +218,34 @@ namespace Enemy
             return avoidanceVector;
         }
 
-        private bool IsHeadingForCollision(Vector3 direction)
+        public bool IsHeadingForCollision(Vector3 direction)
         {
+            //Debug.DrawRay(transform.position, direction * assignedFlock.obstacleDistance, Color.green, 0.2f);
             RaycastHit hit;
-            return Physics.SphereCast(this.myTransform.position, 1.0f, direction, out hit, this.assignedFlock.ObstacleDistance,
-                LayerMask.GetMask("Scenery"));
+            if (Physics.SphereCast(myTransform.position, 1.0f, direction, out hit, assignedFlock.obstacleDistance, LayerMask.GetMask("Scenery")))
+            {
+
+                return true;
+            }
+
+            return false;
+
         }
 
-        private Vector3 FindUnobstructedDirection()
+        public Vector3 FindUnobstructedDirection()
         {
             float furthestUnobstructedDst = 0;
+            RaycastHit hit;
+
 
             float radius = 1.0f;
-            float ViewRadius = this.assignedFlock.ObstacleDistance;
+            float ViewRadius = assignedFlock.obstacleDistance;
             LayerMask layerMask = LayerMask.GetMask("Scenery");
-            for (int i = 0; i < this.directions.Length; i++)
+            for (int i = 0; i < directions.Length; i++)
             {
-                Vector3 dir = this.transform.TransformDirection(this.directions[i]);
-                Ray ray = new Ray(this.transform.position, dir);
-                Debug.DrawRay(this.transform.position, dir * this.assignedFlock.ObstacleDistance, Color.cyan, 0.2f);
+                Vector3 dir = transform.TransformDirection(directions[i]);
+                Ray ray = new Ray(transform.position, dir);
+                Debug.DrawRay(transform.position, dir * assignedFlock.obstacleDistance, Color.cyan, 0.2f);
                 if (!Physics.SphereCast(ray, radius, ViewRadius, layerMask))
                 {
                     return dir;
@@ -204,21 +255,25 @@ namespace Enemy
             return Vector3.zero;
         }
 
+
+
         private bool IsInFOV(Vector3 position)
         {
-            return Vector3.Angle(this.myTransform.forward, position - this.myTransform.position) <= this.FOVAngle;
+            return Vector3.Angle(myTransform.forward, position - myTransform.position) <= FOVAngle;
         }
+
 
         // obstacle avoidance
         public const int numViewDirections = 300;
         public Vector3[] directions;
-        private readonly float goldenRatio = (1 + Mathf.Sqrt(5)) / 2;
+        float goldenRatio = (1 + Mathf.Sqrt(5)) / 2;
 
         public void BoidHelper()
         {
-            this.directions = new Vector3[numViewDirections];
+            directions = new Vector3[numViewDirections];
 
-            float angleIncrement = Mathf.PI * 2 * this.goldenRatio;
+            float angleIncrement = Mathf.PI * 2 * goldenRatio;
+
             for (int i = 0; i < numViewDirections; i++)
             {
                 float t = (float)i / numViewDirections;
@@ -228,13 +283,18 @@ namespace Enemy
                 float x = Mathf.Sin(inclination) * Mathf.Cos(azimuth);
                 float y = Mathf.Sin(inclination) * Mathf.Sin(azimuth);
                 float z = Mathf.Cos(inclination);
-                this.directions[i] = new Vector3(x, y, z);
+                directions[i] = new Vector3(x, y, z);
+                //Debug.DrawRay(transform.position, directions[i] *  10, Color.red);
             }
         }
 
+
+
+        // remove Boid from assignedFlock
         public void RemoveBoidFromAssignedFlock()
         {
-            this.assignedFlock.RemoveBoid(this);
+            assignedFlock.RemoveBoid(this);
         }
     }
+
 }
