@@ -10,35 +10,30 @@ namespace Components
         [SerializeField] private ShipMovementHandler smh;
 
         private SpeedIndicator speedIndicator;
-        private bool boostingStateLastFrame = false;
 
         private void HandleDesiredSpeedChangedEvent(float speed, float maxSpeed)
         {
             this.speedIndicator.SetCurrentSpeed(speed);
-            if (this.boostingStateLastFrame != this.smh.InputHandler.IsBoosting)
-            {
-                this.boostingStateLastFrame = this.smh.InputHandler.IsBoosting;
-                this.speedIndicator.SetBoostingState(this.boostingStateLastFrame);
-            }
         }
 
         private void OnEnable()
         {
             this.smh.DesiredSpeedChangedEvent += this.HandleDesiredSpeedChangedEvent;
             this.smh.SettingsUpdatedEvent += this.HandleSettingsUpdatedEvent;
+            this.smh.BoostingStateChangedEvent += this.HandleBoostingStateChangedEvent;
         }
 
-        private void HandleSettingsUpdatedEvent(ShipMovementHandlerSettings _)
-        {
+        private void HandleSettingsUpdatedEvent(ShipMovementHandlerSettings _) =>
             this.speedIndicator.SetMaxSpeed(this.smh.Settings.MaxSpeed);
-        }
 
         private void OnDisable()
         {
             this.smh.DesiredSpeedChangedEvent -= this.HandleDesiredSpeedChangedEvent;
             this.smh.SettingsUpdatedEvent -= this.HandleSettingsUpdatedEvent;
+            this.smh.BoostingStateChangedEvent -= this.HandleBoostingStateChangedEvent;
         }
 
+        private void HandleBoostingStateChangedEvent(bool boosting) => this.speedIndicator.SetBoostingState(boosting);
 
         private void Start()
         {

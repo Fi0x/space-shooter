@@ -18,6 +18,8 @@ namespace Components
         private double startTime;
 
         public event Action<int> ProjectileHitSomethingEvent;
+
+        public float DamageMultiplier { get; set; } = 1;
         
         private void Start()
         {
@@ -70,7 +72,7 @@ namespace Components
 
                 if (other.gameObject.TryGetComponent(out Health health))
                 {
-                    health.TakeDamage((int)this.damageOverTime.Evaluate((float)timeOnImpact));
+                    health.TakeDamage((int)(DamageMultiplier * this.damageOverTime.Evaluate((float)timeOnImpact)));
                 }
                 this.ProjectileHitSomethingEvent?.Invoke(other.gameObject.layer);
 

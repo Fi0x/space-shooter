@@ -1,16 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Manager;
 using UnityEngine;
+using Upgrades;
 
 public class JumpGate : MonoBehaviour
 {
+    [SerializeField] private string transitionSceneName;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 8)
         {
-            GameManager.Instance.LoadNextLevel();
+            LevelTransitionMenu.ShowUpgradeScreen();
         }
     }
 }
