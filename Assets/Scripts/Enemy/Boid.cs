@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace Enemy;
+
 public class Boid : MonoBehaviour
 {
     [SerializeField] private float FOVAngle;

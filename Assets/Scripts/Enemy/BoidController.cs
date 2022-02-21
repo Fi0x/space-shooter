@@ -4,6 +4,7 @@ using UnityEngine;
 using Manager;
 using Enemy;
 
+namespace Enemy;
 public class BoidController : MonoBehaviour
 {
     [Header("Spawn Setup")]
