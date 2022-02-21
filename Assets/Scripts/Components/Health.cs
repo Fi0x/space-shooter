@@ -1,6 +1,7 @@
 using Enemy;
 using Manager;
 using UnityEngine;
+using Upgrades;
 
 namespace Components
 {
@@ -10,13 +11,16 @@ namespace Components
         private int maxHealth;
         public int MaxHealth
         {
-            get => this.maxHealth;
+            get => this.maxHealth + UpgradeStats.ArmorLevel * 10;
             set
             {
                 this.maxHealth = value;
                 this.HealthBar.SetMaxHealth(this.MaxHealth);
             }
         }
+
+        public GameObject deathVFX;
+        public float vfxLifetime = 4.5f;
 
         private int currentHealth;
         public int CurrentHealth
@@ -44,6 +48,15 @@ namespace Components
         {
             this.MaxHealth = 1000;
             this.CurrentHealth = this.MaxHealth;
+
+            UpgradeButton.UpgradePurchasedEvent += (sender, args) =>
+            {
+                if (args.Type == UpgradeButton.Upgrade.Armor)
+                {
+                    UpgradeStats.ArmorLevel += args.Increased ? 1 : -1;
+                    UpgradeMenuValues.InvokeUpgradeCompletedEvent(args);
+                }
+            };
         }
 
         public void TakeDamage(int damage)
@@ -52,13 +65,24 @@ namespace Components
             if(this.CurrentHealth > 0)
                 return;
             
+            //spawn vfx
+            if (deathVFX != null)
+            {
+                GameObject vfx = Instantiate(deathVFX, transform.position, transform.rotation);
+                Destroy(vfx, vfxLifetime);
+            }
+            
             if(this.TryGetComponent(out Boid boid))
                 boid.RemoveBoidFromAssignedFlock();
             
             if(this.isPlayer)
                 GameManager.GameOver();
             else
+            {
+                StatCollector.EnemiesKilled++;
+                UpgradeStats.FreeUpgradePoints++;
                 Destroy(this.gameObject);
+            }
         } 
     }
 }

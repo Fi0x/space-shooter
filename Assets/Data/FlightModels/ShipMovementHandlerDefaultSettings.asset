@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df50680e77d14f19806ef622d7461fca, type: 3}
+  m_Name: ShipMovementHandlerDefaultSettings
+  m_EditorClassIdentifier: 
+  profileName: Test2312312
+  pitchSpeed: 1
+  rollSpeed: 0.4
+  yawSpeed: 0.8
+  accelerationForwards: 50
+  accelerationBackwards: 50
+  accelerationLateral: 50
+  maxLateralSpeed: 50
+  maxSpeed: 150
+  maxSpeedBoost: 75
+  brakingModifier: 1.2
+  accelerationForwardsBoostMultiplier: 2
+  accelerationBackwardsBoostMultiplier: 1.2
+  accelerationLateralBoostMultiplier: 0.7
+  pitchSpeedBoostMultiplier: 0.2
+  rollSpeedBoostMultiplier: 0.4
+  yawSpeedBoostMultiplier: 0.2
+  correctionDeadZone: 0.01
