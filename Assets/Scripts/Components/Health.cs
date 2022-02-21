@@ -62,6 +62,12 @@ namespace Components
         public void TakeDamage(int damage)
         {
             this.CurrentHealth -= damage;
+
+            if (this.isPlayer)
+                StatCollector.FloatStats[nameof(StatCollector.StatValues.DamageTaken)] += damage;
+            else
+                StatCollector.FloatStats[nameof(StatCollector.StatValues.DamageCaused)] += damage;
+
             if(this.CurrentHealth > 0)
                 return;
             
@@ -79,7 +85,7 @@ namespace Components
                 GameManager.GameOver();
             else
             {
-                StatCollector.EnemiesKilled++;
+                StatCollector.IntStats[nameof(StatCollector.StatValues.EnemiesKilled)]++;
                 UpgradeStats.FreeUpgradePoints++;
                 Destroy(this.gameObject);
             }

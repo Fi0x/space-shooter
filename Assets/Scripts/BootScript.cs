@@ -20,6 +20,8 @@ public class BootScript : MonoBehaviour
         
         this.loadStarted = true;
         
+        StatCollector.InitializeStatMaps();
+
         DontDestroyOnLoad(this.gameObject);
         SceneManager.LoadScene(this.levelSceneName);
         
