@@ -14,7 +14,10 @@ public class ShipCollision : MonoBehaviour
             if (collision.relativeVelocity.magnitude > 10)
             {
                 this.gameObject.GetComponent<Health>().TakeDamage((int)collision.relativeVelocity.magnitude);
-                this.gameObject.GetComponent<ShipMovementHandler>().NotifyAboutCollision();
+                if(this.gameObject.TryGetComponent(out ShipMovementHandler shipMovementHandler))
+                {
+                    shipMovementHandler.NotifyAboutCollision();
+                }
             }
         }
     }
@@ -22,7 +25,8 @@ public class ShipCollision : MonoBehaviour
     private bool DoesCollide(GameObject gameObject)
     {
         if(gameObject.layer == LayerMask.NameToLayer("Scenery")
-            || gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            || gameObject.layer == LayerMask.NameToLayer("Enemy")
+            || gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             return true;
         }
