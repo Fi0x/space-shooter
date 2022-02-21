@@ -16,7 +16,7 @@ namespace Ship.Weaponry
         [SerializeField] private UnityEvent<WeaponHitInformation> enemyHitEvent = new UnityEvent<WeaponHitInformation>();
         public UnityEvent<WeaponHitInformation> EnemyHitEvent => this.enemyHitEvent;
         
-        private bool isShooting;
+        private bool isShooting = false;
 
         public event Action<bool>? FireModeChangedEvent;
 
@@ -42,7 +42,7 @@ namespace Ship.Weaponry
             if (this.isShooting == this.inputHandler.CurrentInputState.Shooting)
                 return;
 
-            this.isShooting = !this.isShooting;
+            this.isShooting = this.inputHandler.CurrentInputState.Shooting;
             
             this.FireModeChangedEvent?.Invoke(this.isShooting);
         }

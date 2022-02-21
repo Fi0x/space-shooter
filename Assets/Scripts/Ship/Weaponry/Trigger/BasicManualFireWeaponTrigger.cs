@@ -32,7 +32,7 @@ namespace Ship.Weaponry.Trigger
         }
 
         public event Action? WeaponFiredEvent;
-        public WeaponTriggerState CurrentState { get; protected set; }
+        public WeaponTriggerState CurrentState { get; protected set; } = WeaponTriggerState.NotFiring;
         public float TimeBetweenShots => cfg.MinTimeBetweenShots;
 
         public void Update(float dTime)
