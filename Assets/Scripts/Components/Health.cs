@@ -64,7 +64,15 @@ namespace Components
             this.CurrentHealth -= damage;
 
             if (this.isPlayer)
+            {
                 StatCollector.FloatStats[nameof(StatCollector.StatValues.DamageTaken)] += damage;
+
+                // shieldVFX
+                if(TryGetComponent(out ShieldVFX shieldVFX))
+                {
+                    StartCoroutine(shieldVFX.FadeIn());
+                }
+            }
             else
                 StatCollector.FloatStats[nameof(StatCollector.StatValues.DamageCaused)] += damage;
 
