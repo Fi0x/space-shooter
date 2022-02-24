@@ -196,7 +196,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   threshold:
     m_OverrideState: 1
-    m_Value: 0.9
+    m_Value: 1
     min: 0
   intensity:
     m_OverrideState: 1
@@ -230,5 +230,5 @@ MonoBehaviour:
     m_Value: {fileID: 2800000, guid: 6a2120c7ea49e1d4b9676c120bc17fa9, type: 3}
   dirtIntensity:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 4
     min: 0
