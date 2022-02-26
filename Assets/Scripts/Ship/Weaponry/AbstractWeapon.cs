@@ -18,6 +18,10 @@ namespace Ship.Weaponry
         
         private void OnEnable()
         {
+            if (this.weaponManager == null)
+            {
+                this.weaponManager = this.gameObject.GetComponentInParent<WeaponAttachmentPoint>().WeaponManager;
+            }
             this.weaponManager.FireModeChangedEvent += this.FireModeChangedEventHandler;
         }
 
@@ -68,7 +72,13 @@ namespace Ship.Weaponry
             this.gameObject.transform.LookAt(this.weaponManager.Target, this.transform.parent.gameObject.transform.forward);
             this.WeaponTrigger.Update(Time.fixedDeltaTime);
         }
-
+    
         protected abstract void Fire();
+
+        public virtual void Remove()
+        {
+            this.WeaponTrigger = null; // Not sure if needed :)
+            Destroy(this.gameObject);
+        }
     }
 }

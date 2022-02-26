@@ -1,5 +1,6 @@
 #nullable enable
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,6 +13,10 @@ namespace Ship.Weaponry
         [SerializeField] private GameObject ship = null!;
 
         public Vector3 Target => this.target.position;
+
+        private List<WeaponAttachmentPoint> weaponAttachmentPoints = new List<WeaponAttachmentPoint>();
+
+        public IReadOnlyList<WeaponAttachmentPoint> WeaponAttachmentPoints => this.weaponAttachmentPoints;
 
         [SerializeField] private UnityEvent<WeaponHitInformation> enemyHitEvent = new UnityEvent<WeaponHitInformation>();
         public UnityEvent<WeaponHitInformation> EnemyHitEvent => this.enemyHitEvent;
@@ -50,6 +55,13 @@ namespace Ship.Weaponry
         public GameObject GetParentShipGameObject()
         {
             return this.ship;
+        }
+
+        public void NotifyAboutNewWeaponAttachmentPoint(WeaponAttachmentPoint weaponAttachmentPoint)
+        {
+            if (weaponAttachmentPoint == null) throw new ArgumentNullException(nameof(weaponAttachmentPoint));
+
+            this.weaponAttachmentPoints.Add(weaponAttachmentPoint);
         }
     }
 }

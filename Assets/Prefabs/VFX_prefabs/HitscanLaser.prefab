@@ -49,7 +49,7 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 50
+      - m_Value: 33.01
         m_Name: length
         m_Overridden: 1
       - m_Value: 1
@@ -61,7 +61,7 @@ VisualEffect:
       - m_Value: 1
         m_Name: ImpactAlpha
         m_Overridden: 1
-      - m_Value: 0.5
+      - m_Value: 0.1
         m_Name: Thickness
         m_Overridden: 1
     m_Vector2f:
@@ -70,14 +70,17 @@ VisualEffect:
       m_Array: []
     m_Vector4f:
       m_Array:
-      - m_Value: {x: 0.0627451, y: 0.015686275, z: 0.017587252, w: 0}
+      - m_Value: {x: 0.6037736, y: 0, z: 0.01207287, w: 0}
         m_Name: DarkBaseColor
         m_Overridden: 1
-      - m_Value: {x: 1.2235296, y: 0.09608867, z: 0.10735743, w: 0}
+      - m_Value: {x: 0.12462294, y: 0.04643968, z: 0.04643968, w: 0}
         m_Name: CoreColor
         m_Overridden: 1
       - m_Value: {x: 2.0372927, y: 20.566954, z: 20.115263, w: 0}
         m_Name: AccentColor
+        m_Overridden: 1
+      - m_Value: {x: 11.984314, y: 0.5019608, z: 0, w: 0}
+        m_Name: FlashColor
         m_Overridden: 1
     m_Uint:
       m_Array: []
