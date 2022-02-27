@@ -3,7 +3,9 @@ using Components;
 using Enemy;
 using Ship;
 using UI;
+using UI.GameOver;
 using UnityEngine;
+using Upgrades;
 using World;
 using Random = UnityEngine.Random;
 
@@ -57,6 +59,13 @@ namespace Manager
             this.LoadNextLevel();
         }
 
+        public static void ResetGame()
+        {
+            level = 0;
+            StatCollector.Reset();
+            UpgradeStats.Reset();
+        }
+
         public void LoadNextLevel()
         {
             level++;
@@ -74,7 +83,7 @@ namespace Manager
 
         public static void GameOver()
         {
-            //TODO: Display Game-over screen
+            GameOverScreen.ShowGameOverScreen();
         }
 
         private void SpawnPlayer()

@@ -18,6 +18,10 @@ namespace Upgrades
         
         public static int ArmorLevel { get; set; } = 1;
 
+        public static void Reset()
+        {
+            //TODO:
+        }
 
         public static int GetCurrentLevel(UpgradeButton.Upgrade type) => type switch
         {
