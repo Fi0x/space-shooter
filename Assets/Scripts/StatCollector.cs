@@ -28,7 +28,7 @@ public static class StatCollector
 
     public static void Reset()
     {
-        //TODO
+        InitializeStatMaps();
     }
     
     public enum StatValues
