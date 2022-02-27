@@ -76,13 +76,6 @@ namespace Ship
 
         public bool SwitchFlightModel { get; set; }
 
-        private void Start()
-        {
-#if FIX_POSITION
-            Cursor.lockState = CursorLockMode.Locked;
-#endif
-        }
-
         private void Update()
         {
             if(InputManager.WaitingForKeyInput) return;

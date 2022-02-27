@@ -21,8 +21,8 @@ namespace Manager
         public EnemyManager EnemyManager => this.enemyManager;
 
         public LevelBuilder LevelBuilder => this.levelBuilder;
-        
-        public static bool IsGamePaused { get; set; }
+
+        public static bool IsGamePaused { get; set; } = true;
 
         private static int level;
 
