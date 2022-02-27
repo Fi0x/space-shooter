@@ -29,11 +29,13 @@ namespace Ship.Weaponry.Trigger
 
             this.isFiring = isPressedDown;
             this.CurrentState = isPressedDown ? WeaponTriggerState.Firing : WeaponTriggerState.NotFiring;
+            this.StateChangedEvent?.Invoke(this.CurrentState);
 
         }
 
         public event Action WeaponFiredEvent;
         public event Action<float> WeaponFiredEventWithDeltaTime;
+        public event Action<WeaponTriggerState> StateChangedEvent;
         public WeaponTriggerState CurrentState { get; private set; } = WeaponTriggerState.NotFiring;
         public float TimeBetweenShots => 0;
 

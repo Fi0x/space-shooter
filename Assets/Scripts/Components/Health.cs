@@ -22,8 +22,8 @@ namespace Components
         public GameObject deathVFX;
         public float vfxLifetime = 4.5f;
 
-        private int currentHealth;
-        public int CurrentHealth
+        private float currentHealth;
+        public float CurrentHealth
         {
             get => this.currentHealth;
             set
@@ -59,7 +59,7 @@ namespace Components
             };
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(float damage)
         {
             this.CurrentHealth -= damage;
 

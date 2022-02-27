@@ -32,6 +32,7 @@ namespace Ship.Weaponry.Config
                 default:
                     // This is here to make overriding easier.
                     // The child class will not have to repeat the parent declarations.
+                    Debug.LogError("Unknown Weapon Trigger: " + this.type );
                     return null;
             }
         }

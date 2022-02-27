@@ -1,7 +1,7 @@
+#nullable enable
 using System;
 using Ship.Weaponry.Config;
 using Ship.Weaponry.Trigger;
-using UI;
 using UnityEngine;
 using Upgrades;
 
@@ -29,12 +29,23 @@ namespace Ship.Weaponry
         {
             this.weaponManager.FireModeChangedEvent -= this.FireModeChangedEventHandler;
         }
+        
+        protected virtual void SetupWeaponTrigger()
+        {
+            this.WeaponTrigger ??= this.weaponConfig.BuildWeaponTrigger() ?? throw new NullReferenceException();
+        }
+
+        protected virtual void SubscribeToWeaponTrigger()
+        {
+            this.WeaponTrigger.WeaponFiredEvent += Fire;
+        }
 
         protected virtual void Start()
         {
             _ = (object)this.weaponConfig ?? throw new NullReferenceException("No Weapon Config is set");
-            this.WeaponTrigger = this.weaponConfig.BuildWeaponTrigger() ?? throw new NullReferenceException();
-            this.WeaponTrigger.WeaponFiredEvent += Fire;
+            
+            this.SetupWeaponTrigger();
+            this.SubscribeToWeaponTrigger();
             
             this.shipMovementHandler = this.weaponManager.GetParentShipGameObject().GetComponent<ShipMovementHandler>() ?? throw new NullReferenceException();
 

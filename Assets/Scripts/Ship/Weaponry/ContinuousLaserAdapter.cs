@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using UnityEngine;
 
@@ -6,15 +7,11 @@ namespace Ship.Weaponry
     public class ContinuousLaserAdapter : HitScanLaserAdapter
     {
         [SerializeField] private HitScanWeapon weaponRef;
-
-        protected override void Start()
+        
+        public void Init(HitScanWeapon weaponRef)
         {
-            base.Start();
-            if (this.weaponRef == null)
-            {
-                this.weaponRef = this.GetComponent<HitScanWeapon>() ?? 
-                                 throw new Exception("Weapon Reference was not set");
-            }
+            this.weaponRef = weaponRef ?? throw new ArgumentNullException(nameof(weaponRef));
+            this.NotifyAboutLaserStateChange(false);
         }
 
         public override void NotifyAboutLaserHittingTarget(float distance)

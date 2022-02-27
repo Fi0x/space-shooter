@@ -28,7 +28,7 @@ public class HealthBar : MonoBehaviour
         this.healthNumber_TMP.text = maxHealth + " / " + maxHealth;
     }
 
-    public void SetCurrentHealth(int health)
+    public void SetCurrentHealth(float health)
     {
         this.slider.value = health;
 

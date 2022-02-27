@@ -6549,7 +6549,7 @@ GameObject:
   - component: {fileID: 7450036077513249550}
   - component: {fileID: 1885235730378675269}
   m_Layer: 0
-  m_Name: WeaponAttachmentPoint
+  m_Name: WeaponAttachmentPoint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2364352702687542536}
-  - component: {fileID: 3045455637931120761}
+  - component: {fileID: 5937106663467103380}
   m_Layer: 0
   m_Name: HitScan Weapon 1
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3045455637931120761
+--- !u!114 &5937106663467103380
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,7 +40,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7926824900738252276}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d48c282d8f04f50822ee4a90c78d814, type: 3}
+  m_Script: {fileID: 11500000, guid: 14e244e55796462b83690d5167b2e8c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weaponManager: {fileID: 0}

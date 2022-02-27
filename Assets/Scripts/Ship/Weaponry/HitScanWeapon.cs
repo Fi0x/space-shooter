@@ -25,7 +25,10 @@ namespace Ship.Weaponry
         }
 
 
-        protected (RaycastHit hit, float distance)? GetRaycastHit()
+        /**
+         * Return a null-Tuple if no collision was detected
+         */
+        protected (RaycastHit hit, float distance, bool didHitEnemy)? GetRaycastHit()
         {
             var ownPosition = this.gameObject.transform.position;
             var shotDirection = this.weaponManager.Target - ownPosition;
@@ -39,17 +42,14 @@ namespace Ship.Weaponry
                 return null; // No Collisions. 
             }
             
-
+            
             // Look at first collision
             var layerMask = LayerMask.NameToLayer("Enemy");
             var firstHit = raycastHits[0];
-            if (firstHit.transform.gameObject.layer != layerMask)
-            {
-                return null; // Collision with something that is not an Enemy.
-            }
-            
+
+            var collisionWithEnemy = firstHit.transform.gameObject.layer == layerMask;
             var distance = Vector3.Distance(firstHit.point, ownPosition);
-            return (firstHit, distance);
+            return (firstHit, distance, collisionWithEnemy);
         }
         
         
@@ -57,7 +57,7 @@ namespace Ship.Weaponry
         {
             var raycastHitNullable = GetRaycastHit();
 
-            if (raycastHitNullable == null)
+            if (!(raycastHitNullable is {didHitEnemy: true}))
             {
                 return;
             }
