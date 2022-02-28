@@ -39,12 +39,12 @@ namespace UI
                 this.statList.Add(newPrefab);
             }
 
-            var list = this.GetDamageTypeListSortedDescending();
+            var list = GetDamageTypeListSortedDescending();
             foreach (var entry in list.Take(3))
             {
                 var newPrefab = Instantiate(this.statPrefab, this.transform);
                 var texts = GetTextComponents(newPrefab);
-                texts.name.text = entry.weaponType.ToString();
+                texts.name.text = entry.weaponType+ " Damage";
                 var value = Math.Round(entry.damage, 2);
 
                 texts.value.text = value.ToString(CultureInfo.InvariantCulture);
@@ -55,7 +55,7 @@ namespace UI
             this.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 10 + 50 * this.statList.Count);
         }
 
-        private IEnumerable<(float damage, WeaponHitInformation.WeaponType weaponType)> GetDamageTypeListSortedDescending()
+        private static IEnumerable<(float damage, WeaponHitInformation.WeaponType weaponType)> GetDamageTypeListSortedDescending()
         {
             return from keyvaluePair in StatCollector.WeaponTypeToDamageCausedStatLookup
                 orderby keyvaluePair.Value descending
