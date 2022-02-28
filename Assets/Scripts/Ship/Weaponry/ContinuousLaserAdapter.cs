@@ -30,6 +30,15 @@ namespace Ship.Weaponry
         {
             base.SetImpactAlpha(shooting ? 1f : 0f);
             base.SetLength(shooting ? this.weaponRef.MaxLength : 0f);
+            if (shooting)
+            {
+                this.visualEffect.Play();
+            }
+            else
+            {
+                this.visualEffect.Stop();
+            }
+            
         }
     }
 }
