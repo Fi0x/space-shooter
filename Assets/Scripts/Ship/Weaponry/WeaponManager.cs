@@ -38,8 +38,7 @@ namespace Ship.Weaponry
 
         private void HandleEnemyHitEvent(WeaponHitInformation weaponHitInformation)
         {
-            // TODO: Add information about hit to statistics tracking here
-            Debug.Log(weaponHitInformation.ToString());
+            StatCollector.NotifyAboutWeaponHit(weaponHitInformation);
         }
 
         private void Update()

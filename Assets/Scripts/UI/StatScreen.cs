@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using Ship.Weaponry;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,8 +22,9 @@ namespace UI
                 var newPrefab = Instantiate(this.statPrefab, this.transform);
                 
                 var texts = GetTextComponents(newPrefab);
-                texts.name.text = stat.Key;
-                texts.value.text = stat.Value.ToString();
+                texts.name.text = stat.Key.ToString();
+                var value = Math.Round(stat.Value, 2);
+                texts.value.text = value.ToString(CultureInfo.InvariantCulture);
                 
                 this.statList.Add(newPrefab);
             }
@@ -29,13 +33,33 @@ namespace UI
                 var newPrefab = Instantiate(this.statPrefab, this.transform);
 
                 var texts = GetTextComponents(newPrefab);
-                texts.name.text = stat.Key;
+                texts.name.text = stat.Key.ToString();
                 texts.value.text = stat.Value.ToString();
                 
                 this.statList.Add(newPrefab);
             }
 
+            var list = this.GetDamageTypeListSortedDescending();
+            foreach (var entry in list.Take(3))
+            {
+                var newPrefab = Instantiate(this.statPrefab, this.transform);
+                var texts = GetTextComponents(newPrefab);
+                texts.name.text = entry.weaponType.ToString();
+                var value = Math.Round(entry.damage, 2);
+
+                texts.value.text = value.ToString(CultureInfo.InvariantCulture);
+                
+                this.statList.Add(newPrefab);
+            }
+
             this.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 10 + 50 * this.statList.Count);
+        }
+
+        private IEnumerable<(float damage, WeaponHitInformation.WeaponType weaponType)> GetDamageTypeListSortedDescending()
+        {
+            return from keyvaluePair in StatCollector.WeaponTypeToDamageCausedStatLookup
+                orderby keyvaluePair.Value descending
+                select (keyvaluePair.Value, keyvaluePair.Key);
         }
 
         public void UpdateStats()

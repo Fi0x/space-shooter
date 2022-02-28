@@ -65,7 +65,7 @@ namespace Components
 
             if (this.isPlayer)
             {
-                StatCollector.FloatStats[nameof(StatCollector.StatValues.DamageTaken)] += damage;
+                StatCollector.FloatStats[StatCollector.StatValues.DamageTaken] += damage;
 
                 // shieldVFX
                 if(TryGetComponent(out ShieldVFX shieldVFX))
@@ -73,8 +73,6 @@ namespace Components
                     StartCoroutine(shieldVFX.FadeIn());
                 }
             }
-            else
-                StatCollector.FloatStats[nameof(StatCollector.StatValues.DamageCaused)] += damage;
 
             if(this.CurrentHealth > 0)
                 return;
@@ -93,7 +91,7 @@ namespace Components
                 GameManager.GameOver();
             else
             {
-                StatCollector.IntStats[nameof(StatCollector.StatValues.EnemiesKilled)]++;
+                StatCollector.IntStats[StatCollector.StatValues.EnemiesKilled]++;
                 UpgradeStats.FreeUpgradePoints++;
                 Destroy(this.gameObject);
             }

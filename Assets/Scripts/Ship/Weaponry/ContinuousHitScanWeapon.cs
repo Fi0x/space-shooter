@@ -78,11 +78,7 @@ namespace Ship.Weaponry
             }
             var effectiveDamage = this.weaponConfigHitScan.DamageOverDistanceNormalized
                 .Evaluate(distance / this.weaponConfigHitScan.MaxDistance) * timeBetweenLastFrameInMillis;
-            
-            
-            
-            Debug.Log("pew "+timeBetweenLastFrameInMillis);
-            
+
             var weaponHitInformation = new WeaponHitInformation(
                 WeaponHitInformation.WeaponType.HitScan,
                 effectiveDamage,
@@ -94,8 +90,7 @@ namespace Ship.Weaponry
                 // The hit "thing" can take damage
                 health.TakeDamage(effectiveDamage);
             }
-            // TODO: Spawn the Laser somehow
-
+            
             this.weaponManager.EnemyHitEvent.Invoke(weaponHitInformation);
 
         }
