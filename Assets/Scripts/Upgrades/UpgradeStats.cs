@@ -18,6 +18,24 @@ namespace Upgrades
         
         public static int ArmorLevel { get; set; } = 1;
 
+        public static void Reset()
+        {
+            FreeUpgradePoints = 0;
+            
+            WeaponDamageLevel = 1;
+            WeaponFireRateLevel = 1;
+            ProjectileVelocityLevel = 1;
+            
+            ShipAccelerationLevel = 1;
+            ShipBrakeLevel = 1;
+            ShipLateralThrustLevel = 1;
+            ShipPitchSpeedLevel = 1;
+            ShipRollSpeedLevel = 1;
+            ShipYawSpeedLevel = 1;
+            ShipStabilizerLevel = 1;
+            
+            ArmorLevel = 1;
+        }
 
         public static int GetCurrentLevel(UpgradeButton.Upgrade type) => type switch
         {

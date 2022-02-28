@@ -25,6 +25,11 @@ public static class StatCollector
         
         return IntStats.ContainsKey(statName) ? IntStats[statName].ToString() : null;
     }
+
+    public static void Reset()
+    {
+        InitializeStatMaps();
+    }
     
     public enum StatValues
     {
