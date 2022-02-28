@@ -33,8 +33,8 @@ namespace Ship.Weaponry
 
             if (this.muzzlePrefab != null)
             {
-                var muzzle = Instantiate(this.muzzlePrefab, this.transform)!;
-                Destroy(muzzle, 1f);
+                var muzzle = Instantiate(this.muzzlePrefab, transform.parent)!;
+                Destroy(muzzle, 2f);
             }
             
             this.trail.SetActive(false);

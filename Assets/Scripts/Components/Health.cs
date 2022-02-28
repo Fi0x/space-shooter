@@ -1,5 +1,7 @@
+using System;
 using Enemy;
 using Manager;
+using UI;
 using UnityEngine;
 using Upgrades;
 
@@ -15,9 +17,14 @@ namespace Components
             set
             {
                 this.maxHealth = value;
-                this.HealthBar.SetMaxHealth(this.MaxHealth);
+                //this.HealthBar.SetMaxHealth(this.MaxHealth);
             }
         }
+        
+        public static event Action<Health> OnHealthAdded = delegate { };
+        public static event Action<Health> OnHealthRemoved = delegate { };
+        public event Action<float> OnHealthPctChanged;
+        public bool generateHealthBar = false;
 
         public GameObject deathVFX;
         public float vfxLifetime = 4.5f;
@@ -30,22 +37,31 @@ namespace Components
             {
                 this.currentHealth = value;
                 if (this.currentHealth > this.MaxHealth) this.currentHealth = this.MaxHealth;
-                this.HealthBar.SetCurrentHealth(this.currentHealth);
+                if (generateHealthBar)
+                {
+                    float currentHealthPct = (float)currentHealth / maxHealth;
+                    OnHealthPctChanged?.Invoke(currentHealthPct);
+                }
+                else
+                {
+                    this.HealthBar.SetCurrentHealth(this.currentHealth);
+                }
             }
         }
-
-        private HealthBar healthBar;
-        private HealthBar HealthBar
+        
+        private FixedHealthBar healthBar;
+        private FixedHealthBar HealthBar
         {
             get
             {
-                if(!this.healthBar) this.healthBar = this.GetComponentInChildren<HealthBar>();
+                if(!this.healthBar) this.healthBar = this.GetComponentInChildren<FixedHealthBar>();
                 return this.healthBar;
             }
         }
 
         private void Start()
         {
+            if (generateHealthBar) OnHealthAdded(this);
             this.MaxHealth = 1000;
             this.CurrentHealth = this.MaxHealth;
 
@@ -81,8 +97,9 @@ namespace Components
             {
                 StatCollector.EnemiesKilled++;
                 UpgradeStats.FreeUpgradePoints++;
+                if (generateHealthBar) OnHealthRemoved(this);
                 Destroy(this.gameObject);
             }
-        } 
+        }
     }
 }
