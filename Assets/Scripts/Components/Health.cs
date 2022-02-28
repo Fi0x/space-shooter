@@ -17,7 +17,8 @@ namespace Components
             set
             {
                 this.maxHealth = value;
-                //this.HealthBar.SetMaxHealth(this.MaxHealth);
+                if(!generateHealthBar)
+                    HealthBar.SetMaxHealth(this.MaxHealth);
             }
         }
         
