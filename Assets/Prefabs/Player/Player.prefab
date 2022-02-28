@@ -432,6 +432,7 @@ VFXRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -707,7 +708,7 @@ MonoBehaviour:
   movementHandler: {fileID: 3300866360858875061}
   currentAngularInertia: {x: 0, y: 0, z: 0}
   currentPositionalInertial: {x: 0, y: 0, z: 0}
-  camera: {fileID: 3300866359811677406}
+  playerCamera: {fileID: 0}
 --- !u!1 &3300866359994325337
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,8 +974,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponManager: {fileID: 3300866360858875059}
   weaponConfig: {fileID: 11400000, guid: 706f0059b93556909b15ab56fd12f815, type: 2}
-  projectileSpeedModifier: 1.5
-  projectileDamageModifier: 1
 --- !u!1 &3300866360278854118
 GameObject:
   m_ObjectHideFlags: 0
@@ -1579,6 +1578,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 1
+  generateHealthBar: 0
+  deathVFX: {fileID: 0}
+  vfxLifetime: 4.5
 --- !u!114 &3300866360858875061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6488,6 +6490,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particleSystem: {fileID: 3300866360932033464}
   smh: {fileID: 3300866360858875061}
+--- !u!114 &2550703445380079976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3300866361009781688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e5a63cc3f4145f4969464b191398f8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3300866361068409381
 GameObject:
   m_ObjectHideFlags: 0
@@ -7244,8 +7258,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8824902617610137727, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
+--- !u!1 &3300866361009781688 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8824902617610137724, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
+  m_PrefabInstance: {fileID: 6320611156441893828}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &3300866361196139677 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8824902617696493401, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}

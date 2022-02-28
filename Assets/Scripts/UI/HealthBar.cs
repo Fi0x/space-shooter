@@ -76,13 +76,17 @@ namespace UI
                 
                 if (dot >= 0)
                 {
-                    if (barImage.fillAmount >= 1f)
+                    if (barImage.fillAmount >= 1f && !visibleWhenFull)
                     {
                         canvasGroup.alpha = 0f;
                         return;
                     }
 
                     canvasGroup.alpha = 1f;
+                }
+                else
+                {
+                    canvasGroup.alpha = 0f;
                 }
             }
         }
