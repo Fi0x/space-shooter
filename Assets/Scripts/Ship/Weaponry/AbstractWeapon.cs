@@ -74,7 +74,6 @@ namespace Ship.Weaponry
 
         private void FireModeChangedEventHandler(bool isFiring)
         {
-            Debug.Log("Changed mode to "+isFiring);
             this.WeaponTrigger.NotifyAboutTriggerStateChange(isFiring);
         }
 
