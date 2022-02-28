@@ -22,8 +22,8 @@ namespace Components
         public GameObject deathVFX;
         public float vfxLifetime = 4.5f;
 
-        private int currentHealth;
-        public int CurrentHealth
+        private float currentHealth;
+        public float CurrentHealth
         {
             get => this.currentHealth;
             set
@@ -59,13 +59,13 @@ namespace Components
             };
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(float damage)
         {
             this.CurrentHealth -= damage;
 
             if (this.isPlayer)
             {
-                StatCollector.FloatStats[nameof(StatCollector.StatValues.DamageTaken)] += damage;
+                StatCollector.FloatStats[StatCollector.StatValues.DamageTaken] += damage;
 
                 // shieldVFX
                 if(TryGetComponent(out ShieldVFX shieldVFX))
@@ -73,8 +73,6 @@ namespace Components
                     StartCoroutine(shieldVFX.FadeIn());
                 }
             }
-            else
-                StatCollector.FloatStats[nameof(StatCollector.StatValues.DamageCaused)] += damage;
 
             if(this.CurrentHealth > 0)
                 return;
@@ -93,7 +91,7 @@ namespace Components
                 GameManager.GameOver();
             else
             {
-                StatCollector.IntStats[nameof(StatCollector.StatValues.EnemiesKilled)]++;
+                StatCollector.IntStats[StatCollector.StatValues.EnemiesKilled]++;
                 UpgradeStats.FreeUpgradePoints++;
                 Destroy(this.gameObject);
             }

@@ -1,7 +1,7 @@
+#nullable enable
 using System;
 using Ship.Weaponry.Config;
 using Ship.Weaponry.Trigger;
-using UI;
 using UnityEngine;
 using Upgrades;
 
@@ -18,6 +18,10 @@ namespace Ship.Weaponry
         
         private void OnEnable()
         {
+            if (this.weaponManager == null)
+            {
+                this.weaponManager = this.gameObject.GetComponentInParent<WeaponAttachmentPoint>().WeaponManager;
+            }
             this.weaponManager.FireModeChangedEvent += this.FireModeChangedEventHandler;
         }
 
@@ -25,12 +29,23 @@ namespace Ship.Weaponry
         {
             this.weaponManager.FireModeChangedEvent -= this.FireModeChangedEventHandler;
         }
+        
+        protected virtual void SetupWeaponTrigger()
+        {
+            this.WeaponTrigger ??= this.weaponConfig.BuildWeaponTrigger() ?? throw new NullReferenceException();
+        }
+
+        protected virtual void SubscribeToWeaponTrigger()
+        {
+            this.WeaponTrigger.WeaponFiredEvent += Fire;
+        }
 
         protected virtual void Start()
         {
             _ = (object)this.weaponConfig ?? throw new NullReferenceException("No Weapon Config is set");
-            this.WeaponTrigger = this.weaponConfig.BuildWeaponTrigger() ?? throw new NullReferenceException();
-            this.WeaponTrigger.WeaponFiredEvent += Fire;
+            
+            this.SetupWeaponTrigger();
+            this.SubscribeToWeaponTrigger();
             
             this.shipMovementHandler = this.weaponManager.GetParentShipGameObject().GetComponent<ShipMovementHandler>() ?? throw new NullReferenceException();
 
@@ -59,7 +74,6 @@ namespace Ship.Weaponry
 
         private void FireModeChangedEventHandler(bool isFiring)
         {
-            Debug.Log("Changed mode to "+isFiring);
             this.WeaponTrigger.NotifyAboutTriggerStateChange(isFiring);
         }
 
@@ -68,7 +82,13 @@ namespace Ship.Weaponry
             this.gameObject.transform.LookAt(this.weaponManager.Target, this.transform.parent.gameObject.transform.forward);
             this.WeaponTrigger.Update(Time.fixedDeltaTime);
         }
-
+    
         protected abstract void Fire();
+
+        public virtual void Remove()
+        {
+            this.WeaponTrigger = null; // Not sure if needed :)
+            Destroy(this.gameObject);
+        }
     }
 }

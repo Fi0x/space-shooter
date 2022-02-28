@@ -34,7 +34,7 @@ namespace Ship.Weaponry
                 this.weaponConfigProjectile.TimeToLive
             );
             projectileScript.DamageMultiplier = 1f; // TODO: this needed?
-            projectileScript.ProjectileHitSomethingEvent += (layer, data) =>
+            projectileScript.WeaponHitSomethingEvent += (layer, data) =>
             {
                 // Only continue if the hit target is an enemy.
                 var targetLayer = LayerMask.NameToLayer("Enemy");

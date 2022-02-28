@@ -1,29 +1,63 @@
+#nullable enable
+using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Runtime.CompilerServices;
+using Ship.Weaponry;
 
 public static class StatCollector
 {
-    public static Dictionary<string, float> FloatStats { get; private set; }
-    public static Dictionary<string, int> IntStats { get; private set; }
+    public static Dictionary<StatValues, float> FloatStats { get; private set; } = null!;
+    public static Dictionary<StatValues, int> IntStats { get; private set; } = null!;
+
+    public static Dictionary<WeaponHitInformation.WeaponType, float> WeaponTypeToDamageCausedStatLookup
+    {
+        get;
+        private set;
+    }
 
     public static void InitializeStatMaps()
     {
-        FloatStats = new Dictionary<string, float>();
-        IntStats = new Dictionary<string, int>();
+        FloatStats = new Dictionary<StatValues, float>();
+        IntStats = new Dictionary<StatValues, int>();
+        WeaponTypeToDamageCausedStatLookup = new Dictionary<WeaponHitInformation.WeaponType, float>();
         
-        FloatStats.Add(nameof(StatValues.DamageTaken), 0);
-        FloatStats.Add(nameof(StatValues.DamageCaused), 0);
+        FloatStats.Add(StatValues.DamageTaken, 0f);
+        FloatStats.Add(StatValues.DamageCaused, 0f);
         
-        IntStats.Add(nameof(StatValues.EnemiesKilled), 0);
-        IntStats.Add(nameof(StatValues.LevelsCompleted), 0);
-        IntStats.Add(nameof(StatValues.UpgradesPurchased), 0);
+        IntStats.Add(StatValues.EnemiesKilled, 0);
+        IntStats.Add(StatValues.LevelsCompleted, 0);
+        IntStats.Add(StatValues.UpgradesPurchased, 0);
+
+        
     }
 
-    public static string GetValueStringForStat(string statName)
+    public static void NotifyAboutWeaponHit(WeaponHitInformation weaponHitInformation)
     {
-        if (FloatStats.ContainsKey(statName))
-            return FloatStats[statName].ToString();
+        if (weaponHitInformation == null) throw new ArgumentNullException(nameof(weaponHitInformation));
+
+        FloatStats[StatValues.DamageCaused] += weaponHitInformation.Damage;
+        if (!WeaponTypeToDamageCausedStatLookup.ContainsKey(weaponHitInformation.Type))
+        {
+            WeaponTypeToDamageCausedStatLookup[weaponHitInformation.Type] = 0;
+        }
+        WeaponTypeToDamageCausedStatLookup[weaponHitInformation.Type] += weaponHitInformation.Damage;
+    }
+
+    public static string? GetValueStringForStat(string statName)
+    {
+        var castedToEnum = (StatValues)Enum.Parse(typeof(StatValues), statName);
+        return GetValueStringForStat(castedToEnum);
         
-        return IntStats.ContainsKey(statName) ? IntStats[statName].ToString() : null;
+       
+    }
+
+    private static string? GetValueStringForStat(StatValues statValueAsEnum)
+    {
+        if (FloatStats.ContainsKey(statValueAsEnum))
+            return FloatStats[statValueAsEnum].ToString(CultureInfo.InvariantCulture);
+        
+        return IntStats.ContainsKey(statValueAsEnum) ? IntStats[statValueAsEnum].ToString() : null;
     }
 
     public static void Reset()

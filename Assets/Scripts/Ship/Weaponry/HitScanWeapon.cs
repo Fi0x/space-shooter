@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using Components;
 using Ship.Sensors;
@@ -11,6 +12,8 @@ namespace Ship.Weaponry
         private Ray ray;
         private readonly RaycastHit[] raycastHits = new RaycastHit[10];
 
+        public float MaxLength => this.weaponConfigHitScan.MaxDistance;
+
         [NonSerialized]
         protected WeaponHitScanConfigScriptableObject weaponConfigHitScan = null!;
 
@@ -20,8 +23,12 @@ namespace Ship.Weaponry
             this.weaponConfigHitScan = (base.weaponConfig as WeaponHitScanConfigScriptableObject) ?? 
                                 throw new Exception("Provided Config cannot be applied because it is not for HitScan Weapons");
         }
-        
-        protected override void Fire()
+
+
+        /**
+         * Return a null-Tuple if no collision was detected
+         */
+        protected (RaycastHit hit, float distance, bool didHitEnemy)? GetRaycastHit()
         {
             var ownPosition = this.gameObject.transform.position;
             var shotDirection = this.weaponManager.Target - ownPosition;
@@ -32,32 +39,49 @@ namespace Ship.Weaponry
 
             if (size == 0)
             {
-                return; // No Collisions. 
+                return null; // No Collisions. 
             }
-
+            
+            
             // Look at first collision
             var layerMask = LayerMask.NameToLayer("Enemy");
             var firstHit = raycastHits[0];
-            if (firstHit.transform.gameObject.layer == layerMask)
+
+            var collisionWithEnemy = firstHit.transform.gameObject.layer == layerMask;
+            var distance = Vector3.Distance(firstHit.point, ownPosition);
+            return (firstHit, distance, collisionWithEnemy);
+        }
+        
+        
+        protected override void Fire()
+        {
+            var raycastHitNullable = GetRaycastHit();
+
+            if (!(raycastHitNullable is {didHitEnemy: true}))
             {
-                var distance = Vector3.Distance(firstHit.point, ownPosition);
-                var effectiveDamage = this.weaponConfigHitScan.DamageOverDistanceNormalized.Evaluate(distance / this.weaponConfigHitScan.MaxDistance);
-
-                var weaponHitInformation = new WeaponHitInformation(
-                    WeaponHitInformation.WeaponType.HitScan,
-                    effectiveDamage,
-                    firstHit.transform.gameObject.GetComponent<SensorTarget>()
-                );
-
-                if (firstHit.transform.gameObject.TryGetComponent(out Health health))
-                {
-                    // The hit "thing" can take damage
-                    health.TakeDamage((int) effectiveDamage);
-                }
-                // TODO: Spawn the Laser somehow
-
-                this.weaponManager.EnemyHitEvent.Invoke(weaponHitInformation);
+                return;
             }
+
+            var raycastHit = raycastHitNullable.Value.hit;
+            var distance = raycastHitNullable.Value.distance;
+
+            var effectiveDamage = this.weaponConfigHitScan.DamageOverDistanceNormalized.Evaluate(distance / this.weaponConfigHitScan.MaxDistance);
+
+            var weaponHitInformation = new WeaponHitInformation(
+                WeaponHitInformation.WeaponType.HitScan,
+                effectiveDamage,
+                raycastHit.transform.gameObject.GetComponent<SensorTarget>()
+            );
+
+            if (raycastHit.transform.gameObject.TryGetComponent(out Health health))
+            {
+                // The hit "thing" can take damage
+                health.TakeDamage((int) effectiveDamage);
+            }
+            // TODO: Spawn the Laser somehow
+
+            this.weaponManager.EnemyHitEvent.Invoke(weaponHitInformation);
+            
         }
     }
 }
