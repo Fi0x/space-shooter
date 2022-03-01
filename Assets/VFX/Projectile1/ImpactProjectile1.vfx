@@ -519,7 +519,7 @@ MonoBehaviour:
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
-  title: 
+  title: Flash
   m_Owners:
   - {fileID: 8926484042661614773}
   - {fileID: 8926484042661614798}
@@ -2523,7 +2523,7 @@ MonoBehaviour:
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
-  title: 
+  title: Sparks
   m_Owners:
   - {fileID: 8926484042661614857}
   - {fileID: 8926484042661614842}
@@ -2943,7 +2943,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Vector, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"vector":{"x":-7.0,"y":0.0,"z":-7.0}}'
+      m_SerializableObject: '{"vector":{"x":-7.0,"y":-7.0,"z":-7.0}}'
     m_Space: 0
   m_Property:
     name: A
@@ -3113,7 +3113,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Vector, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"vector":{"x":7.0,"y":10.0,"z":7.0}}'
+      m_SerializableObject: '{"vector":{"x":7.0,"y":7.0,"z":7.0}}'
     m_Space: 0
   m_Property:
     name: B
