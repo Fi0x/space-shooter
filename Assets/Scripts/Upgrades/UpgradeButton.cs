@@ -56,7 +56,6 @@ namespace Upgrades
             "EngRotRollValue" => Upgrade.EngineRotationSpeedRoll,
             "EngRotYawValue" => Upgrade.EngineRotationSpeedYaw,
             "EngStabValue" => Upgrade.EngineStabilizationSpeed,
-            "HPValue" => Upgrade.Armor,
             _ => Upgrade.Unknown
         };
         
@@ -86,7 +85,6 @@ namespace Upgrades
             EngineRotationSpeedRoll,
             EngineRotationSpeedYaw,
             EngineStabilizationSpeed,
-            Armor,
             Unknown
         }
     }

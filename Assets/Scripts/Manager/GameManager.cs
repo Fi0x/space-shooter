@@ -63,7 +63,8 @@ namespace Manager
         {
             level = 0;
             StatCollector.Reset();
-            UpgradeStats.Reset();
+            UpgradeStats.Reset();//TODO: Remove when new upgrade system is in place
+            UpgradeHandler.Reset();
         }
 
         public void LoadNextLevel()

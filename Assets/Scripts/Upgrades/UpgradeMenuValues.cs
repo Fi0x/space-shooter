@@ -69,9 +69,6 @@ namespace Upgrades
                         
                     case UpgradeButton.Upgrade.EngineStabilizationSpeed:
                         return "" + UpgradeStats.ShipStabilizerLevel;
-                        
-                    case UpgradeButton.Upgrade.Armor:
-                        return "" + UpgradeStats.ArmorLevel;
                     
                     case UpgradeButton.Upgrade.Unknown:
                         return "?";
@@ -93,7 +90,6 @@ namespace Upgrades
             "EngRotRollValue" => UpgradeButton.Upgrade.EngineRotationSpeedRoll,
             "EngRotYawValue" => UpgradeButton.Upgrade.EngineRotationSpeedYaw,
             "EngStabValue" => UpgradeButton.Upgrade.EngineStabilizationSpeed,
-            "HPValue" => UpgradeButton.Upgrade.Armor,
             _ => UpgradeButton.Upgrade.Unknown
         };
     }

@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Enemy;
 using Manager;
 using UnityEngine;
@@ -5,19 +8,23 @@ using Upgrades;
 
 namespace Components
 {
-    public class Health : MonoBehaviour
+    public class Health : MonoBehaviour, IUpgradeable
     {
         [SerializeField] private bool isPlayer;
+
+        private readonly Dictionary<Enum, int> upgrades = new Dictionary<Enum, int>();
         private int maxHealth;
         public int MaxHealth
         {
-            get => this.maxHealth + UpgradeStats.ArmorLevel * 10;
+            get => this.maxHealth + this.upgrades[UpgradeHandler.UpgradeNames.Health] * 10;
             set
             {
                 this.maxHealth = value;
                 this.HealthBar.SetMaxHealth(this.MaxHealth);
             }
         }
+        
+        
 
         public GameObject deathVFX;
         public float vfxLifetime = 4.5f;
@@ -49,13 +56,14 @@ namespace Components
             this.MaxHealth = 1000;
             this.CurrentHealth = this.MaxHealth;
 
-            UpgradeButton.UpgradePurchasedEvent += (sender, args) =>
+            if (!this.isPlayer)
+                return;
+            
+            this.ResetUpgrades();
+            UpgradeHandler.UpgradePurchasedEvent += (sender, args) =>
             {
-                if (args.Type == UpgradeButton.Upgrade.Armor)
-                {
-                    UpgradeStats.ArmorLevel += args.Increased ? 1 : -1;
-                    UpgradeMenuValues.InvokeUpgradeCompletedEvent(args);
-                }
+                if (this.upgrades.ContainsKey(args.Name))
+                    this.upgrades[args.Name] = args.NewValue;
             };
         }
 
@@ -95,6 +103,15 @@ namespace Components
                 UpgradeStats.FreeUpgradePoints++;
                 Destroy(this.gameObject);
             }
-        } 
+        }
+
+        public void ResetUpgrades()
+        {
+            this.upgrades.Clear();
+            
+            this.upgrades.Add(UpgradeHandler.UpgradeNames.Health, 1);
+            
+            UpgradeHandler.RegisterUpgrades(this, this.upgrades.Keys.ToList());
+        }
     }
 }

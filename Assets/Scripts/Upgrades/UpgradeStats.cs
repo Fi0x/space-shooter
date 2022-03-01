@@ -15,8 +15,6 @@ namespace Upgrades
         public static int ShipRollSpeedLevel { get; set; } = 1;
         public static int ShipYawSpeedLevel { get; set; } = 1;
         public static int ShipStabilizerLevel { get; set; } = 1;
-        
-        public static int ArmorLevel { get; set; } = 1;
 
         public static void Reset()
         {
@@ -33,8 +31,6 @@ namespace Upgrades
             ShipRollSpeedLevel = 1;
             ShipYawSpeedLevel = 1;
             ShipStabilizerLevel = 1;
-            
-            ArmorLevel = 1;
         }
 
         public static int GetCurrentLevel(UpgradeButton.Upgrade type) => type switch
@@ -49,7 +45,6 @@ namespace Upgrades
             UpgradeButton.Upgrade.EngineRotationSpeedRoll => ShipRollSpeedLevel,
             UpgradeButton.Upgrade.EngineRotationSpeedYaw => ShipYawSpeedLevel,
             UpgradeButton.Upgrade.EngineStabilizationSpeed => ShipStabilizerLevel,
-            UpgradeButton.Upgrade.Armor => ArmorLevel,
             UpgradeButton.Upgrade.Unknown => 0,
             _ => 0
         };
