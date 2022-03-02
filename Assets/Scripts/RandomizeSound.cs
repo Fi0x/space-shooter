@@ -13,6 +13,7 @@ public class RandomizeSound : MonoBehaviour
     void Start()
     {
         int i = Random.Range(0, clips.Length - 1);
+        if (clips.Length == 0) i = 0;
         source.clip = clips[i];
         source.pitch = Random.Range(pitchRange.x, pitchRange.y);
         source.volume = Random.Range(volumeRange.x, volumeRange.y);
