@@ -52,6 +52,8 @@ namespace UI
                 this.statList.Add(newPrefab);
             }
 
+            this.scrollbar.value = 1;
+
             this.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 10 + 50 * this.statList.Count);
         }
 
