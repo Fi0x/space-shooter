@@ -85,6 +85,7 @@ namespace Components
         {
             this.CurrentHealth -= damage;
             //flashing
+            StopCoroutine(Flash(0f));
             StartCoroutine(Flash(flashingDuration));
             
             if(this.CurrentHealth > 0)
