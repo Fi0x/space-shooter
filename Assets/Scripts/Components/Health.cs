@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Enemy;
 using Manager;
-using UI.Upgrade;
 using UnityEngine;
 using Upgrades;
 
@@ -64,15 +63,6 @@ namespace Components
             
             this.MaxHealth = 1000;
             this.CurrentHealth = this.MaxHealth;
-
-            if (!this.isPlayer)
-                return;
-            
-            UpgradeButton.UpgradePurchasedEvent += (sender, args) =>
-            {
-                if (this.upgrades.ContainsKey(args.Type))
-                    this.upgrades[args.Type] = args.ValueChange;
-            };
         }
 
         public void TakeDamage(float damage)
@@ -120,6 +110,12 @@ namespace Components
             this.upgrades.Add(UI.Upgrade.Upgrades.UpgradeNames.Health, 1);
             
             UpgradeHandler.RegisterUpgrades(this, this.upgrades.Keys.ToList());
+        }
+
+        public void SetNewUpgradeValue(Enum type, int newLevel)
+        {
+            if (this.upgrades.ContainsKey(type))
+                this.upgrades[type] = newLevel;
         }
     }
 }

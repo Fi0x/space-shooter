@@ -31,6 +31,9 @@ namespace Upgrades
         {
             FreeUpgradePoints -= valueChange;
             Upgrades[upgradeName] += valueChange;
+
+            foreach (var upgradeClass in UpgradeClasses)
+                upgradeClass.SetNewUpgradeValue(upgradeName, Upgrades[upgradeName]);
         }
         
         public static void Reset()
