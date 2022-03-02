@@ -2,8 +2,6 @@ namespace Upgrades
 {
     public static class UpgradeStats
     {
-        public static int FreeUpgradePoints;
-
         public static int WeaponDamageLevel { get; set; } = 1;
         public static int WeaponFireRateLevel { get; set; } = 1;
         public static int ProjectileVelocityLevel { get; set; } = 1;
@@ -18,8 +16,6 @@ namespace Upgrades
 
         public static void Reset()
         {
-            FreeUpgradePoints = 0;
-            
             WeaponDamageLevel = 1;
             WeaponFireRateLevel = 1;
             ProjectileVelocityLevel = 1;

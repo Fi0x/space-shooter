@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using Upgrades;
 
 namespace UI.Upgrade
@@ -11,9 +12,11 @@ namespace UI.Upgrade
         public static event EventHandler<UpgradePurchasedEventArgs> UpgradePurchasedEvent;
 
         public Enum Type;
+        private Button button;
 
         private void Start()
         {
+            this.button = this.GetComponent<Button>();
             this.UpdateVisibility();
             UpgradePurchasedEvent += (sender, args) => this.UpdateVisibility();
         }
@@ -23,14 +26,16 @@ namespace UI.Upgrade
             var valueChange = this.isIncrease ? 1 : -1;
             UpgradeHandler.PurchaseUpgrade(this.Type, valueChange);
             UpgradePurchasedEvent?.Invoke(null, new UpgradePurchasedEventArgs(this.Type, valueChange));
+            
+            StatCollector.IntStats[StatCollector.StatValues.UpgradesPurchased] += valueChange;
         }
 
         private void UpdateVisibility()
         {
             if(this.isIncrease)
-                this.gameObject.SetActive(UpgradeHandler.FreeUpgradePoints > 0);
+                this.button.interactable = UpgradeHandler.FreeUpgradePoints > 0;
             else
-                this.gameObject.SetActive(UpgradeHandler.GetSpecificUpgrade(this.Type) > 1);
+                this.button.interactable = UpgradeHandler.GetSpecificUpgrade(this.Type) > 1;
         }
         
         public class UpgradePurchasedEventArgs : EventArgs

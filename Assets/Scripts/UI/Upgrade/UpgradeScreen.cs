@@ -12,6 +12,7 @@ namespace UI.Upgrade
         [SerializeField] private GameObject mainGameObject;
         [SerializeField] private GameObject upgradePrefab;
         [SerializeField] private Scrollbar scrollbar;
+        [SerializeField] private Text freePointTextField;
         
         private readonly List<GameObject> upgradeList = new List<GameObject>();
         private static GameObject _upgradeMenu;
@@ -43,6 +44,8 @@ namespace UI.Upgrade
 
             UpgradeButton.UpgradePurchasedEvent += (sender, args) =>
             {
+                this.freePointTextField.text = "Free Points: " + UpgradeHandler.FreeUpgradePoints;
+                
                 this.upgradeList.ForEach(entry =>
                 {
                     var (nameText, valueText) = GetTextComponents(entry);

@@ -108,7 +108,7 @@ namespace Components
             else
             {
                 StatCollector.IntStats[StatCollector.StatValues.EnemiesKilled]++;
-                UpgradeStats.FreeUpgradePoints++;
+                UpgradeHandler.FreeUpgradePoints++;
                 Destroy(this.gameObject);
             }
         }

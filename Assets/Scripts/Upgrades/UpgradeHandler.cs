@@ -35,6 +35,7 @@ namespace Upgrades
         
         public static void Reset()
         {
+            FreeUpgradePoints = 0;
             UpgradeClasses.ForEach(c => c.ResetUpgrades());
         }
     }
