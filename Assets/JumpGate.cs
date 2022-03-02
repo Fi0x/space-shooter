@@ -1,4 +1,5 @@
 using System;
+using UI.Upgrade;
 using UnityEngine;
 using Upgrades;
 
@@ -11,7 +12,7 @@ public class JumpGate : MonoBehaviour
         if (other.gameObject.layer == 8)
         {
             StatCollector.IntStats[StatCollector.StatValues.LevelsCompleted]++;
-            LevelTransitionMenu.ShowUpgradeScreen();
+            UpgradeScreen.ShowUpgradeScreen();
         }
     }
 }

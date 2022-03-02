@@ -10,11 +10,11 @@ namespace Upgrades
     public class UpgradeMenuValues : MonoBehaviour
     {
         private Text text;
-        private UpgradeButton.Upgrade type;
+        private OldUpgradeButton.Upgrade type;
 
-        public static event EventHandler<UpgradeButton.UpgradePurchasedEventArgs> UpgradeCompletedEvent;
+        public static event EventHandler<OldUpgradeButton.UpgradePurchasedEventArgs> UpgradeCompletedEvent;
 
-        public static void InvokeUpgradeCompletedEvent(UpgradeButton.UpgradePurchasedEventArgs args)
+        public static void InvokeUpgradeCompletedEvent(OldUpgradeButton.UpgradePurchasedEventArgs args)
         {
             UpgradeCompletedEvent?.Invoke(null, args);
         }
@@ -29,7 +29,7 @@ namespace Upgrades
             UpgradeCompletedEvent += this.UpdateValue;
         }
 
-        private void UpdateValue(object sender, UpgradeButton.UpgradePurchasedEventArgs args)
+        private void UpdateValue(object sender, OldUpgradeButton.UpgradePurchasedEventArgs args)
         {
             if(args.Type != this.type)
                 return;
@@ -40,37 +40,37 @@ namespace Upgrades
         {
             switch (this.type)
             {
-                    case UpgradeButton.Upgrade.WeaponDamage:
+                    case OldUpgradeButton.Upgrade.WeaponDamage:
                         return "" + UpgradeStats.WeaponDamageLevel;
                         
-                    case UpgradeButton.Upgrade.WeaponFireRate:
+                    case OldUpgradeButton.Upgrade.WeaponFireRate:
                         return "" + UpgradeStats.WeaponFireRateLevel;
                     
-                    case UpgradeButton.Upgrade.WeaponProjectileSpeed:
+                    case OldUpgradeButton.Upgrade.WeaponProjectileSpeed:
                         return "" + UpgradeStats.ProjectileVelocityLevel;
                     
-                    case UpgradeButton.Upgrade.EngineAcceleration:
+                    case OldUpgradeButton.Upgrade.EngineAcceleration:
                         return "" + UpgradeStats.ShipAccelerationLevel;
                         
-                    case UpgradeButton.Upgrade.EngineDeceleration:
+                    case OldUpgradeButton.Upgrade.EngineDeceleration:
                         return "" + UpgradeStats.ShipBrakeLevel;
                         
-                    case UpgradeButton.Upgrade.EngineLateralThrust:
+                    case OldUpgradeButton.Upgrade.EngineLateralThrust:
                         return "" + UpgradeStats.ShipLateralThrustLevel;
                         
-                    case UpgradeButton.Upgrade.EngineRotationSpeedPitch:
+                    case OldUpgradeButton.Upgrade.EngineRotationSpeedPitch:
                         return "" + UpgradeStats.ShipPitchSpeedLevel;
                         
-                    case UpgradeButton.Upgrade.EngineRotationSpeedRoll:
+                    case OldUpgradeButton.Upgrade.EngineRotationSpeedRoll:
                         return "" + UpgradeStats.ShipRollSpeedLevel;
                         
-                    case UpgradeButton.Upgrade.EngineRotationSpeedYaw:
+                    case OldUpgradeButton.Upgrade.EngineRotationSpeedYaw:
                         return "" + UpgradeStats.ShipYawSpeedLevel;
                         
-                    case UpgradeButton.Upgrade.EngineStabilizationSpeed:
+                    case OldUpgradeButton.Upgrade.EngineStabilizationSpeed:
                         return "" + UpgradeStats.ShipStabilizerLevel;
                     
-                    case UpgradeButton.Upgrade.Unknown:
+                    case OldUpgradeButton.Upgrade.Unknown:
                         return "?";
                     
                     default:
@@ -78,19 +78,19 @@ namespace Upgrades
             }
         }
 
-        private UpgradeButton.Upgrade GetUpgradeType() => this.gameObject.name switch
+        private OldUpgradeButton.Upgrade GetUpgradeType() => this.gameObject.name switch
         {
-            "WpnDmgValue" => UpgradeButton.Upgrade.WeaponDamage,
-            "WpnRateValue" => UpgradeButton.Upgrade.WeaponFireRate,
-            "WpnProjVelValue" => UpgradeButton.Upgrade.WeaponProjectileSpeed,
-            "EngAccValue" => UpgradeButton.Upgrade.EngineAcceleration,
-            "EngDecValue" => UpgradeButton.Upgrade.EngineDeceleration,
-            "EngLatValue" => UpgradeButton.Upgrade.EngineLateralThrust,
-            "EngRotPitchValue" => UpgradeButton.Upgrade.EngineRotationSpeedPitch,
-            "EngRotRollValue" => UpgradeButton.Upgrade.EngineRotationSpeedRoll,
-            "EngRotYawValue" => UpgradeButton.Upgrade.EngineRotationSpeedYaw,
-            "EngStabValue" => UpgradeButton.Upgrade.EngineStabilizationSpeed,
-            _ => UpgradeButton.Upgrade.Unknown
+            "WpnDmgValue" => OldUpgradeButton.Upgrade.WeaponDamage,
+            "WpnRateValue" => OldUpgradeButton.Upgrade.WeaponFireRate,
+            "WpnProjVelValue" => OldUpgradeButton.Upgrade.WeaponProjectileSpeed,
+            "EngAccValue" => OldUpgradeButton.Upgrade.EngineAcceleration,
+            "EngDecValue" => OldUpgradeButton.Upgrade.EngineDeceleration,
+            "EngLatValue" => OldUpgradeButton.Upgrade.EngineLateralThrust,
+            "EngRotPitchValue" => OldUpgradeButton.Upgrade.EngineRotationSpeedPitch,
+            "EngRotRollValue" => OldUpgradeButton.Upgrade.EngineRotationSpeedRoll,
+            "EngRotYawValue" => OldUpgradeButton.Upgrade.EngineRotationSpeedYaw,
+            "EngStabValue" => OldUpgradeButton.Upgrade.EngineStabilizationSpeed,
+            _ => OldUpgradeButton.Upgrade.Unknown
         };
     }
 }

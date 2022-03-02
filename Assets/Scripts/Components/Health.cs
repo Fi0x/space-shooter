@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Enemy;
 using Manager;
+using UI.Upgrade;
 using UnityEngine;
 using Upgrades;
 
@@ -16,7 +17,12 @@ namespace Components
         private int maxHealth;
         public int MaxHealth
         {
-            get => this.maxHealth + this.upgrades[UpgradeHandler.UpgradeNames.Health] * 10;
+            get
+            {
+                if(this.upgrades.ContainsKey(UI.Upgrade.Upgrades.UpgradeNames.Health)) 
+                    return this.maxHealth + this.upgrades[UI.Upgrade.Upgrades.UpgradeNames.Health] * 10;
+                return this.maxHealth;
+            }
             set
             {
                 this.maxHealth = value;
@@ -53,17 +59,19 @@ namespace Components
 
         private void Start()
         {
+            if(this.isPlayer)
+                this.ResetUpgrades();
+            
             this.MaxHealth = 1000;
             this.CurrentHealth = this.MaxHealth;
 
             if (!this.isPlayer)
                 return;
             
-            this.ResetUpgrades();
-            UpgradeHandler.UpgradePurchasedEvent += (sender, args) =>
+            UpgradeButton.UpgradePurchasedEvent += (sender, args) =>
             {
-                if (this.upgrades.ContainsKey(args.Name))
-                    this.upgrades[args.Name] = args.NewValue;
+                if (this.upgrades.ContainsKey(args.Type))
+                    this.upgrades[args.Type] = args.ValueChange;
             };
         }
 
@@ -109,7 +117,7 @@ namespace Components
         {
             this.upgrades.Clear();
             
-            this.upgrades.Add(UpgradeHandler.UpgradeNames.Health, 1);
+            this.upgrades.Add(UI.Upgrade.Upgrades.UpgradeNames.Health, 1);
             
             UpgradeHandler.RegisterUpgrades(this, this.upgrades.Keys.ToList());
         }

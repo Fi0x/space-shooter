@@ -49,7 +49,7 @@ namespace Ship.Weaponry
             
             this.shipMovementHandler = this.weaponManager.GetParentShipGameObject().GetComponent<ShipMovementHandler>() ?? throw new NullReferenceException();
 
-            UpgradeButton.UpgradePurchasedEvent += (sender, args) =>
+            OldUpgradeButton.UpgradePurchasedEvent += (sender, args) =>
             {
                 /* TODO 
                 switch (args.Type)

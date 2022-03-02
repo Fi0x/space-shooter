@@ -317,6 +317,7 @@ GameObject:
   - component: {fileID: 2533141235031735943}
   - component: {fileID: 7768242473357255706}
   - component: {fileID: 4468544332581479908}
+  - component: {fileID: 7216723302397732746}
   m_Layer: 5
   m_Name: Increase
   m_TagString: Untagged
@@ -425,7 +426,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7768242473357255706}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7216723302397732746}
+        m_TargetAssemblyTypeName: UI.Upgrade.UpgradeButton, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7216723302397732746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624200278252462657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 774f18a9aa8b46e9a667f7c7a1150b8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isIncrease: 1
 --- !u!1 &4308788003392115358
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,6 +464,7 @@ GameObject:
   - component: {fileID: 6703121345438309957}
   - component: {fileID: 564157829259414736}
   - component: {fileID: 7854556253901116639}
+  - component: {fileID: 4806462992145277484}
   m_Layer: 5
   m_Name: Decrease
   m_TagString: Untagged
@@ -546,7 +573,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 564157829259414736}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4806462992145277484}
+        m_TargetAssemblyTypeName: UI.Upgrade.UpgradeButton, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4806462992145277484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4308788003392115358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 774f18a9aa8b46e9a667f7c7a1150b8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isIncrease: 0
 --- !u!1 &4609287740415321687
 GameObject:
   m_ObjectHideFlags: 0

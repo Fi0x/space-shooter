@@ -33,19 +33,19 @@ namespace Upgrades
             ShipStabilizerLevel = 1;
         }
 
-        public static int GetCurrentLevel(UpgradeButton.Upgrade type) => type switch
+        public static int GetCurrentLevel(OldUpgradeButton.Upgrade type) => type switch
         {
-            UpgradeButton.Upgrade.WeaponDamage => WeaponDamageLevel,
-            UpgradeButton.Upgrade.WeaponFireRate => WeaponFireRateLevel,
-            UpgradeButton.Upgrade.WeaponProjectileSpeed => ProjectileVelocityLevel,
-            UpgradeButton.Upgrade.EngineAcceleration => ShipAccelerationLevel,
-            UpgradeButton.Upgrade.EngineDeceleration => ShipBrakeLevel,
-            UpgradeButton.Upgrade.EngineLateralThrust => ShipLateralThrustLevel,
-            UpgradeButton.Upgrade.EngineRotationSpeedPitch => ShipPitchSpeedLevel,
-            UpgradeButton.Upgrade.EngineRotationSpeedRoll => ShipRollSpeedLevel,
-            UpgradeButton.Upgrade.EngineRotationSpeedYaw => ShipYawSpeedLevel,
-            UpgradeButton.Upgrade.EngineStabilizationSpeed => ShipStabilizerLevel,
-            UpgradeButton.Upgrade.Unknown => 0,
+            OldUpgradeButton.Upgrade.WeaponDamage => WeaponDamageLevel,
+            OldUpgradeButton.Upgrade.WeaponFireRate => WeaponFireRateLevel,
+            OldUpgradeButton.Upgrade.WeaponProjectileSpeed => ProjectileVelocityLevel,
+            OldUpgradeButton.Upgrade.EngineAcceleration => ShipAccelerationLevel,
+            OldUpgradeButton.Upgrade.EngineDeceleration => ShipBrakeLevel,
+            OldUpgradeButton.Upgrade.EngineLateralThrust => ShipLateralThrustLevel,
+            OldUpgradeButton.Upgrade.EngineRotationSpeedPitch => ShipPitchSpeedLevel,
+            OldUpgradeButton.Upgrade.EngineRotationSpeedRoll => ShipRollSpeedLevel,
+            OldUpgradeButton.Upgrade.EngineRotationSpeedYaw => ShipYawSpeedLevel,
+            OldUpgradeButton.Upgrade.EngineStabilizationSpeed => ShipStabilizerLevel,
+            OldUpgradeButton.Upgrade.Unknown => 0,
             _ => 0
         };
     }

@@ -49,29 +49,29 @@ namespace Ship
 
             this.totalMaxSpeed = this.Settings.MaxSpeed + this.Settings.MaxSpeedBoost;
 
-            UpgradeButton.UpgradePurchasedEvent += (sender, args) =>
+            OldUpgradeButton.UpgradePurchasedEvent += (sender, args) =>
             {
                 switch (args.Type)
                 {
-                    case UpgradeButton.Upgrade.EngineAcceleration:
+                    case OldUpgradeButton.Upgrade.EngineAcceleration:
                         UpgradeStats.ShipAccelerationLevel += args.Increased ? 1 : -1;
                         break;
-                    case UpgradeButton.Upgrade.EngineDeceleration:
+                    case OldUpgradeButton.Upgrade.EngineDeceleration:
                         UpgradeStats.ShipBrakeLevel += args.Increased ? 1 : -1;
                         break;
-                    case UpgradeButton.Upgrade.EngineLateralThrust:
+                    case OldUpgradeButton.Upgrade.EngineLateralThrust:
                         UpgradeStats.ShipLateralThrustLevel += args.Increased ? 1 : -1;
                         break;
-                    case UpgradeButton.Upgrade.EngineRotationSpeedPitch:
+                    case OldUpgradeButton.Upgrade.EngineRotationSpeedPitch:
                         UpgradeStats.ShipPitchSpeedLevel += args.Increased ? 1 : -1;
                         break;
-                    case UpgradeButton.Upgrade.EngineRotationSpeedRoll:
+                    case OldUpgradeButton.Upgrade.EngineRotationSpeedRoll:
                         UpgradeStats.ShipRollSpeedLevel += args.Increased ? 1 : -1;
                         break;
-                    case UpgradeButton.Upgrade.EngineRotationSpeedYaw:
+                    case OldUpgradeButton.Upgrade.EngineRotationSpeedYaw:
                         UpgradeStats.ShipYawSpeedLevel += args.Increased ? 1 : -1;
                         break;
-                    case UpgradeButton.Upgrade.EngineStabilizationSpeed:
+                    case OldUpgradeButton.Upgrade.EngineStabilizationSpeed:
                         UpgradeStats.ShipStabilizerLevel += args.Increased ? 1 : -1;
                         break;
                     default:

@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 340324947449176994}
   - component: {fileID: 494527188702309763}
   m_Layer: 5
-  m_Name: Back
+  m_Name: NextLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -274,9 +274,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UI.OverlayMenu, Assembly-CSharp
-        m_MethodName: BackToMainOverlay
+      - m_Target: {fileID: 4153386691562582916}
+        m_TargetAssemblyTypeName: UI.Upgrade.UpgradeScreen, Assembly-CSharp
+        m_MethodName: LoadNextLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -627,8 +627,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1935624714812577592}
   m_HandleRect: {fileID: 635918284814173395}
   m_Direction: 2
-  m_Value: 1.0000005
-  m_Size: 0.789428
+  m_Value: 1.0000006
+  m_Size: 0.81155175
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -669,7 +669,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.00082111, y: 183.29915}
-  m_SizeDelta: {x: 733.34, y: 464.3848}
+  m_SizeDelta: {x: 733.34, y: 451.7252}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &2172948891006631165
 CanvasRenderer:
@@ -717,6 +717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6d53cc57f4d4584a9036c5c8130a7c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainGameObject: {fileID: 5177844871229336924}
   upgradePrefab: {fileID: 1063585441549912519, guid: b2b00f0c6bf0c2744a8eff0860138860, type: 3}
   scrollbar: {fileID: 6325152566870038791}
 --- !u!1 &7066461952691801846
@@ -923,7 +924,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7608687101594706616}
   m_Layer: 5
-  m_Name: StatMenu
+  m_Name: UpgradeMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

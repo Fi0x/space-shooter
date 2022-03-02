@@ -4,8 +4,10 @@ using UnityEngine.UI;
 
 namespace Upgrades
 {
-    public class UpgradeButton : MonoBehaviour
+    public class OldUpgradeButton : MonoBehaviour
     {
+        //TODO: Remove class and use new system (serialized boolean for increase/decrease in unity)
+        
         [SerializeField] private GameObject valueObject;
         
         private bool isIncrement;
