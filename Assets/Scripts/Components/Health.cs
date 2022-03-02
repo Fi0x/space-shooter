@@ -115,7 +115,6 @@ namespace Components
         {
             for (float t = 0f; t < time; t += Time.deltaTime)
             {
-                Debug.Log("Current time: " + t / time);
                 renderer.material.SetFloat("_FlashingStrength", flashingCurve.Evaluate(t / time));
                 yield return null;
             }
