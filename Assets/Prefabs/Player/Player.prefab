@@ -349,7 +349,7 @@ GameObject:
   - component: {fileID: 3300866359364892837}
   - component: {fileID: 3300866359364892836}
   m_Layer: 8
-  m_Name: Visual Effect
+  m_Name: SpaceDustVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -905,7 +905,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3300866360229414212}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.826, z: 3.594}
+  m_LocalPosition: {x: 0, y: -0.174, z: 3.171}
   m_LocalScale: {x: 0.08331922, y: 0.2279294, z: 0.08331921}
   m_Children: []
   m_Father: {fileID: 3300866360858875060}
