@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Upgrades;
@@ -47,7 +50,7 @@ namespace Ship
         [FormerlySerializedAs("speedMatchDeadZone")] [SerializeField] private float correctionDeadZone = 0.01f;
 
 
-
+        
         internal float PitchSpeed => this.pitchSpeed * UpgradeStats.ShipPitchSpeedLevel;
 
         internal float RollSpeed => this.rollSpeed * UpgradeStats.ShipRollSpeedLevel;

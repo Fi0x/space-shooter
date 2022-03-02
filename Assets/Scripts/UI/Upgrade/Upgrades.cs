@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace UI.Upgrade
 {
@@ -7,18 +8,7 @@ namespace UI.Upgrade
     {
         public static string GetDisplayName(Enum type)
         {
-            var upperLetters = new List<int>();
-
-            var typeString = type.ToString();
-            for (var i = 0; i < typeString.Length; i++)
-            {
-                if(Char.IsUpper(typeString[i]))
-                    upperLetters.Add(i);
-            }
-            for (var i = upperLetters.Count - 1; i > 0; i--)
-                typeString = typeString.Insert(i, " ");
-
-            return typeString;
+            return Regex.Replace(type.ToString(), "(\\B[A-Z])", " $1");
         }
 
         public static UpgradeNames GetTypeFromDisplayName(string displayName)

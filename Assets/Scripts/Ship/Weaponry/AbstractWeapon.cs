@@ -1,5 +1,7 @@
 #nullable enable
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Ship.Weaponry.Config;
 using Ship.Weaponry.Trigger;
 using UnityEngine;
@@ -7,12 +9,14 @@ using Upgrades;
 
 namespace Ship.Weaponry
 {
-    public abstract class AbstractWeapon : MonoBehaviour
+    public abstract class AbstractWeapon : MonoBehaviour, IUpgradeable
     {
         [SerializeField] protected WeaponManager weaponManager = null!;
         [SerializeField] protected WeaponConfigScriptableObject weaponConfig = null!;
 
         public IWeaponTrigger WeaponTrigger { get; protected set; } = null!;
+        //TODO: Use for upgrades
+        private readonly Dictionary<Enum, int> upgrades = new Dictionary<Enum, int>();
         
         protected ShipMovementHandler shipMovementHandler = null!;
         
@@ -42,34 +46,15 @@ namespace Ship.Weaponry
 
         protected virtual void Start()
         {
+            //TODO: Do this in all child-classes
+            this.ResetUpgrades();
+            
             _ = (object)this.weaponConfig ?? throw new NullReferenceException("No Weapon Config is set");
             
             this.SetupWeaponTrigger();
             this.SubscribeToWeaponTrigger();
             
             this.shipMovementHandler = this.weaponManager.GetParentShipGameObject().GetComponent<ShipMovementHandler>() ?? throw new NullReferenceException();
-
-            OldUpgradeButton.UpgradePurchasedEvent += (sender, args) =>
-            {
-                /* TODO 
-                switch (args.Type)
-                {
-                    case LevelTransitionMenu.Upgrade.WeaponDamage:
-                        this.projectileDamageModifier += args.Increased ? 0.1f : -0.1f;
-                        break;
-                    case LevelTransitionMenu.Upgrade.WeaponFireRate:
-                        this.fireRate *= args.Increased ? 0.5f : 2f;
-                        break;
-                    case LevelTransitionMenu.Upgrade.WeaponProjectileSpeed:
-                        this.projectileSpeedModifier += args.Increased ? 0.1f : -0.1f;
-                        break;
-                    default:
-                        return;
-                }
-                */
-                
-                UpgradeMenuValues.InvokeUpgradeCompletedEvent(args);
-            };
         }
 
         private void FireModeChangedEventHandler(bool isFiring)
@@ -89,6 +74,23 @@ namespace Ship.Weaponry
         {
             this.WeaponTrigger = null; // Not sure if needed :)
             Destroy(this.gameObject);
+        }
+
+        public void ResetUpgrades()
+        {
+            this.upgrades.Clear();
+            
+            //TODO: Add all upgrade types
+            this.upgrades.Add(UI.Upgrade.Upgrades.UpgradeNames.WeaponDamage, 1);
+            
+            UpgradeHandler.RegisterUpgrades(this, this.upgrades.Keys.ToList());
+        }
+
+        public void SetNewUpgradeValue(Enum type, int newLevel)
+        {
+            //TODO: Check all cases
+            if (this.upgrades.ContainsKey(type))
+                this.upgrades[type] = newLevel;
         }
     }
 }

@@ -8,7 +8,7 @@ using Upgrades;
 
 namespace Ship
 {
-    public class ShipMovementHandler : MonoBehaviour
+    public class ShipMovementHandler : MonoBehaviour, IUpgradeable
     {
         [Header("Settings")] [SerializeField] private List<ShipMovementHandlerSettings> settings;
         [SerializeField] private int currentSettingsIndex = 0;
@@ -17,6 +17,9 @@ namespace Ship
         private float totalMaxSpeed;
 
         private bool isBoosting = false;
+        
+        //TODO: Use for upgrades
+        private readonly Dictionary<Enum, int> upgrades = new Dictionary<Enum, int>();
 
         private GameObject shipObject;
         private Rigidbody shipRb;
@@ -43,43 +46,13 @@ namespace Ship
 
         private void Start()
         {
+            this.ResetUpgrades();
+            
             this.shipObject = this.gameObject;
             this.shipRb = this.shipObject.GetComponent<Rigidbody>();
             this.inputHandler = this.shipObject.GetComponent<InputHandler>();
 
             this.totalMaxSpeed = this.Settings.MaxSpeed + this.Settings.MaxSpeedBoost;
-
-            OldUpgradeButton.UpgradePurchasedEvent += (sender, args) =>
-            {
-                switch (args.Type)
-                {
-                    case OldUpgradeButton.Upgrade.EngineAcceleration:
-                        UpgradeStats.ShipAccelerationLevel += args.Increased ? 1 : -1;
-                        break;
-                    case OldUpgradeButton.Upgrade.EngineDeceleration:
-                        UpgradeStats.ShipBrakeLevel += args.Increased ? 1 : -1;
-                        break;
-                    case OldUpgradeButton.Upgrade.EngineLateralThrust:
-                        UpgradeStats.ShipLateralThrustLevel += args.Increased ? 1 : -1;
-                        break;
-                    case OldUpgradeButton.Upgrade.EngineRotationSpeedPitch:
-                        UpgradeStats.ShipPitchSpeedLevel += args.Increased ? 1 : -1;
-                        break;
-                    case OldUpgradeButton.Upgrade.EngineRotationSpeedRoll:
-                        UpgradeStats.ShipRollSpeedLevel += args.Increased ? 1 : -1;
-                        break;
-                    case OldUpgradeButton.Upgrade.EngineRotationSpeedYaw:
-                        UpgradeStats.ShipYawSpeedLevel += args.Increased ? 1 : -1;
-                        break;
-                    case OldUpgradeButton.Upgrade.EngineStabilizationSpeed:
-                        UpgradeStats.ShipStabilizerLevel += args.Increased ? 1 : -1;
-                        break;
-                    default:
-                        return;
-                }
-                
-                UpgradeMenuValues.InvokeUpgradeCompletedEvent(args);
-            };
         }
 
         private void Awake()
@@ -449,6 +422,23 @@ namespace Ship
         public void NotifyAboutCollision()
         {
             this.desiredSpeed = 0;
+        }
+        
+        public void ResetUpgrades()
+        {
+            this.upgrades.Clear();
+            
+            //TODO: Add all upgrade types
+            this.upgrades.Add(UI.Upgrade.Upgrades.UpgradeNames.EngineStabilizationSpeed, 1);
+            
+            UpgradeHandler.RegisterUpgrades(this, this.upgrades.Keys.ToList());
+        }
+
+        public void SetNewUpgradeValue(Enum type, int newLevel)
+        {
+            //TODO: Check all cases
+            if (this.upgrades.ContainsKey(type))
+                this.upgrades[type] = newLevel;
         }
     }
 }
