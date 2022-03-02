@@ -4,6 +4,7 @@ using Manager;
 using UI;
 using UnityEngine;
 using Upgrades;
+using System.Collections;
 
 namespace Components
 {
@@ -26,6 +27,10 @@ namespace Components
         public static event Action<Health> OnHealthRemoved = delegate { };
         public event Action<float> OnHealthPctChanged;
         public bool generateHealthBar = false;
+
+        public AnimationCurve flashingCurve;
+        public float flashingDuration;
+        public Renderer renderer;
 
         public GameObject deathVFX;
         public float vfxLifetime = 4.5f;
@@ -79,6 +84,9 @@ namespace Components
         public void TakeDamage(int damage)
         {
             this.CurrentHealth -= damage;
+            //flashing
+            StartCoroutine(Flash(flashingDuration));
+            
             if(this.CurrentHealth > 0)
                 return;
             
@@ -100,6 +108,16 @@ namespace Components
                 UpgradeStats.FreeUpgradePoints++;
                 if (generateHealthBar) OnHealthRemoved(this);
                 Destroy(this.gameObject);
+            }
+        }
+
+        IEnumerator Flash(float time)
+        {
+            for (float t = 0f; t < time; t += Time.deltaTime)
+            {
+                Debug.Log("Current time: " + t / time);
+                renderer.material.SetFloat("_FlashingStrength", flashingCurve.Evaluate(t / time));
+                yield return null;
             }
         }
     }
