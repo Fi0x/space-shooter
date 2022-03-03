@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manager;
@@ -13,50 +14,40 @@ namespace UI.Upgrade
         [SerializeField] private GameObject upgradePrefab;
         [SerializeField] private Scrollbar scrollbar;
         [SerializeField] private Text freePointTextField;
-        
-        private readonly List<GameObject> upgradeList = new List<GameObject>();
+
+        private static UpgradeScreen _upgradeScreen;
         private static GameObject _upgradeMenu;
         private static Scrollbar _scrollbar;
+        
+        private readonly Dictionary<Enum, GameObject> upgradeList = new Dictionary<Enum, GameObject>();
+        
 
         private void Start()
         {
+            _upgradeScreen = this;
             _upgradeMenu = this.mainGameObject;
             _upgradeMenu.SetActive(false);
             _scrollbar = this.scrollbar;
-            
-            foreach (var upgrade in UpgradeHandler.GetAllUpgrades())
-            {
-                var newPrefab = Instantiate(this.upgradePrefab, this.transform);
-                
-                var (txtName, txtValue) = GetTextComponents(newPrefab);
-                txtName.text = Upgrades.GetDisplayName(upgrade.Key);
-                txtValue.text = upgrade.Value.ToString();
-
-                var (btnDecrease, btnIncrease) = GetUpgradeButtonComponents(newPrefab);
-                btnDecrease.Type = upgrade.Key;
-                btnIncrease.Type = upgrade.Key;
-                
-                this.upgradeList.Add(newPrefab);
-            }
-            
-            this.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 10 + 50 * this.upgradeList.Count);
-            this.scrollbar.value = 1;
 
             UpgradeButton.UpgradePurchasedEvent += (sender, args) =>
             {
                 this.freePointTextField.text = "Free Points: " + UpgradeHandler.FreeUpgradePoints;
-                
-                this.upgradeList.ForEach(entry =>
+
+                foreach (var upgradeEntry in this.upgradeList)
                 {
-                    var (nameText, valueText) = GetTextComponents(entry);
-                    var enumName = Upgrades.GetTypeFromDisplayName(nameText.text);
-                    valueText.text = UpgradeHandler.GetSpecificUpgrade(enumName).ToString();
-                });
+                    var (_, valueText) = GetTextComponents(upgradeEntry.Value);
+                    valueText.text = UpgradeHandler.GetSpecificUpgrade(upgradeEntry.Key).ToString();
+                }
             };
+
+            //TODO: Fix this to get all upgrades
+            this.ExpandUpgradeList();
         }
 
         public static void ShowUpgradeScreen()
         {
+            _upgradeScreen.ExpandUpgradeList();
+            
             GameManager.IsGamePaused = true;
             _upgradeMenu.SetActive(true);
             Time.timeScale = 0;
@@ -92,6 +83,30 @@ namespace UI.Upgrade
             var increase = buttonComponents.First(c => c.gameObject.name.Equals("Increase"));
 
             return (decrease, increase);
+        }
+
+        private void ExpandUpgradeList()
+        {
+            foreach (var upgrade in UpgradeHandler.GetAllUpgrades())
+            {
+                if(this.upgradeList.ContainsKey(upgrade.Key))
+                    continue;
+                    
+                var newPrefab = Instantiate(this.upgradePrefab, this.transform);
+                
+                var (txtName, txtValue) = GetTextComponents(newPrefab);
+                txtName.text = Upgrades.GetDisplayName(upgrade.Key);
+                txtValue.text = upgrade.Value.ToString();
+
+                var (btnDecrease, btnIncrease) = GetUpgradeButtonComponents(newPrefab);
+                btnDecrease.Type = upgrade.Key;
+                btnIncrease.Type = upgrade.Key;
+                
+                this.upgradeList.Add(upgrade.Key, newPrefab);
+            }
+            
+            this.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 10 + 50 * this.upgradeList.Count);
+            this.scrollbar.value = 1;
         }
     }
 }

@@ -15,8 +15,7 @@ namespace Ship.Weaponry
         [SerializeField] protected WeaponConfigScriptableObject weaponConfig = null!;
 
         public IWeaponTrigger WeaponTrigger { get; protected set; } = null!;
-        //TODO: Use for upgrades
-        private readonly Dictionary<Enum, int> upgrades = new Dictionary<Enum, int>();
+        protected readonly Dictionary<Enum, int> upgrades = new Dictionary<Enum, int>();
         
         protected ShipMovementHandler shipMovementHandler = null!;
         
@@ -46,7 +45,6 @@ namespace Ship.Weaponry
 
         protected virtual void Start()
         {
-            //TODO: Do this in all child-classes
             this.ResetUpgrades();
             
             _ = (object)this.weaponConfig ?? throw new NullReferenceException("No Weapon Config is set");
@@ -80,7 +78,9 @@ namespace Ship.Weaponry
         {
             this.upgrades.Clear();
             
-            //TODO: Add all upgrade types
+            //TODO: Implement usage
+            this.upgrades.Add(Upgrades.UpgradeNames.WeaponFireRate, 1);
+            this.upgrades.Add(Upgrades.UpgradeNames.WeaponProjectileSpeed, 1);
             this.upgrades.Add(Upgrades.UpgradeNames.WeaponDamage, 1);
             
             UpgradeHandler.RegisterUpgrades(this, this.upgrades.Keys.ToList());

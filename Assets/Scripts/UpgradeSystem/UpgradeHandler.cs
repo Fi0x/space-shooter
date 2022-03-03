@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace UpgradeSystem
 {
     public static class UpgradeHandler
     {
         public static int FreeUpgradePoints;
+
+        public static event EventHandler NewUpgradeRegistered;
         
         private static readonly List<IUpgradeable> UpgradeClasses = new List<IUpgradeable>();
         private static readonly Dictionary<Enum, int> Upgrades = new Dictionary<Enum, int>();
@@ -22,6 +25,8 @@ namespace UpgradeSystem
                     continue;
                 Upgrades.Add(upgrade, 1);
             }
+            
+            NewUpgradeRegistered?.Invoke(null, null);
         }
 
         public static Dictionary<Enum, int> GetAllUpgrades() => Upgrades;

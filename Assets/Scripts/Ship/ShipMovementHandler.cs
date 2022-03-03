@@ -19,7 +19,6 @@ namespace Ship
 
         private bool isBoosting = false;
         
-        //TODO: Use for upgrades
         private readonly Dictionary<Enum, int> upgrades = new Dictionary<Enum, int>();
 
         private GameObject shipObject;
@@ -429,7 +428,6 @@ namespace Ship
         {
             this.upgrades.Clear();
             
-            //TODO: Use all types
             this.upgrades.Add(Upgrades.UpgradeNames.EngineAcceleration, 1);
             this.upgrades.Add(Upgrades.UpgradeNames.EngineDeceleration, 1);
             this.upgrades.Add(Upgrades.UpgradeNames.EngineLateralThrust, 1);
