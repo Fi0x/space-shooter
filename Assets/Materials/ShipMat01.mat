@@ -52,7 +52,7 @@ Material:
     - Vector1_f22351a5e530424c94408d3850e8fc2e: 0.476
     - Vector1_ff544a4e6835432695b2d9639530d726: 1
     - _FlashingStrength: 0
-    - _Metallic: 1
+    - _Metallic: 0
     - _Smoothness: 0.3
     m_Colors:
     - Color_025161ed9c524bdd8f044a15a7d13b9c: {r: 1, g: 1, b: 1, a: 0}
