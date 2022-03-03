@@ -4,7 +4,7 @@ using System.Linq;
 using Enemy;
 using Manager;
 using UnityEngine;
-using Upgrades;
+using UpgradeSystem;
 
 namespace Components
 {
@@ -18,8 +18,8 @@ namespace Components
         {
             get
             {
-                if(this.upgrades.ContainsKey(UI.Upgrade.Upgrades.UpgradeNames.Health)) 
-                    return this.maxHealth + this.upgrades[UI.Upgrade.Upgrades.UpgradeNames.Health] * 10;
+                if(this.upgrades.ContainsKey(Upgrades.UpgradeNames.Health)) 
+                    return this.maxHealth + this.upgrades[Upgrades.UpgradeNames.Health] * 10;
                 return this.maxHealth;
             }
             set
@@ -107,7 +107,7 @@ namespace Components
         {
             this.upgrades.Clear();
             
-            this.upgrades.Add(UI.Upgrade.Upgrades.UpgradeNames.Health, 1);
+            this.upgrades.Add(Upgrades.UpgradeNames.Health, 1);
             
             UpgradeHandler.RegisterUpgrades(this, this.upgrades.Keys.ToList());
         }

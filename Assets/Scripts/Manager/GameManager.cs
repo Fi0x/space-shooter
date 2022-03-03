@@ -1,13 +1,11 @@
-using System.Linq;
 using Components;
 using Enemy;
 using Ship;
 using UI;
 using UI.GameOver;
 using UnityEngine;
-using Upgrades;
+using UpgradeSystem;
 using World;
-using Random = UnityEngine.Random;
 
 namespace Manager
 {

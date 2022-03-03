@@ -1,7 +1,5 @@
-using System;
 using UI.Upgrade;
 using UnityEngine;
-using Upgrades;
 
 public class JumpGate : MonoBehaviour
 {

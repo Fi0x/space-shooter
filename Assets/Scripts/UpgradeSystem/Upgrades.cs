@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace UI.Upgrade
+namespace UpgradeSystem
 {
     public static class Upgrades
     {

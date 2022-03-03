@@ -3,7 +3,7 @@ using System.Linq;
 using Manager;
 using UnityEngine;
 using UnityEngine.UI;
-using Upgrades;
+using UpgradeSystem;
 
 namespace UI.Upgrade
 {

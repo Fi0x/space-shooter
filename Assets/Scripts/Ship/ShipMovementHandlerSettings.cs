@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
-using Upgrades;
 
 namespace Ship
 {
@@ -51,17 +47,17 @@ namespace Ship
 
 
         
-        internal float PitchSpeed => this.pitchSpeed * UpgradeStats.ShipPitchSpeedLevel;
+        internal float PitchSpeed(int pitchUpgradeLevel) => this.pitchSpeed * pitchUpgradeLevel;
 
-        internal float RollSpeed => this.rollSpeed * UpgradeStats.ShipRollSpeedLevel;
+        internal float RollSpeed(int rollUpgradeLevel) => this.rollSpeed * rollUpgradeLevel;
 
-        internal float YawSpeed => this.yawSpeed * UpgradeStats.ShipYawSpeedLevel;
+        internal float YawSpeed(int yawUpgradeLevel) => this.yawSpeed * yawUpgradeLevel;
 
-        internal float AccelerationForwards => this.accelerationForwards + UpgradeStats.ShipAccelerationLevel;
+        internal float AccelerationForwards(int accelerationUpgradeLevel) => this.accelerationForwards + accelerationUpgradeLevel;
 
-        internal float AccelerationBackwards => this.accelerationBackwards + UpgradeStats.ShipBrakeLevel;
+        internal float AccelerationBackwards(int brakeUpgradeLevel) => this.accelerationBackwards + brakeUpgradeLevel;
 
-        internal float AccelerationLateral => this.accelerationLateral + UpgradeStats.ShipLateralThrustLevel;
+        internal float AccelerationLateral(int lateralThrustUpgradeLevel) => this.accelerationLateral + lateralThrustUpgradeLevel;
 
         internal float MaxSpeed=> this.maxSpeed;
 
@@ -91,7 +87,7 @@ namespace Ship
 
         public float MaxLateralSpeed => this.maxLateralSpeed;
 
-        public float BrakingModifier => this.brakingModifier * UpgradeStats.ShipStabilizerLevel;
+        public float BrakingModifier(int stabilizerUpgradeLevel) => this.brakingModifier * stabilizerUpgradeLevel;
 
         public float AccelerationForwardsBoostMultiplier => this.accelerationForwardsBoostMultiplier;
 

@@ -5,7 +5,7 @@ using System.Linq;
 using Ship.Weaponry.Config;
 using Ship.Weaponry.Trigger;
 using UnityEngine;
-using Upgrades;
+using UpgradeSystem;
 
 namespace Ship.Weaponry
 {
@@ -81,14 +81,13 @@ namespace Ship.Weaponry
             this.upgrades.Clear();
             
             //TODO: Add all upgrade types
-            this.upgrades.Add(UI.Upgrade.Upgrades.UpgradeNames.WeaponDamage, 1);
+            this.upgrades.Add(Upgrades.UpgradeNames.WeaponDamage, 1);
             
             UpgradeHandler.RegisterUpgrades(this, this.upgrades.Keys.ToList());
         }
 
         public void SetNewUpgradeValue(Enum type, int newLevel)
         {
-            //TODO: Check all cases
             if (this.upgrades.ContainsKey(type))
                 this.upgrades[type] = newLevel;
         }

@@ -1,6 +1,6 @@
 using System;
 
-namespace Upgrades
+namespace UpgradeSystem
 {
     public interface IUpgradeable
     {
