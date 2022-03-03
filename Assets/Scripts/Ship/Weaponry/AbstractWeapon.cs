@@ -78,9 +78,8 @@ namespace Ship.Weaponry
         {
             this.upgrades.Clear();
             
-            //TODO: Implement usage
-            this.upgrades.Add(Upgrades.UpgradeNames.WeaponFireRate, 1);
-            this.upgrades.Add(Upgrades.UpgradeNames.WeaponProjectileSpeed, 1);
+            this.upgrades.Add(Upgrades.UpgradeNames.WeaponFireRate, 1);//TODO: Implement in all 3 Weapons
+            this.upgrades.Add(Upgrades.UpgradeNames.WeaponProjectileSpeed, 1);//TODO: Implement in ProjectileWeapon
             this.upgrades.Add(Upgrades.UpgradeNames.WeaponDamage, 1);
             
             UpgradeHandler.RegisterUpgrades(this, this.upgrades.Keys.ToList());

@@ -40,7 +40,6 @@ namespace UI.Upgrade
                 }
             };
 
-            //TODO: Fix this to get all upgrades
             this.ExpandUpgradeList();
         }
 
