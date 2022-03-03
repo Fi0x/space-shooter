@@ -148,9 +148,9 @@ VisualEffect:
       m_Array:
       - m_Value:
           serializedVersion: 2
-          key0: {r: 2.6352942, g: 0.72156864, b: 7.1215687, a: 0}
-          key1: {r: 21.727177, g: 2.3796432, b: 17.071354, a: 1}
-          key2: {r: 0.9647059, g: 0.07058824, b: 0.11764706, a: 0.8}
+          key0: {r: 0.7457137, g: 7.121568, b: 1.4385763, a: 0}
+          key1: {r: 1.3081806, g: 10.181057, b: 4.095174, a: 1}
+          key2: {r: 0.07058822, g: 0.3210716, b: 0.9647059, a: 0.8}
           key3: {r: 0, g: 0, b: 0, a: 0}
           key4: {r: 0, g: 0, b: 0, a: 0}
           key5: {r: 0, g: 0, b: 0, a: 0}
@@ -292,7 +292,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 35, y: 1, z: 35}
+  m_Size: {x: 37, y: 1, z: 37}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!64 &5404985138704642851
 MeshCollider:
