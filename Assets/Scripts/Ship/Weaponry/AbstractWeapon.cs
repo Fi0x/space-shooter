@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Ship.Weaponry.Config;
 using Ship.Weaponry.Trigger;
+using UI.Upgrade;
 using UnityEngine;
 using UpgradeSystem;
 
@@ -53,6 +54,12 @@ namespace Ship.Weaponry
             this.SubscribeToWeaponTrigger();
             
             this.shipMovementHandler = this.weaponManager.GetParentShipGameObject().GetComponent<ShipMovementHandler>() ?? throw new NullReferenceException();
+
+            UpgradeButton.UpgradePurchasedEvent += (sender, args) =>
+            {
+                if (args.Type.Equals(Upgrades.UpgradeNames.WeaponFireRate))
+                    this.WeaponTrigger.ShotDelayUpgradeLevel = UpgradeHandler.GetSpecificUpgrade(Upgrades.UpgradeNames.WeaponFireRate);
+            };
         }
 
         private void FireModeChangedEventHandler(bool isFiring)
@@ -78,7 +85,7 @@ namespace Ship.Weaponry
         {
             this.upgrades.Clear();
             
-            this.upgrades.Add(Upgrades.UpgradeNames.WeaponFireRate, 1);//TODO: Implement in all 3 Weapons
+            this.upgrades.Add(Upgrades.UpgradeNames.WeaponFireRate, 1);
             this.upgrades.Add(Upgrades.UpgradeNames.WeaponProjectileSpeed, 1);
             this.upgrades.Add(Upgrades.UpgradeNames.WeaponDamage, 1);
             
