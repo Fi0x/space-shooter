@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Components;
+using UnityEngine.SceneManagement;
 
 namespace UI
 {
@@ -10,6 +12,11 @@ namespace UI
         public HealthBar healthBarPrefab;
 
         private Dictionary<Health, HealthBar> healthBars = new Dictionary<Health, HealthBar>();
+
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += OnLevelLoaded;
+        }
 
         private void Awake()
         {
@@ -39,6 +46,7 @@ namespace UI
 
         private void OnDisable()
         {
+            SceneManager.sceneLoaded -= OnLevelLoaded;
             Health.OnHealthAdded -= AddHealthBar;
             Health.OnHealthRemoved -= RemoveHealthBar;
             foreach (var health in healthBars.Keys)
@@ -46,6 +54,14 @@ namespace UI
                 Destroy(healthBars[health].gameObject);
             }
             healthBars.Clear();
+        }
+
+        private void OnLevelLoaded(Scene scene, LoadSceneMode mode)
+        {
+            foreach (var healthBar in healthBars)
+            {
+                if (healthBar.Key == null) healthBars.Remove(healthBar.Key);
+            }
         }
     }
 }

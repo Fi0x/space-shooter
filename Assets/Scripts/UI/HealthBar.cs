@@ -58,6 +58,7 @@ namespace UI
         {
             if (cam != null)
             {
+                if (health == null) return;
                 var position = health.transform.position;
                 transform.position = cam.WorldToScreenPoint(position + Vector3.up * offset);
                 
