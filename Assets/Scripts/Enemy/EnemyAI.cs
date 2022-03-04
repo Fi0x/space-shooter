@@ -120,5 +120,10 @@ namespace Enemy
             ChasePlayer,
             AttackPlayer,
         }
+
+        public void NotifyAboutPlayerAttackingEnemy()
+        {
+            if(this.state == State.Roaming) this.boidController.InvestigateAttack();
+        }
     }
 }

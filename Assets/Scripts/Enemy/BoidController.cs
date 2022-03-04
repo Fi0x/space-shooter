@@ -159,7 +159,10 @@ namespace Enemy
             GetRoamingPosition();
         }
 
-
+        public void InvestigateAttack()
+        {
+            _roamingPosition = GameManager.Instance.Player.transform.position;
+        }
 
         // removes Boid from allUnits
         public void RemoveBoid(Boid boid)

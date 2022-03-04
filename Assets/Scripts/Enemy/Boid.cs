@@ -104,7 +104,7 @@ namespace Enemy
         private void CalculateSpeed()
         {
             //speed = ShipMovementHandler.TotalMaxSpeed / 10;
-            speed = 20.0f;
+            speed = 30.0f;
             return;
             if (cohesionNeighbours.Count == 0)
             {

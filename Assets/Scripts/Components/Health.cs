@@ -74,7 +74,13 @@ namespace Components
                 }
             }
 
-            if(this.CurrentHealth > 0)
+            // Enemy
+            if (TryGetComponent(out EnemyAI enemyAI))
+            {
+                enemyAI.NotifyAboutPlayerAttackingEnemy();
+            }
+
+            if (this.CurrentHealth > 0)
                 return;
             
             //spawn vfx
