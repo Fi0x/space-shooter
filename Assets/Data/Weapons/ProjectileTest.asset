@@ -40,4 +40,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   projectilePrefab: {fileID: 4496975871354837890, guid: a0a7eed553613104984a94cbf72b4382, type: 3}
-  projectileSpeed: 5
+  projectileSpeed: 1

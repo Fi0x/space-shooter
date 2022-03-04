@@ -9,7 +9,11 @@ namespace Ship.Weaponry
     {
         [NonSerialized]
         protected WeaponProjectileConfigScriptableObject weaponConfigProjectile = null!;
-        
+
+        public float ProjectileSpeed => this.weaponConfigProjectile.ProjectileSpeed;
+        public float ProjectileTtl => this.weaponConfigProjectile.TimeToLive;
+        public WeaponConfigScriptableObject Config => this.weaponConfigProjectile;
+
         protected override void Start()
         {
             base.Start();

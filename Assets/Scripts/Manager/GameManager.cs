@@ -19,6 +19,8 @@ namespace Manager
         [SerializeField] private int playerDefaultHealth = 1000;
 
         public GameObject Player { get; private set; }
+        
+        public TargetableManager TargetableManager { get; private set; }
 
         public EnemyManager EnemyManager => this.enemyManager;
 
@@ -51,6 +53,7 @@ namespace Manager
         {
             DontDestroyOnLoad(this.gameObject);
             _instance = this;
+            this.TargetableManager ??= new TargetableManager();
             this.Player = GameObject.Find("Player");
         }
 

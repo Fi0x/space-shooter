@@ -1,5 +1,6 @@
 #nullable enable
 using System;
+using System.Runtime.CompilerServices;
 using Ship.Weaponry.Config;
 using Ship.Weaponry.Trigger;
 using UnityEngine;
@@ -15,6 +16,8 @@ namespace Ship.Weaponry
         public IWeaponTrigger WeaponTrigger { get; protected set; } = null!;
         
         protected ShipMovementHandler shipMovementHandler = null!;
+
+        public WeaponConfigScriptableObject WeaponConfig => this.weaponConfig;
         
         private void OnEnable()
         {

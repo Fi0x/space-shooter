@@ -38,6 +38,9 @@ namespace Ship.Weaponry
 
             this.child = newGameObject.GetComponent<AbstractWeapon>() ?? throw new Exception(
                 "Given Prefab is not a weapon (it does not have a Script that inherits from AbstractWeapon");
+            this.NewWeaponBuiltEvent?.Invoke(this.child);
         }
+
+        public event Action<AbstractWeapon>? NewWeaponBuiltEvent;
     }
 }

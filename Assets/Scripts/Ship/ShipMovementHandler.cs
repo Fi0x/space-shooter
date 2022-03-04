@@ -1,4 +1,4 @@
-#define DEBUG_GIZMO
+//#define DEBUG_GIZMO
 using System;
 using System.Collections.Generic;
 using System.Linq;
