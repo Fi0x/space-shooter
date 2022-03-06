@@ -18,9 +18,11 @@ namespace UI.Upgrade
         private static UpgradeScreen _upgradeScreen;
         private static GameObject _upgradeMenu;
         private static Scrollbar _scrollbar;
+        private static Text _freePointTextField;
         
         private readonly Dictionary<Enum, GameObject> upgradeList = new Dictionary<Enum, GameObject>();
-        
+
+        public static event EventHandler UpgradeScreenShownEvent;
 
         private void Start()
         {
@@ -28,6 +30,7 @@ namespace UI.Upgrade
             _upgradeMenu = this.mainGameObject;
             _upgradeMenu.SetActive(false);
             _scrollbar = this.scrollbar;
+            _freePointTextField = this.freePointTextField;
 
             UpgradeButton.UpgradePurchasedEvent += (sender, args) =>
             {
@@ -46,6 +49,7 @@ namespace UI.Upgrade
         public static void ShowUpgradeScreen()
         {
             _upgradeScreen.ExpandUpgradeList();
+            _freePointTextField.text = "Free Points: " + UpgradeHandler.FreeUpgradePoints;
             
             GameManager.IsGamePaused = true;
             _upgradeMenu.SetActive(true);
@@ -54,6 +58,8 @@ namespace UI.Upgrade
             Cursor.lockState = CursorLockMode.None;
 
             _scrollbar.value = 1;
+
+            UpgradeScreenShownEvent?.Invoke(null, null);
         }
 
         public static void LoadNextLevel()

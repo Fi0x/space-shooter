@@ -19,6 +19,7 @@ namespace UI.Upgrade
             this.button = this.GetComponent<Button>();
             this.UpdateVisibility();
             UpgradePurchasedEvent += (sender, args) => this.UpdateVisibility();
+            UpgradeScreen.UpgradeScreenShownEvent += (sender, args) => { this.UpdateVisibility(); };
         }
 
         public void ButtonPressed()
