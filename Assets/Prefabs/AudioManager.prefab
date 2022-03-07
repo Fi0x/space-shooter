@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: Ambience
-    clip: {fileID: 8300000, guid: 8a957ce7e7f2b564f82af22cac3ceb2f, type: 3}
+    clip: {fileID: 8300000, guid: 065ccdc0aca78954aa5d0daf9b4adfdf, type: 3}
     volume: 0.064
     pitch: 1
     loop: 1

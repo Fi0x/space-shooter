@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   minTimeBetweenShots: 0.2
-  timeToLive: 1
+  timeToLive: 2
   damageOverTimeNormalized:
     serializedVersion: 2
     m_Curve:

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5338839266056552379}
   - component: {fileID: 5338839266056552378}
   - component: {fileID: -6826777720300040831}
+  - component: {fileID: 294577248194490593}
   m_Layer: 0
   m_Name: MuzzleProjectile1
   m_TagString: Untagged
@@ -122,10 +123,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4944cbf2abad81743988cad9fdef0b41, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 5207b2a445fcb144281ab5395fe95c1d, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.084
-  m_Pitch: 1.8
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -208,3 +209,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &294577248194490593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5338839266056552377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7da44d8566f2424c972e5d840ec9279, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: -6826777720300040831}
+  clips:
+  - {fileID: 8300000, guid: 947719fd38845824ba3638af9d8e4e54, type: 3}
+  - {fileID: 8300000, guid: ee4ef2f8f89f0834d8c92266456d0922, type: 3}
+  - {fileID: 8300000, guid: 97b5820b1e079ab4bbbe90e89bd4db5d, type: 3}
+  - {fileID: 8300000, guid: 7e950513b9c6d734e8130770598861f3, type: 3}
+  pitchRange: {x: 1, y: 1.1}
+  volumeRange: {x: 0.1, y: 0.1}

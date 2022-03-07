@@ -1,13 +1,11 @@
-using System.Linq;
 using Components;
 using Enemy;
 using Ship;
 using UI;
 using UI.GameOver;
 using UnityEngine;
-using Upgrades;
+using UpgradeSystem;
 using World;
-using Random = UnityEngine.Random;
 
 namespace Manager
 {
@@ -66,7 +64,7 @@ namespace Manager
         {
             level = 0;
             StatCollector.Reset();
-            UpgradeStats.Reset();
+            UpgradeHandler.Reset();
         }
 
         public void LoadNextLevel()
@@ -96,7 +94,7 @@ namespace Manager
             this.Player.GetComponent<ShipMovementHandler>().SetNewTargetSpeed(0);
             var playerHealth = this.Player.GetComponent<Health>();
             playerHealth.MaxHealth = this.playerDefaultHealth;
-            playerHealth.CurrentHealth = this.playerDefaultHealth;
+            playerHealth.CurrentHealth = playerHealth.MaxHealth;
         }
     }
 }

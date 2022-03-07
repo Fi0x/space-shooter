@@ -1,7 +1,7 @@
 using System;
-using Components;
 using Ship.Weaponry.Config;
 using UnityEngine;
+using UpgradeSystem;
 
 namespace Ship.Weaponry
 {
@@ -17,7 +17,7 @@ namespace Ship.Weaponry
         protected override void Start()
         {
             base.Start();
-            this.weaponConfigProjectile = (base.weaponConfig as WeaponProjectileConfigScriptableObject) ??
+            this.weaponConfigProjectile = this.weaponConfig as WeaponProjectileConfigScriptableObject ??
                                 throw new Exception(
                                     "Provided Config cannot be applied because it is not for Projectile Weapons");
         }
@@ -29,7 +29,7 @@ namespace Ship.Weaponry
             projectile.transform.position = ownPosition;
             var shotDirection = this.weaponManager.Target - ownPosition;
             var projectileDirectionAndVelocity = this.weaponConfigProjectile.ProjectileSpeed * this.shipMovementHandler.TotalMaxSpeed *
-                                                 shotDirection.normalized;
+                                                 shotDirection.normalized * this.upgrades[Upgrades.UpgradeNames.WeaponProjectileSpeed];
             var projectileScript = projectile.GetComponent<WeaponProjectile>();
             projectileScript.Initialize(
                 projectileDirectionAndVelocity, 
@@ -37,7 +37,7 @@ namespace Ship.Weaponry
                 this.transform.rotation, 
                 this.weaponConfigProjectile.TimeToLive
             );
-            projectileScript.DamageMultiplier = 1f; // TODO: this needed?
+            projectileScript.DamageMultiplier = this.upgrades[Upgrades.UpgradeNames.WeaponDamage];
             projectileScript.WeaponHitSomethingEvent += (layer, data) =>
             {
                 // Only continue if the hit target is an enemy.
