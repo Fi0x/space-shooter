@@ -4,6 +4,7 @@ using Components;
 using Ship.Sensors;
 using Ship.Weaponry.Config;
 using UnityEngine;
+using UpgradeSystem;
 
 namespace Ship.Weaponry
 {
@@ -65,7 +66,8 @@ namespace Ship.Weaponry
             var raycastHit = raycastHitNullable.Value.hit;
             var distance = raycastHitNullable.Value.distance;
 
-            var effectiveDamage = this.weaponConfigHitScan.DamageOverDistanceNormalized.Evaluate(distance / this.weaponConfigHitScan.MaxDistance);
+            var effectiveDamage = this.weaponConfigHitScan.DamageOverDistanceNormalized
+                .Evaluate(distance / this.weaponConfigHitScan.MaxDistance) * this.upgrades[Upgrades.UpgradeNames.WeaponDamage];
 
             var weaponHitInformation = new WeaponHitInformation(
                 WeaponHitInformation.WeaponType.HitScan,

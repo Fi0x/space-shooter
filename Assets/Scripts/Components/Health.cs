@@ -1,23 +1,35 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Enemy;
 using Manager;
 using UnityEngine;
-using Upgrades;
+using UpgradeSystem;
 
 namespace Components
 {
-    public class Health : MonoBehaviour
+    public class Health : MonoBehaviour, IUpgradeable
     {
         [SerializeField] private bool isPlayer;
+
+        private readonly Dictionary<Enum, int> upgrades = new Dictionary<Enum, int>();
         private int maxHealth;
         public int MaxHealth
         {
-            get => this.maxHealth + UpgradeStats.ArmorLevel * 10;
+            get
+            {
+                if(this.upgrades.ContainsKey(Upgrades.UpgradeNames.Health)) 
+                    return this.maxHealth + this.upgrades[Upgrades.UpgradeNames.Health] * 10;
+                return this.maxHealth;
+            }
             set
             {
                 this.maxHealth = value;
                 this.HealthBar.SetMaxHealth(this.MaxHealth);
             }
         }
+        
+        
 
         public GameObject deathVFX;
         public float vfxLifetime = 4.5f;
@@ -46,17 +58,11 @@ namespace Components
 
         private void Start()
         {
+            if(this.isPlayer)
+                this.ResetUpgrades();
+            
             this.MaxHealth = 1000;
             this.CurrentHealth = this.MaxHealth;
-
-            UpgradeButton.UpgradePurchasedEvent += (sender, args) =>
-            {
-                if (args.Type == UpgradeButton.Upgrade.Armor)
-                {
-                    UpgradeStats.ArmorLevel += args.Increased ? 1 : -1;
-                    UpgradeMenuValues.InvokeUpgradeCompletedEvent(args);
-                }
-            };
         }
 
         public void TakeDamage(float damage)
@@ -92,9 +98,24 @@ namespace Components
             else
             {
                 StatCollector.IntStats[StatCollector.StatValues.EnemiesKilled]++;
-                UpgradeStats.FreeUpgradePoints++;
+                UpgradeHandler.FreeUpgradePoints++;
                 Destroy(this.gameObject);
             }
-        } 
+        }
+
+        public void ResetUpgrades()
+        {
+            this.upgrades.Clear();
+            
+            this.upgrades.Add(Upgrades.UpgradeNames.Health, 1);
+            
+            UpgradeHandler.RegisterUpgrades(this, this.upgrades.Keys.ToList());
+        }
+
+        public void SetNewUpgradeValue(Enum type, int newLevel)
+        {
+            if (this.upgrades.ContainsKey(type))
+                this.upgrades[type] = newLevel;
+        }
     }
 }

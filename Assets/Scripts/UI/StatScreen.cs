@@ -21,10 +21,10 @@ namespace UI
             {
                 var newPrefab = Instantiate(this.statPrefab, this.transform);
                 
-                var texts = GetTextComponents(newPrefab);
-                texts.name.text = stat.Key.ToString();
+                var (nameText, valueText) = GetTextComponents(newPrefab);
+                nameText.text = stat.Key.ToString();
                 var value = Math.Round(stat.Value, 2);
-                texts.value.text = value.ToString(CultureInfo.InvariantCulture);
+                valueText.text = value.ToString(CultureInfo.InvariantCulture);
                 
                 this.statList.Add(newPrefab);
             }
@@ -32,34 +32,36 @@ namespace UI
             {
                 var newPrefab = Instantiate(this.statPrefab, this.transform);
 
-                var texts = GetTextComponents(newPrefab);
-                texts.name.text = stat.Key.ToString();
-                texts.value.text = stat.Value.ToString();
+                var (nameText, valueText) = GetTextComponents(newPrefab);
+                nameText.text = stat.Key.ToString();
+                valueText.text = stat.Value.ToString();
                 
                 this.statList.Add(newPrefab);
             }
 
             var list = GetDamageTypeListSortedDescending();
-            foreach (var entry in list.Take(3))
+            foreach (var (damage, weaponType) in list.Take(3))
             {
                 var newPrefab = Instantiate(this.statPrefab, this.transform);
-                var texts = GetTextComponents(newPrefab);
-                texts.name.text = entry.weaponType+ " Damage";
-                var value = Math.Round(entry.damage, 2);
+                var (nameText, valueText) = GetTextComponents(newPrefab);
+                nameText.text = weaponType + " Damage";
+                var value = Math.Round(damage, 2);
 
-                texts.value.text = value.ToString(CultureInfo.InvariantCulture);
+                valueText.text = value.ToString(CultureInfo.InvariantCulture);
                 
                 this.statList.Add(newPrefab);
             }
 
             this.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 10 + 50 * this.statList.Count);
+
+            this.scrollbar.value = 1;
         }
 
         private static IEnumerable<(float damage, WeaponHitInformation.WeaponType weaponType)> GetDamageTypeListSortedDescending()
         {
-            return from keyvaluePair in StatCollector.WeaponTypeToDamageCausedStatLookup
-                orderby keyvaluePair.Value descending
-                select (keyvaluePair.Value, keyvaluePair.Key);
+            return from keyValuePair in StatCollector.WeaponTypeToDamageCausedStatLookup
+                orderby keyValuePair.Value descending
+                select (keyValuePair.Value, keyValuePair.Key);
         }
 
         public void UpdateStats()
@@ -74,10 +76,10 @@ namespace UI
         private static (Text name, Text value) GetTextComponents(GameObject statObject)
         {
             var textComponents = statObject.GetComponentsInChildren<Text>(); 
-            var nameText = textComponents.Where(c => c.gameObject.name.Equals("Name"));
-            var valueText = textComponents.Where(c => c.gameObject.name.Equals("Value"));
+            var nameText = textComponents.First(c => c.gameObject.name.Equals("Name"));
+            var valueText = textComponents.First(c => c.gameObject.name.Equals("Value"));
 
-            return (nameText.First(), valueText.First());
+            return (nameText, valueText);
         }
     }
 }
