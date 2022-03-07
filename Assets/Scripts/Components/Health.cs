@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Enemy;
 using Manager;
+using UI;
 using UnityEngine;
+using System.Collections;
 using UpgradeSystem;
 
 namespace Components
@@ -25,11 +27,19 @@ namespace Components
             set
             {
                 this.maxHealth = value;
-                this.HealthBar.SetMaxHealth(this.MaxHealth);
+                if(!generateHealthBar)
+                    HealthBar.SetMaxHealth(this.MaxHealth);
             }
         }
         
-        
+        public static event Action<Health> OnHealthAdded = delegate { };
+        public static event Action<Health> OnHealthRemoved = delegate { };
+        public event Action<float> OnHealthPctChanged;
+        public bool generateHealthBar = false;
+
+        public AnimationCurve flashingCurve;
+        public float flashingDuration;
+        public Renderer renderer;
 
         public GameObject deathVFX;
         public float vfxLifetime = 4.5f;
@@ -42,22 +52,32 @@ namespace Components
             {
                 this.currentHealth = value;
                 if (this.currentHealth > this.MaxHealth) this.currentHealth = this.MaxHealth;
-                this.HealthBar.SetCurrentHealth(this.currentHealth);
+                if (generateHealthBar)
+                {
+                    float currentHealthPct = (float)currentHealth / maxHealth;
+                    OnHealthPctChanged?.Invoke(currentHealthPct);
+                }
+                else
+                {
+                    this.HealthBar.SetCurrentHealth((int)Math.Round(this.currentHealth));
+                }
             }
         }
-
-        private HealthBar healthBar;
-        private HealthBar HealthBar
+        
+        private FixedHealthBar healthBar;
+        private FixedHealthBar HealthBar
         {
             get
             {
-                if(!this.healthBar) this.healthBar = this.GetComponentInChildren<HealthBar>();
+                if(!this.healthBar) this.healthBar = this.GetComponentInChildren<FixedHealthBar>();
                 return this.healthBar;
             }
         }
 
         private void Start()
         {
+            if (generateHealthBar) OnHealthAdded(this);
+            
             if(this.isPlayer)
                 this.ResetUpgrades();
             
@@ -68,6 +88,10 @@ namespace Components
         public void TakeDamage(float damage)
         {
             this.CurrentHealth -= damage;
+            //flashing
+            StopCoroutine(Flash(0f));
+            StartCoroutine(Flash(flashingDuration));
+            
 
             if (this.isPlayer)
             {
@@ -99,10 +123,20 @@ namespace Components
             {
                 StatCollector.IntStats[StatCollector.StatValues.EnemiesKilled]++;
                 UpgradeHandler.FreeUpgradePoints++;
+                if (generateHealthBar) OnHealthRemoved(this);
                 Destroy(this.gameObject);
             }
         }
 
+        IEnumerator Flash(float time)
+        {
+            for (float t = 0f; t < time; t += Time.deltaTime)
+            {
+                renderer.material.SetFloat("_FlashingStrength", flashingCurve.Evaluate(t / time));
+                yield return null;
+            }
+        }
+        
         public void ResetUpgrades()
         {
             this.upgrades.Clear();
