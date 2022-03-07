@@ -37,7 +37,7 @@ namespace Targeting
                     Debug.DrawRay(target.transform.position, Vector3.up, Color.red);
                     continue;
                 }
-                Debug.DrawLine(target.transform.position, response.Value.position, Color.green, 2);
+                Debug.DrawLine(target.transform.position, response.Value.position, Color.green);
             }
         }
     }

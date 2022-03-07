@@ -8,20 +8,17 @@ namespace Targeting
 {
     public class Targetable : MonoBehaviour
     {
-        [SerializeField] private Rigidbody rigidbody = null!;
-        
+
         private void OnEnable()
         {
             GameManager.Instance.TargetableManager.NotifyAboutNewTargetable(this);
-            this.rigidbody ??= this.GetComponent<Rigidbody>() ?? throw new Exception("No Rigidbody on target");
         }
 
         private void OnDisable()
         {
             GameManager.Instance.TargetableManager.NotifyAboutTargetableGone(this);
         }
-
-
+        
 
         public (Vector3 position, float travelTime, bool canHit)? GetPredictedTargetLocation(Vector3 shooterPosition,
             WeaponConfigScriptableObject weaponConfig)
@@ -52,39 +49,30 @@ namespace Targeting
                 return null;
             }
 
-            var position = this.transform.position + timeOfCollision.Value * this.rigidbody.velocity;
+            var ownMovement = this.GetOwnMovement();
+
+            var position = this.transform.position + timeOfCollision.Value * ownMovement;
             return (position, timeOfCollision.Value, timeOfCollision.Value < ttl);
         }
 
+        private Vector3 GetOwnMovement()
+        {
+            return Vector3.one * 2;// !!! Always 0 ?! (this.transform.position - positionLastFrame) / Time.deltaTime;
+        }
+
+        
+        // Some black magic is happening here. Its pretty hard to get it from the code.
+        // Please refer to this Desmos Page: https://www.desmos.com/calculator/jthl2vjkps
         private float? GetPredictedTimeOfCollision(Vector3 shooterPosition, float projectileSpeed)
         {
-            var deltaPosition = this.transform.position - shooterPosition;
-            var ownMovement = this.rigidbody.velocity;
-            if (ownMovement.x == 0)
-            {
-                return null; // prevent NaN
-            } 
-            var ownStartX = deltaPosition.x;
-            var ownStartZ = deltaPosition.z;
-            var ownMovementGradient = ownMovement.z / ownMovement.x;
-
-            var sqrtContent = ownStartX * ownStartX * ownMovementGradient * ownMovementGradient * projectileSpeed * projectileSpeed 
-                - ownStartX * ownStartX * ownMovementGradient * ownMovementGradient 
-                - 2 * ownStartX * ownMovementGradient * ownStartZ * projectileSpeed * projectileSpeed 
-                + 2 * ownStartX * ownMovementGradient * ownStartZ 
-                + ownStartZ * ownStartZ * projectileSpeed * projectileSpeed 
-                - ownStartZ * ownStartZ;
-            var numerator = -Math.Sqrt(sqrtContent) + ownStartX * ownMovementGradient * ownMovementGradient 
-                            - ownMovementGradient * ownStartZ;
-            var denominator = ownMovementGradient * ownMovementGradient - projectileSpeed * projectileSpeed + 1;
-            var result = numerator / denominator;
-
-            if (result <= 0)
+            var velocity = this.GetOwnMovement();
+            if (float.IsNaN(velocity.x) || velocity.magnitude <= 0.01f)
             {
                 return null;
             }
-
-            return (float)result;
+            return TargetingCalculationHelper.GetPredictedTimeOfCollision(shooterPosition, projectileSpeed,
+                this.transform.position, velocity);
         }
+        
     }
 }
