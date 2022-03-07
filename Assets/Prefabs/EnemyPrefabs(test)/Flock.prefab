@@ -54,7 +54,7 @@ MonoBehaviour:
   _obstacleDistance: 20
   _cohesionWeight: 1
   _avoidanceWeight: 1.2
-  _alignmentWeight: 1
+  _alignmentWeight: 1.4
   _obstacleWeight: 100
   _roamingPosition: {x: 0, y: 0, z: 0}
   roamingPosReachedDistance: 25
