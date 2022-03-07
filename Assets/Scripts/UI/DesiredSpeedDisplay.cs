@@ -23,7 +23,6 @@ namespace UI
         private void HandleDesiredSpeedChangedEvent(float speed, float maxSpeed)
         {
             this.fractionToDisplay = speed / maxSpeed;
-            Debug.Log(this.fractionToDisplay);
         }
 
         private void OnDisable()

@@ -1,11 +1,11 @@
-using System.Linq;
 using Components;
 using Enemy;
 using Ship;
 using UI;
+using UI.GameOver;
 using UnityEngine;
+using UpgradeSystem;
 using World;
-using Random = UnityEngine.Random;
 
 namespace Manager
 {
@@ -21,8 +21,8 @@ namespace Manager
         public EnemyManager EnemyManager => this.enemyManager;
 
         public LevelBuilder LevelBuilder => this.levelBuilder;
-        
-        public static bool IsGamePaused { get; set; }
+
+        public static bool IsGamePaused { get; set; } = true;
 
         private static int level;
 
@@ -57,6 +57,13 @@ namespace Manager
             this.LoadNextLevel();
         }
 
+        public static void ResetGame()
+        {
+            level = 0;
+            StatCollector.Reset();
+            UpgradeHandler.Reset();
+        }
+
         public void LoadNextLevel()
         {
             level++;
@@ -74,7 +81,7 @@ namespace Manager
 
         public static void GameOver()
         {
-            //TODO: Display Game-over screen
+            GameOverScreen.ShowGameOverScreen();
         }
 
         private void SpawnPlayer()
@@ -84,7 +91,7 @@ namespace Manager
             this.Player.GetComponent<ShipMovementHandler>().SetNewTargetSpeed(0);
             var playerHealth = this.Player.GetComponent<Health>();
             playerHealth.MaxHealth = this.playerDefaultHealth;
-            playerHealth.CurrentHealth = this.playerDefaultHealth;
+            playerHealth.CurrentHealth = playerHealth.MaxHealth;
         }
     }
 }

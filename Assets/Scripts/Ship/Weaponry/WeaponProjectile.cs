@@ -19,7 +19,7 @@ namespace Ship.Weaponry
         private double startTime;
         private float timeToLive;
 
-        public event Action<int, WeaponHitInformation> ProjectileHitSomethingEvent;
+        public event Action<int, WeaponHitInformation> WeaponHitSomethingEvent;
 
         public float DamageMultiplier { get; set; } = 1;
         
@@ -87,7 +87,7 @@ namespace Ship.Weaponry
                     // The hit "thing" can take damage
                     health.TakeDamage(damageTaken);
                 }
-                this.ProjectileHitSomethingEvent?.Invoke(other.gameObject.layer, weaponHitInformation);
+                this.WeaponHitSomethingEvent?.Invoke(other.gameObject.layer, weaponHitInformation);
 
                 Destroy(this.gameObject);
             }    

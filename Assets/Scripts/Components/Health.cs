@@ -1,20 +1,29 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Enemy;
 using Manager;
 using UI;
 using UnityEngine;
-using Upgrades;
 using System.Collections;
+using UpgradeSystem;
 
 namespace Components
 {
-    public class Health : MonoBehaviour
+    public class Health : MonoBehaviour, IUpgradeable
     {
         [SerializeField] private bool isPlayer;
+
+        private readonly Dictionary<Enum, int> upgrades = new Dictionary<Enum, int>();
         private int maxHealth;
         public int MaxHealth
         {
-            get => this.maxHealth + UpgradeStats.ArmorLevel * 10;
+            get
+            {
+                if(this.upgrades.ContainsKey(Upgrades.UpgradeNames.Health)) 
+                    return this.maxHealth + this.upgrades[Upgrades.UpgradeNames.Health] * 10;
+                return this.maxHealth;
+            }
             set
             {
                 this.maxHealth = value;
@@ -35,8 +44,8 @@ namespace Components
         public GameObject deathVFX;
         public float vfxLifetime = 4.5f;
 
-        private int currentHealth;
-        public int CurrentHealth
+        private float currentHealth;
+        public float CurrentHealth
         {
             get => this.currentHealth;
             set
@@ -50,7 +59,7 @@ namespace Components
                 }
                 else
                 {
-                    this.HealthBar.SetCurrentHealth(this.currentHealth);
+                    this.HealthBar.SetCurrentHealth((int)Math.Round(this.currentHealth));
                 }
             }
         }
@@ -68,26 +77,33 @@ namespace Components
         private void Start()
         {
             if (generateHealthBar) OnHealthAdded(this);
+            
+            if(this.isPlayer)
+                this.ResetUpgrades();
+            
             this.MaxHealth = 1000;
             this.CurrentHealth = this.MaxHealth;
-
-            UpgradeButton.UpgradePurchasedEvent += (sender, args) =>
-            {
-                if (args.Type == UpgradeButton.Upgrade.Armor)
-                {
-                    UpgradeStats.ArmorLevel += args.Increased ? 1 : -1;
-                    UpgradeMenuValues.InvokeUpgradeCompletedEvent(args);
-                }
-            };
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(float damage)
         {
             this.CurrentHealth -= damage;
             //flashing
             StopCoroutine(Flash(0f));
             StartCoroutine(Flash(flashingDuration));
             
+
+            if (this.isPlayer)
+            {
+                StatCollector.FloatStats[StatCollector.StatValues.DamageTaken] += damage;
+
+                // shieldVFX
+                if(TryGetComponent(out ShieldVFX shieldVFX))
+                {
+                    StartCoroutine(shieldVFX.FadeIn());
+                }
+            }
+
             if(this.CurrentHealth > 0)
                 return;
             
@@ -105,8 +121,8 @@ namespace Components
                 GameManager.GameOver();
             else
             {
-                StatCollector.EnemiesKilled++;
-                UpgradeStats.FreeUpgradePoints++;
+                StatCollector.IntStats[StatCollector.StatValues.EnemiesKilled]++;
+                UpgradeHandler.FreeUpgradePoints++;
                 if (generateHealthBar) OnHealthRemoved(this);
                 Destroy(this.gameObject);
             }
@@ -119,6 +135,21 @@ namespace Components
                 renderer.material.SetFloat("_FlashingStrength", flashingCurve.Evaluate(t / time));
                 yield return null;
             }
+        }
+        
+        public void ResetUpgrades()
+        {
+            this.upgrades.Clear();
+            
+            this.upgrades.Add(Upgrades.UpgradeNames.Health, 1);
+            
+            UpgradeHandler.RegisterUpgrades(this, this.upgrades.Keys.ToList());
+        }
+
+        public void SetNewUpgradeValue(Enum type, int newLevel)
+        {
+            if (this.upgrades.ContainsKey(type))
+                this.upgrades[type] = newLevel;
         }
     }
 }

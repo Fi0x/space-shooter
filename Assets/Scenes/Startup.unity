@@ -157,8 +157,9 @@ MonoBehaviour:
   playerPrefab: {fileID: 3300866360858875051, guid: eb0684947c05d0242992087803751413, type: 3}
   gameControllerPrefab: {fileID: 895869049893343043, guid: 4e8ffcd01f03d0840bd723e2843c660e, type: 3}
   audioManagerPrefab: {fileID: 3872301053552375886, guid: 3f91705d7a2ae2c49926ab54a5e1f82a, type: 3}
-  updateMenuPrefab: {fileID: 8391968489848540789, guid: d6c1365d4daafe14db3785f975faa281, type: 3}
+  updateMenuPrefab: {fileID: 5177844871229336924, guid: 1e8007049c03bd144a3fedb3503007af, type: 3}
   healthBarCanvasPrefab: {fileID: 4151912426267508039, guid: 082d377d7a620c049b2ebdca90b8d7c0, type: 3}
+  gameOverPrefab: {fileID: 8100473625114354735, guid: 36ae60c6c0f16b14287aa3da4c2a367b, type: 3}
 --- !u!4 &672987885
 Transform:
   m_ObjectHideFlags: 0

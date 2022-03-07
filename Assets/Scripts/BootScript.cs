@@ -11,6 +11,7 @@ public class BootScript : MonoBehaviour
     [SerializeField] private GameObject audioManagerPrefab;
     [SerializeField] private GameObject updateMenuPrefab;
     [SerializeField] private GameObject healthBarCanvasPrefab;
+    [SerializeField] private GameObject gameOverPrefab;
 
     private bool loadStarted;
     
@@ -21,6 +22,8 @@ public class BootScript : MonoBehaviour
         
         this.loadStarted = true;
         
+        StatCollector.InitializeStatMaps();
+
         DontDestroyOnLoad(this.gameObject);
         SceneManager.LoadScene(this.levelSceneName);
         
@@ -39,6 +42,7 @@ public class BootScript : MonoBehaviour
         Instantiate(this.audioManagerPrefab);
         Instantiate(this.updateMenuPrefab);
         Instantiate(healthBarCanvasPrefab);
+        Instantiate(this.gameOverPrefab);
         
         gameManagerScript.NotifyAboutNewPlayerInstance(playerObject);
 

@@ -1,6 +1,8 @@
 #define FIX_POSITION
 
+using System;
 using Manager;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Ship
@@ -76,13 +78,6 @@ namespace Ship
 
         public bool SwitchFlightModel { get; set; }
 
-        private void Start()
-        {
-#if FIX_POSITION
-            Cursor.lockState = CursorLockMode.Locked;
-#endif
-        }
-
         private void Update()
         {
             if(InputManager.WaitingForKeyInput) return;
@@ -124,23 +119,23 @@ namespace Ship
             switch (this.xAxisMouseMode)
             {
                 case HorizontalAxisMode.Roll:
-                    roll = mouseAxes.x;
+                    roll = Mathf.Clamp(mouseAxes.x, -1, 1);
                     break;
                 case HorizontalAxisMode.Yaw:
-                    yaw = mouseAxes.x;
+                    yaw = Mathf.Clamp(mouseAxes.x, -1, 1);
                     break;
             }
 
             switch (this.yAxisMouseMode)
             {
                 case VerticalAxisMode.Pitch:
-                    pitch = mouseAxes.y;
+                    pitch = Mathf.Clamp(mouseAxes.y, -1, 1);
                     break;
                 case VerticalAxisMode.PitchInverted:
-                    pitch = -mouseAxes.y;
+                    pitch = -Mathf.Clamp(mouseAxes.y, -1, 1);
                     break;
                 case VerticalAxisMode.Thrust:
-                    thrust = mouseAxes.y;
+                    thrust = Mathf.Clamp(mouseAxes.y, -1, 1);
                     break;
             }
 
