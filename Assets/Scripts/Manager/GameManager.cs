@@ -91,7 +91,7 @@ namespace Manager
             this.Player.GetComponent<ShipMovementHandler>().SetNewTargetSpeed(0);
             var playerHealth = this.Player.GetComponent<Health>();
             playerHealth.MaxHealth = this.playerDefaultHealth;
-            playerHealth.CurrentHealth = this.playerDefaultHealth;
+            playerHealth.CurrentHealth = playerHealth.MaxHealth;
         }
     }
 }
