@@ -75,9 +75,9 @@ namespace Components
             }
 
             // Enemy
-            if (TryGetComponent(out EnemyAI enemyAI))
+            if (TryGetComponent(out EnemyAI boid2))
             {
-                enemyAI.NotifyAboutPlayerAttackingEnemy();
+                boid2.NotifyAboutPlayerAttackingEnemy();
             }
 
             if (this.CurrentHealth > 0)

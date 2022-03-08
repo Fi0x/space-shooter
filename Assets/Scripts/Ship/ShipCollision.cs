@@ -10,7 +10,7 @@ public class ShipCollision : MonoBehaviour
     {
         if(DoesCollide(collision.gameObject))
         {
-            Debug.Log(collision.relativeVelocity.magnitude);
+            //Debug.Log(collision.relativeVelocity.magnitude);
             if (collision.relativeVelocity.magnitude > 10)
             {
                 this.gameObject.GetComponent<Health>().TakeDamage((int)collision.relativeVelocity.magnitude);

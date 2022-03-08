@@ -58,8 +58,9 @@ namespace Ship.Sensors
             Destroy(this.gameObject);
         }
         
-        private void Update()
+        private void LateUpdate()
         {
+            UpdateSprite();
             var newLocalPosition = this.radarManager.ApplyPositionTransformation(this.target.Position);
             var newLocalPositionFloor = new Vector3(newLocalPosition.x, 0, newLocalPosition.z);
             this.spriteObject.transform.localPosition = newLocalPosition;
@@ -70,6 +71,19 @@ namespace Ship.Sensors
         private void OnDisable()
         {
             this.target.TargetDestroyedEvent -= this.OnSensorTargetDestroyedEventHandler;
+        }
+
+        public void UpdateSprite()
+        {
+            SpriteRenderer spriteRenderer = this.spriteObject.GetComponent<SpriteRenderer>();
+
+            spriteRenderer.color = target.Allegiance switch
+            {
+                SensorTarget.TargetAllegiance.Friendly => this.radarManager.ColorFriendly,
+                SensorTarget.TargetAllegiance.Neutral => this.radarManager.ColorNeutral,
+                SensorTarget.TargetAllegiance.Hostile => this.radarManager.ColorHostile,
+                _ => throw new Exception("Unexpected Sensor Target Allegiance")
+            };
         }
     }
 }

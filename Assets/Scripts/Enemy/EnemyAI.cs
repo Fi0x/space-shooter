@@ -37,7 +37,7 @@ namespace Enemy
             //this.speed = ShipMovementHandler.TotalMaxSpeed * 0.8f;
             this.speed = 20f; // TODO
 
-            this.waitForAttack = 2.0f;
+            this.waitForAttack = 1.0f;
             this.timeBetweenAttacks = this.waitForAttack;
             this.sightRange = 125.0f;
             this.attackRange = 75.0f;
@@ -113,17 +113,19 @@ namespace Enemy
             var lookRotation = Quaternion.LookRotation(new Vector3(direction.x, direction.y, direction.z));
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, lookRotation, Time.deltaTime * 5f);
         }
-    
+
+        // investigate attack
+        public void NotifyAboutPlayerAttackingEnemy()
+        {
+            Debug.Log("NotifyAboutPlayerAttackingEnemy");
+            boidController.InvestigateAttack();
+        }
+
         private enum State
         {
             Roaming,
             ChasePlayer,
             AttackPlayer,
-        }
-
-        public void NotifyAboutPlayerAttackingEnemy()
-        {
-            if(this.state == State.Roaming) this.boidController.InvestigateAttack();
         }
     }
 }

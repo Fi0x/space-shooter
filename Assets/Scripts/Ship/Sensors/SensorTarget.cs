@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Ship.Sensors
 {
@@ -17,6 +18,8 @@ namespace Ship.Sensors
 
         public event TargetDestroyed TargetDestroyedEvent;
 
+        public UnityAction AllegianceChangeAction;
+
         public void Init(TargetType initialTargetType, TargetAllegiance targetAllegiance)
         {
             if (this.isInit)
@@ -28,6 +31,12 @@ namespace Ship.Sensors
 
             this.targetType = initialTargetType;
             this.allegiance = targetAllegiance;
+        }
+
+        public void ChangeAllegiance(TargetAllegiance allegiance)
+        {
+            Debug.Log("SensorTarget.ChangeType");
+            this.allegiance = allegiance;
         }
 
         private void OnDestroy()

@@ -33,7 +33,7 @@ namespace Ship.Weaponry.Trigger
                 if (this.timeSinceLastShot > this.TimeBetweenShots)
                 {
                     this.timeSinceLastShot = 0f;
-                    Debug.Log("Weapon Fired Event Triggered");
+                    //Debug.Log("Weapon Fired Event Triggered");
                     this.WeaponFiredEvent?.Invoke();
                 }
             }

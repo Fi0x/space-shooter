@@ -295,6 +295,13 @@ namespace Enemy
         {
             assignedFlock.RemoveBoid(this);
         }
+
+
+        // investigate attack
+        public void NotifyAboutPlayerAttackingEnemy()
+        {
+            assignedFlock.InvestigateAttack();
+        }
     }
 
 }

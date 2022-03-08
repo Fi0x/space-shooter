@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Manager;
 using Enemy;
+using Ship.Sensors;
 
 namespace Enemy
 {
@@ -61,44 +62,14 @@ namespace Enemy
         //public Boid[] allUnits { get; set; }
         public List<Boid> allUnits { get; set; }
 
+        // investigate attack
+        [SerializeField] private bool investigateAttack;
+
         private void Start()
         {
             GenerateUnits();
             GetRoamingPosition();
         }
-
-        /*
-        private void Update()
-        {
-            for (int i = 0; i < allUnits.Length; i++)
-            {
-                if (Vector3.Distance(allUnits[i].myTransform.position, roamingPosition) <= roamingPosReachedDistance)
-                {
-                    GetRoamingPosition();
-                }
-
-                //allUnits[i].MoveUnit();
-            }
-        }
-        */
-
-        /*
-        private void GenerateUnits()
-        {
-            allUnits = new Boid[flockSize];
-
-            for (int i = 0; i < flockSize; i++)
-            {
-                var randomVector = Random.insideUnitSphere;
-                randomVector = new Vector3(randomVector.x * spawnBounds.x, randomVector.y * spawnBounds.y, randomVector.z * spawnBounds.z);
-                var spawnPosition = transform.position + randomVector;
-                var rotation = Quaternion.Euler(0, UnityEngine.Random.Range(0, 360), 0);
-                allUnits[i] = Instantiate(flockUnitPrefab, spawnPosition, rotation);
-                allUnits[i].AssignFlock(this);
-                allUnits[i].InitializeSpeed(UnityEngine.Random.Range(minSpeed, maxSpeed));
-                allUnits[i].BoidHelper();
-            }
-        }*/
 
         private void GenerateUnits()
         {
@@ -106,18 +77,6 @@ namespace Enemy
 
             for (int i = 0; i < flockSize; i++)
             {
-                /*
-                var randomVector = transform.position + Random.onUnitSphere * 10;
-                var rotation = Quaternion.Euler(0, 0, 0);
-                allUnits[i] = Instantiate(flockUnitPrefab, randomVector, rotation);
-                allUnits[i].AssignFlock(this);
-                allUnits[i].InitializeSpeed(UnityEngine.Random.Range(minSpeed, maxSpeed));
-                allUnits[i].BoidHelper();
-                allUnits[i].GetComponent<EnemyAI>().InitiliazeEnemyAI(this);
-
-                // parent
-                allUnits[i].transform.SetParent(this.transform);
-                */
 
                 var randomVector = transform.position + Random.onUnitSphere * 10;
                 var rotation = Quaternion.Euler(0, 0, 0);
@@ -147,21 +106,33 @@ namespace Enemy
 
             _roamingPosition = newRoamingPosition;
 
-            /*
-            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            cube.transform.position = newRoamingPosition;
-            cube.GetComponent<MeshRenderer>().material.color = Color.red;
-            */
         }
 
         public void SetNewRoamingPosition()
         {
             GetRoamingPosition();
+
+            if (investigateAttack) { 
+                investigateAttack = false; 
+                foreach(Boid boid in allUnits)
+                {
+                    boid.GetComponent<SensorTarget>().ChangeAllegiance(SensorTarget.TargetAllegiance.Hostile);
+                }
+            }
         }
 
         public void InvestigateAttack()
         {
+            Debug.Log("InvestigateAttack");
             _roamingPosition = GameManager.Instance.Player.transform.position;
+
+            this.investigateAttack = true;
+
+            foreach(Boid boid in allUnits)
+            {
+                // radar
+                boid.GetComponent<SensorTarget>().ChangeAllegiance(SensorTarget.TargetAllegiance.Neutral);
+            }
         }
 
         // removes Boid from allUnits
