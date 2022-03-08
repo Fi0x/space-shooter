@@ -76,8 +76,6 @@ namespace Ship
 
         public bool Braking => this.CurrentInputState.Braking;
 
-        public bool SwitchFlightModel { get; set; }
-
         private void Update()
         {
             if(InputManager.WaitingForKeyInput) return;
@@ -105,8 +103,6 @@ namespace Ship
 
             var isBraking = Input.GetKey(InputManager.BrakingKey);
             var isBoosting = Input.GetKey(InputManager.BoostKey);
-
-            if (Input.GetKeyDown(InputManager.FlightModeSwitchKey)) this.SwitchFlightModel = true;
 
             var isShooting = Input.GetMouseButton(0) || this.debugForceShootingTrue;
 
