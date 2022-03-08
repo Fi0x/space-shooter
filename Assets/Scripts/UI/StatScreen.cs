@@ -16,6 +16,7 @@ namespace UI
         
         private readonly List<GameObject> statList = new List<GameObject>();
 
+        //TODO: Update stat types that can be displayed when the stat menu is shown (weapon types are registered too late)
         private void Start()
         {
             foreach (var stat in StatCollector.FloatStats)
