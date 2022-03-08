@@ -1,6 +1,7 @@
 using Components;
 using Enemy;
 using Ship;
+using Stats;
 using UI;
 using UI.GameOver;
 using UnityEngine;

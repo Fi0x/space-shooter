@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Ship.Weaponry;
+using Stats;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +23,7 @@ namespace UI
                 var newPrefab = Instantiate(this.statPrefab, this.transform);
                 
                 var (nameText, valueText) = GetTextComponents(newPrefab);
-                nameText.text = stat.Key.ToString();
+                nameText.text = StatNames.GetDisplayName(stat.Key);
                 var value = Math.Round(stat.Value, 2);
                 valueText.text = value.ToString(CultureInfo.InvariantCulture);
                 
@@ -33,7 +34,7 @@ namespace UI
                 var newPrefab = Instantiate(this.statPrefab, this.transform);
 
                 var (nameText, valueText) = GetTextComponents(newPrefab);
-                nameText.text = stat.Key.ToString();
+                nameText.text = StatNames.GetDisplayName(stat.Key);
                 valueText.text = stat.Value.ToString();
                 
                 this.statList.Add(newPrefab);

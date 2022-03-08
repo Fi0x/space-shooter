@@ -1,4 +1,5 @@
 using System;
+using Stats;
 using UnityEngine;
 using UnityEngine.UI;
 using UpgradeSystem;
@@ -28,7 +29,7 @@ namespace UI.Upgrade
             UpgradeHandler.PurchaseUpgrade(this.Type, valueChange);
             UpgradePurchasedEvent?.Invoke(null, new UpgradePurchasedEventArgs(this.Type, valueChange));
             
-            StatCollector.IntStats[StatCollector.StatValues.UpgradesPurchased] += valueChange;
+            StatCollector.IntStats[StatNames.StatValues.UpgradesPurchased] += valueChange;
         }
 
         private void UpdateVisibility()
