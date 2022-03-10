@@ -10,7 +10,7 @@ using UpgradeSystem;
 
 namespace Components
 {
-    public class Health : MonoBehaviour, IUpgradeable
+    public class Health : MonoBehaviour, IUpgradeable, IDamageable
     {
         [SerializeField] private bool isPlayer;
 
@@ -27,6 +27,7 @@ namespace Components
             set
             {
                 this.maxHealth = value;
+                currentHealth = maxHealth;
                 if(!generateHealthBar)
                     HealthBar.SetMaxHealth(this.MaxHealth);
             }
@@ -39,7 +40,7 @@ namespace Components
 
         public AnimationCurve flashingCurve;
         public float flashingDuration;
-        public Renderer renderer;
+        public List<Renderer> renderers;
 
         public GameObject deathVFX;
         public float vfxLifetime = 4.5f;
@@ -132,7 +133,10 @@ namespace Components
         {
             for (float t = 0f; t < time; t += Time.deltaTime)
             {
-                renderer.material.SetFloat("_FlashingStrength", flashingCurve.Evaluate(t / time));
+                foreach (var renderer in renderers)
+                {
+                    renderer.material.SetFloat("_FlashingStrength", flashingCurve.Evaluate(t / time));
+                }
                 yield return null;
             }
         }

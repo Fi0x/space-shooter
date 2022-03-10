@@ -13,7 +13,7 @@ namespace UI
         [SerializeField] private Image barImage;
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private float updateSpeedSeconds = 0.2f;
-        [SerializeField] private float offset = 2f;
+        [SerializeField] private float offset = 0f;
         [SerializeField] private Health health;
         [SerializeField] private Vector2 minMaxSize = new Vector2(30f, 60f);
         [SerializeField] private Vector2 rangeValues = new Vector2(50f, 100f);

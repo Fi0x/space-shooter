@@ -101,7 +101,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   flashingDuration: 0.4
-  renderer: {fileID: 1529475873497292535}
+  renderers:
+  - {fileID: 1529475873497292535}
   deathVFX: {fileID: 8129684975493300762, guid: f56c7a0d6cf75b84eb81a434de7ae556, type: 3}
   vfxLifetime: 4
 --- !u!54 &429333123813247738
