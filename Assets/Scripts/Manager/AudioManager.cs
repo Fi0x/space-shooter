@@ -47,6 +47,12 @@ public class AudioManager : MonoBehaviour
         }
         s.source.Play();
     }
+
+    public void UpdateGeneralVolume(float volume)
+    {
+        foreach (var s in sounds)
+            s.source.volume = volume;
+    }
 }
 
 [System.Serializable]

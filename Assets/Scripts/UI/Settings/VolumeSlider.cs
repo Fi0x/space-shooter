@@ -2,17 +2,15 @@ using Manager;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace UI.Settings
 {
-    public class SensitivitySlider : MonoBehaviour
+    public class VolumeSlider : MonoBehaviour
     {
         [SerializeField] private InputField valueField;
-        private Slider slider;
+        [SerializeField] private Slider slider;
 
         private void Start()
         {
-            this.slider = this.gameObject.GetComponent<Slider>();
-            
             this.valueField.text = $"{InputManager.MouseSensitivity}";
             this.slider.value = InputManager.MouseSensitivity;
         }
@@ -22,7 +20,7 @@ namespace UI
             var newValue = this.slider.value;
 
             this.valueField.text = $"{newValue}";
-            InputManager.MouseSensitivity = newValue;
+            AudioManager.instance.UpdateGeneralVolume(newValue);
         }
 
         public void ValueUpdated()
@@ -41,7 +39,7 @@ namespace UI
             }
 
             this.slider.value = newValue;
-            InputManager.MouseSensitivity = newValue;
+            AudioManager.instance.UpdateGeneralVolume(newValue);
         }
     }
 }
