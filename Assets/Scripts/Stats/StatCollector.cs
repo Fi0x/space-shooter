@@ -1,7 +1,6 @@
 #nullable enable
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using Ship.Weaponry;
 
 namespace Stats
@@ -35,7 +34,8 @@ namespace Stats
 
         public static void NotifyAboutWeaponHit(WeaponHitInformation weaponHitInformation)
         {
-            if (weaponHitInformation == null) throw new ArgumentNullException(nameof(weaponHitInformation));
+            if (weaponHitInformation == null)
+                throw new ArgumentNullException(nameof(weaponHitInformation));
 
             FloatStats[StatNames.StatValues.DamageCaused] += weaponHitInformation.Damage;
             if (!WeaponTypeToDamageCausedStatLookup.ContainsKey(weaponHitInformation.Type))
@@ -43,20 +43,6 @@ namespace Stats
                 WeaponTypeToDamageCausedStatLookup[weaponHitInformation.Type] = 0;
             }
             WeaponTypeToDamageCausedStatLookup[weaponHitInformation.Type] += weaponHitInformation.Damage;
-        }
-
-        public static string? GetValueStringForStat(string statName)
-        {
-            var castedToEnum = StatNames.GetTypeFromDisplayName(statName);
-            return GetValueStringForStat(castedToEnum);
-        }
-
-        private static string? GetValueStringForStat(StatNames.StatValues statValueAsEnum)
-        {
-            if (FloatStats.ContainsKey(statValueAsEnum))
-                return FloatStats[statValueAsEnum].ToString(CultureInfo.InvariantCulture);
-        
-            return IntStats.ContainsKey(statValueAsEnum) ? IntStats[statValueAsEnum].ToString() : null;
         }
 
         public static void Reset()

@@ -16,9 +16,15 @@ namespace UI
         
         private readonly List<GameObject> statList = new List<GameObject>();
 
-        //TODO: Update stat types that can be displayed when the stat menu is shown (weapon types are registered too late)
-        private void Start()
+        private void OnEnable()
         {
+            this.UpdateStatList();
+        }
+
+        private void UpdateStatList()
+        {
+            this.statList.Clear();
+            
             foreach (var stat in StatCollector.FloatStats)
             {
                 var newPrefab = Instantiate(this.statPrefab, this.transform);
@@ -64,15 +70,6 @@ namespace UI
             return from keyValuePair in StatCollector.WeaponTypeToDamageCausedStatLookup
                 orderby keyValuePair.Value descending
                 select (keyValuePair.Value, keyValuePair.Key);
-        }
-
-        public void UpdateStats()
-        {
-            this.statList.ForEach(entry =>
-            {
-                var texts = GetTextComponents(entry);
-                texts.value.text = StatCollector.GetValueStringForStat(texts.name.text);
-            });
         }
 
         private static (Text name, Text value) GetTextComponents(GameObject statObject)
