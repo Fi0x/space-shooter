@@ -241,4 +241,4 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: f30349632c64e414dbc862c140582dfd, type: 3}
   pitchRange: {x: 0.95, y: 1.05}
-  volumeRange: {x: 0.6, y: 0.7}
+  volumeRange: {x: 0.4, y: 0.5}

@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partCount: 1
-  turretProbability: 0.5
+  turretProbability: 1
   endPieces:
   - {fileID: 5408309764135150792, guid: 5e4ba5e5dd916d74cbb20b0b8d4ec417, type: 3}
   - {fileID: 9018948670869770228, guid: 946e67c6248b59a43ba0ba54ca19e2f8, type: 3}

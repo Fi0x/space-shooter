@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Enemy.Station;
 using UnityEngine;
+using World;
 
 public class StationBuilder : MonoBehaviour
 {
@@ -57,6 +58,12 @@ public class StationBuilder : MonoBehaviour
         controller.parts.Add(currentPart);
         startPart.SnapStationPartToMe(currentPart, true);
         topPiece.transform.Rotate(0, Random.Range(-360, 360), 0);
+        
+        //generate turrets
+        foreach (var part in controller.parts)
+        {
+            part.GenerateTurrets(turretProbability);
+        }
     }
 
     private GameObject SpawnStationPart(List<GameObject> objects)
