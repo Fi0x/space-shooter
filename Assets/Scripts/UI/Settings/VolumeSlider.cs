@@ -7,16 +7,21 @@ namespace UI.Settings
     public class VolumeSlider : MonoBehaviour
     {
         [SerializeField] private InputField valueField;
-        [SerializeField] private Slider slider;
+        private Slider slider;
 
         private void Start()
         {
+            this.slider = this.gameObject.GetComponent<Slider>();
+            
             this.valueField.text = $"{InputManager.MouseSensitivity}";
             this.slider.value = InputManager.MouseSensitivity;
         }
 
         public void SliderUpdated()
         {
+            if(this.slider == null)
+                this.slider = this.gameObject.GetComponent<Slider>();
+
             var newValue = this.slider.value;
 
             this.valueField.text = $"{newValue}";

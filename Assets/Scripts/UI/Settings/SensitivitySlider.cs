@@ -19,6 +19,9 @@ namespace UI.Settings
 
         public void SliderUpdated()
         {
+            if(this.slider == null)
+                this.slider = this.gameObject.GetComponent<Slider>();
+            
             var newValue = this.slider.value;
 
             this.valueField.text = $"{newValue}";
