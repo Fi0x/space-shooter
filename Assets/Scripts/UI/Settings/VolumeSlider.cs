@@ -14,9 +14,11 @@ namespace UI.Settings
         private void Start()
         {
             this.slider = this.gameObject.GetComponent<Slider>();
+
+            var value = this.soundCategory == SliderType.Music ? 0.3f : AudioManager.EffectsVolume;
             
-            this.valueField.text = $"{InputManager.MouseSensitivity}";
-            this.slider.value = InputManager.MouseSensitivity;
+            this.valueField.text = $"{value}";
+            this.slider.value = value;
         }
 
         public void SliderUpdated()
@@ -57,7 +59,7 @@ namespace UI.Settings
                     AudioManager.instance.UpdateMusicAmbientVolume(newValue);
                     break;
                 case SliderType.Effects:
-                    //TODO: Update sound effects volume
+                    AudioManager.EffectsVolume = newValue;
                     break;
             }
         }

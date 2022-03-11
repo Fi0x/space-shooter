@@ -8,6 +8,8 @@ namespace Manager
         public static AudioManager instance;
         public Sound[] sounds;
 
+        public static float EffectsVolume = 0.3f;
+
         private void Awake()
         {
             if (instance != null)
