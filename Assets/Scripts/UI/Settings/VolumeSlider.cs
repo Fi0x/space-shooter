@@ -7,6 +7,8 @@ namespace UI.Settings
     public class VolumeSlider : MonoBehaviour
     {
         [SerializeField] private InputField valueField;
+        [SerializeField] private SliderType soundCategory = SliderType.Music;
+        
         private Slider slider;
 
         private void Start()
@@ -25,7 +27,7 @@ namespace UI.Settings
             var newValue = this.slider.value;
 
             this.valueField.text = $"{newValue}";
-            AudioManager.instance.UpdateGeneralVolume(newValue);
+            this.UpdateVolume(newValue);
         }
 
         public void ValueUpdated()
@@ -44,7 +46,26 @@ namespace UI.Settings
             }
 
             this.slider.value = newValue;
-            AudioManager.instance.UpdateGeneralVolume(newValue);
+            this.UpdateVolume(newValue);
+        }
+
+        private void UpdateVolume(float newValue)
+        {
+            switch (this.soundCategory)
+            {
+                case SliderType.Music:
+                    AudioManager.instance.UpdateMusicAmbientVolume(newValue);
+                    break;
+                case SliderType.Effects:
+                    //TODO: Update sound effects volume
+                    break;
+            }
+        }
+
+        private enum SliderType
+        {
+            Music,
+            Effects
         }
     }
 }

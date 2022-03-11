@@ -1,74 +1,76 @@
 using System;
 using UnityEngine;
-using UnityEngine.Audio;
 
-public class AudioManager : MonoBehaviour
+namespace Manager
 {
-    public static AudioManager instance;
-    public Sound[] sounds;
-
-    private void Awake()
+    public class AudioManager : MonoBehaviour
     {
-        if (instance != null)
+        public static AudioManager instance;
+        public Sound[] sounds;
+
+        private void Awake()
         {
-            Destroy(gameObject);
-            return;
-        }
-        else
-        {
-            instance = this;
-        }
+            if (instance != null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            else
+            {
+                instance = this;
+            }
         
-        DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
 
-        foreach (var s in sounds)
+            foreach (var s in sounds)
+            {
+                s.source = gameObject.AddComponent<AudioSource>();
+                s.source.clip = s.clip;
+
+                s.source.volume = s.volume;
+                s.source.pitch = s.pitch;
+                s.source.loop = s.loop;
+            }
+        }
+
+        private void Start()
         {
-            s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
+            Play("Ambience");
+        }
 
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
-            s.source.loop = s.loop;
+        public void Play(string soundName)
+        {
+            Sound s = Array.Find(sounds, sound => sound.name == soundName);
+            if (s == null)
+            {
+                Debug.LogWarning("Sound: " + soundName + " not found!");
+                return;
+            }
+            s.source.Play();
+        }
+
+        public void UpdateMusicAmbientVolume(float volume)
+        {
+            foreach (var s in this.sounds)
+                s.source.volume = volume;
         }
     }
 
-    private void Start()
+    [Serializable]
+    public class Sound
     {
-        Play("Ambience");
+        public string name;
+
+        public AudioClip clip;
+
+        [Range(0f, 1f)] 
+        public float volume;
+        [Range(0.1f, 3f)] 
+        public float pitch;
+
+        public bool loop;
+
+        [HideInInspector]
+        public AudioSource source;
     }
-
-    public void Play(string soundName)
-    {
-        Sound s = Array.Find(sounds, sound => sound.name == soundName);
-        if (s == null)
-        {
-            Debug.LogWarning("Sound: " + soundName + " not found!");
-            return;
-        }
-        s.source.Play();
-    }
-
-    public void UpdateGeneralVolume(float volume)
-    {
-        foreach (var s in sounds)
-            s.source.volume = volume;
-    }
-}
-
-[System.Serializable]
-public class Sound
-{
-    public string name;
-
-    public AudioClip clip;
-
-    [Range(0f, 1f)] 
-    public float volume;
-    [Range(0.1f, 3f)] 
-    public float pitch;
-
-    public bool loop;
-
-    [HideInInspector]
-    public AudioSource source;
 }

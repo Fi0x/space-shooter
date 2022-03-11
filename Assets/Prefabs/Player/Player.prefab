@@ -6843,7 +6843,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   identifier: WPN_Attachment_1
-  weaponPrefab: {fileID: 1062497909079289124, guid: a3d33a4c0de10719f987bcf5a9178970, type: 3}
+  weaponPrefab: {fileID: 7926824900738252276, guid: 02d70531b0bd0efeead1441259ec6d93, type: 3}
   weaponManager: {fileID: 3300866360858875059}
 --- !u!1001 &5361020282682646887
 PrefabInstance:
