@@ -11,14 +11,15 @@ namespace UI.Settings
         
         private Slider slider;
 
+        private const float MinValue = -80;
+        private const float MaxValue = 20;
+
         private void Start()
         {
             this.slider = this.gameObject.GetComponent<Slider>();
 
-            var value = this.soundCategory == SliderType.Music ? 0.3f : AudioManager.EffectsVolume;
-            
-            this.valueField.text = $"{value}";
-            this.slider.value = value;
+            this.valueField.text = "0";
+            this.slider.value = 0;
         }
 
         public void SliderUpdated()
@@ -35,16 +36,16 @@ namespace UI.Settings
         public void ValueUpdated()
         {
             var newValue = float.Parse(this.valueField.text);
-            if (newValue > 1)
+            if (newValue > MaxValue)
             {
-                newValue = 1;
-                this.valueField.text = "1";
+                newValue = MaxValue;
+                this.valueField.text = $"{MaxValue}";
             }
 
-            if (newValue <= 0)
+            if (newValue < MinValue)
             {
-                newValue = 0.001f;
-                this.valueField.text = "0.001";
+                newValue = MinValue;
+                this.valueField.text = $"{MinValue}";
             }
 
             this.slider.value = newValue;
@@ -59,7 +60,10 @@ namespace UI.Settings
                     AudioManager.instance.UpdateMusicAmbientVolume(newValue);
                     break;
                 case SliderType.Effects:
-                    AudioManager.EffectsVolume = newValue;
+                    AudioManager.instance.UpdateEffectsVolume(newValue);
+                    break;
+                case SliderType.Master:
+                    AudioManager.instance.UpdateMasterVolume(newValue);
                     break;
             }
         }
@@ -67,7 +71,8 @@ namespace UI.Settings
         private enum SliderType
         {
             Music,
-            Effects
+            Effects,
+            Master
         }
     }
 }

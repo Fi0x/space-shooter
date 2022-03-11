@@ -1,20 +1,21 @@
 using System;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Manager
 {
     public class AudioManager : MonoBehaviour
     {
         public static AudioManager instance;
-        public Sound[] sounds;
-
-        public static float EffectsVolume = 0.3f;
+        public Sound[] musicClips;
+        [SerializeField] private AudioMixer mixer;
 
         private void Awake()
         {
             if (instance != null)
             {
-                Destroy(gameObject);
+                Destroy(this.gameObject);
                 return;
             }
             else
@@ -22,27 +23,28 @@ namespace Manager
                 instance = this;
             }
         
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(this.gameObject);
 
-            foreach (var s in sounds)
+            foreach (var s in this.musicClips)
             {
-                s.source = gameObject.AddComponent<AudioSource>();
+                s.source = this.gameObject.AddComponent<AudioSource>();
                 s.source.clip = s.clip;
 
                 s.source.volume = s.volume;
                 s.source.pitch = s.pitch;
                 s.source.loop = s.loop;
+                s.source.outputAudioMixerGroup = this.mixer.FindMatchingGroups("Music").First();
             }
         }
 
         private void Start()
         {
-            Play("Ambience");
+            this.Play("Ambience");
         }
 
-        public void Play(string soundName)
+        private void Play(string soundName)
         {
-            Sound s = Array.Find(sounds, sound => sound.name == soundName);
+            var s = Array.Find(this.musicClips, sound => sound.name == soundName);
             if (s == null)
             {
                 Debug.LogWarning("Sound: " + soundName + " not found!");
@@ -51,10 +53,17 @@ namespace Manager
             s.source.Play();
         }
 
+        public void UpdateMasterVolume(float volume)
+        {
+            this.mixer.SetFloat("masterVolume", volume);
+        }
         public void UpdateMusicAmbientVolume(float volume)
         {
-            foreach (var s in this.sounds)
-                s.source.volume = volume;
+            this.mixer.SetFloat("musicVolume", volume);
+        }
+        public void UpdateEffectsVolume(float volume)
+        {
+            this.mixer.SetFloat("effectsVolume", volume);
         }
     }
 
