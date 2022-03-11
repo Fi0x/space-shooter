@@ -385,5 +385,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: StationSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 2024223957459546103, guid: 80c33f64cecf22e40bee840b37b96605, type: 3}
+      propertyPath: partCount
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80c33f64cecf22e40bee840b37b96605, type: 3}

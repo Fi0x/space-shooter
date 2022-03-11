@@ -7,6 +7,7 @@ public class SnapPoint : MonoBehaviour
     public SnapPoint snapTarget;
     public StationPart snappableStation => GetComponentInParent<StationPart>();
     
+    [ContextMenu("SnapMeToOther")]
     public void SnapAndAlign()
     {
         if (snapTarget != null)
@@ -16,6 +17,7 @@ public class SnapPoint : MonoBehaviour
         }
     }
     
+    [ContextMenu("SnapOtherToMe")]
     public void SnapAndAlignOtherToMe()
     {
         if (snapTarget != null)
@@ -24,14 +26,20 @@ public class SnapPoint : MonoBehaviour
             snapTarget.SnapTo(this);
         }
     }
+
+    [ContextMenu("AlignMe")]
+    public void AlignMeToOther()
+    {
+        AlignTo(snapTarget);
+    }
     
     public void AlignTo(SnapPoint other)
     {
         var stationTransform = snappableStation.transform;
-        var rotationOffset = transform.rotation.eulerAngles.x - stationTransform.rotation.eulerAngles.x;
+        var rotationOffset = transform.rotation.eulerAngles.z - stationTransform.rotation.eulerAngles.z;
         stationTransform.rotation = other.transform.rotation;
-        //stationTransform.Rotate(180, 0, 0);
-        stationTransform.Rotate(-rotationOffset, 0, 0);
+        stationTransform.Rotate(0, 0, 180);
+        stationTransform.Rotate(0, 0, -rotationOffset);
     }
     
     public void SnapTo(SnapPoint other)
