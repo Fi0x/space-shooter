@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -395076365835159212, guid: aa213270453c3d24dbbfb1f24620d17e, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 7833254931724580291, guid: 54012366f9c84714d9b5cd4580426a2c, type: 2}
     - target: {fileID: 1090185056321137668, guid: aa213270453c3d24dbbfb1f24620d17e, type: 3}
       propertyPath: m_Name
       value: ImpactProjectile1 Variant

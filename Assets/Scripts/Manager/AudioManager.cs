@@ -10,8 +10,10 @@ namespace Manager
         public static AudioManager instance;
         public Sound[] musicClips;
         [SerializeField] private AudioMixer mixer;
-
+        
         public static event EventHandler AudioManagerInitializedEvent;
+
+        public static AudioMixer Mixer;
 
         private void Awake()
         {
@@ -37,6 +39,8 @@ namespace Manager
                 s.source.loop = s.loop;
                 s.source.outputAudioMixerGroup = this.mixer.FindMatchingGroups("Music").First();
             }
+
+            Mixer = this.mixer;
 
             AudioManagerInitializedEvent?.Invoke(null, null);
         }
