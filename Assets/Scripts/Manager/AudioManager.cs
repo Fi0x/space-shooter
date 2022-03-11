@@ -11,6 +11,8 @@ namespace Manager
         public Sound[] musicClips;
         [SerializeField] private AudioMixer mixer;
 
+        public static event EventHandler AudioManagerInitializedEvent;
+
         private void Awake()
         {
             if (instance != null)
@@ -35,6 +37,8 @@ namespace Manager
                 s.source.loop = s.loop;
                 s.source.outputAudioMixerGroup = this.mixer.FindMatchingGroups("Music").First();
             }
+
+            AudioManagerInitializedEvent?.Invoke(null, null);
         }
 
         private void Start()

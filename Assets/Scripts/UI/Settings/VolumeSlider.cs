@@ -49,7 +49,10 @@ namespace UI.Settings
             }
 
             this.slider.value = newValue;
-            this.UpdateVolume(newValue);
+            if (AudioManager.instance == null)
+                AudioManager.AudioManagerInitializedEvent += (sender, args) => { this.UpdateVolume(newValue); };
+            else 
+                this.UpdateVolume(newValue);
         }
 
         private void UpdateVolume(float newValue)
