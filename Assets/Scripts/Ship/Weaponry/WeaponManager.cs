@@ -34,12 +34,11 @@ namespace Ship.Weaponry
         private void OnDisable()
         {
             this.enemyHitEvent.RemoveListener(HandleEnemyHitEvent);
-
         }
 
         private static void HandleEnemyHitEvent(WeaponHitInformation weaponHitInformation)
         {
-            StatCollector.UpdateStat($"{weaponHitInformation.Type} Damage", weaponHitInformation.Damage);
+            StatCollector.UpdateWeaponStat($"{weaponHitInformation.Type} Damage", weaponHitInformation.Damage);
         }
 
         private void Update()

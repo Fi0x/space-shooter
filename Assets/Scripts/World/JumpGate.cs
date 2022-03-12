@@ -10,7 +10,7 @@ public class JumpGate : MonoBehaviour
     {
         if (other.gameObject.layer == 8)
         {
-            StatCollector.UpdateStat("Levels Completed", 1);
+            StatCollector.UpdateGeneralStat("Levels Completed", 1);
             UpgradeScreen.ShowUpgradeScreen();
         }
     }

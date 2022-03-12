@@ -4783,7 +4783,7 @@ MonoBehaviour:
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 243280528826687985}
   m_HorizontalScrollbarVisibility: 0
-  m_VerticalScrollbarVisibility: 0
+  m_VerticalScrollbarVisibility: 1
   m_HorizontalScrollbarSpacing: 0
   m_VerticalScrollbarSpacing: 0
   m_OnValueChanged:
@@ -5543,7 +5543,7 @@ MonoBehaviour:
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 243280528628682405}
   m_HorizontalScrollbarVisibility: 0
-  m_VerticalScrollbarVisibility: 0
+  m_VerticalScrollbarVisibility: 1
   m_HorizontalScrollbarSpacing: 0
   m_VerticalScrollbarSpacing: 0
   m_OnValueChanged:
@@ -8364,7 +8364,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00082111, y: 181.83762}
+  m_AnchoredPosition: {x: -0.00082111, y: 181.73419}
   m_SizeDelta: {x: 733.34, y: 464.3848}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &5056116704028630504
@@ -8414,6 +8414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statPrefab: {fileID: 6018232943760028962, guid: 9915e240d0f4bf74994bc7704c04a956, type: 3}
+  subtopicPrefab: {fileID: 7940315755182864410, guid: b24f2fe2fce422d48a1758a5f1d03957, type: 3}
   scrollbar: {fileID: 3217734927340723185}
 --- !u!1 &2216049081157377516
 GameObject:
@@ -8609,7 +8610,7 @@ MonoBehaviour:
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 3217734927340723185}
   m_HorizontalScrollbarVisibility: 0
-  m_VerticalScrollbarVisibility: 0
+  m_VerticalScrollbarVisibility: 1
   m_HorizontalScrollbarSpacing: 0
   m_VerticalScrollbarSpacing: 0
   m_OnValueChanged:
@@ -8735,8 +8736,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2831649988924115505}
   m_HandleRect: {fileID: 4611883755350711831}
   m_Direction: 2
-  m_Value: 0.99994075
-  m_Size: 0.7831076
+  m_Value: 0.9999409
+  m_Size: 0.78266215
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

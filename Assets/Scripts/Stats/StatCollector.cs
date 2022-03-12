@@ -5,19 +5,28 @@ namespace Stats
 {
     public static class StatCollector
     {
-        public static Dictionary<string, float> Stats { get; } = new Dictionary<string, float>();
+        public static Dictionary<string, float> GeneralStats { get; } = new Dictionary<string, float>();
+        public static Dictionary<string, float> WeaponStats { get; } = new Dictionary<string, float>();
 
-        public static void UpdateStat(string statName, float valueDifference)
+        public static void UpdateGeneralStat(string statName, float valueDifference)
         {
-            if(!Stats.ContainsKey(statName))
-                Stats.Add(statName, 0f);
-            var valueToStore = Stats[statName] + valueDifference;
-            Stats[statName] = valueToStore;
+            if(!GeneralStats.ContainsKey(statName))
+                GeneralStats.Add(statName, 0f);
+            var valueToStore = GeneralStats[statName] + valueDifference;
+            GeneralStats[statName] = valueToStore;
+        }
+        public static void UpdateWeaponStat(string statName, float valueDifference)
+        {
+            if(!GeneralStats.ContainsKey(statName))
+                GeneralStats.Add(statName, 0f);
+            var valueToStore = GeneralStats[statName] + valueDifference;
+            GeneralStats[statName] = valueToStore;
         }
 
         public static void ResetStats()
         {
-            Stats.Clear();
+            GeneralStats.Clear();
+            WeaponStats.Clear();
         }
     }
 }

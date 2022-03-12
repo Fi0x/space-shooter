@@ -29,7 +29,7 @@ namespace UI.Upgrade
             UpgradeHandler.PurchaseUpgrade(this.Type, valueChange);
             UpgradePurchasedEvent?.Invoke(null, new UpgradePurchasedEventArgs(this.Type, valueChange));
             
-            StatCollector.UpdateStat("Upgrades Purchased", valueChange);
+            StatCollector.UpdateGeneralStat("Upgrades Purchased", valueChange);
         }
 
         private void UpdateVisibility()
