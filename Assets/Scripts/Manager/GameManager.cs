@@ -1,6 +1,7 @@
 using Components;
 using Enemy;
 using Ship;
+using Ship.Movement;
 using UI;
 using UI.GameOver;
 using UnityEngine;
@@ -91,7 +92,7 @@ namespace Manager
         {
             this.Player.transform.position = new Vector3(0, 0, 0);
             this.Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            this.Player.GetComponent<ShipMovementHandler>().SetNewTargetSpeed(0);
+            this.Player.GetComponent<PlayerShipMovementHandler>().SetNewTargetSpeed(0);
             var playerHealth = this.Player.GetComponent<Health>();
             playerHealth.MaxHealth = this.playerDefaultHealth;
             playerHealth.CurrentHealth = playerHealth.MaxHealth;

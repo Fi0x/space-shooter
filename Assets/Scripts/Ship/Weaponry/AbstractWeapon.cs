@@ -3,6 +3,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using System.Linq;
+using Ship.Movement;
 using Ship.Weaponry.Config;
 using Ship.Weaponry.Trigger;
 using UI.Upgrade;
@@ -19,7 +20,7 @@ namespace Ship.Weaponry
         public IWeaponTrigger? WeaponTrigger { get; protected set; } = null;
         protected readonly Dictionary<Enum, int> upgrades = new Dictionary<Enum, int>();
         
-        protected ShipMovementHandler shipMovementHandler = null!;
+        protected PlayerShipMovementHandler playerShipMovementHandler = null!;
 
         public WeaponConfigScriptableObject WeaponConfig => this.weaponConfig;
         
@@ -60,7 +61,7 @@ namespace Ship.Weaponry
             this.SetupWeaponTrigger();
             this.SubscribeToWeaponTrigger();
             
-            this.shipMovementHandler = this.weaponManager.GetParentShipGameObject().GetComponent<ShipMovementHandler>() ?? throw new NullReferenceException();
+            this.playerShipMovementHandler = this.weaponManager.GetParentShipGameObject().GetComponent<PlayerShipMovementHandler>() ?? throw new NullReferenceException();
 
             UpgradeButton.UpgradePurchasedEvent += (sender, args) =>
             {

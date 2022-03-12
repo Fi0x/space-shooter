@@ -28,7 +28,7 @@ namespace Ship.Weaponry
             var ownPosition = this.gameObject.transform.position;
             projectile.transform.position = ownPosition;
             var shotDirection = this.weaponManager.Target - ownPosition;
-            var projectileDirectionAndVelocity = this.weaponConfigProjectile.ProjectileSpeed * this.shipMovementHandler.TotalMaxSpeed *
+            var projectileDirectionAndVelocity = this.weaponConfigProjectile.ProjectileSpeed * this.playerShipMovementHandler.TotalMaxSpeed *
                                                  shotDirection.normalized * this.upgrades[Upgrades.UpgradeNames.WeaponProjectileSpeed];
             var projectileScript = projectile.GetComponent<WeaponProjectile>();
             projectileScript.Initialize(

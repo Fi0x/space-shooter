@@ -1,4 +1,5 @@
 using Ship;
+using Ship.Movement;
 using UI;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace Components
     public class Speed : MonoBehaviour
     {
         [Header("Speed")]
-        [SerializeField] private ShipMovementHandler smh;
+        [SerializeField] private PlayerShipMovementHandler smh;
 
         private SpeedIndicator speedIndicator;
 

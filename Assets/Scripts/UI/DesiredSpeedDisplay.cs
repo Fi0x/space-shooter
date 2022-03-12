@@ -1,5 +1,6 @@
 using System;
 using Ship;
+using Ship.Movement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,7 @@ namespace UI
     public class DesiredSpeedDisplay : MonoBehaviour
     {
         [Header("Speed")]
-        [SerializeField] private ShipMovementHandler smh;
+        [SerializeField] private PlayerShipMovementHandler smh;
         [SerializeField] private Image indicator;
         [SerializeField] private float maxValue = 175;
 
