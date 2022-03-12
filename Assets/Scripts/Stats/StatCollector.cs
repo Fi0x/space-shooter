@@ -17,10 +17,10 @@ namespace Stats
         }
         public static void UpdateWeaponStat(string statName, float valueDifference)
         {
-            if(!GeneralStats.ContainsKey(statName))
-                GeneralStats.Add(statName, 0f);
-            var valueToStore = GeneralStats[statName] + valueDifference;
-            GeneralStats[statName] = valueToStore;
+            if(!WeaponStats.ContainsKey(statName))
+                WeaponStats.Add(statName, 0f);
+            var valueToStore = WeaponStats[statName] + valueDifference;
+            WeaponStats[statName] = valueToStore;
         }
 
         public static void ResetStats()

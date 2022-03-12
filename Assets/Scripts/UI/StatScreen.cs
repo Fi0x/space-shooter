@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography;
 using Stats;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +24,8 @@ namespace UI
 
         private void UpdateStatList()
         {
+            foreach (var entry in this.statList)
+                Destroy(entry);
             this.statList.Clear();
 
             if(StatCollector.GeneralStats.Count > 0) 
