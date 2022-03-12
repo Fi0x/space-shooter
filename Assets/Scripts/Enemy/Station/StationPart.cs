@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Components;
 using UnityEngine;
 
 public class StationPart : MonoBehaviour
@@ -11,6 +12,7 @@ public class StationPart : MonoBehaviour
 
     [Header("StationSettings")]
     public GameObject turretPrefab;
+    [SerializeField] private List<Health> healthTargets;
 
     public void SnapStationPartToMe(StationPart other, bool snapToTop)
     {
@@ -46,5 +48,10 @@ public class StationPart : MonoBehaviour
         var turret = Instantiate(turretPrefab, transform);
         turret.transform.position = spawnTransform.position;
         turret.transform.rotation = spawnTransform.rotation;
+    }
+
+    public List<Health> GetTargets()
+    {
+        return healthTargets;
     }
 }

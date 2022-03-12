@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 339706900098507882}
   - component: {fileID: 5201848747576537493}
   - component: {fileID: 3075825480072160338}
-  m_Layer: 7
+  m_Layer: 13
   m_Name: Station_02
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -218,6 +218,7 @@ MonoBehaviour:
   bottomSnapPoint: {fileID: 4110299267602643106}
   turretSpawnPoints: []
   turretPrefab: {fileID: 9116252600651923114, guid: 80d1ed362b63f29488babbbcad4c9113, type: 3}
+  healthTargets: []
 --- !u!1001 &2479989408024372527
 PrefabInstance:
   m_ObjectHideFlags: 0

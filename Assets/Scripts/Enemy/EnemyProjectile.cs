@@ -32,7 +32,7 @@ namespace Enemy
         {
             if(other.gameObject.layer == LayerMask.NameToLayer("Player") || other.gameObject.layer == LayerMask.NameToLayer("Scenery"))
             {
-                if(other.TryGetComponent(out Health health))
+                if(other.TryGetComponent(out IDamageable health))
                 {
                     health.TakeDamage(Damage);
 

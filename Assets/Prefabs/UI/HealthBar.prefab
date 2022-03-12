@@ -172,6 +172,9 @@ MonoBehaviour:
   health: {fileID: 0}
   minMaxSize: {x: 15, y: 50}
   rangeValues: {x: 5, y: 300}
+  hideBehindLayers:
+    serializedVersion: 2
+    m_Bits: 8192
   visibleWhenFull: 1
 --- !u!225 &310235611809929060
 CanvasGroup:

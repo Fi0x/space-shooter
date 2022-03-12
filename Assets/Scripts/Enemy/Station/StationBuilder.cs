@@ -63,7 +63,13 @@ public class StationBuilder : MonoBehaviour
         foreach (var part in controller.parts)
         {
             part.GenerateTurrets(turretProbability);
+            var targets = part.GetTargets();
+            foreach (var target in targets)
+            {
+                controller.AddTarget(target);
+            }
         }
+        
     }
 
     private GameObject SpawnStationPart(List<GameObject> objects)

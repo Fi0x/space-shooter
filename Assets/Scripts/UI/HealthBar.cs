@@ -17,6 +17,7 @@ namespace UI
         [SerializeField] private Health health;
         [SerializeField] private Vector2 minMaxSize = new Vector2(30f, 60f);
         [SerializeField] private Vector2 rangeValues = new Vector2(50f, 100f);
+        [SerializeField] private LayerMask hideBehindLayers;
         
         public bool visibleWhenFull = false;
         private Camera cam;
@@ -60,7 +61,14 @@ namespace UI
             {
                 if (health == null) return;
                 var position = health.transform.position;
-                transform.position = cam.WorldToScreenPoint(position + Vector3.up * offset);
+                var camPosition = cam.WorldToScreenPoint(position + Vector3.up * offset);
+                transform.position = camPosition;
+
+                if (IsBehindObstacle(position, cam.transform.position))
+                {
+                    canvasGroup.alpha = 0f;
+                    return;
+                }
                 
                 float f = Vector3.Distance(position, cam.transform.position);
                 f = Mathf.Clamp(f, rangeValues.x, rangeValues.y);
@@ -92,6 +100,20 @@ namespace UI
             }
         }
 
+        private bool IsBehindObstacle(Vector3 position, Vector3 camPosition)
+        {
+            RaycastHit hitInfo;
+            Ray ray = new Ray(camPosition, (position - camPosition).normalized);
+            float max = (position - camPosition).magnitude;
+            //Debug.DrawLine(position, camPosition, Color.yellow);
+            if (Physics.Raycast(ray, out hitInfo, max, hideBehindLayers))
+            {
+                //Debug.DrawLine(hitInfo.point, hitInfo.collider.gameObject.transform.position, Color.magenta);
+                return true;
+            }
+            return false;
+        }
+        
         private void OnDestroy()
         {
             //health.OnHealthPctChanged -= HandleHealthChange;
