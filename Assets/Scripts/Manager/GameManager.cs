@@ -1,6 +1,7 @@
 using Components;
 using Enemy;
 using Ship;
+using Stats;
 using UI;
 using UI.GameOver;
 using UnityEngine;
@@ -60,7 +61,7 @@ namespace Manager
         public static void ResetGame()
         {
             level = 0;
-            StatCollector.Reset();
+            StatCollector.ResetStats();
             UpgradeHandler.Reset();
         }
 

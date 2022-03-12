@@ -1,6 +1,7 @@
 #nullable enable
 using System;
 using System.Collections.Generic;
+using Stats;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -27,18 +28,17 @@ namespace Ship.Weaponry
 
         private void OnEnable()
         {
-            this.enemyHitEvent.AddListener(this.HandleEnemyHitEvent);
+            this.enemyHitEvent.AddListener(HandleEnemyHitEvent);
         }
 
         private void OnDisable()
         {
-            this.enemyHitEvent.RemoveListener(this.HandleEnemyHitEvent);
-
+            this.enemyHitEvent.RemoveListener(HandleEnemyHitEvent);
         }
 
-        private void HandleEnemyHitEvent(WeaponHitInformation weaponHitInformation)
+        private static void HandleEnemyHitEvent(WeaponHitInformation weaponHitInformation)
         {
-            StatCollector.NotifyAboutWeaponHit(weaponHitInformation);
+            StatCollector.UpdateWeaponStat($"{weaponHitInformation.Type} Damage", weaponHitInformation.Damage);
         }
 
         private void Update()
