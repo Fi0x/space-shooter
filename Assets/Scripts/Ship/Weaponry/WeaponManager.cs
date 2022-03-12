@@ -28,18 +28,18 @@ namespace Ship.Weaponry
 
         private void OnEnable()
         {
-            this.enemyHitEvent.AddListener(this.HandleEnemyHitEvent);
+            this.enemyHitEvent.AddListener(HandleEnemyHitEvent);
         }
 
         private void OnDisable()
         {
-            this.enemyHitEvent.RemoveListener(this.HandleEnemyHitEvent);
+            this.enemyHitEvent.RemoveListener(HandleEnemyHitEvent);
 
         }
 
-        private void HandleEnemyHitEvent(WeaponHitInformation weaponHitInformation)
+        private static void HandleEnemyHitEvent(WeaponHitInformation weaponHitInformation)
         {
-            StatCollector.NotifyAboutWeaponHit(weaponHitInformation);
+            StatCollector.UpdateStat($"{weaponHitInformation.Type} Damage", weaponHitInformation.Damage);
         }
 
         private void Update()

@@ -96,7 +96,7 @@ namespace Components
 
             if (this.isPlayer)
             {
-                StatCollector.FloatStats[StatNames.StatValues.DamageTaken] += damage;
+                StatCollector.UpdateStat("Damage Taken", damage);
 
                 // shieldVFX
                 if(TryGetComponent(out ShieldVFX shieldVFX))
@@ -122,7 +122,7 @@ namespace Components
                 GameManager.GameOver();
             else
             {
-                StatCollector.IntStats[StatNames.StatValues.EnemiesKilled]++;
+                StatCollector.UpdateStat("Enemies Killed", 1);
                 UpgradeHandler.FreeUpgradePoints++;
                 if (generateHealthBar) OnHealthRemoved(this);
                 Destroy(this.gameObject);

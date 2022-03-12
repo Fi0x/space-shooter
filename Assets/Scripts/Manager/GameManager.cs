@@ -61,7 +61,7 @@ namespace Manager
         public static void ResetGame()
         {
             level = 0;
-            StatCollector.Reset();
+            StatCollector.ResetStats();
             UpgradeHandler.Reset();
         }
 
