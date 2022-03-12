@@ -17,6 +17,11 @@ public class BootScript : MonoBehaviour
     
     private void Start()
     {
+        //StartLoading();
+    }
+
+    public void StartLoading()
+    {
         if(this.loadStarted)
             return;
         
