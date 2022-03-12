@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ShipMat2
+  m_Name: ShipMatPlayer
   m_Shader: {fileID: -6465566751694194690, guid: e5647ec1fc480ab498201f590424a33d, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4

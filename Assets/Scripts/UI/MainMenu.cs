@@ -10,6 +10,7 @@ namespace UI
         public GameObject settingsPrefab;
         public CanvasGroup fadeCanvasGroup;
         public float fadeTime = 5f;
+        public float delay = 2f;
 
         private void Start()
         {
@@ -34,6 +35,8 @@ namespace UI
 
         private IEnumerator FadeIn(float time)
         {
+            fadeCanvasGroup.alpha = 1f;
+            yield return new WaitForSeconds(delay);
             float elapsed = 0f;
 
             while (elapsed < time)
