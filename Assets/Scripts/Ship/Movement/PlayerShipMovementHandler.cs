@@ -132,19 +132,9 @@ namespace Ship.Movement
                 this.isBoosting = input.Boosting;
                 this.BoostingStateChangedEvent?.Invoke(this.isBoosting);
             }
-
-            if (this.inputHandler.SwitchFlightModel)
-            {
-                this.inputHandler.SwitchFlightModel = false;
-                this.HandleNewFlightModelSelected();
-            }
+            
         }
 
-        private void HandleNewFlightModelSelected()
-        {
-            this.currentSettingsIndex = (this.currentSettingsIndex + 1) % this.settings.Count;
-            this.HandleSettingsUpdatedEvent();
-        }
 
         private void ModifyShipVector(InputHandler.InputState input)
         {
@@ -180,13 +170,6 @@ namespace Ship.Movement
 
 
 
-        }
-
-        private void HandleSettingsUpdatedEvent()
-        {
-            var currentSettings = this.Settings;
-            this.totalMaxSpeed = currentSettings.MaxSpeed + currentSettings.MaxSpeedBoost;
-            this.SettingsUpdatedEvent?.Invoke(currentSettings);
         }
 
         protected override void HandleLateralX(float deltaXLocalSpace, float xTargetLocalSpace, bool boosting = false) 
