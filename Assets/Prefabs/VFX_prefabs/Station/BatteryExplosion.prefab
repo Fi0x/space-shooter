@@ -174,7 +174,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 1000
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -209,7 +209,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -265,7 +265,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: f30349632c64e414dbc862c140582dfd, type: 3}
   pitchRange: {x: 0.95, y: 1.05}
-  volumeRange: {x: 0.3, y: 0.4}
+  volumeRange: {x: 0.9, y: 1}
 --- !u!169 &9207349907487495254
 AudioLowPassFilter:
   m_ObjectHideFlags: 0
