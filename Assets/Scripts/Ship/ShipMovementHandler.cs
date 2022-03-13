@@ -131,18 +131,6 @@ namespace Ship
                 this.isBoosting = input.Boosting;
                 this.BoostingStateChangedEvent?.Invoke(this.isBoosting);
             }
-
-            if (this.inputHandler.SwitchFlightModel)
-            {
-                this.inputHandler.SwitchFlightModel = false;
-                this.HandleNewFlightModelSelected();
-            }
-        }
-
-        private void HandleNewFlightModelSelected()
-        {
-            this.currentSettingsIndex = (this.currentSettingsIndex + 1) % this.settings.Count;
-            this.HandleSettingsUpdatedEvent();
         }
 
         private void ModifyShipVector(InputHandler.InputState input)
@@ -176,16 +164,6 @@ namespace Ship
             currentDirectionLocalSpace = this.transform.InverseTransformDirection(currentDirection);
             differenceCurrentDirectionToTargetLocalSpace = targetVectorLocalSpace - currentDirectionLocalSpace;
             this.HandleMainThrust(differenceCurrentDirectionToTargetLocalSpace.z, targetVectorLocalSpace.z);
-
-
-
-        }
-
-        private void HandleSettingsUpdatedEvent()
-        {
-            var currentSettings = this.Settings;
-            this.totalMaxSpeed = currentSettings.MaxSpeed + currentSettings.MaxSpeedBoost;
-            this.SettingsUpdatedEvent?.Invoke(currentSettings);
         }
 
         private void HandleMainThrust(float deltaZLocalSpace, float zTargetLocalSpace)

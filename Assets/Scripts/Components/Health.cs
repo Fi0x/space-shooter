@@ -6,6 +6,7 @@ using Manager;
 using UI;
 using UnityEngine;
 using System.Collections;
+using Stats;
 using UpgradeSystem;
 
 namespace Components
@@ -95,7 +96,7 @@ namespace Components
 
             if (this.isPlayer)
             {
-                StatCollector.FloatStats[StatCollector.StatValues.DamageTaken] += damage;
+                StatCollector.UpdateGeneralStat("Damage Taken", damage);
 
                 // shieldVFX
                 if(TryGetComponent(out ShieldVFX shieldVFX))
@@ -121,7 +122,7 @@ namespace Components
                 GameManager.GameOver();
             else
             {
-                StatCollector.IntStats[StatCollector.StatValues.EnemiesKilled]++;
+                StatCollector.UpdateGeneralStat("Enemies Killed", 1);
                 UpgradeHandler.FreeUpgradePoints++;
                 if (generateHealthBar) OnHealthRemoved(this);
                 Destroy(this.gameObject);
