@@ -19,10 +19,13 @@ namespace Ship.Sensors
         [SerializeField] private Color friendlyColor;
         [SerializeField] private Color neutralColor;
         [SerializeField] private Color hostileColor;
+        [SerializeField] private Color jumpGateColor;
 
         public Color ColorFriendly => this.friendlyColor;
         public Color ColorNeutral => this.neutralColor;
         public Color ColorHostile => this.hostileColor;
+
+        public Color JumpGateColor => this.jumpGateColor;
 
         public Sprite SpriteShip => this.shipTargetSprite;
         public Sprite SpriteStation => this.stationTargetSprite;

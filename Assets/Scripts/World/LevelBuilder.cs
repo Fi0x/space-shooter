@@ -134,7 +134,7 @@ namespace World
                             var gate = Instantiate(this.jumpGatePrefab, position, rotation, this.transform);
                             var sensorTarget = gate.GetComponent<SensorTarget>();
                             sensorTarget.TargetDestroyedEvent += target => this.portals.Remove(target);
-                            sensorTarget.Init(SensorTarget.TargetType.JumpGate, SensorTarget.TargetAllegiance.Friendly);
+                            sensorTarget.Init(SensorTarget.TargetType.JumpGate, SensorTarget.TargetAllegiance.JumpGate);
                             this.portals.Add(sensorTarget);
                             RadarManager.InvokeRadarObjectSpawnedEvent(gate);
                         }

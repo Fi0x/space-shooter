@@ -1504,8 +1504,9 @@ MonoBehaviour:
   missileTargetSprite: {fileID: 366635945936629851, guid: 66d6d6551e3f0d191aa03a09410f76c2, type: 3}
   jumpGateTargetSprite: {fileID: 4419832468179011763, guid: ece161dd498b47d42a80cce4c263d32a, type: 3}
   friendlyColor: {r: 0.10376089, g: 0.4339623, b: 0, a: 1}
-  neutralColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
+  neutralColor: {r: 1, g: 0.3683611, b: 0, a: 1}
   hostileColor: {r: 0.5566038, g: 0, b: 0, a: 1}
+  jumpGateColor: {r: 1, g: 0, b: 0.63913155, a: 1}
 --- !u!1 &3300866360858875051
 GameObject:
   m_ObjectHideFlags: 0

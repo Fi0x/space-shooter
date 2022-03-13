@@ -18,7 +18,7 @@ namespace Manager
         {
             var sensorTarget = enemy.GetComponent<SensorTarget>();
             sensorTarget.TargetDestroyedEvent += target => this.enemies.Remove(target);
-            sensorTarget.Init(SensorTarget.TargetType.Ship, SensorTarget.TargetAllegiance.Hostile);
+            sensorTarget.Init(SensorTarget.TargetType.Ship, SensorTarget.TargetAllegiance.Friendly);
             this.enemies.Add(sensorTarget);
             RadarManager.InvokeRadarObjectSpawnedEvent(enemy);
         }

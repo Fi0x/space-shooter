@@ -33,6 +33,7 @@ namespace Ship.Sensors
                 SensorTarget.TargetAllegiance.Friendly => this.radarManager.ColorFriendly,
                 SensorTarget.TargetAllegiance.Neutral => this.radarManager.ColorNeutral,
                 SensorTarget.TargetAllegiance.Hostile => this.radarManager.ColorHostile,
+                SensorTarget.TargetAllegiance.JumpGate => this.radarManager.JumpGateColor,
                 _ => throw new Exception("Unexpected Sensor Target Allegiance")
             };
 
@@ -82,6 +83,7 @@ namespace Ship.Sensors
                 SensorTarget.TargetAllegiance.Friendly => this.radarManager.ColorFriendly,
                 SensorTarget.TargetAllegiance.Neutral => this.radarManager.ColorNeutral,
                 SensorTarget.TargetAllegiance.Hostile => this.radarManager.ColorHostile,
+                SensorTarget.TargetAllegiance.JumpGate => this.radarManager.JumpGateColor,
                 _ => throw new Exception("Unexpected Sensor Target Allegiance")
             };
         }

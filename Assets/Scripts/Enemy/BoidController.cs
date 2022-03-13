@@ -111,12 +111,12 @@ namespace Enemy
         public void SetNewRoamingPosition()
         {
             GetRoamingPosition();
-
+            Debug.Log("Set new roaming position");
             if (investigateAttack) { 
                 investigateAttack = false; 
                 foreach(Boid boid in allUnits)
                 {
-                    boid.GetComponent<SensorTarget>().ChangeAllegiance(SensorTarget.TargetAllegiance.Hostile);
+                    boid.GetComponent<SensorTarget>().ChangeAllegiance(SensorTarget.TargetAllegiance.Friendly);
                 }
             }
         }
