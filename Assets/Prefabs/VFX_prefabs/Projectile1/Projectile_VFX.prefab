@@ -9829,7 +9829,6 @@ MonoBehaviour:
   muzzlePrefab: {fileID: 5338839266056552377, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
   impactPrefab: {fileID: 1090185056321137668, guid: aa213270453c3d24dbbfb1f24620d17e, type: 3}
   rb: {fileID: 6143299078952737090}
-  timeToLive: 2
   trail: {fileID: 3429988761347343811}
 --- !u!82 &-6531798745933722896
 AudioSource:
@@ -9840,7 +9839,7 @@ AudioSource:
   m_GameObject: {fileID: 7276553157955487200}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7833254931724580291, guid: 54012366f9c84714d9b5cd4580426a2c, type: 2}
   m_audioClip: {fileID: 8300000, guid: 1bf5a9fe31df8434fb68b9bfdf27906f, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.785
@@ -10017,9 +10016,7 @@ VFXRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  - {fileID: 0}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
