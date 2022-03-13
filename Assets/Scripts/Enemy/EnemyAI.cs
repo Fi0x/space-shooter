@@ -1,5 +1,7 @@
+using System;
 using Manager;
 using Ship;
+using Ship.Movement;
 using UnityEngine;
 
 namespace Enemy
@@ -9,6 +11,7 @@ namespace Enemy
         [Header("AI")]
         [SerializeField] [ReadOnlyInspector] private State state;
         [SerializeField] private Transform[] attackPoints;
+        [SerializeField] private NpcShipMovementHandler shipMovementHandler;
 
         [Header("Roaming")]
         [SerializeField] [ReadOnlyInspector] public Vector3 roamingPosition;
@@ -28,9 +31,13 @@ namespace Enemy
         [SerializeField] private Boid boid;
         [SerializeField] private BoidController boidController;
 
+        public BoidController Flock => this.boidController;
+
         public void InitializeEnemyAI(BoidController controller)
         {
             this.boid = this.GetComponent<Boid>();
+            this.shipMovementHandler ??= this.GetComponent<NpcShipMovementHandler>() ??
+                                         throw new NullReferenceException("No NpcShipMovementHandler set or found");
 
             this.state = State.Roaming;
             this.reachedPositionMaxDistance = 20.0f;
@@ -93,7 +100,7 @@ namespace Enemy
             if(Vector3.Distance(this.transform.position, this.roamingPosition) < this.reachedPositionMaxDistance)
                 this.boidController.SetNewRoamingPosition();
                 
-            this.boid.MoveUnit();
+            this.boid.GetDesiredDirectionAndVelocity();
             this.CheckState();
         }
 
