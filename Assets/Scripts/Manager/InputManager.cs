@@ -16,7 +16,7 @@ namespace Manager
         public static KeyCode StrafeRightKey = KeyCode.D;
         public static KeyCode BrakingKey = KeyCode.X;
         public static KeyCode BoostKey = KeyCode.LeftShift;
-        public static KeyCode PauseKey = KeyCode.P;
+        public static KeyCode PauseKey = KeyCode.Escape;
 
         private static Button _nextBindKey;
         private static KeyCode _mostRecentKey;
