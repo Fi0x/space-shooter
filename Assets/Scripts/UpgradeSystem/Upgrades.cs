@@ -29,7 +29,9 @@ namespace UpgradeSystem
             EngineRotationSpeedYaw,
             EngineStabilizationSpeed,
             
-            Health
+            Health,
+            
+            Unknown
         }
     }
 }

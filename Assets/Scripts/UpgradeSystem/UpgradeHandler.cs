@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace UpgradeSystem
 {
@@ -31,6 +30,25 @@ namespace UpgradeSystem
 
         public static Dictionary<Enum, int> GetAllUpgrades() => Upgrades;
         public static int GetSpecificUpgrade(Enum upgradeType) => Upgrades.First(e => e.Key.Equals(upgradeType)).Value;
+
+        public static string GetUpgradeCategory(Enum upgradeType) => (Upgrades.UpgradeNames) upgradeType switch
+        {
+            UpgradeSystem.Upgrades.UpgradeNames.WeaponDamage => "Weapons",
+            UpgradeSystem.Upgrades.UpgradeNames.WeaponFireRate => "Weapons",
+            UpgradeSystem.Upgrades.UpgradeNames.WeaponProjectileSpeed => "Weapons",
+
+            UpgradeSystem.Upgrades.UpgradeNames.EngineAcceleration => "Movement",
+            UpgradeSystem.Upgrades.UpgradeNames.EngineDeceleration => "Movement",
+            UpgradeSystem.Upgrades.UpgradeNames.EngineLateralThrust => "Movement",
+            UpgradeSystem.Upgrades.UpgradeNames.EngineRotationSpeedPitch => "Movement",
+            UpgradeSystem.Upgrades.UpgradeNames.EngineRotationSpeedRoll => "Movement",
+            UpgradeSystem.Upgrades.UpgradeNames.EngineRotationSpeedYaw => "Movement",
+            UpgradeSystem.Upgrades.UpgradeNames.EngineStabilizationSpeed => "Movement",
+
+            UpgradeSystem.Upgrades.UpgradeNames.Health => "Health",
+
+            _ => "Unknown",
+        };
 
         public static void PurchaseUpgrade(Enum upgradeName, int valueChange)
         {
