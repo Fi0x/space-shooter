@@ -659,7 +659,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 4
+    type: 0
     angle: 30
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
@@ -746,7 +746,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.06
+      value: 0.2
       mode: 0
       spread: 0
       speed:
@@ -918,7 +918,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 20
+      scalar: 12
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4853,13 +4853,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seekingRadius: 300
-  mask:
+  targetMask:
     serializedVersion: 2
     m_Bits: 128
   target: {fileID: 0}
   rb: {fileID: 4789725940651663089}
-  maxSpeed: 50
-  turnSpeed: 2
+  maxSpeed: 75
+  turnSpeed: 3
   explosionRadius: 30
   damage: 3000
   damageFalloff:
@@ -4877,17 +4877,16 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -0.4593301
+      outSlope: -0.4593301
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.23750001
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maxLifetime: 10
-  damageExplosionThreshold: 100
+  maxLifetime: 8
   vfxPrefab: {fileID: 4575459077408144046, guid: bbad63171a29d84489d6bebc5db3d219, type: 3}
   vfxLifetime: 5
 --- !u!136 &1125137880335566016
@@ -4900,8 +4899,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.25
-  m_Height: 1.3
+  m_Radius: 0.4
+  m_Height: 1.5
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4789725940651663089

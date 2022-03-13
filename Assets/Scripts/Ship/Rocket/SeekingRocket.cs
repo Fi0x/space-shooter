@@ -10,8 +10,9 @@ namespace Ship.Rocket
     {
         [Header("RocketTargeting")]
         [SerializeField] private float seekingRadius = 200f;
-        [SerializeField] private LayerMask mask;
+        [SerializeField] private LayerMask targetMask;
         [SerializeField] private Transform target;
+        [SerializeField] private float timeBetweenUpdates = 0.5f;
 
         [Header("Movement")]
         [SerializeField] private Rigidbody rb;
@@ -82,7 +83,7 @@ namespace Ship.Rocket
                 target = CheckForTarget();
                 if(target !=null)
                     Debug.DrawLine(transform.position, target.position, Color.green);
-                yield return new WaitForSeconds(.1f);
+                yield return new WaitForSeconds(timeBetweenUpdates);
             }
         }
 
@@ -94,7 +95,7 @@ namespace Ship.Rocket
 
         private void DamageTargetsInRadius()
         {
-            var colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+            var colliders = Physics.OverlapSphere(transform.position, explosionRadius, targetMask);
             foreach (var collider in colliders)
             {
                 if (collider.TryGetComponent(out IDamageable damageable))
@@ -108,7 +109,7 @@ namespace Ship.Rocket
         
         private Transform CheckForTarget()
         {
-            var colliders = Physics.OverlapSphere(transform.position, seekingRadius, mask);
+            var colliders = Physics.OverlapSphere(transform.position, seekingRadius, targetMask);
             var newTarget = GetClosestEnemy(colliders);
             if (newTarget != null) return newTarget;
             return null;
