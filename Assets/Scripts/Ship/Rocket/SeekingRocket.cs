@@ -33,6 +33,7 @@ namespace Ship.Rocket
 
         private void Start()
         {
+            maxSpeed += rb.velocity.magnitude;
             StartCoroutine(UpdateTarget());
             StartCoroutine(ExplodeIn(maxLifetime));
         }
@@ -44,7 +45,7 @@ namespace Ship.Rocket
 
         private void SteerTowardsTarget()
         {
-            rb.velocity = Vector3.SmoothDamp(rb.velocity, transform.forward * maxSpeed,  ref dampVel,0.1f);
+            rb.velocity = Vector3.SmoothDamp(rb.velocity, transform.forward * maxSpeed,  ref dampVel,1f);
             if (target == null) return;
             var rocketRotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(target.position - transform.position), turnSpeed);
             
@@ -133,7 +134,7 @@ namespace Ship.Rocket
                 }
             }
      
-            Debug.Log(bestTarget);
+            //Debug.Log(bestTarget);
             return bestTarget;
         }
     }

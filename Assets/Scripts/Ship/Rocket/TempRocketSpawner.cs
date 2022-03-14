@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TempRocketSpawner : MonoBehaviour
 {
+    [SerializeField] private Rigidbody shipRb;
     public Transform spawnPoint;
     public GameObject prefab;
 
@@ -12,8 +13,9 @@ public class TempRocketSpawner : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log("spawnRocket");
-            Instantiate(prefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+            //Debug.Log("spawnRocket");
+            var rocket = Instantiate(prefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+            rocket.GetComponent<Rigidbody>().velocity = shipRb.velocity;
         }
     }
 }

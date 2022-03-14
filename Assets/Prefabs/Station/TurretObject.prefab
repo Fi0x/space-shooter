@@ -354,7 +354,7 @@ MonoBehaviour:
   attackRange: 300
   turnTime: 0.3
   angleOfAttack: 7
-  maxHealth: 100
+  maxHealth: 1000
 --- !u!136 &4055082935499376218
 CapsuleCollider:
   m_ObjectHideFlags: 0

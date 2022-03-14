@@ -1837,6 +1837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8172fa8ab3033484eaeade770e6efa75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shipRb: {fileID: 3300866360858875058}
   spawnPoint: {fileID: 3300866360229414215}
   prefab: {fileID: 6930712661950448642, guid: 6da7318e5b02b424eb96b2675e83b2e3, type: 3}
 --- !u!1 &3300866360932033469
@@ -6969,7 +6970,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1680914188732027124, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
       propertyPath: m_fontSize
-      value: 48.85
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 1680914188732027124, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
       propertyPath: m_fontAsset
