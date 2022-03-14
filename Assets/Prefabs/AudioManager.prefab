@@ -43,10 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1206a245c4b2c4a448be6b753e800916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
+  musicClips:
   - name: Ambience
     clip: {fileID: 8300000, guid: 065ccdc0aca78954aa5d0daf9b4adfdf, type: 3}
     volume: 0.064
     pitch: 1
     loop: 1
     source: {fileID: 0}
+  mixer: {fileID: 24100000, guid: 54012366f9c84714d9b5cd4580426a2c, type: 2}

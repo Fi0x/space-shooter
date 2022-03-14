@@ -2,7 +2,7 @@ using Manager;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace UI.Settings
 {
     public class SensitivitySlider : MonoBehaviour
     {
@@ -19,6 +19,9 @@ namespace UI
 
         public void SliderUpdated()
         {
+            if(this.slider == null)
+                this.slider = this.gameObject.GetComponent<Slider>();
+            
             var newValue = this.slider.value;
 
             this.valueField.text = $"{newValue}";

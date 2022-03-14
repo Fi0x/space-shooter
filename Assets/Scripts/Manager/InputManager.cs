@@ -16,8 +16,7 @@ namespace Manager
         public static KeyCode StrafeRightKey = KeyCode.D;
         public static KeyCode BrakingKey = KeyCode.X;
         public static KeyCode BoostKey = KeyCode.LeftShift;
-        public static KeyCode FlightModeSwitchKey = KeyCode.T;
-        public static KeyCode PauseKey = KeyCode.P;
+        public static KeyCode PauseKey = KeyCode.Escape;
 
         private static Button _nextBindKey;
         private static KeyCode _mostRecentKey;
@@ -45,7 +44,6 @@ namespace Manager
             "BtnStrafeRight" => StrafeRightKey.ToString(),
             "BtnBraking" => BrakingKey.ToString(),
             "BtnBoost" => BoostKey.ToString(),
-            "BtnFlightModeSwitch" => FlightModeSwitchKey.ToString(),
             "BtnPause" => PauseKey.ToString(),
             _ => "NONE"
         };
@@ -79,9 +77,6 @@ namespace Manager
                     break;
                 case "BtnBoost":
                     BoostKey = newKey;
-                    break;
-                case "BtnFlightModeSwitch":
-                    FlightModeSwitchKey = newKey;
                     break;
                 case "BtnPause":
                     PauseKey = newKey;

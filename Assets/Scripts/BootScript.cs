@@ -26,8 +26,6 @@ public class BootScript : MonoBehaviour
             return;
         
         this.loadStarted = true;
-        
-        StatCollector.InitializeStatMaps();
 
         DontDestroyOnLoad(this.gameObject);
         SceneManager.LoadScene(this.levelSceneName);

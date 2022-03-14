@@ -12,6 +12,7 @@ namespace UI.Upgrade
     {
         [SerializeField] private GameObject mainGameObject;
         [SerializeField] private GameObject upgradePrefab;
+        [SerializeField] private GameObject subtopicPrefab;
         [SerializeField] private Scrollbar scrollbar;
         [SerializeField] private Text freePointTextField;
 
@@ -20,7 +21,8 @@ namespace UI.Upgrade
         private static Scrollbar _scrollbar;
         private static Text _freePointTextField;
         
-        private readonly Dictionary<Enum, GameObject> upgradeList = new Dictionary<Enum, GameObject>();
+        private readonly Dictionary<string, GameObject> upgradeList = new Dictionary<string, GameObject>();
+        private int subtopicCount;
 
         public static event EventHandler UpgradeScreenShownEvent;
 
@@ -39,7 +41,7 @@ namespace UI.Upgrade
                 foreach (var upgradeEntry in this.upgradeList)
                 {
                     var (_, valueText) = GetTextComponents(upgradeEntry.Value);
-                    valueText.text = UpgradeHandler.GetSpecificUpgrade(upgradeEntry.Key).ToString();
+                    valueText.text = UpgradeHandler.GetSpecificUpgrade((Enum) Enum.Parse(typeof(Upgrades.UpgradeNames), upgradeEntry.Key)).ToString();
                 }
             };
 
@@ -92,10 +94,24 @@ namespace UI.Upgrade
 
         private void ExpandUpgradeList()
         {
+            var currentCategory = "";
             foreach (var upgrade in UpgradeHandler.GetAllUpgrades())
             {
-                if(this.upgradeList.ContainsKey(upgrade.Key))
+                if(this.upgradeList.ContainsKey(upgrade.Key.ToString()))
                     continue;
+
+                var category = UpgradeHandler.GetUpgradeCategory(upgrade.Key);
+                if (!currentCategory.Equals(category))
+                {
+                    currentCategory = category;
+                    var newSubtopic = Instantiate(this.subtopicPrefab, this.transform);
+                    
+                    var textComponents = newSubtopic.GetComponentsInChildren<Text>(); 
+                    var nameText = textComponents.First(c => c.gameObject.name.Equals("Name"));
+                    nameText.text = currentCategory;
+
+                    this.subtopicCount++;
+                }
                     
                 var newPrefab = Instantiate(this.upgradePrefab, this.transform);
                 
@@ -107,10 +123,10 @@ namespace UI.Upgrade
                 btnDecrease.Type = upgrade.Key;
                 btnIncrease.Type = upgrade.Key;
                 
-                this.upgradeList.Add(upgrade.Key, newPrefab);
+                this.upgradeList.Add(upgrade.Key.ToString(), newPrefab);
             }
             
-            this.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 10 + 50 * this.upgradeList.Count);
+            this.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 10 + 50 * (this.upgradeList.Count + this.subtopicCount));
             this.scrollbar.value = 1;
         }
     }
