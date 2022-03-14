@@ -149,9 +149,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb88f7ef104ad77409f0b1294ee9b420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FOVAngle: 360
+  fovAngle: 360
   smoothDamp: 1
-  directions: []
+  desiredSpeed: 20
 --- !u!114 &1544793552462117733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +168,7 @@ MonoBehaviour:
   attackPoints:
   - {fileID: 429333124123432732}
   - {fileID: 4961875227451673628}
+  shipMovementHandler: {fileID: 6283890719788517310}
   roamingPosition: {x: 0, y: 0, z: 0}
   reachedPositionMaxDistance: 0
   speed: 0
@@ -214,6 +215,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9697239d1a64a248d6f8fb6e92d4ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: 854197c235e57c67daaa37823ea270e8, type: 2}
+  shipObject: {fileID: 429333123813247712}
+  shipRb: {fileID: 429333123813247738}
 --- !u!1 &429333124123432733
 GameObject:
   m_ObjectHideFlags: 0

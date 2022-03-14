@@ -25,6 +25,7 @@ namespace Ship.Movement
         private InputHandler inputHandler;
         private float desiredSpeed;
         public override Rigidbody ShipRb => this.shipRb;
+        public override Dictionary<Enum, int> Upgrades { get; } = new Dictionary<Enum, int>();
         protected  override GameObject ShipObject => this.shipObject;
         
         public InputHandler InputHandler => this.inputHandler;
@@ -76,8 +77,9 @@ namespace Ship.Movement
 
             this.HandleAngularVelocity(input);
             this.ModifyShipVector(input);
-            this.CurrentSpeed = this.ShipRb.velocity.magnitude;
-            this.EffectiveForwardSpeed = this.transform.InverseTransformDirection(this.ShipRb.velocity).z;
+            var velocity = this.ShipRb.velocity;
+            this.CurrentSpeed = velocity.magnitude;
+            this.EffectiveForwardSpeed = this.transform.InverseTransformDirection(velocity).z;
             this.ForcesAppliedEvent?.Invoke();
         }
 
@@ -144,32 +146,8 @@ namespace Ship.Movement
             {
                 targetVector += this.transform.TransformDirection(Vector3.right * input.Strafe * this.Settings.LateralMaxSpeed);
             }
-
-            var currentDirection = this.shipRb.velocity;
-#if DEBUG_GIZMO
-            // Draws the Ships direction and target direction and the velocity components split up in global space
-            Debug.DrawLine(this.shipRb.position, this.shipRb.position + currentDirection, Color.magenta);
-            Debug.DrawLine(this.shipRb.position, this.shipRb.position + Vector3.right * currentDirection.x, Color.red);
-            Debug.DrawLine(this.shipRb.position, this.shipRb.position + Vector3.up * currentDirection.y, Color.green);
-            Debug.DrawLine(this.shipRb.position, this.shipRb.position + Vector3.forward * currentDirection.z, Color.blue);
-            Debug.DrawLine(this.shipRb.position, this.shipRb.position + targetVector, Color.yellow);
-#endif
-
-            var currentDirectionLocalSpace = this.transform.InverseTransformDirection(currentDirection);
-            var targetVectorLocalSpace = this.transform.InverseTransformDirection(targetVector);
-
-            var differenceCurrentDirectionToTargetLocalSpace = targetVectorLocalSpace - currentDirectionLocalSpace;
-
-            this.HandleLateralThrust(
-                differenceCurrentDirectionToTargetLocalSpace, targetVectorLocalSpace);
-
-            // Update values
-            currentDirectionLocalSpace = this.transform.InverseTransformDirection(currentDirection);
-            differenceCurrentDirectionToTargetLocalSpace = targetVectorLocalSpace - currentDirectionLocalSpace;
-            this.HandleMainThrust(differenceCurrentDirectionToTargetLocalSpace.z, targetVectorLocalSpace.z);
-
-
-
+            
+            base.ModifyShipVector(targetVector);
         }
 
         protected override void HandleLateralX(float deltaXLocalSpace, float xTargetLocalSpace, bool boosting = false) 

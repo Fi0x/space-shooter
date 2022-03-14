@@ -11,8 +11,26 @@ namespace Ship.Movement
         
         protected abstract GameObject ShipObject { get; }
         public  abstract Rigidbody ShipRb { get; }
+
+        public abstract Dictionary<Enum, int> Upgrades { get; }
         
-        public readonly Dictionary<Enum, int> Upgrades = new Dictionary<Enum, int>();
+        protected virtual void ModifyShipVector(Vector3 desiredVector)
+        {
+            var currentDirection = this.ShipRb.velocity;
+
+            var currentDirectionLocalSpace = this.transform.InverseTransformDirection(currentDirection);
+            var targetVectorLocalSpace = this.transform.InverseTransformDirection(desiredVector);
+
+            var differenceCurrentDirectionToTargetLocalSpace = targetVectorLocalSpace - currentDirectionLocalSpace;
+
+            this.HandleLateralThrust(
+                differenceCurrentDirectionToTargetLocalSpace, targetVectorLocalSpace);
+
+            // Update values
+            currentDirectionLocalSpace = this.transform.InverseTransformDirection(currentDirection);
+            differenceCurrentDirectionToTargetLocalSpace = targetVectorLocalSpace - currentDirectionLocalSpace;
+            this.HandleMainThrust(differenceCurrentDirectionToTargetLocalSpace.z, targetVectorLocalSpace.z);
+        }
         
         protected void HandleMainThrust(float deltaZLocalSpace, float zTargetLocalSpace, bool isBoosting = false)
         {
