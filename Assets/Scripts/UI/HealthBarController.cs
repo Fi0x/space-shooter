@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Components;
+using Enemy.Station;
 using UnityEngine.SceneManagement;
 
 namespace UI
@@ -10,6 +11,8 @@ namespace UI
     public class HealthBarController : MonoBehaviour
     {
         public HealthBar healthBarPrefab;
+        public StationController bossController;
+        public BossHealthBar bossHealthBar;
 
         private Dictionary<Health, HealthBar> healthBars = new Dictionary<Health, HealthBar>();
 
@@ -23,6 +26,8 @@ namespace UI
             healthBars = new Dictionary<Health, HealthBar>();
             Health.OnHealthAdded += AddHealthBar;
             Health.OnHealthRemoved += RemoveHealthBar;
+            StationController.OnBossHealthAdded += SetBossHealthBar;
+            StationController.OnBossHealthRemoved += RemoveBossHealthBar;
         }
 
         private void AddHealthBar(Health health)
@@ -43,17 +48,33 @@ namespace UI
                 healthBars.Remove(health);
             }
         }
+        
+        private void SetBossHealthBar(StationController controller)
+        {
+            bossController = controller;
+            bossHealthBar.SetHealth(controller);
+            bossHealthBar.SetVisible(true);
+        }
+        
+        private void RemoveBossHealthBar(StationController controller)
+        {
+            bossController = null;
+            bossHealthBar.SetVisible(false);
+        }
 
         private void OnDisable()
         {
             SceneManager.sceneLoaded -= OnLevelLoaded;
             Health.OnHealthAdded -= AddHealthBar;
             Health.OnHealthRemoved -= RemoveHealthBar;
+            StationController.OnBossHealthAdded -= SetBossHealthBar;
+            StationController.OnBossHealthRemoved -= RemoveBossHealthBar;
             foreach (var health in healthBars.Keys)
             {
                 Destroy(healthBars[health].gameObject);
             }
             healthBars.Clear();
+            bossController = null;
         }
 
         private void OnLevelLoaded(Scene scene, LoadSceneMode mode)

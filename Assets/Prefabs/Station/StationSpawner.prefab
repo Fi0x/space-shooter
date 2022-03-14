@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2024223957459546101
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2024223957459546100}
+  - component: {fileID: 2024223957459546103}
+  - component: {fileID: 2903541693097615010}
+  m_Layer: 0
+  m_Name: StationSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2024223957459546100
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024223957459546101}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.893135, y: 8.363736, z: -10.027242}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2024223957459546103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024223957459546101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 935ce74b3de30d6439ecccf0fd00e686, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partCount: 1
+  turretProbability: 1
+  endPieces:
+  - {fileID: 5408309764135150792, guid: 5e4ba5e5dd916d74cbb20b0b8d4ec417, type: 3}
+  - {fileID: 9018948670869770228, guid: 946e67c6248b59a43ba0ba54ca19e2f8, type: 3}
+  turretPieces:
+  - {fileID: 4745330824675933050, guid: f42d9a52ff6865f48a2bac9969c8220b, type: 3}
+  - {fileID: 6788159533097199032, guid: 8d826faa108fc0c4280ef960ce953967, type: 3}
+  - {fileID: 6788159533097199032, guid: d72f6f4dcd0649049837b1d15a02033c, type: 3}
+  connectorPieces:
+  - {fileID: 9076097198071283757, guid: 1f01013bc5a1e3046b4a45eaefec2a4a, type: 3}
+--- !u!114 &2903541693097615010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024223957459546101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fa087e7fca14f43964a3ca1d378344d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 0
+  maxHealth: 0
+  parts: []
+  turrets: []
