@@ -1,6 +1,7 @@
 #nullable enable
 using System;
 using Manager;
+using Ship.Weaponry;
 using Ship.Weaponry.Config;
 using UnityEngine;
 
@@ -28,18 +29,18 @@ namespace Targeting
         
 
         public (Vector3 position, float travelTime, bool canHit)? GetPredictedTargetLocation(Vector3 shooterPosition,
-            WeaponConfigScriptableObject weaponConfig)
+            AbstractWeapon weapon)
         {
-            if (weaponConfig is WeaponHitScanConfigScriptableObject hitscanSo)
+            if (weapon is HitScanWeapon hitScanWeapon)
             {
                 float distanceToShooter = Vector3.Distance(shooterPosition, this.transform.position);
                 
-                return (this.gameObject.transform.position, 0f, hitscanSo.MaxDistance > distanceToShooter);
+                return (this.gameObject.transform.position, 0f, (hitScanWeapon.WeaponConfig as WeaponHitScanConfigScriptableObject)!.MaxDistance > distanceToShooter);
             }
-            else if (weaponConfig is WeaponProjectileConfigScriptableObject projectileSo)
+            else if (weapon is ProjectileWeapon projectileWeapon)
             {
                 return this.GetPredictedTargetLocationProjectile(shooterPosition,
-                    projectileSo.ProjectileSpeed, projectileSo.TimeToLive);
+                    projectileWeapon.ProjectileSpeed, projectileWeapon.ProjectileTtl);
             }
             else
             {

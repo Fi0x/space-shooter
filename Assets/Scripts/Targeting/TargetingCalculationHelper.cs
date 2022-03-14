@@ -6,7 +6,9 @@ namespace Targeting
 {
     public static class TargetingCalculationHelper
     {
-        
+        // Don't bother trying to understand this through the code itself.
+        // This is a Method that resolves the following equation for its first Root
+        // https://www.desmos.com/calculator/jthl2vjkps
         public static float? GetPredictedTimeOfCollision(Vector3 shooterPosition, float projectileSpeed, Vector3 targetInitialPosition, Vector3 targetVelocity)
         {
             var deltaPosition = targetInitialPosition - shooterPosition;

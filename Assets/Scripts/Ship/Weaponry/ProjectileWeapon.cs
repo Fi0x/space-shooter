@@ -10,7 +10,7 @@ namespace Ship.Weaponry
         [NonSerialized]
         protected WeaponProjectileConfigScriptableObject weaponConfigProjectile = null!;
 
-        public float ProjectileSpeed => this.weaponConfigProjectile.ProjectileSpeed;
+        public float ProjectileSpeed => this.weaponConfigProjectile.ProjectileSpeed * this.upgrades[Upgrades.UpgradeNames.WeaponProjectileSpeed];
         public float ProjectileTtl => this.weaponConfigProjectile.TimeToLive;
         public WeaponConfigScriptableObject Config => this.weaponConfigProjectile;
 
@@ -28,8 +28,7 @@ namespace Ship.Weaponry
             var ownPosition = this.gameObject.transform.position;
             projectile.transform.position = ownPosition;
             var shotDirection = this.weaponManager.Target - ownPosition;
-            var projectileDirectionAndVelocity = this.weaponConfigProjectile.ProjectileSpeed * this.playerShipMovementHandler.TotalMaxSpeed *
-                                                 shotDirection.normalized * this.upgrades[Upgrades.UpgradeNames.WeaponProjectileSpeed];
+            var projectileDirectionAndVelocity = this.ProjectileSpeed * shotDirection.normalized;
             var projectileScript = projectile.GetComponent<WeaponProjectile>();
             projectileScript.Initialize(
                 projectileDirectionAndVelocity, 

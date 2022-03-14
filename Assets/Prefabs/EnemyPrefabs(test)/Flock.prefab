@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flockUnitPrefab: {fileID: -397256906301617565, guid: 93f0741716cf79c1094b9b5108c04537, type: 3}
-  flockSize: 10
+  flockSize: 1
   spawnBounds: {x: 0, y: 0, z: 0}
   _minSpeed: 100
   _maxSpeed: 100

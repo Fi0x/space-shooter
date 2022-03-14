@@ -31,7 +31,7 @@ namespace Targeting
             
             foreach (var target in GameManager.Instance.TargetableManager.Targets)
             {
-                var response = target.GetPredictedTargetLocation(this.weapon.transform.position, this.weapon.WeaponConfig);
+                var response = target.GetPredictedTargetLocation(this.weapon.transform.position, this.weapon);
                 if (response == null)
                 {
                     Debug.DrawRay(target.transform.position, Vector3.up, Color.red);
