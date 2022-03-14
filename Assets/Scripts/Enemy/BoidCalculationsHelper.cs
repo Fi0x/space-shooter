@@ -42,7 +42,7 @@ namespace Enemy
             }
         }
 
-        public static Vector3 CalculateMoveVector(this Boid self)
+        public static Vector3 CalculateMoveVectorWeightForces(this Boid self)
         {
             var cohesion = CalculateCohesionVector(self.transform, self.CohesionNeighbours, self.FovAngle) *
                            self.ParentFlock.cohesionWeight;

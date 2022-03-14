@@ -9,8 +9,15 @@ namespace Targeting
     public class Targetable : MonoBehaviour
     {
 
+        [SerializeField] private Rigidbody shipRB = null!;
+        
         private void OnEnable()
         {
+            if (this.shipRB == null)
+            {
+                this.shipRB = GetComponent<Rigidbody>() ??
+                              throw new NullReferenceException("No Rigidbody set. Could not infer from GameObject.");
+            }
             GameManager.Instance.TargetableManager.NotifyAboutNewTargetable(this);
         }
 
@@ -55,12 +62,9 @@ namespace Targeting
             return (position, timeOfCollision.Value, timeOfCollision.Value < ttl);
         }
 
-        private Vector3 GetOwnMovement()
-        {
-            return Vector3.one * 2;// !!! Always 0 ?! (this.transform.position - positionLastFrame) / Time.deltaTime;
-        }
+        private Vector3 GetOwnMovement() => this.shipRB.velocity;
 
-        
+
         // Some black magic is happening here. Its pretty hard to get it from the code.
         // Please refer to this Desmos Page: https://www.desmos.com/calculator/jthl2vjkps
         private float? GetPredictedTimeOfCollision(Vector3 shooterPosition, float projectileSpeed)

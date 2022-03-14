@@ -31,8 +31,8 @@ namespace Enemy
 
         public Vector3 GetDesiredDirectionAndVelocity()
         {
-            this.RebuildNeighbourLists();
-            var moveVector = this.CalculateMoveVector();
+            BoidCalculationsHelper.RebuildNeighbourLists(this);
+            var moveVector = BoidCalculationsHelper.CalculateMoveVectorWeightForces(this);
             
 
             if (IsHeadingForCollision(moveVector))
@@ -53,18 +53,16 @@ namespace Enemy
                 {
                     var ownTransform = this.transform;
                     var flockCenterDirection = flockCenterVector - ownTransform.position;
-                    moveVector += flockCenterDirection.normalized * this.DesiredSpeed;
+                    moveVector += flockCenterDirection.normalized;
                 }
             }
-
-            return moveVector;
+            return moveVector.normalized * this.DesiredSpeed;
         }
         
         private bool IsHeadingForCollision(Vector3 direction)
         {
             //Debug.DrawRay(transform.position, direction * assignedFlock.obstacleDistance, Color.green, 0.2f);
-            RaycastHit hit;
-            if (Physics.SphereCast(transform.position, 1.0f, direction, out hit, assignedFlock.obstacleDistance, LayerMask.GetMask("Scenery")))
+            if (Physics.SphereCast(transform.position, 1.0f, direction, out _, assignedFlock.obstacleDistance, LayerMask.GetMask("Scenery")))
             {
 
                 return true;

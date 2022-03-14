@@ -35,9 +35,17 @@ namespace Ship.Movement
             var currentRotation = this.ShipObject.transform.rotation;
 
             var angleBetweenBothRotations = Quaternion.Angle(asQuaternion, currentRotation);
-            var angleToTraverseThisTick = angleBetweenBothRotations * this.rotationRate * Time.fixedDeltaTime;
-            var fractionOfRotation = angleToTraverseThisTick / angleBetweenBothRotations;
-            this.ShipObject.transform.rotation = Quaternion.Slerp(currentRotation, asQuaternion, fractionOfRotation);
+            if (angleBetweenBothRotations < 0.5f)
+            {
+
+                return;
+            }
+
+            var traversionRateThisTick = this.rotationRate * Time.fixedDeltaTime;
+            var angleToTraverseThisTick = angleBetweenBothRotations > traversionRateThisTick
+                ? traversionRateThisTick
+                : angleBetweenBothRotations;
+            this.ShipObject.transform.rotation = Quaternion.Slerp(currentRotation, asQuaternion, angleToTraverseThisTick/angleBetweenBothRotations);
         }
         
         private void HandleShipVector()

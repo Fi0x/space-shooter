@@ -267,7 +267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flockPrefab: {fileID: 4441388412465704470, guid: 9044e0874372c02488a3a45bf756af5d, type: 3}
   minFlocks: 1
-  maxFlocks: 3
+  maxFlocks: 1
   minSpawnRange: 300
   maxSpawnRange: 400
 --- !u!1 &895869050661684332

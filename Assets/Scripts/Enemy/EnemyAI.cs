@@ -16,7 +16,6 @@ namespace Enemy
         [Header("Roaming")]
         [SerializeField] [ReadOnlyInspector] public Vector3 roamingPosition;
         [SerializeField] private float reachedPositionMaxDistance;
-        [SerializeField] private float speed = 20f;
 
         [Header("Attack")]
         [SerializeField] private float timeBetweenAttacks;
@@ -74,7 +73,7 @@ namespace Enemy
             var playerPos = GameManager.Instance.Player.transform.position;
             this.shipMovementHandler.NotifyAboutNewLookAtTarget(playerPos);
             var direction = playerPos - this.transform.position;
-            this.shipMovementHandler.NotifyAboutNewTargetDirectionWithVelocity(direction.normalized * this.speed);
+            this.shipMovementHandler.NotifyAboutNewTargetDirectionWithVelocity(direction.normalized * this.boid.DesiredSpeed);
         }
 
         private void AttackPlayer()
@@ -84,8 +83,10 @@ namespace Enemy
 
             // TODO: Replace with weapon trigger
             this.waitForAttack -= Time.deltaTime;
+            var angleBetweenSelfAndPlayer = Vector3.Angle(this.transform.forward,
+                this.transform.position - GameManager.Instance.Player.transform.position);
             if (this.waitForAttack < 0f
-                && Vector3.Angle(this.transform.forward, GameManager.Instance.Player.transform.position - this.transform.position) < 10)
+                && angleBetweenSelfAndPlayer < 10)
             {
                 this.waitForAttack = this.timeBetweenAttacks;
                 foreach (var attackPoint in this.attackPoints)
