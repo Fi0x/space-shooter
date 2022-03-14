@@ -242,7 +242,8 @@ MonoBehaviour:
   updateSpeedSeconds: 0.2
   offset: 2
   health: {fileID: 0}
-  sizeRange: {x: 30, y: 50}
+  minMaxSize: {x: 30, y: 60}
+  rangeValues: {x: 50, y: 100}
   visibleWhenFull: 0
 --- !u!1 &8824902617696493397
 GameObject:
@@ -326,7 +327,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &8824902617696493398
 MonoBehaviour:
   m_ObjectHideFlags: 0

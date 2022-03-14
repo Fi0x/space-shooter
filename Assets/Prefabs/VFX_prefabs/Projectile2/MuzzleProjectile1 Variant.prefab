@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6826777720300040831, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 7833254931724580291, guid: 54012366f9c84714d9b5cd4580426a2c, type: 2}
     - target: {fileID: 294577248194490593, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
       propertyPath: pitchRange.x
       value: 0.85
