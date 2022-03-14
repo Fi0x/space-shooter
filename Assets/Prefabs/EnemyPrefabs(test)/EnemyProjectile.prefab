@@ -350,7 +350,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -931,7 +931,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 4
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1369,9 +1369,9 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 0}
-        key2: {r: 0, g: 0, b: 0, a: 1}
+        key0: {r: 1, g: 1, b: 1, a: 0}
+        key1: {r: 1, g: 1, b: 1, a: 0.5529412}
+        key2: {r: 0, g: 0, b: 0, a: 0.4392157}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
@@ -1386,16 +1386,16 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 31611
-        atime2: 65535
-        atime3: 0
+        atime1: 17348
+        atime2: 46453
+        atime3: 65535
         atime4: 0
         atime5: 0
         atime6: 0
         atime7: 0
         m_Mode: 0
         m_NumColorKeys: 2
-        m_NumAlphaKeys: 3
+        m_NumAlphaKeys: 4
       minGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4830,7 +4830,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2558411541806337067}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.219}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1296243532940868485}
@@ -9603,7 +9603,7 @@ ParticleSystemRenderer:
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
   m_VertexStreams: 00030409
-  m_Mesh: {fileID: 289301614986012343, guid: 4f80497dbf7fb5645bafcd0be6a4bea1, type: 3}
+  m_Mesh: {fileID: 289301614986012343, guid: dd600ffa6e1ac0e46b12347b6c297cd3, type: 3}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
@@ -9659,7 +9659,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e0e37a4a8c8a1a048a546e6edb1a94b5, type: 2}
+  - {fileID: 2100000, guid: 9563d319e8c29ab48bdcc9944008518f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9824,3 +9824,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b936f1951e5376346abc5c30a06b7f94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Damage: 100
+  speed: 100

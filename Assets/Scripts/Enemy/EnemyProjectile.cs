@@ -7,7 +7,9 @@ namespace Enemy
 {
     public class EnemyProjectile : MonoBehaviour
     {
-        private const int Damage = 100;
+        public int Damage = 100;
+        public float speed = 100f;
+        public float timeToLive = 10f;
         private Rigidbody rigidBody;
         private Vector3 direction;
 
@@ -16,21 +18,21 @@ namespace Enemy
             this.direction = (GameManager.Instance.Player.transform.position - this.transform.position).normalized;
             this.rigidBody = this.GetComponent<Rigidbody>();
 
-            Destroy(this.gameObject, 20.0f);
+            Destroy(this.gameObject, timeToLive);
         }
 
         private void Update()
         {
             // TODO
             //this.rigidBody.velocity = 1.1f * ShipMovementHandler.TotalMaxSpeed * this.direction;
-            this.rigidBody.velocity = 1.1f * 50 * this.direction;
+            this.rigidBody.velocity = speed * this.direction;
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if(other.gameObject.layer == LayerMask.NameToLayer("Player") || other.gameObject.layer == LayerMask.NameToLayer("Scenery"))
             {
-                if(other.TryGetComponent(out Health health))
+                if(other.TryGetComponent(out IDamageable health))
                 {
                     health.TakeDamage(Damage);
 

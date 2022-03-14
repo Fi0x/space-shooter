@@ -11,7 +11,6 @@ namespace Ship.Weaponry
     public class HitScanWeapon : AbstractWeapon
     {
         private Ray ray;
-        private readonly RaycastHit[] raycastHits = new RaycastHit[10];
 
         public float MaxLength => this.weaponConfigHitScan.MaxDistance;
 
@@ -36,19 +35,17 @@ namespace Ship.Weaponry
             this.ray.origin = ownPosition;
             this.ray.direction = shotDirection;
 
-            var size = Physics.RaycastNonAlloc(this.ray, this.raycastHits, this.weaponConfigHitScan.MaxDistance);
-
-            if (size == 0)
+            //var size = Physics.Raycast(this.ray, this.raycastHits, this.weaponConfigHitScan.MaxDistance);
+            if (!Physics.Raycast(this.ray, out var firstHit, this.weaponConfigHitScan.MaxDistance))
             {
-                return null; // No Collisions. 
+                // No Collision;
+                return null;
             }
-            
-            
+
             // Look at first collision
             var layerMask = LayerMask.NameToLayer("Enemy");
-            var firstHit = raycastHits[0];
 
-            var collisionWithEnemy = firstHit.transform.gameObject.layer == layerMask;
+            var collisionWithEnemy = firstHit.collider.transform.gameObject.layer == layerMask;
             var distance = Vector3.Distance(firstHit.point, ownPosition);
             return (firstHit, distance, collisionWithEnemy);
         }
@@ -75,7 +72,7 @@ namespace Ship.Weaponry
                 raycastHit.transform.gameObject.GetComponent<SensorTarget>()
             );
 
-            if (raycastHit.transform.gameObject.TryGetComponent(out Health health))
+            if (raycastHit.transform.gameObject.TryGetComponent(out IDamageable health))
             {
                 // The hit "thing" can take damage
                 health.TakeDamage((int) effectiveDamage);

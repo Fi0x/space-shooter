@@ -26,7 +26,7 @@ namespace Manager
 
         public LevelBuilder LevelBuilder => this.levelBuilder;
 
-        public static bool IsGamePaused { get; set; } = true;
+        public static bool IsGamePaused { get; set; } = false;
 
         private static int level;
 

@@ -87,7 +87,7 @@ namespace Ship.Weaponry
                 hit.transform.gameObject.GetComponent<SensorTarget>()
             );
 
-            if (hit.transform.gameObject.TryGetComponent(out Health health))
+            if (hit.transform.gameObject.TryGetComponent(out IDamageable health))
             {
                 // The hit "thing" can take damage
                 health.TakeDamage(effectiveDamage);
