@@ -28,7 +28,6 @@ namespace Components
             set
             {
                 this.maxHealth = value;
-                // TODO: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! IS THIS CORRECT????  STOPSHIP
                 if(!generateHealthBar)
                     HealthBar.SetMaxHealth(this.MaxHealth);
             }

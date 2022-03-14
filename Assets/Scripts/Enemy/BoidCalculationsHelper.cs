@@ -85,20 +85,16 @@ namespace Enemy
             {
                 return alignmentVector;
             }
-
-            var neighboursInFOV = 0;
+            
             foreach (var t in alignmentNeighbours)
             {
                 if (IsInFOV(t.transform.position, ownTransform.position, ownTransform.forward, fovAngle ))
                 {
-                    neighboursInFOV++;
                     alignmentVector += t.transform.forward;
                 }
             }
 
-            alignmentVector /= neighboursInFOV; // ??? Warum wird das gemacht wenn danach sowieso .normalized aufgerufen wird?
-            alignmentVector = alignmentVector.normalized;
-            return alignmentVector;
+            return alignmentVector.normalized;
         }
 
         private static Vector3 CalculateAvoidanceVector(Transform ownTransform, IReadOnlyList<Boid> avoidanceNeighbours, float fovAngle)
