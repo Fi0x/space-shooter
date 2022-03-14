@@ -84,7 +84,7 @@ namespace Enemy
             // TODO: Replace with weapon trigger
             this.waitForAttack -= Time.deltaTime;
             var angleBetweenSelfAndPlayer = Vector3.Angle(this.transform.forward,
-                this.transform.position - GameManager.Instance.Player.transform.position);
+                GameManager.Instance.Player.transform.position - this.transform.position);
             if (this.waitForAttack < 0f
                 && angleBetweenSelfAndPlayer < 10)
             {

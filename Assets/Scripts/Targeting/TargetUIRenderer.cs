@@ -37,7 +37,14 @@ namespace Targeting
                     Debug.DrawRay(target.transform.position, Vector3.up, Color.red);
                     continue;
                 }
-                Debug.DrawLine(target.transform.position, response.Value.position, Color.green);
+
+                if (this.weapon is ProjectileWeapon projectileWeapon)
+                {
+                    var colorToUse = response.Value.travelTime > projectileWeapon.ProjectileTtl
+                        ? Color.yellow
+                        : Color.green;
+                    Debug.DrawLine(target.transform.position, response.Value.position, colorToUse);
+                }
             }
         }
     }

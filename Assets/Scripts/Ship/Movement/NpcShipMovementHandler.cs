@@ -61,7 +61,7 @@ namespace Ship.Movement
             }
             else
             {
-                return (this.ShipObject.transform.position - this.desiredLookAtWorldPosition).Value.normalized;
+                return (this.desiredLookAtWorldPosition - this.ShipObject.transform.position).Value.normalized;
             }
         }
         
