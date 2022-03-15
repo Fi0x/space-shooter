@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Ship.Rocket;
 using UnityEngine;
 
 public class TempRocketSpawner : MonoBehaviour
@@ -13,9 +14,11 @@ public class TempRocketSpawner : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
+            Transform spawnTransform = spawnPoint.transform;
             //Debug.Log("spawnRocket");
-            var rocket = Instantiate(prefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
-            rocket.GetComponent<Rigidbody>().velocity = shipRb.velocity;
+            var rocket = Instantiate(prefab, spawnTransform.position, spawnTransform.rotation);
+            float speed = Mathf.Min(Vector3.Dot(shipRb.velocity.normalized, spawnTransform.forward) * shipRb.velocity.magnitude, 0f);
+            rocket.GetComponent<Rigidbody>().velocity = speed * spawnTransform.forward;
         }
     }
 }

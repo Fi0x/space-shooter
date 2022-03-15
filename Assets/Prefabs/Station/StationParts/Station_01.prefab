@@ -714,6 +714,10 @@ MonoBehaviour:
   - {fileID: 6598242977841725980}
   - {fileID: 6549327724531349687}
   - {fileID: 8425253765417694246}
+  deleteAsteroidRadius: 285
+  mask:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!64 &7499599979198439438
 MeshCollider:
   m_ObjectHideFlags: 0

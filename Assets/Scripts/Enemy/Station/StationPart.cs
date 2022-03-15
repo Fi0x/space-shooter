@@ -1,7 +1,8 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using Components;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class StationPart : MonoBehaviour
 {
@@ -13,6 +14,17 @@ public class StationPart : MonoBehaviour
     [Header("StationSettings")]
     public GameObject turretPrefab;
     [SerializeField] private List<Health> healthTargets;
+    
+    [Header("DebrisRemoval")]
+    [SerializeField] private float deleteAsteroidRadius = 200f;
+    [SerializeField] private LayerMask mask;
+
+    private readonly Collider[] collisions = new Collider[100];
+
+    private void Start()
+    {
+        DeleteAsteroids();
+    }
 
     public void SnapStationPartToMe(StationPart other, bool snapToTop)
     {
@@ -53,5 +65,16 @@ public class StationPart : MonoBehaviour
     public List<Health> GetTargets()
     {
         return healthTargets;
+    }
+
+    public void DeleteAsteroids()
+    {
+        var size = Physics.OverlapSphereNonAlloc(transform.position, deleteAsteroidRadius, collisions, mask);
+        foreach (var c in collisions)
+        {
+            if(c == null) return;
+            Debug.Log("Deleted" + c.gameObject.name);
+            Destroy(c.gameObject);
+        }
     }
 }

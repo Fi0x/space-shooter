@@ -76,6 +76,7 @@ public class StationBuilder : MonoBehaviour
     {
         int i = Random.Range(0, objects.Count);
         if (i < 0) return null;
-        return Instantiate(objects[i], transform);
+        var part = Instantiate(objects[i], transform);
+        return part;
     }
 }

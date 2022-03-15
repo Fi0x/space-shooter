@@ -219,6 +219,10 @@ MonoBehaviour:
   turretSpawnPoints: []
   turretPrefab: {fileID: 9116252600651923114, guid: 80d1ed362b63f29488babbbcad4c9113, type: 3}
   healthTargets: []
+  deleteAsteroidRadius: 130
+  mask:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!1001 &2479989408024372527
 PrefabInstance:
   m_ObjectHideFlags: 0

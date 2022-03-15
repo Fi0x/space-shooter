@@ -400,6 +400,10 @@ MonoBehaviour:
   healthTargets:
   - {fileID: 1695565570733573284}
   - {fileID: 7619014908300310308}
+  deleteAsteroidRadius: 140
+  mask:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!1 &7817560211423209178
 GameObject:
   m_ObjectHideFlags: 0

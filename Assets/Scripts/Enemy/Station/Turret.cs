@@ -23,7 +23,8 @@ public class Turret : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private int maxHealth = 3000;
-    
+
+    private Vector3 predictedTarget;
     private Vector3 smoothVel = Vector3.zero;
     private bool canShoot = true;
     
@@ -38,22 +39,43 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player == null) return;
-        UpdateTarget();
+        // if(player == null) return;
+        // UpdateTarget();
+        StartCoroutine(UpdateEvery(0.3f));
+    }
+
+    IEnumerator UpdateEvery(float secs)
+    {
+        for (;;)
+        {
+            if(player != null)
+                UpdateTarget();
+            yield return new WaitForSeconds(secs);
+        }
     }
 
     private void UpdateTarget()
     {
         float dist = Vector3.Distance(transform.position, player.transform.position);
         if (dist > attackRange) return;
+        predictedTarget = PredictTarget();
         targetTransform.position =
-            Vector3.SmoothDamp(targetTransform.position, player.transform.position, ref smoothVel, turnTime);
+            Vector3.SmoothDamp(targetTransform.position, predictedTarget, ref smoothVel, turnTime);
         CheckAngle();
+    }
+
+    private Vector3 PredictTarget()
+    {
+        var playerPos = player.transform.position;
+        playerPos += (0.01f * player.GetComponent<Rigidbody>().velocity) * Vector3.Distance(playerPos, gunPoint.position);
+        Debug.DrawLine(gunPoint.position, predictedTarget);
+        
+        return playerPos;
     }
 
     private void CheckAngle()
     {
-        Vector3 desiredTargetDir = (player.transform.position - gunPoint.transform.position).normalized;
+        Vector3 desiredTargetDir = (predictedTarget - gunPoint.transform.position).normalized;
         Vector3 actualTargetDir = gunPoint.forward;
         float angle = Vector3.Angle(desiredTargetDir, actualTargetDir);
         if (angle <= angleOfAttack) Attack();
@@ -83,5 +105,6 @@ public class Turret : MonoBehaviour
         eP.speed = 50f;
         eP.Damage = 10;
         eP.timeToLive = 10f;
+        eP.direction = gunPoint.forward;
     }
 }

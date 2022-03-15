@@ -351,7 +351,7 @@ MonoBehaviour:
   gunPoint: {fileID: 7973206537798076165}
   targetTransform: {fileID: 9116252601150480974}
   player: {fileID: 0}
-  attackRange: 300
+  attackRange: 250
   turnTime: 0.3
   angleOfAttack: 7
   maxHealth: 1000
