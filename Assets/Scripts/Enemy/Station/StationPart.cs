@@ -73,7 +73,7 @@ public class StationPart : MonoBehaviour
         foreach (var c in collisions)
         {
             if(c == null) return;
-            Debug.Log("Deleted" + c.gameObject.name);
+            //Debug.Log("Deleted" + c.gameObject.name);
             Destroy(c.gameObject);
         }
     }

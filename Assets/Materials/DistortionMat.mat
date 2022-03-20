@@ -38,6 +38,7 @@ Material:
     m_Floats:
     - Noise_Scale: 20
     - Strength: 1
+    - _Alpha: 1
     m_Colors:
     - Movement: {r: 0, g: -0.5, b: 0, a: 0}
   m_BuildTextureStacks: []

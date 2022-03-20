@@ -978,7 +978,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponManager: {fileID: 3300866360858875059}
-  weaponConfig: {fileID: 11400000, guid: 706f0059b93556909b15ab56fd12f815, type: 2}
+  weaponConfig: {fileID: 11400000, guid: 5c0e3635af158e4478a86bf0d5a966ca, type: 2}
 --- !u!1 &3300866360278854118
 GameObject:
   m_ObjectHideFlags: 0
@@ -1738,9 +1738,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8172fa8ab3033484eaeade770e6efa75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  input: {fileID: 0}
   shipRb: {fileID: 3300866360858875058}
   spawnPoint: {fileID: 7450036077513249550}
   prefab: {fileID: 6930712661950448642, guid: 6da7318e5b02b424eb96b2675e83b2e3, type: 3}
+  maxRocketCharges: 3
+  currentCharges: 0
+  rechargeTime: 3
 --- !u!1 &3300866360932033469
 GameObject:
   m_ObjectHideFlags: 0
@@ -6763,7 +6767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   identifier: WPN_Attachment_1
-  weaponPrefab: {fileID: 7926824900738252276, guid: 02d70531b0bd0efeead1441259ec6d93, type: 3}
+  weaponPrefab: {fileID: 1062497909079289124, guid: 70eb8c51dfd3b9d4280eb58fe8f543aa, type: 3}
   weaponManager: {fileID: 3300866360858875059}
 --- !u!1001 &5361020282682646887
 PrefabInstance:

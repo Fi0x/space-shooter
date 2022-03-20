@@ -65,32 +65,37 @@ namespace Ship.Weaponry
         {
             if (ShouldCollide(other))
             {
-                var timeOnImpact = Time.timeAsDouble - this.startTime;
+                HandleCollision(other);
+            }    
+        }
 
-                if (this.impactPrefab != null)
-                {
-                    var pos = this.transform.position;
-                    var closestPoint = other.ClosestPoint(pos);
-                    var impact = Instantiate(this.impactPrefab, closestPoint, Quaternion.LookRotation(pos - closestPoint));
-                    Destroy(impact, 2f);
-                }
+        private void HandleCollision(Collider other)
+        {
+            var timeOnImpact = Time.timeAsDouble - this.startTime;
+
+            if (this.impactPrefab != null)
+            {
+                var pos = this.transform.position;
+                var closestPoint = other.ClosestPoint(pos);
+                var impact = Instantiate(this.impactPrefab, closestPoint, Quaternion.LookRotation(pos - closestPoint));
+                Destroy(impact, 2f);
+            }
 
                 
-                var damageTaken = (int) (DamageMultiplier * this.damageOverTimeNormalized.Evaluate((float) timeOnImpact / this.timeToLive));
-                var weaponHitInformation = new WeaponHitInformation(
-                    WeaponHitInformation.WeaponType.Projectile, 
-                    damageTaken, 
-                    other.gameObject.GetComponent<SensorTarget>()
-                );
-                if (other.gameObject.TryGetComponent(out IDamageable health))
-                {
-                    // The hit "thing" can take damage
-                    health.TakeDamage(damageTaken);
-                }
-                this.WeaponHitSomethingEvent?.Invoke(other.gameObject.layer, weaponHitInformation);
+            var damageTaken = (int) (DamageMultiplier * this.damageOverTimeNormalized.Evaluate((float) timeOnImpact / this.timeToLive));
+            var weaponHitInformation = new WeaponHitInformation(
+                WeaponHitInformation.WeaponType.Projectile, 
+                damageTaken, 
+                other.gameObject.GetComponent<SensorTarget>()
+            );
+            if (other.gameObject.TryGetComponent(out IDamageable health))
+            {
+                // The hit "thing" can take damage
+                health.TakeDamage(damageTaken);
+            }
+            this.WeaponHitSomethingEvent?.Invoke(other.gameObject.layer, weaponHitInformation);
 
-                Destroy(this.gameObject);
-            }    
+            Destroy(this.gameObject);
         }
 
         private static bool ShouldCollide(Component c)

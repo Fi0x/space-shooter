@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df753b785e843b5980840ee3f2b1712, type: 3}
+  m_Name: ChainProjectile
+  m_EditorClassIdentifier: 
+  type: 0
+  minTimeBetweenShots: 1
+  timeToLive: 3
+  damageOverTimeNormalized:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 200
+      inSlope: 0.018808777
+      outSlope: 0.018808777
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -488.72714
+      outSlope: -488.72714
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.10416669
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  projectilePrefab: {fileID: 7175285450214776456, guid: f7b7a68fe307ca241b6dadd73d8d9695, type: 3}
+  projectileSpeed: 20
