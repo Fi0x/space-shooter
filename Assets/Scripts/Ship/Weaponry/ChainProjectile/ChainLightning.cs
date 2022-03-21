@@ -38,6 +38,10 @@ namespace Ship.Weaponry
         {
             RemoveInvalidTargets();
             soundRandomizer.PlayRandomSound();
+            if (targets.Count == 0)
+            {
+                StrikeSingleTarget(this.gameObject);
+            }
             foreach (var target in targets)
             {
                 StrikeSingleTarget(target);

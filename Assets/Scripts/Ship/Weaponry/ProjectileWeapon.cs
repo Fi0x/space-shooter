@@ -20,6 +20,10 @@ namespace Ship.Weaponry
         
         protected override void Fire()
         {
+            //muzzle
+            var muzzle = Instantiate(weaponConfigProjectile.MuzzlePrefab, transform);
+            Destroy(muzzle, 3f);
+            
             var projectile = Instantiate(this.weaponConfigProjectile.ProjectilePrefab)!;
             var ownPosition = this.gameObject.transform.position;
             projectile.transform.position = ownPosition;

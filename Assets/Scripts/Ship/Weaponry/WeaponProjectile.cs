@@ -8,7 +8,6 @@ namespace Ship.Weaponry
 {
     public class WeaponProjectile : MonoBehaviour
     {
-        public GameObject muzzlePrefab = null!;
         public GameObject impactPrefab = null!;
 
         private bool isInit;
@@ -31,14 +30,8 @@ namespace Ship.Weaponry
                 vfx.Play();
             }
 
-            if (this.muzzlePrefab != null)
-            {
-                var muzzle = Instantiate(this.muzzlePrefab, transform.parent)!;
-                Destroy(muzzle, 3f);
-            }
-            
-            this.trail.SetActive(false);
-            this.Invoke(nameof(this.MakeTrailVisible), 0.1f);
+            // this.trail.SetActive(false);
+            // this.Invoke(nameof(this.MakeTrailVisible), 0.1f);
         }
 
         public void Initialize(Vector3 directionAndVelocity, AnimationCurve damageOverTimeNormalized, Quaternion rotation, float ttl)

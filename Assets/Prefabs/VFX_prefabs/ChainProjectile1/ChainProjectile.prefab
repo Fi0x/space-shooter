@@ -168,7 +168,7 @@ Transform:
   m_GameObject: {fileID: 7175285450214776456}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -19.955357, y: 10.512, z: 1.77}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 8034266827054470110}
   m_Father: {fileID: 0}
@@ -329,10 +329,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55ba08400fd412c91fae0de90113728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  muzzlePrefab: {fileID: 1055613617594485524, guid: 799ac91c021c1c246a26e565f30cf05c, type: 3}
   impactPrefab: {fileID: 6923379917456701454, guid: b6efa792232d4c146b8e44ad0116caae, type: 3}
   rb: {fileID: 710351692722537832}
   trail: {fileID: 1386268828997562899}
+  splashDamageMultiplier: 0.3
   radius: 30
   maxTargets: 5
   targetMask:
