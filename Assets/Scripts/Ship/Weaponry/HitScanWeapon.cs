@@ -17,6 +17,8 @@ namespace Ship.Weaponry
         [NonSerialized]
         protected WeaponHitScanConfigScriptableObject weaponConfigHitScan = null!;
 
+        public override bool IsHitScan => true;
+
         protected override void Start()
         {
             base.Start();

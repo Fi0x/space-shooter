@@ -24,6 +24,8 @@ namespace Ship.Weaponry
 
         public WeaponConfigScriptableObject WeaponConfig => this.weaponConfig;
         
+        public abstract bool IsHitScan { get; }
+        
         private void OnEnable()
         {
             if (this.weaponManager == null)

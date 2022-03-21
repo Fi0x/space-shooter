@@ -14,6 +14,8 @@ namespace Ship.Weaponry
         public float ProjectileTtl => this.weaponConfigProjectile.TimeToLive;
         public WeaponConfigScriptableObject Config => this.weaponConfigProjectile;
 
+        public override bool IsHitScan => false;
+
         protected override void Start()
         {
             base.Start();

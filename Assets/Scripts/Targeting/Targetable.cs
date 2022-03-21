@@ -3,6 +3,7 @@ using System;
 using Manager;
 using Ship.Weaponry;
 using Ship.Weaponry.Config;
+using UI.Ui3D;
 using UnityEngine;
 
 namespace Targeting
@@ -11,7 +12,16 @@ namespace Targeting
     {
 
         [SerializeField] private Rigidbody shipRB = null!;
-        
+
+        [SerializeField] private Sprite targetSprite = null!;
+        [SerializeField] private Sprite activeTargetSprite = null!;
+
+        public Vector3 Velocity => this.shipRB.velocity;
+        private TargetableUIObject? uiElement = null;
+
+        public TargetableUIObject UiElement =>
+            this.uiElement != null ? this.uiElement : throw new NullReferenceException("Ui Element is not set!");
+
         private void OnEnable()
         {
             if (this.shipRB == null)
@@ -19,12 +29,39 @@ namespace Targeting
                 this.shipRB = GetComponent<Rigidbody>() ??
                               throw new NullReferenceException("No Rigidbody set. Could not infer from GameObject.");
             }
+
+            if (this.uiElement == null)
+            {
+                this.CreateUIElement();
+            }
             GameManager.Instance.TargetableManager.NotifyAboutNewTargetable(this);
+        }
+
+        private void CreateUIElement()
+        {
+            var manager = GameManager.Instance.Player.GetComponent<Ui3DManager>() ??
+                          throw new NullReferenceException("No 3D UI Manager on the Player");
+            var gameObjectToInstantiate = new GameObject("Targetable 3DUI");
+            gameObjectToInstantiate.AddComponent<TargetableUIObject>();
+            Instantiate(gameObjectToInstantiate, manager.UiRoot);
         }
 
         private void OnDisable()
         {
             GameManager.Instance.TargetableManager.NotifyAboutTargetableGone(this);
+        }
+
+
+        public (Vector3 position, float travelTime, bool canHit)? GetPredictedTargetLocation()
+        {
+            var player = GameManager.Instance.Player;
+            if (player == null)
+            {
+                throw new NullReferenceException("Player not set");
+            }
+
+            var weapon = player.GetComponent<WeaponManager>().PrimaryWeaponAttachmentPoint.Child;
+            return this.GetPredictedTargetLocation(player.transform.position, weapon);
         }
         
 
@@ -33,7 +70,7 @@ namespace Targeting
         {
             if (weapon is HitScanWeapon hitScanWeapon)
             {
-                float distanceToShooter = Vector3.Distance(shooterPosition, this.transform.position);
+                var distanceToShooter = Vector3.Distance(shooterPosition, this.transform.position);
                 
                 return (this.gameObject.transform.position, 0f, (hitScanWeapon.WeaponConfig as WeaponHitScanConfigScriptableObject)!.MaxDistance > distanceToShooter);
             }

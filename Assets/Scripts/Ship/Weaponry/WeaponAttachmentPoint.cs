@@ -15,8 +15,9 @@ namespace Ship.Weaponry
         [SerializeField] private GameObject weaponPrefab = null!;
         [SerializeField] private WeaponManager weaponManager = null!;
 
-        private AbstractWeapon? child;
         public WeaponManager WeaponManager => this.weaponManager;
+
+        public AbstractWeapon? Child { get; private set; }
 
 
         private void Start()
@@ -28,17 +29,17 @@ namespace Ship.Weaponry
 
         private void Rebuild()
         {
-            if (this.child != null)
+            if (this.Child != null)
             {
-                this.child.Remove();
-                this.child = null;
+                this.Child.Remove();
+                this.Child = null;
             }
 
             var newGameObject = Instantiate(weaponPrefab, this.transform);
 
-            this.child = newGameObject.GetComponent<AbstractWeapon>() ?? throw new Exception(
+            this.Child = newGameObject.GetComponent<AbstractWeapon>() ?? throw new Exception(
                 "Given Prefab is not a weapon (it does not have a Script that inherits from AbstractWeapon");
-            this.NewWeaponBuiltEvent?.Invoke(this.child);
+            this.NewWeaponBuiltEvent?.Invoke(this.Child);
         }
 
         public event Action<AbstractWeapon>? NewWeaponBuiltEvent;
