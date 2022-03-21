@@ -39,6 +39,7 @@ namespace Components
         public event Action<float> OnHealthPctChanged;
         public bool generateHealthBar = false;
 
+        [Header("Feedback")]
         public AnimationCurve flashingCurve;
         public float flashingDuration;
         public List<Renderer> renderers;

@@ -8,8 +8,15 @@ public class RandomizeSound : MonoBehaviour
     public AudioClip[] clips;
     public Vector2 pitchRange = new Vector2(1f,1f);
     public Vector2 volumeRange = new Vector2(.1f, .1f);
+    public bool playOnStart = true;
     
     private void Start()
+    {
+        if (!playOnStart) return;
+        PlayRandomSound();
+    }
+
+    public void PlayRandomSound()
     {
         var i = Random.Range(0, this.clips.Length - 1);
         if (this.clips.Length == 0)

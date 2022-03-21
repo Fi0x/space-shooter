@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6df753b785e843b5980840ee3f2b1712, type: 3}
   m_Name: ChainProjectile
   m_EditorClassIdentifier: 
-  type: 0
-  minTimeBetweenShots: 1
+  type: 1
+  minTimeBetweenShots: 0.5
   timeToLive: 3
   damageOverTimeNormalized:
     serializedVersion: 2
@@ -40,4 +40,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   projectilePrefab: {fileID: 7175285450214776456, guid: f7b7a68fe307ca241b6dadd73d8d9695, type: 3}
-  projectileSpeed: 20
+  projectileSpeed: 5

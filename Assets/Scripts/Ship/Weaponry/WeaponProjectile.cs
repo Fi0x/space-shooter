@@ -15,9 +15,9 @@ namespace Ship.Weaponry
         [SerializeField] private Rigidbody rb = null!;
         [SerializeField] private GameObject trail = null!;
 
-        private AnimationCurve damageOverTimeNormalized = null!;
-        private double startTime;
-        private float timeToLive;
+        protected AnimationCurve damageOverTimeNormalized = null!;
+        protected double startTime;
+        protected float timeToLive;
 
         public event Action<int, WeaponHitInformation> WeaponHitSomethingEvent;
 
@@ -38,7 +38,7 @@ namespace Ship.Weaponry
             }
             
             this.trail.SetActive(false);
-            this.Invoke(nameof(this.MakeTrailVisible), 0.4f);
+            this.Invoke(nameof(this.MakeTrailVisible), 0.1f);
         }
 
         public void Initialize(Vector3 directionAndVelocity, AnimationCurve damageOverTimeNormalized, Quaternion rotation, float ttl)
@@ -69,7 +69,7 @@ namespace Ship.Weaponry
             }    
         }
 
-        private void HandleCollision(Collider other)
+        protected virtual void HandleCollision(Collider other)
         {
             var timeOnImpact = Time.timeAsDouble - this.startTime;
 
