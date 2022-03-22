@@ -8,7 +8,7 @@ namespace UI.Ui3D
     public class Ui3DManager : MonoBehaviour
     {
         [SerializeField] private Transform uiRoot = null!;
-        [SerializeField] private float distanceToRoot = 1;
+        [SerializeField] private float distanceToRoot = 5;
 
         private List<Ui3DElement> uiElements = new List<Ui3DElement>();
 
@@ -29,7 +29,7 @@ namespace UI.Ui3D
             {
                 if (entry != null)
                 {
-                    entry.UpdatePosition(this, distanceToRoot);
+                    entry.UpdateElement(this);
                 }
             }
         }

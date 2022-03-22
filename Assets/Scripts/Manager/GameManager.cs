@@ -1,3 +1,4 @@
+using System;
 using Components;
 using Enemy;
 using Ship;
@@ -18,6 +19,10 @@ namespace Manager
         [SerializeField] private FlockSpawner flockSpawner;
         [SerializeField] private int playerDefaultHealth = 1000;
 
+        [Header("TargetableManager")] 
+        [SerializeField] private Sprite targetableActive;
+        [SerializeField] private Sprite targetableInactive;
+        
         public GameObject Player { get; private set; }
         
         public TargetableManager TargetableManager { get; private set; }
@@ -53,13 +58,19 @@ namespace Manager
         {
             DontDestroyOnLoad(this.gameObject);
             _instance = this;
-            this.TargetableManager ??= new TargetableManager();
+            this.TargetableManager ??= new TargetableManager(targetableActive, targetableInactive);
+            
             this.Player = GameObject.Find("Player");
         }
 
         private void Start()
         {
             this.LoadNextLevel();
+        }
+
+        private void Update()
+        {
+            this.TargetableManager?.NotifyAboutUpdate();
         }
 
         public static void ResetGame()

@@ -12,9 +12,7 @@ namespace Targeting
     {
 
         [SerializeField] private Rigidbody shipRB = null!;
-
-        [SerializeField] private Sprite targetSprite = null!;
-        [SerializeField] private Sprite activeTargetSprite = null!;
+        [SerializeField, ReadOnlyInspector] private bool isPrimaryTarget = false;
 
         public Vector3 Velocity => this.shipRB.velocity;
         private TargetableUIObject? uiElement = null;
@@ -22,16 +20,20 @@ namespace Targeting
         public TargetableUIObject UiElement =>
             this.uiElement != null ? this.uiElement : throw new NullReferenceException("Ui Element is not set!");
 
+        public bool IsPrimaryTarget => this.isPrimaryTarget;
+
         private void OnEnable()
         {
+            Debug.Log("OnEnable");
             if (this.shipRB == null)
             {
                 this.shipRB = GetComponent<Rigidbody>() ??
                               throw new NullReferenceException("No Rigidbody set. Could not infer from GameObject.");
             }
-
+            
             if (this.uiElement == null)
             {
+                Debug.Log("Before CreateUIElement");
                 this.CreateUIElement();
             }
             GameManager.Instance.TargetableManager.NotifyAboutNewTargetable(this);
@@ -43,12 +45,20 @@ namespace Targeting
                           throw new NullReferenceException("No 3D UI Manager on the Player");
             var gameObjectToInstantiate = new GameObject("Targetable 3DUI");
             gameObjectToInstantiate.AddComponent<TargetableUIObject>();
-            Instantiate(gameObjectToInstantiate, manager.UiRoot);
+            gameObjectToInstantiate.transform.parent = manager.UiRoot;
+            var uiElementInstance = gameObjectToInstantiate.GetComponent<TargetableUIObject>();
+            uiElementInstance.transform.localScale = Vector3.one * 0.2f;
+            uiElementInstance.Init(this);
+            this.uiElement = uiElementInstance;
         }
 
         private void OnDisable()
         {
             GameManager.Instance.TargetableManager.NotifyAboutTargetableGone(this);
+            if (this.uiElement)
+            {
+                this.uiElement!.NotifyAboutParentBeingDestroyed();
+            }
         }
 
 
@@ -115,6 +125,17 @@ namespace Targeting
             return TargetingCalculationHelper.GetPredictedTimeOfCollision(shooterPosition, projectileSpeed,
                 this.transform.position, velocity);
         }
-        
+
+        public void NotifyAboutPrimaryTargetStateChange(bool isThisTargetablePrimaryTarget)
+        {
+            if (this.isPrimaryTarget != isThisTargetablePrimaryTarget)
+            {
+                this.isPrimaryTarget = isThisTargetablePrimaryTarget;
+                this.PrimaryTargetStateChangeEvent?.Invoke(isThisTargetablePrimaryTarget);
+            }
+        }
+
+        public event Action<bool>? PrimaryTargetStateChangeEvent;
+
     }
 }
