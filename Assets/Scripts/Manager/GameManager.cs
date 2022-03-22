@@ -1,31 +1,43 @@
 using Components;
-using Enemy;
+using LevelManagement;
 using Ship;
 using Stats;
 using UI;
 using UI.GameOver;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UpgradeSystem;
-using World;
 
 namespace Manager
 {
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] private EnemyManager enemyManager;
-        [SerializeField] private LevelBuilder levelBuilder;
-        [SerializeField] private FlockSpawner flockSpawner;
+        //[SerializeField] private EnemyManager enemyManager;
+        [SerializeField] private LevelFlowSO levelFlow;
         [SerializeField] private int playerDefaultHealth = 1000;
 
-        public GameObject Player { get; private set; }
+        private GameObject _player;
 
-        public EnemyManager EnemyManager => this.enemyManager;
+        public GameObject Player
+        {
+            get
+            {
+                if (_player == null) return null;
+                return _player;
+            }
+            private set
+            {
+                _player = value;
+            }
+        }
 
-        public LevelBuilder LevelBuilder => this.levelBuilder;
+        //public EnemyManager EnemyManager => this.enemyManager;
 
         public static bool IsGamePaused { get; set; } = false;
 
-        private static int level;
+        public float difficulty = 1f;
+
+        [SerializeField, ReadOnlyInspector]private int levelIndex = 0;
 
         public void NotifyAboutNewPlayerInstance(GameObject newPlayer)
         {
@@ -48,39 +60,54 @@ namespace Manager
 
         private void Awake()
         {
-            DontDestroyOnLoad(this.gameObject);
-            _instance = this;
-            this.Player = GameObject.Find("Player");
+            if (_instance == null)
+            {
+                DontDestroyOnLoad(this.gameObject);
+                _instance = this;
+                //this.Player = GameObject.Find("Player");
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
 
         private void Start()
         {
-            this.LoadNextLevel();
+            //this.LoadNextLevel();
         }
 
-        public static void ResetGame()
+        public void ResetGame()
         {
-            level = 0;
+            levelIndex = -1;
             StatCollector.ResetStats();
             UpgradeHandler.Reset();
         }
 
         public void LoadNextLevel()
         {
-            level++;
-            this.EnemyManager.RemoveAllEnemies();
-            this.LevelBuilder.LoadRandomLevel();
-            this.flockSpawner.SpawnFlocks();
-            this.SpawnPlayer();
+            // this.EnemyManager.RemoveAllEnemies();
+            // this.LevelBuilder.LoadRandomLevel();
+            // this.flockSpawner.SpawnFlocks();
+            //this.SpawnPlayer();
+            var levelName = levelFlow.GetNextScene(levelIndex);
+            SceneManager.LoadScene(levelName);
+            levelIndex++;
+            AddDifficulty();
         }
 
-        public static void ChangePauseState()
+        private void AddDifficulty()
+        {
+            difficulty = 1f + Mathf.Log(levelIndex) * 3f;
+        }
+
+        public void ChangePauseState()
         {
             if(IsGamePaused) OverlayMenu.Resume();
             else OverlayMenu.Pause();
         }
 
-        public static void GameOver()
+        public void GameOver()
         {
             GameOverScreen.ShowGameOverScreen();
         }

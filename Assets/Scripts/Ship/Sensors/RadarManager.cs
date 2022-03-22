@@ -1,3 +1,4 @@
+using System;
 using Manager;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ namespace Ship.Sensors
         [SerializeField] private GameObject sensorObjectPrefab;
 
         [SerializeField] private Sprite shipTargetSprite;
+        [SerializeField] private Sprite bigShipTargetSprite;
         [SerializeField] private Sprite stationTargetSprite;
         [SerializeField] private Sprite missileTargetSprite;
         [SerializeField] private Sprite jumpGateTargetSprite;
@@ -25,29 +27,15 @@ namespace Ship.Sensors
         public Color ColorHostile => this.hostileColor;
 
         public Sprite SpriteShip => this.shipTargetSprite;
+        public Sprite SpriteBigShip => bigShipTargetSprite;
         public Sprite SpriteStation => this.stationTargetSprite;
         public Sprite SpriteMissile => this.missileTargetSprite;
         public Sprite SpriteJumpGate => this.jumpGateTargetSprite;
 
-        public delegate void NewRadarObjectSpawnedDelegate(GameObject enemy);
-
-        public static event NewRadarObjectSpawnedDelegate NewRadarObjectSpawnedEvent;
-        
-        private void Start()
+        private void Awake()
         {
-            foreach (var entry in GameManager.Instance.EnemyManager.Enemies)
-            {
-                this.HandleNewSensorTargetCreated(entry);
-            }
-
-            foreach (var entry in GameManager.Instance.LevelBuilder.Portals)
-            {
-                this.HandleNewSensorTargetCreated(entry);
-            }
-
-            NewRadarObjectSpawnedEvent += enemy => this.HandleNewSensorTargetCreated(enemy.GetComponent<SensorTarget>());
+            SensorTarget.OnSensorTargetAdded += HandleNewSensorTargetCreated;
         }
-
 
         public Vector3 ApplyPositionTransformation(Vector3 targetPosition)
         {
@@ -57,18 +45,16 @@ namespace Ship.Sensors
             return withRotation.normalized * (this.realDistanceToSensorDistance.Evaluate(relativeToRadar.magnitude) * this.radarRadius);
         }
 
-        public static void InvokeRadarObjectSpawnedEvent(GameObject newObject)
-        {
-            NewRadarObjectSpawnedEvent?.Invoke(newObject);
-        }
-
         private void HandleNewSensorTargetCreated(SensorTarget target)
         {
             var sensorObjectGO = Instantiate(this.sensorObjectPrefab, this.transform);
             sensorObjectGO.layer = 10;
             sensorObjectGO.GetComponent<SensorObject>().Init(target, this);
-
         }
 
+        private void OnDisable()
+        {
+            SensorTarget.OnSensorTargetAdded -= HandleNewSensorTargetCreated;
+        }
     }
 }

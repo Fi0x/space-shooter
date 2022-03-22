@@ -33,7 +33,7 @@ public class Turret : MonoBehaviour
     {
         player = GameManager.Instance.Player;
         GetComponent<Health>().MaxHealth = maxHealth;
-        GameManager.Instance.EnemyManager.NotifyAboutNewEnemySpawned(this.gameObject);
+        //GameManager.Instance.EnemyManager.NotifyAboutNewEnemySpawned(this.gameObject);
     }
 
     // Update is called once per frame

@@ -244,6 +244,9 @@ MonoBehaviour:
   health: {fileID: 0}
   minMaxSize: {x: 30, y: 60}
   rangeValues: {x: 50, y: 100}
+  hideBehindLayers:
+    serializedVersion: 2
+    m_Bits: 0
   visibleWhenFull: 0
 --- !u!1 &8824902617696493397
 GameObject:
@@ -327,7 +330,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &8824902617696493398
 MonoBehaviour:
   m_ObjectHideFlags: 0

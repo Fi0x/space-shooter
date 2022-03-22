@@ -41,8 +41,8 @@ namespace World
 #endif
         [SerializeField, ReadOnlyInspector] private bool isConstructed;
         
-        [SerializeField, ReadOnlyInspector] private List<SensorTarget> portals = new List<SensorTarget>();
-        public IReadOnlyList<SensorTarget> Portals => this.portals;
+        //[SerializeField, ReadOnlyInspector] private List<SensorTarget> portals = new List<SensorTarget>();
+        //public IReadOnlyList<SensorTarget> Portals => this.portals;
 
         private Random random;
 
@@ -132,11 +132,11 @@ namespace World
                             var rotation = Quaternion.Euler(this.random.Next(360), this.random.Next(360), this.random.Next(360));
                         
                             var gate = Instantiate(this.jumpGatePrefab, position, rotation, this.transform);
-                            var sensorTarget = gate.GetComponent<SensorTarget>();
-                            sensorTarget.TargetDestroyedEvent += target => this.portals.Remove(target);
-                            sensorTarget.Init(SensorTarget.TargetType.JumpGate, SensorTarget.TargetAllegiance.Friendly);
-                            this.portals.Add(sensorTarget);
-                            RadarManager.InvokeRadarObjectSpawnedEvent(gate);
+                            // var sensorTarget = gate.GetComponent<SensorTarget>();
+                            // sensorTarget.TargetDestroyedEvent += target => this.portals.Remove(target);
+                            // sensorTarget.Init(SensorTarget.TargetType.JumpGate, SensorTarget.TargetAllegiance.Friendly);
+                            // this.portals.Add(sensorTarget);
+                            // RadarManager.InvokeRadarObjectSpawnedEvent(gate);
                         }
                         else
                         {

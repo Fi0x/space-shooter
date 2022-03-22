@@ -121,7 +121,7 @@ namespace Components
                 boid.RemoveBoidFromAssignedFlock();
             
             if(this.isPlayer)
-                GameManager.GameOver();
+                GameManager.Instance.GameOver();
             else
             {
                 StatCollector.UpdateGeneralStat("Enemies Killed", 1);

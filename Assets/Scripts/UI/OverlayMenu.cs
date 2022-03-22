@@ -44,8 +44,8 @@ namespace UI
             if(GameManager.IsGamePaused) Pause();
             else Resume();
             
-            SpeedIndicatorVisibilityChanged?.Invoke(null, new BoolEventChangerArgs { NewBoolValue = _speedIndicatorToggle.isOn });
-            SpaceDustVisibilityChanged?.Invoke(null, new BoolEventChangerArgs { NewBoolValue = _spaceDustToggle.isOn });
+            //SpeedIndicatorVisibilityChanged?.Invoke(null, new BoolEventChangerArgs { NewBoolValue = _speedIndicatorToggle.isOn });
+            //SpaceDustVisibilityChanged?.Invoke(null, new BoolEventChangerArgs { NewBoolValue = _spaceDustToggle.isOn });
         }
 
         public static void Pause()

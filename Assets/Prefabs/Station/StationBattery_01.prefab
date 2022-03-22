@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 647486794256171416}
   - component: {fileID: 6352045671173855345}
   - component: {fileID: 2016897507168690003}
+  - component: {fileID: -4334164689054044936}
   m_Layer: 7
   m_Name: StationBattery_01
   m_TagString: Enemy
@@ -148,3 +149,18 @@ MonoBehaviour:
   - {fileID: 647486794256171416}
   deathVFX: {fileID: 4575459077408144046, guid: 7dd684bdb178dfa4e938b3c83400203f, type: 3}
   vfxLifetime: 4.5
+--- !u!114 &-4334164689054044936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440212619306393677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f21b4b99b9c29a178b554475e6bec69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allegiance: 2
+  targetType: 0
+  isInit: 0
