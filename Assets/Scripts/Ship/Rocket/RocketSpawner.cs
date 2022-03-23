@@ -13,10 +13,10 @@ namespace Ship.Rocket
         public GameObject prefab;
 
         [Header("Stats")]
-        [SerializeField] private int maxRocketCharges = 3;
-        [SerializeField][ReadOnlyInspector] private int currentCharges;
+        [SerializeField] public int maxRocketCharges = 3;
+        [SerializeField][ReadOnlyInspector] public int currentCharges;
         [SerializeField] private float rechargeTime = 3f;
-        [SerializeField][ReadOnlyInspector] private float chargePct;
+        [SerializeField][ReadOnlyInspector] public float chargePct;
         [SerializeField] private float fireDelay = 1f;
         
         private Coroutine chargingCoroutine;
