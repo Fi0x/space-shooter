@@ -106,6 +106,7 @@ namespace Enemy
 
         private void CheckState()
         {
+            if(GameManager.Instance.Player == null) return;
             this.state = Vector3.Distance(this.transform.position, GameManager.Instance.Player.transform.position) <= this.sightRange
                 ? this.state = State.ChasePlayer
                 : this.state = State.Roaming;

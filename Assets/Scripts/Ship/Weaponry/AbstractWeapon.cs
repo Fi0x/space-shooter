@@ -16,7 +16,7 @@ namespace Ship.Weaponry
         [SerializeField] protected WeaponConfigScriptableObject weaponConfig = null!;
 
         public IWeaponTrigger WeaponTrigger { get; protected set; } = null!;
-        protected readonly Dictionary<Enum, int> upgrades = new Dictionary<Enum, int>();
+        [SerializeField] protected UpgradeDataSO upgradeData;
         
         protected ShipMovementHandler shipMovementHandler = null!;
         
@@ -54,12 +54,6 @@ namespace Ship.Weaponry
             this.SubscribeToWeaponTrigger();
             
             this.shipMovementHandler = this.weaponManager.GetParentShipGameObject().GetComponent<ShipMovementHandler>() ?? throw new NullReferenceException();
-
-            UpgradeButton.UpgradePurchasedEvent += (sender, args) =>
-            {
-                if (args.Type.Equals(Upgrades.UpgradeNames.WeaponFireRate))
-                    this.WeaponTrigger.ShotDelayUpgradeLevel = UpgradeHandler.GetSpecificUpgrade(Upgrades.UpgradeNames.WeaponFireRate);
-            };
         }
 
         private void FireModeChangedEventHandler(bool isFiring)
@@ -83,19 +77,19 @@ namespace Ship.Weaponry
 
         public void ResetUpgrades()
         {
-            this.upgrades.Clear();
-            
-            this.upgrades.Add(Upgrades.UpgradeNames.WeaponFireRate, 1);
-            this.upgrades.Add(Upgrades.UpgradeNames.WeaponProjectileSpeed, 1);
-            this.upgrades.Add(Upgrades.UpgradeNames.WeaponDamage, 1);
-            
-            UpgradeHandler.RegisterUpgrades(this, this.upgrades.Keys.ToList());
+            // this.upgrades.Clear();
+            //
+            // this.upgrades.Add(Upgrades.UpgradeNames.WeaponFireRate, 1);
+            // this.upgrades.Add(Upgrades.UpgradeNames.WeaponProjectileSpeed, 1);
+            // this.upgrades.Add(Upgrades.UpgradeNames.WeaponDamage, 1);
+            //
+            // UpgradeHandler.RegisterUpgrades(this, this.upgrades.Keys.ToList());
         }
 
         public void SetNewUpgradeValue(Enum type, int newLevel)
         {
-            if (this.upgrades.ContainsKey(type))
-                this.upgrades[type] = newLevel;
+            // if (this.upgrades.ContainsKey(type))
+            //     this.upgrades[type] = newLevel;
         }
     }
 }

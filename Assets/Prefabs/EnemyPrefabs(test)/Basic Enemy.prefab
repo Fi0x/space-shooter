@@ -66,6 +66,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 0
+  upgradeData: {fileID: 0}
   generateHealthBar: 1
   flashingCurve:
     serializedVersion: 2
@@ -135,7 +136,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allegiance: 2
   targetType: 0
-  isInit: 0
 --- !u!114 &-397256906301617565
 MonoBehaviour:
   m_ObjectHideFlags: 0

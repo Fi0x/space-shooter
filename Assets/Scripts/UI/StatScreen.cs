@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using Stats;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -58,7 +59,7 @@ namespace UI
         {
             var newPrefab = Instantiate(this.subtopicPrefab, this.transform);
             
-            var textComponents = newPrefab.GetComponentsInChildren<Text>();
+            var textComponents = newPrefab.GetComponentsInChildren<TextMeshProUGUI>();
             var nameText = textComponents.First(c => c.gameObject.name.Equals("Name"));
             nameText.text = subtopicName;
             

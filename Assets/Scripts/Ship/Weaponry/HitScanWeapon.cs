@@ -64,7 +64,7 @@ namespace Ship.Weaponry
             var distance = raycastHitNullable.Value.distance;
 
             var effectiveDamage = this.weaponConfigHitScan.DamageOverDistanceNormalized
-                .Evaluate(distance / this.weaponConfigHitScan.MaxDistance) * this.upgrades[Upgrades.UpgradeNames.WeaponDamage];
+                .Evaluate(distance / this.weaponConfigHitScan.MaxDistance) * upgradeData.GetValue(UpgradeNames.WeaponDamage);
 
             var weaponHitInformation = new WeaponHitInformation(
                 WeaponHitInformation.WeaponType.HitScan,

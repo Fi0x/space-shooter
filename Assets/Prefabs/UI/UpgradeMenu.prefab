@@ -354,7 +354,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4153386691562582916}
+      - m_Target: {fileID: 4569621273129484654}
         m_TargetAssemblyTypeName: UI.Upgrade.UpgradeScreen, Assembly-CSharp
         m_MethodName: LoadNextLevel
         m_Mode: 1
@@ -403,7 +403,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.037597656, y: -0.000015258789}
+  m_AnchoredPosition: {x: 0.037597656, y: 0}
   m_SizeDelta: {x: -66.6572, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4312165061772536543
@@ -499,6 +499,7 @@ GameObject:
   - component: {fileID: 474136710608432208}
   - component: {fileID: 8604707717954365847}
   - component: {fileID: 5281831977633728614}
+  - component: {fileID: 4569621273129484654}
   m_Layer: 5
   m_Name: UpgradeMenu
   m_TagString: Untagged
@@ -587,6 +588,24 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4569621273129484654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5177844871229336924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6d53cc57f4d4584a9036c5c8130a7c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollAreaGameObject: {fileID: 6600698492340897614}
+  upgradePrefab: {fileID: 1063585441549912519, guid: b2b00f0c6bf0c2744a8eff0860138860, type: 3}
+  subtopicPrefab: {fileID: 7940315755182864410, guid: b24f2fe2fce422d48a1758a5f1d03957, type: 3}
+  scrollbar: {fileID: 6325152566870038791}
+  freePointTextField: {fileID: 8161379964627469322}
+  upgradeData: {fileID: 11400000, guid: a67d90423351a61489b11577fba7c20b, type: 2}
 --- !u!1 &5361372535592393656
 GameObject:
   m_ObjectHideFlags: 0
@@ -707,8 +726,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1935624714812577592}
   m_HandleRect: {fileID: 635918284814173395}
   m_Direction: 2
-  m_Value: 1.0000007
-  m_Size: 0.8108742
+  m_Value: -0.00000035808628
+  m_Size: 0.81133646
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -724,7 +743,6 @@ GameObject:
   - component: {fileID: 6422267082718012184}
   - component: {fileID: 2172948891006631165}
   - component: {fileID: 3545149872268139931}
-  - component: {fileID: 4153386691562582916}
   m_Layer: 5
   m_Name: Area
   m_TagString: Untagged
@@ -748,7 +766,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00082111, y: 183.1461}
+  m_AnchoredPosition: {x: -0.00082111, y: 268.47464}
   m_SizeDelta: {x: 733.34, y: 451.7252}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &2172948891006631165
@@ -785,23 +803,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &4153386691562582916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6600698492340897614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6d53cc57f4d4584a9036c5c8130a7c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainGameObject: {fileID: 5177844871229336924}
-  upgradePrefab: {fileID: 1063585441549912519, guid: b2b00f0c6bf0c2744a8eff0860138860, type: 3}
-  subtopicPrefab: {fileID: 7940315755182864410, guid: b24f2fe2fce422d48a1758a5f1d03957, type: 3}
-  scrollbar: {fileID: 6325152566870038791}
-  freePointTextField: {fileID: 8161379964627469322}
 --- !u!1 &7066461952691801846
 GameObject:
   m_ObjectHideFlags: 0

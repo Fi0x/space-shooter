@@ -11,19 +11,19 @@ using UpgradeSystem;
 
 namespace Components
 {
-    public class Health : MonoBehaviour, IUpgradeable, IDamageable
+    public class Health : MonoBehaviour, IDamageable
     {
         [SerializeField] private bool isPlayer;
+        [SerializeField] private UpgradeDataSO upgradeData;
 
-        private readonly Dictionary<Enum, int> upgrades = new Dictionary<Enum, int>();
         private int maxHealth;
         public int MaxHealth
         {
             get
             {
-                if(this.upgrades.ContainsKey(Upgrades.UpgradeNames.Health)) 
-                    return this.maxHealth + this.upgrades[Upgrades.UpgradeNames.Health] * 10;
-                return this.maxHealth;
+                 if(upgradeData != null) 
+                     return this.maxHealth + (int)(upgradeData.GetValue(UpgradeNames.Health) * 10);
+                 return this.maxHealth;
             }
             set
             {
@@ -81,9 +81,6 @@ namespace Components
         {
             if (generateHealthBar) OnHealthAdded(this);
             
-            if(this.isPlayer)
-                this.ResetUpgrades();
-            
             this.MaxHealth = 1000;
             this.CurrentHealth = this.MaxHealth;
         }
@@ -125,7 +122,7 @@ namespace Components
             else
             {
                 StatCollector.UpdateGeneralStat("Enemies Killed", 1);
-                UpgradeHandler.FreeUpgradePoints++;
+                GameManager.Instance.playerUpgrades.freePoints++;
                 if (generateHealthBar) OnHealthRemoved(this);
                 Destroy(this.gameObject);
             }
@@ -141,21 +138,6 @@ namespace Components
                 }
                 yield return null;
             }
-        }
-        
-        public void ResetUpgrades()
-        {
-            this.upgrades.Clear();
-            
-            this.upgrades.Add(Upgrades.UpgradeNames.Health, 1);
-            
-            UpgradeHandler.RegisterUpgrades(this, this.upgrades.Keys.ToList());
-        }
-
-        public void SetNewUpgradeValue(Enum type, int newLevel)
-        {
-            if (this.upgrades.ContainsKey(type))
-                this.upgrades[type] = newLevel;
         }
     }
 }

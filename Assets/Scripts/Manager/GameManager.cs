@@ -4,6 +4,7 @@ using Ship;
 using Stats;
 using UI;
 using UI.GameOver;
+using UI.Upgrade;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UpgradeSystem;
@@ -13,7 +14,9 @@ namespace Manager
     public class GameManager : MonoBehaviour
     {
         //[SerializeField] private EnemyManager enemyManager;
+        [SerializeField] public UpgradeScreen currentUpgradeScreen;
         [SerializeField] private LevelFlowSO levelFlow;
+        [SerializeField] public UpgradeDataSO playerUpgrades;
         [SerializeField] private int playerDefaultHealth = 1000;
 
         private GameObject _player;
@@ -74,14 +77,14 @@ namespace Manager
 
         private void Start()
         {
-            //this.LoadNextLevel();
+            playerUpgrades.ResetData();
         }
 
         public void ResetGame()
         {
             levelIndex = -1;
             StatCollector.ResetStats();
-            UpgradeHandler.Reset();
+            playerUpgrades.ResetData();
         }
 
         public void LoadNextLevel()
@@ -94,6 +97,22 @@ namespace Manager
             SceneManager.LoadScene(levelName);
             levelIndex++;
             AddDifficulty();
+        }
+        
+        public void ShowUpgradeScreen()
+        {
+            currentUpgradeScreen.gameObject.SetActive(true);
+            currentUpgradeScreen.ShowUpgradeScreen();
+            
+            IsGamePaused = true;
+            currentUpgradeScreen.gameObject.SetActive(true);
+            Time.timeScale = 0;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        
+            //_scrollbar.value = 1;
+        
+            //UpgradeScreenShownEvent?.Invoke(null, null);
         }
 
         private void AddDifficulty()

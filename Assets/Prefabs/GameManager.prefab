@@ -56,8 +56,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d353989325d076b60bd52231d2edbe5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyManager: {fileID: 0}
+  currentUpgradeScreen: {fileID: 0}
   levelFlow: {fileID: 11400000, guid: 65f89e13e56dbb241b9d982a9fa729eb, type: 2}
+  playerUpgrades: {fileID: 11400000, guid: a67d90423351a61489b11577fba7c20b, type: 2}
   playerDefaultHealth: 1000
   difficulty: 1
   levelIndex: 0

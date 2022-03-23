@@ -18,8 +18,8 @@ namespace Ship
         private float totalMaxSpeed;
 
         private bool isBoosting = false;
-        
-        private readonly Dictionary<Enum, int> upgrades = new Dictionary<Enum, int>();
+
+        [SerializeField] private UpgradeDataSO upgradeData;
 
         private GameObject shipObject;
         private Rigidbody shipRb;
@@ -178,17 +178,17 @@ namespace Ship
 
             if (deltaZLocalSpace > 0)
             {
-                var effectiveAccelerationForce = this.Settings.AccelerationForwards(this.upgrades[Upgrades.UpgradeNames.EngineAcceleration]);
+                var effectiveAccelerationForce = this.Settings.AccelerationForwards(upgradeData.GetValue(UpgradeNames.EngineAcceleration));
                 if (this.inputHandler.IsBoosting)
                 {
                     effectiveAccelerationForce *= this.Settings.AccelerationForwardsBoostMultiplier;
                 }
                 if (isBraking)
                 {
-                    effectiveAccelerationForce *= this.Settings.BrakingModifier(this.upgrades[Upgrades.UpgradeNames.EngineStabilizationSpeed]);
+                    effectiveAccelerationForce *= this.Settings.BrakingModifier(upgradeData.GetValue(UpgradeNames.EngineStabilizationSpeed));
                 }
                 var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.shipRb,
-                    Vector3.forward * effectiveAccelerationForce * Time.fixedDeltaTime);
+                    Vector3.forward * (effectiveAccelerationForce * Time.fixedDeltaTime));
                 if (!IsValueInBetween(currentVelocityLocal.z, zTargetLocalSpace,
                     velocityAfterForceLocal.z))
                 {
@@ -199,14 +199,14 @@ namespace Ship
             }
             else
             {
-                var effectiveAccelerationForce = this.Settings.AccelerationBackwards(this.upgrades[Upgrades.UpgradeNames.EngineDeceleration]);
+                var effectiveAccelerationForce = this.Settings.AccelerationBackwards(upgradeData.GetValue(UpgradeNames.EngineDeceleration));
                 if (this.inputHandler.IsBoosting)
                 {
                     effectiveAccelerationForce *= this.Settings.AccelerationBackwardsBoostMultiplier;
                 }
                 if (isBraking)
                 {
-                    effectiveAccelerationForce *= this.Settings.BrakingModifier(this.upgrades[Upgrades.UpgradeNames.EngineStabilizationSpeed]);
+                    effectiveAccelerationForce *= this.Settings.BrakingModifier(upgradeData.GetValue(UpgradeNames.EngineStabilizationSpeed));
                 }
 
                 var velocityAfterForceLocal =
@@ -244,7 +244,7 @@ namespace Ship
             }
             var currentVelocityLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
 
-            var effectiveAccelerationLateral = this.Settings.AccelerationLateral(this.upgrades[Upgrades.UpgradeNames.EngineLateralThrust]);
+            var effectiveAccelerationLateral = this.Settings.AccelerationLateral(upgradeData.GetValue(UpgradeNames.EngineLateralThrust));
             if (this.inputHandler.IsBoosting)
             {
                 effectiveAccelerationLateral *= this.Settings.AccelerationLateralBoostMultiplier;
@@ -252,7 +252,7 @@ namespace Ship
             var isBraking = Math.Abs(currentVelocityLocal.y) > Math.Abs(yTargetLocalSpace);
             if (isBraking)
             {
-                effectiveAccelerationLateral *= this.Settings.BrakingModifier(this.upgrades[Upgrades.UpgradeNames.EngineStabilizationSpeed]);
+                effectiveAccelerationLateral *= this.Settings.BrakingModifier(upgradeData.GetValue(UpgradeNames.EngineStabilizationSpeed));
             }
 
             if (deltaYLocalSpace > 0)
@@ -290,7 +290,7 @@ namespace Ship
             }
             var currentVelocityLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
 
-            var effectiveAccelerationLateral = this.Settings.AccelerationLateral(this.upgrades[Upgrades.UpgradeNames.EngineLateralThrust]);
+            var effectiveAccelerationLateral = this.Settings.AccelerationLateral(upgradeData.GetValue(UpgradeNames.EngineLateralThrust));
             if (this.inputHandler.IsBoosting)
             {
                 effectiveAccelerationLateral *= this.Settings.AccelerationLateralBoostMultiplier;
@@ -298,7 +298,7 @@ namespace Ship
             var isBraking = Math.Abs(currentVelocityLocal.x) > Math.Abs(xTargetLocalSpace);
             if (isBraking)
             {
-                effectiveAccelerationLateral *= this.Settings.BrakingModifier(this.upgrades[Upgrades.UpgradeNames.EngineStabilizationSpeed]);
+                effectiveAccelerationLateral *= this.Settings.BrakingModifier(upgradeData.GetValue(UpgradeNames.EngineStabilizationSpeed));
             }
 
             if (deltaXLocalSpace > 0)
@@ -362,9 +362,9 @@ namespace Ship
             // TODO: this is the wrong place to add this.
             var mouseMultiplier = InputManager.MouseSensitivity;
 
-            var pitchForce = (boosting ? this.Settings.PitchSpeedBoostMultiplier : 1) * this.Settings.PitchSpeed(this.upgrades[Upgrades.UpgradeNames.EngineRotationSpeedPitch]);
-            var yawForce = (boosting ? this.Settings.YawSpeedBoostMultiplier : 1) * this.Settings.YawSpeed(this.upgrades[Upgrades.UpgradeNames.EngineRotationSpeedYaw]);
-            var rollForce = (boosting ? this.Settings.RollSpeedBoostMultiplier : 1) * this.Settings.RollSpeed(this.upgrades[Upgrades.UpgradeNames.EngineRotationSpeedRoll]);
+            var pitchForce = (boosting ? this.Settings.PitchSpeedBoostMultiplier : 1) * this.Settings.PitchSpeed(upgradeData.GetValue(UpgradeNames.EngineRotationSpeedPitch));
+            var yawForce = (boosting ? this.Settings.YawSpeedBoostMultiplier : 1) * this.Settings.YawSpeed(upgradeData.GetValue(UpgradeNames.EngineRotationSpeedYaw));
+            var rollForce = (boosting ? this.Settings.RollSpeedBoostMultiplier : 1) * this.Settings.RollSpeed(upgradeData.GetValue(UpgradeNames.EngineRotationSpeedRoll));
 
             var effectivePitchForce = -input.Pitch * pitchForce * mouseMultiplier;
             var effectiveYawForce = input.Yaw * yawForce * mouseMultiplier;
@@ -404,23 +404,23 @@ namespace Ship
         
         public void ResetUpgrades()
         {
-            this.upgrades.Clear();
-            
-            this.upgrades.Add(Upgrades.UpgradeNames.EngineAcceleration, 1);
-            this.upgrades.Add(Upgrades.UpgradeNames.EngineDeceleration, 1);
-            this.upgrades.Add(Upgrades.UpgradeNames.EngineLateralThrust, 1);
-            this.upgrades.Add(Upgrades.UpgradeNames.EngineRotationSpeedPitch, 1);
-            this.upgrades.Add(Upgrades.UpgradeNames.EngineRotationSpeedRoll, 1);
-            this.upgrades.Add(Upgrades.UpgradeNames.EngineRotationSpeedYaw, 1);
-            this.upgrades.Add(Upgrades.UpgradeNames.EngineStabilizationSpeed, 1);
-            
-            UpgradeHandler.RegisterUpgrades(this, this.upgrades.Keys.ToList());
+            // this.upgrades.Clear();
+            //
+            // this.upgrades.Add(Upgrades.UpgradeNames.EngineAcceleration, 1);
+            // this.upgrades.Add(Upgrades.UpgradeNames.EngineDeceleration, 1);
+            // this.upgrades.Add(Upgrades.UpgradeNames.EngineLateralThrust, 1);
+            // this.upgrades.Add(Upgrades.UpgradeNames.EngineRotationSpeedPitch, 1);
+            // this.upgrades.Add(Upgrades.UpgradeNames.EngineRotationSpeedRoll, 1);
+            // this.upgrades.Add(Upgrades.UpgradeNames.EngineRotationSpeedYaw, 1);
+            // this.upgrades.Add(Upgrades.UpgradeNames.EngineStabilizationSpeed, 1);
+            //
+            // UpgradeHandler.RegisterUpgrades(this, this.upgrades.Keys.ToList());
         }
 
         public void SetNewUpgradeValue(Enum type, int newLevel)
         {
-            if (this.upgrades.ContainsKey(type))
-                this.upgrades[type] = newLevel;
+            // if (this.upgrades.ContainsKey(type))
+            //     this.upgrades[type] = newLevel;
         }
     }
 }
