@@ -14,7 +14,7 @@ namespace UI.Upgrade
         [SerializeField] private GameObject upgradePrefab;
         [SerializeField] private GameObject subtopicPrefab;
         [SerializeField] private Scrollbar scrollbar;
-        [SerializeField] private Text freePointTextField;
+        [SerializeField] private TextMeshProUGUI freePointTextField;
 
         public UpgradeDataSO upgradeData;
 
@@ -33,7 +33,7 @@ namespace UI.Upgrade
         
         public void ShowUpgradeScreen()
         {
-            ExpandUpgradeList();
+            //ExpandUpgradeList();
             scrollbar.value = 1;
             UpdatePoints();
             UpdateAllFields();
@@ -100,6 +100,11 @@ namespace UI.Upgrade
 
         private void ExpandUpgradeList()
         {
+            foreach (var field in fields)
+            {
+                Destroy(field.Value.gameObject);
+            }
+            fields.Clear();
             var currentCategory = "";
             foreach (var upgrade in upgradeData.upgrades)
             {
@@ -123,7 +128,8 @@ namespace UI.Upgrade
                 field.UpdateField();
                 if (fields.ContainsKey(upgrade.type))
                 {
-                    Destroy(newPrefab);
+                    //Destroy(newPrefab);
+                    Debug.Log("Already contains " + upgrade.type);
                 }else
                     fields.Add(upgrade.type, field);
             }

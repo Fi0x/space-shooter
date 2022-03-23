@@ -1,4 +1,5 @@
 using Manager;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,7 +7,7 @@ namespace UI.Settings
 {
     public class VolumeSlider : MonoBehaviour
     {
-        [SerializeField] private InputField valueField;
+        [SerializeField] private TMP_InputField valueField;
         [SerializeField] private SliderType soundCategory = SliderType.Music;
         
         private Slider slider;

@@ -66,9 +66,9 @@ namespace UI
             this.statList.Add(newPrefab);
         }
 
-        private static (Text name, Text value) GetTextComponents(GameObject statObject)
+        private static (TextMeshProUGUI name, TextMeshProUGUI value) GetTextComponents(GameObject statObject)
         {
-            var textComponents = statObject.GetComponentsInChildren<Text>(); 
+            var textComponents = statObject.GetComponentsInChildren<TextMeshProUGUI>(); 
             var nameText = textComponents.First(c => c.gameObject.name.Equals("Name"));
             var valueText = textComponents.First(c => c.gameObject.name.Equals("Value"));
 
