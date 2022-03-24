@@ -4,7 +4,9 @@ using Manager;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using UpgradeSystem;
+using Cursor = UnityEngine.Cursor;
 
 namespace UI.Upgrade
 {
@@ -27,7 +29,8 @@ namespace UI.Upgrade
         {
             fields = new Dictionary<UpgradeNames, UpgradeField>();
             GameManager.Instance.currentUpgradeScreen = this;
-            this.ExpandUpgradeList();
+            //ExpandUpgradeList();
+            GenerateRandomUpgrades();
             gameObject.SetActive(false);
         }
         
@@ -90,14 +93,24 @@ namespace UI.Upgrade
         //     return (decrease, increase);
         // }
         
-        public void PurchaseUpgrade(UpgradeNames upgradeName, int valueChange)
+        public void PurchaseUpgrade(UpgradeNames upgradeName, bool isIncrease)
         {
-            upgradeData.freePoints -= valueChange;
-            upgradeData.AddPoints(upgradeName, valueChange);
-            UpdateFields(upgradeName);
+            var negativeCost = CalculateUpgradeCost(upgradeData.GetPoints(upgradeName) - 1);
+            var positiveCost = CalculateUpgradeCost(upgradeName);
+            upgradeData.freePoints -= isIncrease ? positiveCost : -negativeCost;
+            upgradeData.AddPoints(upgradeName, isIncrease ? 1 : -1);
+            UpdateAllFields();
             UpdatePoints();
         }
 
+        public int CalculateUpgradeCost(int currentPoints)
+        {
+            return (int)Mathf.Exp(0.1f * currentPoints);
+        }
+        public int CalculateUpgradeCost(UpgradeNames type)
+        {
+            return CalculateUpgradeCost(upgradeData.GetPoints(type));
+        }
         private void ExpandUpgradeList()
         {
             foreach (var field in fields)
@@ -136,6 +149,46 @@ namespace UI.Upgrade
             
             this.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 10 + 50 * (upgradeData.upgrades.Count + this.subtopicCount));
             this.scrollbar.value = 1;
+        }
+
+        private void GenerateRandomUpgrades()
+        {
+            var upgradeList = new List<UpgradeSystem.Upgrade>(upgradeData.upgrades);
+            upgradeList = UpgradeHelper.Fisher_Yates_CardDeck_Shuffle(upgradeList);
+            for (int i = 0; i < 3; i++)
+            {
+                SpawnUpgradeField(upgradeList[i].type);
+            }
+        }
+
+        private void SpawnUpgradeField(UpgradeNames type)
+        {
+            var newPrefab = Instantiate(this.upgradePrefab, this.scrollAreaGameObject.transform);
+            var field = newPrefab.GetComponent<UpgradeField>();
+            field.upgradeScreen = this;
+            field.type = type;
+            field.UpdateField();
+            if (fields.ContainsKey(type))
+            {
+                //Destroy(newPrefab);
+                Debug.Log("Already contains " + type);
+            }else
+                fields.Add(type, field);
+        }
+
+        public void RemoveAllFields()
+        {
+            var toRemove = new List<GameObject>();
+            for (int i = 0; i < scrollAreaGameObject.transform.childCount; i++)
+            {
+                var child = scrollAreaGameObject.transform.GetChild(i);
+                toRemove.Add(child.gameObject);
+            }
+            foreach (var child in toRemove)
+            {
+                Destroy(child);
+            }
+            fields.Clear();
         }
     }
 }

@@ -650,7 +650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.23529412, g: 0.2491999, b: 0.27450982, a: 0.8}
+  m_Color: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 0.8}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -785,7 +785,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4293836709
-  m_fontColor: {r: 0.64760596, g: 0.74804103, b: 0.9339623, a: 1}
+  m_fontColor: {r: 0.64705884, g: 0.7490196, b: 0.93333334, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -934,6 +934,7 @@ GameObject:
   - component: {fileID: 253023597}
   - component: {fileID: 253023596}
   - component: {fileID: 253023595}
+  - component: {fileID: 253023598}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -1017,6 +1018,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 253023598}
+        m_TargetAssemblyTypeName: UI.UiSound, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GUIConfirm
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &253023596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1055,6 +1068,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 253023593}
   m_CullTransparentMesh: 1
+--- !u!114 &253023598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253023593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b25689ad4be44249beba0405af0e2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterSound: GUIEnter
 --- !u!1001 &280048904
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7661,7 +7687,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 597882344}
-  m_LocalRotation: {x: 0.046958707, y: -0.005794488, z: 0.00027240673, w: 0.99888}
+  m_LocalRotation: {x: 0.046958707, y: -0.0057944898, z: 0.00027240685, w: 0.99888}
   m_LocalPosition: {x: -8.769745, y: 8.333237, z: -20.307068}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -10117,7 +10143,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346180542}
-  m_LocalRotation: {x: 0.046958707, y: -0.005794488, z: 0.00027240673, w: 0.99888}
+  m_LocalRotation: {x: 0.046958707, y: -0.0057944898, z: 0.00027240685, w: 0.99888}
   m_LocalPosition: {x: -3.0834227, y: 3.2813454, z: -1.7559725}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -10715,7 +10741,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4293836709
-  m_fontColor: {r: 0.64760596, g: 0.74804103, b: 0.9339623, a: 1}
+  m_fontColor: {r: 0.64705884, g: 0.7490196, b: 0.93333334, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -10794,6 +10820,7 @@ GameObject:
   - component: {fileID: 1497583870}
   - component: {fileID: 1497583869}
   - component: {fileID: 1497583868}
+  - component: {fileID: 1497583871}
   m_Layer: 5
   m_Name: SettingsButton
   m_TagString: Untagged
@@ -10877,6 +10904,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1497583871}
+        m_TargetAssemblyTypeName: UI.UiSound, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GUIConfirm
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1497583869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10915,6 +10954,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1497583866}
   m_CullTransparentMesh: 1
+--- !u!114 &1497583871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497583866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b25689ad4be44249beba0405af0e2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterSound: GUIEnter
 --- !u!1001 &1571858567
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11991,7 +12043,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4293836709
-  m_fontColor: {r: 0.64760596, g: 0.74804103, b: 0.9339623, a: 1}
+  m_fontColor: {r: 0.64705884, g: 0.7490196, b: 0.93333334, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -12140,6 +12192,7 @@ GameObject:
   - component: {fileID: 1798976426}
   - component: {fileID: 1798976425}
   - component: {fileID: 1798976424}
+  - component: {fileID: 1798976427}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -12223,6 +12276,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1798976427}
+        m_TargetAssemblyTypeName: UI.UiSound, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GUIConfirm
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1798976425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12261,6 +12326,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1798976422}
   m_CullTransparentMesh: 1
+--- !u!114 &1798976427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798976422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b25689ad4be44249beba0405af0e2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterSound: GUIEnter
 --- !u!1001 &1807990612
 PrefabInstance:
   m_ObjectHideFlags: 0

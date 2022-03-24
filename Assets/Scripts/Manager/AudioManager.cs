@@ -50,9 +50,9 @@ namespace Manager
             this.Play("Ambience");
         }
 
-        private void Play(string soundName)
+        public void Play(string soundName)
         {
-            var s = Array.Find(this.musicClips, sound => sound.name == soundName);
+            var s = Array.Find(instance.musicClips, sound => sound.name == soundName);
             if (s == null)
             {
                 Debug.LogWarning("Sound: " + soundName + " not found!");

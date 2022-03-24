@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using UnityEngine;
+
 namespace UpgradeSystem
 {
     public static class UpgradeHelper
@@ -20,5 +23,25 @@ namespace UpgradeSystem
 
             _ => "Unknown",
         };
+        
+        public static List<T> Fisher_Yates_CardDeck_Shuffle<T>(List<T>aList) {
+ 
+            System.Random _random = new System.Random ();
+ 
+            T myGO;
+ 
+            int n = aList.Count;
+            for (int i = 0; i < n; i++)
+            {
+                // NextDouble returns a random number between 0 and 1.
+                // ... It is equivalent to Math.random() in Java.
+                int r = i + (int)(_random.NextDouble() * (n - i));
+                myGO = aList[r];
+                aList[r] = aList[i];
+                aList[i] = myGO;
+            }
+ 
+            return aList;
+        }
     }
 }

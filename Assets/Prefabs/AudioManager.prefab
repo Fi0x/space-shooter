@@ -50,4 +50,22 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
+  - name: GUIConfirm
+    clip: {fileID: 8300000, guid: 57f3a8916c98c354e99341c30cee54aa, type: 3}
+    volume: 0.15
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: GUIDeny
+    clip: {fileID: 8300000, guid: 57f3a8916c98c354e99341c30cee54aa, type: 3}
+    volume: 0.15
+    pitch: 0.6
+    loop: 0
+    source: {fileID: 0}
+  - name: GUIEnter
+    clip: {fileID: 8300000, guid: 5ebec1823e3a8e0458c30bbb0721cbb5, type: 3}
+    volume: 0.05
+    pitch: 0.8
+    loop: 0
+    source: {fileID: 0}
   mixer: {fileID: 24100000, guid: 54012366f9c84714d9b5cd4580426a2c, type: 2}

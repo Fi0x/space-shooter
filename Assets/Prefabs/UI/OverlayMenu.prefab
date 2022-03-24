@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 2849798430693630269}
   - component: {fileID: 43336038980324469}
   - component: {fileID: 1877627070297218538}
+  - component: {fileID: 9198016997294874405}
   m_Layer: 5
   m_Name: Stats
   m_TagString: Untagged
@@ -96,15 +97,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7607843, g: 0.79607844, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 5267b3ffeffc91643b96b743d82823e7, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -169,6 +170,31 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 9198016997294874405}
+        m_TargetAssemblyTypeName: UI.UiSound, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GUIConfirm
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &9198016997294874405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 192731803368468823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b25689ad4be44249beba0405af0e2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterSound: GUIEnter
 --- !u!1 &243280528344558412
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,6 +793,7 @@ GameObject:
   - component: {fileID: 243280528484034497}
   - component: {fileID: 243280528484034496}
   - component: {fileID: 243280528484034527}
+  - component: {fileID: 2638828527500208819}
   m_Layer: 5
   m_Name: BtnStrafeRight
   m_TagString: Untagged
@@ -875,7 +902,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 243280528484034497}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2638828527500208819}
+        m_TargetAssemblyTypeName: UI.UiSound, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GUIConfirm
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &243280528484034527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -888,6 +927,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b90742de2a45a41b186b2b689bd633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2638828527500208819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243280528484034525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b25689ad4be44249beba0405af0e2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterSound: GUIEnter
 --- !u!1 &243280528510109728
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,6 +953,7 @@ GameObject:
   - component: {fileID: 243280528510109732}
   - component: {fileID: 243280528510109731}
   - component: {fileID: 243280528510109730}
+  - component: {fileID: 1163569918602698920}
   m_Layer: 5
   m_Name: BtnBoost
   m_TagString: Untagged
@@ -1009,7 +1062,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 243280528510109732}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2638828527500208819}
+        m_TargetAssemblyTypeName: UI.UiSound, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GUIConfirm
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &243280528510109730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1022,6 +1087,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b90742de2a45a41b186b2b689bd633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1163569918602698920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243280528510109728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b25689ad4be44249beba0405af0e2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterSound: GUIEnter
 --- !u!1 &243280528547366864
 GameObject:
   m_ObjectHideFlags: 0
@@ -1169,6 +1247,7 @@ GameObject:
   - component: {fileID: 243280528549116499}
   - component: {fileID: 243280528549116498}
   - component: {fileID: 243280528549116501}
+  - component: {fileID: 7799437675594928643}
   m_Layer: 5
   m_Name: BtnAccelerate
   m_TagString: Untagged
@@ -1277,7 +1356,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 243280528549116499}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7799437675594928643}
+        m_TargetAssemblyTypeName: UI.UiSound, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GUIConfrim
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &243280528549116501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1290,6 +1381,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b90742de2a45a41b186b2b689bd633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7799437675594928643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243280528549116496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b25689ad4be44249beba0405af0e2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterSound: GUIEnter
 --- !u!1 &243280528554976349
 GameObject:
   m_ObjectHideFlags: 0
@@ -1364,8 +1468,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294953922
+  m_fontColor: {r: 0.7607843, g: 0.79607844, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1388,7 +1492,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 24
-  m_fontStyle: 0
+  m_fontStyle: 2
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1623,8 +1727,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 243280529546024324}
   m_HandleRect: {fileID: 243280529546024323}
   m_Direction: 2
-  m_Value: 1.0000035
-  m_Size: 0.5768006
+  m_Value: 0.99983
+  m_Size: 0.5766537
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1855,6 +1959,7 @@ GameObject:
   - component: {fileID: 243280528644777236}
   - component: {fileID: 243280528644777235}
   - component: {fileID: 243280528644777234}
+  - component: {fileID: 3870542209139216367}
   m_Layer: 5
   m_Name: BtnDecelerate
   m_TagString: Untagged
@@ -1963,7 +2068,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 243280528644777236}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3870542209139216367}
+        m_TargetAssemblyTypeName: UI.UiSound, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GUIConfrim
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &243280528644777234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1976,6 +2093,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b90742de2a45a41b186b2b689bd633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3870542209139216367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243280528644777232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b25689ad4be44249beba0405af0e2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterSound: GUIEnter
 --- !u!1 &243280528645960676
 GameObject:
   m_ObjectHideFlags: 0
@@ -2051,7 +2181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 243280528680185186}
   - component: {fileID: 243280528680185188}
-  - component: {fileID: 243280528680185187}
+  - component: {fileID: 5518483982332127060}
   m_Layer: 5
   m_Name: TitleKeybinds
   m_TagString: Untagged
@@ -2086,7 +2216,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 243280528680185185}
   m_CullTransparentMesh: 1
---- !u!114 &243280528680185187
+--- !u!114 &5518483982332127060
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2095,7 +2225,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 243280528680185185}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -2106,20 +2236,75 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 18
-    m_FontStyle: 1
-    m_BestFit: 0
-    m_MinSize: 1
-    m_MaxSize: 40
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: Keybinds
+  m_text: Keybinds
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 975b98ee9171ecd448ef08c5768769e9, type: 2}
+  m_sharedMaterial: {fileID: -8152220824400687131, guid: 975b98ee9171ecd448ef08c5768769e9, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 28
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 18
+  m_fontSizeMax: 28
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &243280528686584652
 GameObject:
   m_ObjectHideFlags: 0
@@ -2540,6 +2725,7 @@ GameObject:
   - component: {fileID: 243280528804074805}
   - component: {fileID: 243280528804074804}
   - component: {fileID: 243280528804074803}
+  - component: {fileID: 7483832609649526904}
   m_Layer: 5
   m_Name: BtnRollRight
   m_TagString: Untagged
@@ -2648,7 +2834,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 243280528804074805}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2638828527500208819}
+        m_TargetAssemblyTypeName: UI.UiSound, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GUIConfirm
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &243280528804074803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2661,6 +2859,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b90742de2a45a41b186b2b689bd633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7483832609649526904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243280528804074801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b25689ad4be44249beba0405af0e2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterSound: GUIEnter
 --- !u!1 &243280528821933182
 GameObject:
   m_ObjectHideFlags: 0
@@ -2674,6 +2885,7 @@ GameObject:
   - component: {fileID: 243280528821933154}
   - component: {fileID: 243280528821933153}
   - component: {fileID: 243280528821933152}
+  - component: {fileID: 1728116000927387592}
   m_Layer: 5
   m_Name: BtnPause
   m_TagString: Untagged
@@ -2782,7 +2994,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 243280528821933154}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2638828527500208819}
+        m_TargetAssemblyTypeName: UI.UiSound, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GUIConfirm
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &243280528821933152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2795,6 +3019,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b90742de2a45a41b186b2b689bd633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1728116000927387592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243280528821933182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b25689ad4be44249beba0405af0e2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterSound: GUIEnter
 --- !u!1 &243280528826687951
 GameObject:
   m_ObjectHideFlags: 0
@@ -2915,7 +3152,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 243280530051821454}
   m_HandleRect: {fileID: 243280530051821453}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3928,6 +4165,7 @@ GameObject:
   - component: {fileID: 243280529125744952}
   - component: {fileID: 243280529125744951}
   - component: {fileID: 243280529125744950}
+  - component: {fileID: 7867536426451156145}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -3976,15 +4214,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7607843, g: 0.79607844, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 5267b3ffeffc91643b96b743d82823e7, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -4049,6 +4287,31 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7867536426451156145}
+        m_TargetAssemblyTypeName: UI.UiSound, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GUIConfirm
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7867536426451156145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243280529125744948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b25689ad4be44249beba0405af0e2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterSound: GUIEnter
 --- !u!1 &243280529132529250
 GameObject:
   m_ObjectHideFlags: 0
@@ -4584,7 +4847,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: return to game
+  m_text: Return to game
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 975b98ee9171ecd448ef08c5768769e9, type: 2}
   m_sharedMaterial: {fileID: -8152220824400687131, guid: 975b98ee9171ecd448ef08c5768769e9, type: 2}
@@ -4593,8 +4856,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294953922
+  m_fontColor: {r: 0.7607843, g: 0.79607844, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4611,13 +4874,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
+  m_fontSize: 20
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 24
-  m_fontStyle: 0
+  m_fontSizeMax: 20
+  m_fontStyle: 2
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -5024,8 +5287,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294953922
+  m_fontColor: {r: 0.7607843, g: 0.79607844, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5048,7 +5311,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 24
-  m_fontStyle: 0
+  m_fontStyle: 2
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -5116,8 +5379,8 @@ RectTransform:
   m_Father: {fileID: 243280529907713753}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.42319942}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0.4232743}
+  m_AnchorMax: {x: 1, y: 0.999928}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5171,6 +5434,7 @@ GameObject:
   - component: {fileID: 243280529551174309}
   - component: {fileID: 243280529551174308}
   - component: {fileID: 243280529551174307}
+  - component: {fileID: 3885890688405005678}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -5219,15 +5483,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7607843, g: 0.79607844, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 5267b3ffeffc91643b96b743d82823e7, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -5292,6 +5556,31 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3885890688405005678}
+        m_TargetAssemblyTypeName: UI.UiSound, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GUIConfirm
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3885890688405005678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243280529551174305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b25689ad4be44249beba0405af0e2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterSound: GUIEnter
 --- !u!1 &243280529559135084
 GameObject:
   m_ObjectHideFlags: 0
@@ -6507,6 +6796,7 @@ GameObject:
   - component: {fileID: 243280529926697226}
   - component: {fileID: 243280529926697225}
   - component: {fileID: 243280529926697224}
+  - component: {fileID: 8041971534449650220}
   m_Layer: 5
   m_Name: BtnStrafeLeft
   m_TagString: Untagged
@@ -6615,7 +6905,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 243280529926697226}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2638828527500208819}
+        m_TargetAssemblyTypeName: UI.UiSound, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GUIConfirm
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &243280529926697224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6628,6 +6930,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b90742de2a45a41b186b2b689bd633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8041971534449650220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243280529926697222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b25689ad4be44249beba0405af0e2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterSound: GUIEnter
 --- !u!1 &243280529929884738
 GameObject:
   m_ObjectHideFlags: 0
@@ -6640,6 +6955,7 @@ GameObject:
   - component: {fileID: 243280529929884742}
   - component: {fileID: 243280529929884741}
   - component: {fileID: 243280529929884740}
+  - component: {fileID: 1245456183628969975}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -6688,15 +7004,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7607843, g: 0.79607844, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 5267b3ffeffc91643b96b743d82823e7, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -6761,6 +7077,31 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1245456183628969975}
+        m_TargetAssemblyTypeName: UI.UiSound, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GUIConfirm
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1245456183628969975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243280529929884738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b25689ad4be44249beba0405af0e2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterSound: GUIEnter
 --- !u!1 &243280529953729562
 GameObject:
   m_ObjectHideFlags: 0
@@ -6835,8 +7176,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294953922
+  m_fontColor: {r: 0.7607843, g: 0.79607844, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6859,7 +7200,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 24
-  m_fontStyle: 0
+  m_fontStyle: 2
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -6907,6 +7248,7 @@ GameObject:
   - component: {fileID: 243280530014275518}
   - component: {fileID: 243280530014275517}
   - component: {fileID: 243280530014275516}
+  - component: {fileID: 1946197023915015290}
   m_Layer: 5
   m_Name: Settings
   m_TagString: Untagged
@@ -6955,15 +7297,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7607843, g: 0.79607844, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 5267b3ffeffc91643b96b743d82823e7, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -7028,6 +7370,31 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1946197023915015290}
+        m_TargetAssemblyTypeName: UI.UiSound, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GUIConfirm
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1946197023915015290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243280530014275514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b25689ad4be44249beba0405af0e2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterSound: GUIEnter
 --- !u!1 &243280530048240382
 GameObject:
   m_ObjectHideFlags: 0
@@ -7619,7 +7986,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: quit
+  m_text: Quit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 975b98ee9171ecd448ef08c5768769e9, type: 2}
   m_sharedMaterial: {fileID: -8152220824400687131, guid: 975b98ee9171ecd448ef08c5768769e9, type: 2}
@@ -7628,8 +7995,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294953922
+  m_fontColor: {r: 0.7607843, g: 0.79607844, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7652,7 +8019,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 24
-  m_fontStyle: 0
+  m_fontStyle: 2
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -7700,6 +8067,7 @@ GameObject:
   - component: {fileID: 243280530167210381}
   - component: {fileID: 243280530167210380}
   - component: {fileID: 243280530167210379}
+  - component: {fileID: 3324436455105826922}
   m_Layer: 5
   m_Name: BtnKeybinds
   m_TagString: Untagged
@@ -7748,15 +8116,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7607843, g: 0.79607844, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 5267b3ffeffc91643b96b743d82823e7, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -7821,6 +8189,31 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3324436455105826922}
+        m_TargetAssemblyTypeName: UI.UiSound, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GUIConfirm
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3324436455105826922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243280530167210377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b25689ad4be44249beba0405af0e2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterSound: GUIEnter
 --- !u!1 &243280530173348454
 GameObject:
   m_ObjectHideFlags: 0
@@ -7834,6 +8227,7 @@ GameObject:
   - component: {fileID: 243280530173348458}
   - component: {fileID: 243280530173348457}
   - component: {fileID: 243280530173348456}
+  - component: {fileID: 5946909810355259631}
   m_Layer: 5
   m_Name: BtnRollLeft
   m_TagString: Untagged
@@ -7942,7 +8336,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 243280530173348458}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5946909810355259631}
+        m_TargetAssemblyTypeName: UI.UiSound, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GUIConfrim
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &243280530173348456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7955,6 +8361,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b90742de2a45a41b186b2b689bd633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5946909810355259631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243280530173348454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b25689ad4be44249beba0405af0e2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterSound: GUIEnter
 --- !u!1 &243280530241031472
 GameObject:
   m_ObjectHideFlags: 0
@@ -8020,7 +8439,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: settings
+  m_text: Settings
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 975b98ee9171ecd448ef08c5768769e9, type: 2}
   m_sharedMaterial: {fileID: -8152220824400687131, guid: 975b98ee9171ecd448ef08c5768769e9, type: 2}
@@ -8029,8 +8448,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294953922
+  m_fontColor: {r: 0.7607843, g: 0.79607844, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -8053,7 +8472,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 24
-  m_fontStyle: 0
+  m_fontStyle: 2
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -8515,6 +8934,7 @@ GameObject:
   - component: {fileID: 243280530393056979}
   - component: {fileID: 243280530393056978}
   - component: {fileID: 243280530393056977}
+  - component: {fileID: 3848017450530690609}
   m_Layer: 5
   m_Name: BtnBraking
   m_TagString: Untagged
@@ -8623,7 +9043,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 243280530393056979}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2638828527500208819}
+        m_TargetAssemblyTypeName: UI.UiSound, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GUIConfirm
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &243280530393056977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8636,6 +9068,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b90742de2a45a41b186b2b689bd633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3848017450530690609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243280530393056815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b25689ad4be44249beba0405af0e2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterSound: GUIEnter
 --- !u!1 &243280530398121749
 GameObject:
   m_ObjectHideFlags: 0
@@ -9168,6 +9613,7 @@ GameObject:
   - component: {fileID: 243280530478965484}
   - component: {fileID: 243280530478965483}
   - component: {fileID: 243280530478965482}
+  - component: {fileID: 2341130952836597995}
   m_Layer: 5
   m_Name: ReturnToGame
   m_TagString: Untagged
@@ -9216,15 +9662,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7607843, g: 0.79607844, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 5267b3ffeffc91643b96b743d82823e7, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -9277,8 +9723,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 2341130952836597995}
+        m_TargetAssemblyTypeName: UI.UiSound, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GUIConfirm
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 243280529640456287}
-        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_TargetAssemblyTypeName: UI.OverlayMenu, Assembly-CSharp
         m_MethodName: Resume
         m_Mode: 1
         m_Arguments:
@@ -9289,6 +9747,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2341130952836597995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243280530478965480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b25689ad4be44249beba0405af0e2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterSound: GUIEnter
 --- !u!1 &699563379078673068
 GameObject:
   m_ObjectHideFlags: 0
@@ -10060,7 +10531,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: stats
+  m_text: Stats
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 975b98ee9171ecd448ef08c5768769e9, type: 2}
   m_sharedMaterial: {fileID: -8152220824400687131, guid: 975b98ee9171ecd448ef08c5768769e9, type: 2}
@@ -10069,8 +10540,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294953922
+  m_fontColor: {r: 0.7607843, g: 0.79607844, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -10093,7 +10564,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 24
-  m_fontStyle: 0
+  m_fontStyle: 2
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -11021,8 +11492,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2831649988924115505}
   m_HandleRect: {fileID: 4611883755350711831}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.78311175
+  m_Value: 0.99954045
+  m_Size: 0.7829124
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -11419,6 +11890,7 @@ GameObject:
   - component: {fileID: 3386905816474965756}
   - component: {fileID: 4765614291978515860}
   - component: {fileID: 3128399553332280182}
+  - component: {fileID: 2293052274344001496}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -11467,15 +11939,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7607843, g: 0.79607844, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 5267b3ffeffc91643b96b743d82823e7, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -11540,6 +12012,31 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2293052274344001496}
+        m_TargetAssemblyTypeName: UI.UiSound, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GUIConfirm
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2293052274344001496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5043801930084202302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b25689ad4be44249beba0405af0e2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterSound: GUIEnter
 --- !u!1 &5444052198781810435
 GameObject:
   m_ObjectHideFlags: 0
@@ -11745,7 +12242,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BACK
+  m_text: Back
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 975b98ee9171ecd448ef08c5768769e9, type: 2}
   m_sharedMaterial: {fileID: -8152220824400687131, guid: 975b98ee9171ecd448ef08c5768769e9, type: 2}
@@ -11754,8 +12251,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294953922
+  m_fontColor: {r: 0.7607843, g: 0.79607844, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -11772,13 +12269,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30.9
+  m_fontSize: 24
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontSizeMax: 24
+  m_fontStyle: 2
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -12070,8 +12567,8 @@ RectTransform:
   m_Father: {fileID: 7210547161936105552}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.21688825}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0.21698786}
+  m_AnchorMax: {x: 1, y: 0.9999002}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
