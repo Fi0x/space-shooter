@@ -49,19 +49,20 @@ namespace UI
 
         private void CheckMaxRockets()
         {
-            if (spawner.maxRocketCharges > images.Count)
+            var maxRocketCharges = spawner.CalcRocketCharges();
+            if (maxRocketCharges > images.Count)
             {
-                for (int i = 0; i < spawner.maxRocketCharges - images.Count; i++)
+                for (int i = 0; i < maxRocketCharges - images.Count; i++)
                 {
                     var obj = Instantiate(prefab, transform);
-                    images.Add(obj.GetComponent<Image>());
+                    images.Add(obj.transform.GetChild(0).GetComponent<Image>());
                 }
             }else
-            if (spawner.maxRocketCharges < images.Count)
+            if (maxRocketCharges < images.Count)
             {
-                for (int i = 0; i < images.Count - spawner.maxRocketCharges; i++)
+                for (int i = 0; i < images.Count - maxRocketCharges; i++)
                 {
-                    Destroy(images[images.Count - 1]);
+                    Destroy(images[images.Count - 1].transform.parent.gameObject);
                     images.RemoveAt(images.Count - 1);
                 }
             }

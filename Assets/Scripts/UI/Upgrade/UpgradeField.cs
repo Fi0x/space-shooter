@@ -16,16 +16,23 @@ namespace UI.Upgrade
         [SerializeField] private TextMeshProUGUI upgradeCostText;
         [SerializeField] private TextMeshProUGUI downgradeCostText;
 
-        [Header("Values")] public UpgradeNames type = UpgradeNames.Unknown;
+        [Header("Values")]
+        public UpgradeNames type = UpgradeNames.Unknown;
+        private int startPoints;
+
+        private void Start()
+        {
+            startPoints = upgradeScreen.upgradeData.GetPoints(type);
+        }
 
         public void UpdateField()
         {
             nameText.text = type.ToString();
             pointsText.text = upgradeScreen.upgradeData.GetPoints(type).ToString();
             upgradeCostText.text = "-" + upgradeScreen.CalculateUpgradeCost(type) + " Points";
-            downgradeCostText.text = "+" + upgradeScreen.CalculateUpgradeCost(upgradeScreen.upgradeData.GetPoints(type) - 1) + " Points";
-            increaseButton.interactable = upgradeScreen.upgradeData.freePoints > upgradeScreen.CalculateUpgradeCost(type);
-            decreaseButton.interactable = upgradeScreen.upgradeData.GetPoints(type) > 1;
+            downgradeCostText.text = "+" + upgradeScreen.CalculateDecreaseCost(type) + " Points";
+            increaseButton.interactable = upgradeScreen.upgradeData.freePoints >= upgradeScreen.CalculateUpgradeCost(type);
+            decreaseButton.interactable = upgradeScreen.upgradeData.GetPoints(type) > startPoints;
         }
 
         public void BuyIncrease()

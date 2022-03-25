@@ -362,13 +362,17 @@ namespace Ship
             // TODO: this is the wrong place to add this.
             var mouseMultiplier = InputManager.MouseSensitivity;
 
-            var pitchForce = (boosting ? this.Settings.PitchSpeedBoostMultiplier : 1) * this.Settings.PitchSpeed(upgradeData.GetValue(UpgradeNames.EngineRotationSpeedPitch));
-            var yawForce = (boosting ? this.Settings.YawSpeedBoostMultiplier : 1) * this.Settings.YawSpeed(upgradeData.GetValue(UpgradeNames.EngineRotationSpeedYaw));
-            var rollForce = (boosting ? this.Settings.RollSpeedBoostMultiplier : 1) * this.Settings.RollSpeed(upgradeData.GetValue(UpgradeNames.EngineRotationSpeedRoll));
+            var maxPitchForce = this.Settings.PitchSpeed(upgradeData.GetValue(UpgradeNames.EngineRotationSpeedPitch));
+            var maxYawForce = this.Settings.YawSpeed(upgradeData.GetValue(UpgradeNames.EngineRotationSpeedYaw));
+            var maxRollForce = this.Settings.RollSpeed(upgradeData.GetValue(UpgradeNames.EngineRotationSpeedRoll));
 
-            var effectivePitchForce = -input.Pitch * pitchForce * mouseMultiplier;
-            var effectiveYawForce = input.Yaw * yawForce * mouseMultiplier;
-            var effectiveRollForce = -input.Roll * rollForce;
+            var pitchBoostMultiplier = (boosting ? this.Settings.PitchSpeedBoostMultiplier : 1);
+            var yawBoostMultiplier = (boosting ? this.Settings.YawSpeedBoostMultiplier : 1);
+            var rollBoostMultiplier = (boosting ? this.Settings.RollSpeedBoostMultiplier : 1);
+            
+            var effectivePitchForce = Mathf.Clamp(-input.Pitch * mouseMultiplier * pitchBoostMultiplier, -maxPitchForce, maxPitchForce);
+            var effectiveYawForce = Mathf.Clamp(input.Yaw * mouseMultiplier * yawBoostMultiplier, -maxYawForce, maxYawForce);
+            var effectiveRollForce = Mathf.Clamp(-input.Roll * rollBoostMultiplier, -maxRollForce, maxRollForce) ;
 
             var angularForce = new Vector3(effectivePitchForce, effectiveYawForce, effectiveRollForce);
             currentLocalAngularVelocity += angularForce;

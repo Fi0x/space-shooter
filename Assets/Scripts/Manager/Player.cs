@@ -15,6 +15,7 @@ namespace Manager
             }
             else
             {
+                instance.transform.position = transform.position;
                 Destroy(gameObject);
                 return;
             }

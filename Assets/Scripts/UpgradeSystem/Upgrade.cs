@@ -9,6 +9,7 @@ namespace UpgradeSystem
     {
         public UpgradeNames type;
         public CalculationType calculationType;
+        public float costMultiplier = 1f;
         public int points;
 
         public Upgrade()
@@ -74,6 +75,9 @@ namespace UpgradeSystem
         EngineStabilizationSpeed,
             
         Health,
+        
+        MaxRockets,
+        RocketChargeSpeed,
             
         Unknown
     }

@@ -24,7 +24,7 @@ namespace UpgradeSystem
             _ => "Unknown",
         };
         
-        public static List<T> Fisher_Yates_CardDeck_Shuffle<T>(List<T>aList) {
+        public static List<T> FisherYatesCardDeckShuffle<T>(List<T>aList) {
  
             System.Random _random = new System.Random ();
  

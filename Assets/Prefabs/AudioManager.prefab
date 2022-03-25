@@ -68,4 +68,16 @@ MonoBehaviour:
     pitch: 0.7
     loop: 0
     source: {fileID: 0}
+  - name: RocketCharged
+    clip: {fileID: 8300000, guid: 269ce77c2f146ad48a1e5ea7c6977e81, type: 3}
+    volume: 0.07
+    pitch: 0.9
+    loop: 0
+    source: {fileID: 0}
+  - name: EnemyKilled
+    clip: {fileID: 8300000, guid: d0e2108502e4cc74985ee85a33863a47, type: 3}
+    volume: 0.07
+    pitch: 1.2
+    loop: 0
+    source: {fileID: 0}
   mixer: {fileID: 24100000, guid: 54012366f9c84714d9b5cd4580426a2c, type: 2}

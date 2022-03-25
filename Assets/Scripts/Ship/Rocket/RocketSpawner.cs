@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using Manager;
 using UnityEngine;
+using UpgradeSystem;
 
 namespace Ship.Rocket
 {
@@ -11,13 +13,14 @@ namespace Ship.Rocket
         [SerializeField] private Rigidbody shipRb;
         public Transform spawnPoint;
         public GameObject prefab;
+        public UpgradeDataSO upgradeData;
 
         [Header("Stats")]
         [SerializeField] public int maxRocketCharges = 3;
         [SerializeField][ReadOnlyInspector] public int currentCharges;
         [SerializeField] private float rechargeTime = 3f;
         [SerializeField][ReadOnlyInspector] public float chargePct;
-        [SerializeField] private float fireDelay = 1f;
+        [SerializeField] private float fireDelay = .1f;
         
         private Coroutine chargingCoroutine;
         private bool canFire = true;
@@ -38,9 +41,19 @@ namespace Ship.Rocket
             UpdateRocketCharging();
         }
 
+        public float CalcRechargeTime()
+        {
+            return rechargeTime * (1f / upgradeData.GetValue(UpgradeNames.RocketChargeSpeed));
+        }
+
+        public int CalcRocketCharges()
+        {
+            return maxRocketCharges + (int)upgradeData.GetValue(UpgradeNames.MaxRockets);
+        }
+
         private void UpdateRocketCharging()
         {
-            if (currentCharges >= maxRocketCharges)
+            if (currentCharges >= CalcRocketCharges())
             {
                 //StopCoroutine(chargingCoroutine);
                 return;
@@ -52,14 +65,15 @@ namespace Ship.Rocket
         IEnumerator ChargeRocket()
         {
             float currentTime = 0f;
-            while (currentTime <= rechargeTime)
+            while (currentTime <= CalcRechargeTime())
             {
                 currentTime += Time.deltaTime;
-                chargePct = currentTime / rechargeTime;
+                chargePct = currentTime / CalcRechargeTime();
                 yield return null;
             }
             currentCharges++;
             chargePct = 0f;
+            AudioManager.instance.Play("RocketCharged");
             chargingCoroutine = null;
         }
 

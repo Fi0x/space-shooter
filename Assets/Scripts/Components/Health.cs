@@ -22,7 +22,7 @@ namespace Components
             get
             {
                  if(upgradeData != null) 
-                     return this.maxHealth + (int)(upgradeData.GetValue(UpgradeNames.Health) * 10);
+                     return this.maxHealth + (int)(upgradeData.GetValue(UpgradeNames.Health) * 100);
                  return this.maxHealth;
             }
             set
@@ -113,6 +113,8 @@ namespace Components
                 GameObject vfx = Instantiate(deathVFX, transform.position, transform.rotation);
                 Destroy(vfx, vfxLifetime);
             }
+
+            AudioManager.instance.Play("EnemyKilled");
             
             if(this.TryGetComponent(out Boid boid))
                 boid.RemoveBoidFromAssignedFlock();

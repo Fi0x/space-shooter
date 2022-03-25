@@ -44,7 +44,7 @@ namespace UI.Upgrade
             //UpgradeScreenShownEvent?.Invoke(null, null);
         }
 
-        private void UpdateFields(UpgradeNames type)
+        private void UpdateField(UpgradeNames type)
         {
             if(fields.TryGetValue(type, out UpgradeField field))
             {
@@ -95,7 +95,7 @@ namespace UI.Upgrade
         
         public void PurchaseUpgrade(UpgradeNames upgradeName, bool isIncrease)
         {
-            var negativeCost = CalculateUpgradeCost(upgradeData.GetPoints(upgradeName) - 1);
+            var negativeCost = CalculateDecreaseCost(upgradeName);
             var positiveCost = CalculateUpgradeCost(upgradeName);
             upgradeData.freePoints -= isIncrease ? positiveCost : -negativeCost;
             upgradeData.AddPoints(upgradeName, isIncrease ? 1 : -1);
@@ -103,13 +103,21 @@ namespace UI.Upgrade
             UpdatePoints();
         }
 
-        public int CalculateUpgradeCost(int currentPoints)
+        public int CalculateDecreaseCost(UpgradeNames type)
         {
-            return (int)Mathf.Exp(0.1f * currentPoints);
+            var upgrade = upgradeData.GetUpgrade(type);
+            return CalculateUpgradeCost(upgrade.points - 1, upgrade.costMultiplier);
         }
+        
         public int CalculateUpgradeCost(UpgradeNames type)
         {
-            return CalculateUpgradeCost(upgradeData.GetPoints(type));
+            var upgrade = upgradeData.GetUpgrade(type);
+            return CalculateUpgradeCost(upgrade.points, upgrade.costMultiplier);
+        }
+
+        private int CalculateUpgradeCost(int currentPoints, float multiplier)
+        {
+            return (int) (Mathf.Exp(0.1f * currentPoints) * multiplier);
         }
         private void ExpandUpgradeList()
         {
@@ -154,11 +162,12 @@ namespace UI.Upgrade
         private void GenerateRandomUpgrades()
         {
             var upgradeList = new List<UpgradeSystem.Upgrade>(upgradeData.upgrades);
-            upgradeList = UpgradeHelper.Fisher_Yates_CardDeck_Shuffle(upgradeList);
+            upgradeList = UpgradeHelper.FisherYatesCardDeckShuffle(upgradeList);
             for (int i = 0; i < 3; i++)
             {
                 SpawnUpgradeField(upgradeList[i].type);
             }
+            UpdateAllFields();
         }
 
         private void SpawnUpgradeField(UpgradeNames type)

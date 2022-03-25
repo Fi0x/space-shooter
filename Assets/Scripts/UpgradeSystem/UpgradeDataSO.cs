@@ -31,9 +31,14 @@ namespace UpgradeSystem
             return 0;
         }
 
+        public Upgrade GetUpgrade(UpgradeNames type)
+        {
+            return upgrades.Find(upgrade => upgrade.type == type);
+        }
+
         public void AddPoints(UpgradeNames type, int points)
         {
-            var u = upgrades.Find(upgrade => upgrade.type == type);
+            var u = GetUpgrade(type);
             if (u == null)
             {
                 //upgrades.Add(new Upgrade(type, CalculationType.Linear, points));

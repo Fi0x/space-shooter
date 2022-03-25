@@ -12,38 +12,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c65812a048a84f138dfdc8c9b4c55b53, type: 3}
   m_Name: PlayerUpgradeData
   m_EditorClassIdentifier: 
-  freePoints: 9
+  freePoints: 6
   upgrades:
   - type: 10
     calculationType: 0
+    costMultiplier: 1
     points: 1
   - type: 0
     calculationType: 0
+    costMultiplier: 1
     points: 1
   - type: 1
     calculationType: 0
-    points: 7
+    costMultiplier: 1
+    points: 1
   - type: 2
     calculationType: 0
+    costMultiplier: 1
     points: 1
   - type: 3
     calculationType: 0
-    points: 5
+    costMultiplier: 1
+    points: 1
   - type: 4
     calculationType: 0
+    costMultiplier: 1
     points: 1
   - type: 8
     calculationType: 0
-    points: 6
+    costMultiplier: 1
+    points: 1
   - type: 6
     calculationType: 0
+    costMultiplier: 1
     points: 1
   - type: 7
     calculationType: 0
+    costMultiplier: 1
     points: 1
   - type: 5
     calculationType: 0
+    costMultiplier: 1
     points: 1
   - type: 9
     calculationType: 0
+    costMultiplier: 1
+    points: 1
+  - type: 11
+    calculationType: 0
+    costMultiplier: 10
+    points: 1
+  - type: 12
+    calculationType: 0
+    costMultiplier: 1
     points: 1
