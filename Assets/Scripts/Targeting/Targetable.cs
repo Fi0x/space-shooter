@@ -47,7 +47,7 @@ namespace Targeting
             gameObjectToInstantiate.AddComponent<TargetableUIObject>();
             gameObjectToInstantiate.transform.parent = manager.UiRoot;
             var uiElementInstance = gameObjectToInstantiate.GetComponent<TargetableUIObject>();
-            uiElementInstance.transform.localScale = Vector3.one * 0.2f;
+            uiElementInstance.transform.localScale = Vector3.one * 0.6f;
             uiElementInstance.Init(this);
             this.uiElement = uiElementInstance;
         }

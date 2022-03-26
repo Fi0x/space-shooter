@@ -1708,7 +1708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiRoot: {fileID: 3300866359363130030}
-  distanceToRoot: 1
+  distanceToRoot: 3
 --- !u!1 &3300866360932033469
 GameObject:
   m_ObjectHideFlags: 0

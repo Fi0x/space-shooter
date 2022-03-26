@@ -9,9 +9,11 @@ namespace Targeting
     public class TargetableUIObject : Ui3DElement
     {
         public Targetable Parent { get; private set; } = null!;
-
-        private Color primaryColor = new Color(1.0f, 1.0f, 1.0f, 1f);
-        private Color regularColor = new Color(1.0f, 1.0f, 1.0f, 0.1f);
+        
+        private readonly Color primaryColor = new Color(1.0f, 1.0f, 1.0f, 1f);
+        private readonly Color regularColor = new Color(1.0f, 1.0f, 1.0f, 0.1f);
+        private readonly Color primaryColorTooFarAway = new Color(0.6f, 0.6f, 0.0f, 1.0f);
+        private readonly Color regularColorTooFarAway = new Color(0.5372f, 0.4313f, 0.0f, 0.1f);
         
 
         private SpriteRenderer spriteRenderer = null!;
@@ -40,6 +42,7 @@ namespace Targeting
 
         private void HandleParentPrimaryStateChangedEvent(bool isParentPrimaryTarget)
         {
+            this.canHitState = null; // as a result, the correct color will be applied the next tick
             var manager = GameManager.Instance.TargetableManager;
             var spriteToUse = isParentPrimaryTarget ? manager.TargetableActiveSprite : manager.TargetableInactiveSprite;
 
@@ -60,25 +63,36 @@ namespace Targeting
             }
         }
 
+        private bool? canHitState = null;
+
         private Vector3? GetPosition()
         {
             var response = this.Parent.GetPredictedTargetLocation();
-            if (!response.HasValue)
+
+            if (this.IsVisible != response.HasValue)
             {
-                return null;
+                this.IsVisible = response.HasValue;
+            }
+            
+            if(response.HasValue)
+            {
+                if (!canHitState.HasValue || canHitState != response.Value.canHit)
+                {
+                    canHitState = response.Value.canHit;
+                    if (canHitState.Value)
+                    {
+                        this.spriteRenderer.color = this.Parent.IsPrimaryTarget ? this.primaryColor : this.regularColor;
+                    }
+                    else
+                    {
+                        this.spriteRenderer.color = this.Parent.IsPrimaryTarget
+                            ? this.primaryColorTooFarAway
+                            : this.regularColorTooFarAway;
+                    }
+                }
             }
 
-            /*if (this.IsVisible != response.Value.canHit)
-            {
-                this.isVisible = response.Value.canHit;
-            }*/
-            
-            return response.Value.position;
-        }
-
-        public void NotifyAboutNewScore(float score)
-        {
-            
+            return response?.position;
         }
     }
 }
