@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Components;
+using HealthSystem;
 using Ship;
 
 public class ShipCollision : MonoBehaviour
@@ -13,7 +14,7 @@ public class ShipCollision : MonoBehaviour
             //Debug.Log(collision.relativeVelocity.magnitude);
             if (collision.relativeVelocity.magnitude > 10)
             {
-                this.gameObject.GetComponent<Health>().TakeDamage((int)collision.relativeVelocity.magnitude);
+                this.gameObject.GetComponent<IDamageable>().TakeDamage((int)collision.relativeVelocity.magnitude);
                 if(this.gameObject.TryGetComponent(out ShipMovementHandler shipMovementHandler))
                 {
                     shipMovementHandler.NotifyAboutCollision();

@@ -52,6 +52,7 @@ GameObject:
   - component: {fileID: 2232538726010295982}
   - component: {fileID: 2265533180129265028}
   - component: {fileID: 5574722349668472982}
+  - component: {fileID: 4490608332931612992}
   - component: {fileID: -8088360904882032721}
   m_Layer: 0
   m_Name: Enemy Tough
@@ -168,8 +169,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62c239c605c9e5d489d06e467dbbdd99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayer: 0
-  generateHealthBar: 1
+  baseHealth: 5000
+  deathVFX: {fileID: 8129684975493300762, guid: f56c7a0d6cf75b84eb81a434de7ae556, type: 3}
+  vfxLifetime: 4.5
+  onDamageTaken:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4490608332931612992}
+        m_TargetAssemblyTypeName: HealthSystem.DamageFlash, Assembly-CSharp
+        m_MethodName: FlashOnce
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &4490608332931612992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7148358328865412359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deef907cadd949d0895328cfd2417a9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   flashingCurve:
     serializedVersion: 2
     m_Curve:
@@ -206,8 +238,6 @@ MonoBehaviour:
   flashingDuration: 0.3
   renderers:
   - {fileID: 8661810177966994642}
-  deathVFX: {fileID: 8129684975493300762, guid: f56c7a0d6cf75b84eb81a434de7ae556, type: 3}
-  vfxLifetime: 4.5
 --- !u!114 &-8088360904882032721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,7 +252,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allegiance: 2
   targetType: 0
-  isInit: 0
 --- !u!1001 &29970948627316932
 PrefabInstance:
   m_ObjectHideFlags: 0

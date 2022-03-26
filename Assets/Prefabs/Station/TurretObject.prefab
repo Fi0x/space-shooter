@@ -249,6 +249,7 @@ GameObject:
   - component: {fileID: 5105008496487162524}
   - component: {fileID: 4055082935499376218}
   - component: {fileID: 8381424469620904639}
+  - component: {fileID: 2205033863573997431}
   - component: {fileID: 8667857191920227102}
   m_Layer: 7
   m_Name: TurretObject
@@ -381,8 +382,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62c239c605c9e5d489d06e467dbbdd99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayer: 0
-  generateHealthBar: 1
+  baseHealth: 750
+  deathVFX: {fileID: 8129684975493300762, guid: f56c7a0d6cf75b84eb81a434de7ae556, type: 3}
+  vfxLifetime: 4.5
+  onDamageTaken:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2205033863573997431}
+        m_TargetAssemblyTypeName: HealthSystem.DamageFlash, Assembly-CSharp
+        m_MethodName: FlashOnce
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2205033863573997431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9116252600651923114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deef907cadd949d0895328cfd2417a9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   flashingCurve:
     serializedVersion: 2
     m_Curve:
@@ -416,13 +448,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  flashingDuration: 0.4
+  flashingDuration: 0.3
   renderers:
   - {fileID: 7584900499800423440}
   - {fileID: 6183654657780300684}
   - {fileID: 3135481567469815529}
-  deathVFX: {fileID: 8129684975493300762, guid: f56c7a0d6cf75b84eb81a434de7ae556, type: 3}
-  vfxLifetime: 4.5
 --- !u!114 &8667857191920227102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,7 +467,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allegiance: 2
   targetType: 1
-  isInit: 0
 --- !u!1 &9116252600677988906
 GameObject:
   m_ObjectHideFlags: 0
