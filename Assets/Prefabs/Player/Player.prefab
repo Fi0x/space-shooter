@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 87378534738739508}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.4824514, y: -0.27639347, z: -1.2445353}
+  m_LocalPosition: {x: -2.8721328, y: -0.07887253, z: 5.1397038}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3300866360858875060}
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   identifier: WPN_Attachment_2
-  weaponPrefab: {fileID: 1062497909079289124, guid: a3d33a4c0de10719f987bcf5a9178970, type: 3}
+  weaponPrefab: {fileID: 7926824900738252276, guid: 02d70531b0bd0efeead1441259ec6d93, type: 3}
   weaponManager: {fileID: 3300866360858875059}
 --- !u!1 &189455006026555048
 GameObject:
@@ -6712,7 +6712,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4315030548990393113}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.482451, y: -0.27639347, z: -1.2445354}
+  m_LocalPosition: {x: 2.8721297, y: -0.07887253, z: 5.1397038}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3300866360858875060}
@@ -6731,7 +6731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   identifier: WPN_Attachment_1
-  weaponPrefab: {fileID: 1062497909079289124, guid: a3d33a4c0de10719f987bcf5a9178970, type: 3}
+  weaponPrefab: {fileID: 7926824900738252276, guid: 02d70531b0bd0efeead1441259ec6d93, type: 3}
   weaponManager: {fileID: 3300866360858875059}
 --- !u!1001 &3300866360045336216
 PrefabInstance:
