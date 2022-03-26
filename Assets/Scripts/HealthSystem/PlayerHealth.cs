@@ -57,8 +57,9 @@ namespace Components
         
         public UnityEvent onDamageTaken;
         public UnityEvent onDeath;
-        public static event Action<PlayerHealth> OnDamageTaken = delegate { };
-        public static event Action<PlayerHealth> OnDeath = delegate { }; 
+        
+        public static event Action<PlayerHealth> OnDamageTaken;
+        public static event Action<PlayerHealth> OnDeath; 
         
         private void Start()
         {
@@ -70,14 +71,9 @@ namespace Components
         {
             onDamageTaken?.Invoke();
             OnDamageTaken?.Invoke(this);
+            
             this.CurrentHealth -= damage;
             StatCollector.UpdateGeneralStat("Damage Taken", damage);
-
-            // shieldVFX
-            if(TryGetComponent(out ShieldVFX shieldVFX))
-            { 
-                StartCoroutine(shieldVFX.FadeIn());
-            }
             
             if(this.CurrentHealth > 0)
                 return;

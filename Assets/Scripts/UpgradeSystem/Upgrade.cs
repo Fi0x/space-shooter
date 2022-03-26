@@ -67,11 +67,7 @@ namespace UpgradeSystem
         WeaponProjectileSpeed,
             
         EngineAcceleration,
-        EngineDeceleration,
-        EngineLateralThrust,
-        EngineRotationSpeedPitch,
-        EngineRotationSpeedRoll,
-        EngineRotationSpeedYaw,
+        EngineHandling,
         EngineStabilizationSpeed,
             
         Health,

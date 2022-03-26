@@ -17,10 +17,10 @@ namespace UI
 
         private void OnDisable()
         {
-            PlayerHealth.OnDamageTaken += FlashOnce;
+            PlayerHealth.OnDamageTaken -= FlashOnce;
         }
 
-        private void FlashOnce(PlayerHealth playerHealth)
+        private void FlashOnce(PlayerHealth health)
         {
             StartCoroutine(FadeIn());
         }

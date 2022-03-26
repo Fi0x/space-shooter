@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UpgradeSystem
@@ -55,6 +56,19 @@ namespace UpgradeSystem
             foreach (var upgrade in upgrades)
             {
                 upgrade.points = 1;
+            }
+        }
+
+        [ContextMenu("Hard Reset")]
+        public void HardReset()
+        {
+            freePoints = 0;
+            upgrades.Clear();
+            bool isCopy = false;
+            foreach (var type in Enum.GetNames(typeof(UpgradeNames)))
+            {
+                if(type != "Unknown")
+                    upgrades.Add(new Upgrade(Upgrade.GetTypeFromDisplayName(type), CalculationType.Linear, 1));
             }
         }
     }

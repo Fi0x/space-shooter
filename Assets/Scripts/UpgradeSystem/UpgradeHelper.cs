@@ -12,12 +12,10 @@ namespace UpgradeSystem
             UpgradeNames.WeaponProjectileSpeed => "Weapons",
 
             UpgradeNames.EngineAcceleration => "Movement",
-            UpgradeNames.EngineDeceleration => "Movement",
-            UpgradeNames.EngineLateralThrust => "Movement",
-            UpgradeNames.EngineRotationSpeedPitch => "Movement",
-            UpgradeNames.EngineRotationSpeedRoll => "Movement",
-            UpgradeNames.EngineRotationSpeedYaw => "Movement",
             UpgradeNames.EngineStabilizationSpeed => "Movement",
+            
+            UpgradeNames.RocketChargeSpeed => "Rocket",
+            UpgradeNames.MaxRockets => "Rocket",
 
             UpgradeNames.Health => "Health",
 

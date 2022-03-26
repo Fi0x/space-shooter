@@ -199,7 +199,7 @@ namespace Ship
             }
             else
             {
-                var effectiveAccelerationForce = this.Settings.AccelerationBackwards(upgradeData.GetValue(UpgradeNames.EngineDeceleration));
+                var effectiveAccelerationForce = this.Settings.AccelerationBackwards(upgradeData.GetValue(UpgradeNames.EngineAcceleration));
                 if (this.inputHandler.IsBoosting)
                 {
                     effectiveAccelerationForce *= this.Settings.AccelerationBackwardsBoostMultiplier;
@@ -244,7 +244,7 @@ namespace Ship
             }
             var currentVelocityLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
 
-            var effectiveAccelerationLateral = this.Settings.AccelerationLateral(upgradeData.GetValue(UpgradeNames.EngineLateralThrust));
+            var effectiveAccelerationLateral = this.Settings.AccelerationLateral(upgradeData.GetValue(UpgradeNames.EngineAcceleration));
             if (this.inputHandler.IsBoosting)
             {
                 effectiveAccelerationLateral *= this.Settings.AccelerationLateralBoostMultiplier;
@@ -290,7 +290,7 @@ namespace Ship
             }
             var currentVelocityLocal = this.transform.InverseTransformDirection(this.shipRb.velocity);
 
-            var effectiveAccelerationLateral = this.Settings.AccelerationLateral(upgradeData.GetValue(UpgradeNames.EngineLateralThrust));
+            var effectiveAccelerationLateral = this.Settings.AccelerationLateral(upgradeData.GetValue(UpgradeNames.EngineAcceleration));
             if (this.inputHandler.IsBoosting)
             {
                 effectiveAccelerationLateral *= this.Settings.AccelerationLateralBoostMultiplier;
@@ -362,9 +362,9 @@ namespace Ship
             // TODO: this is the wrong place to add this.
             var mouseMultiplier = InputManager.MouseSensitivity;
 
-            var maxPitchForce = this.Settings.PitchSpeed(upgradeData.GetValue(UpgradeNames.EngineRotationSpeedPitch));
-            var maxYawForce = this.Settings.YawSpeed(upgradeData.GetValue(UpgradeNames.EngineRotationSpeedYaw));
-            var maxRollForce = this.Settings.RollSpeed(upgradeData.GetValue(UpgradeNames.EngineRotationSpeedRoll));
+            var maxPitchForce = this.Settings.PitchSpeed(upgradeData.GetValue(UpgradeNames.EngineHandling));
+            var maxYawForce = this.Settings.YawSpeed(upgradeData.GetValue(UpgradeNames.EngineHandling));
+            var maxRollForce = this.Settings.RollSpeed(upgradeData.GetValue(UpgradeNames.EngineHandling));
 
             var pitchBoostMultiplier = (boosting ? this.Settings.PitchSpeedBoostMultiplier : 1);
             var yawBoostMultiplier = (boosting ? this.Settings.YawSpeedBoostMultiplier : 1);
