@@ -396,7 +396,7 @@ MonoBehaviour:
   - {fileID: 8960480606586692177}
   - {fileID: 2413397315758158100}
   - {fileID: 7987580229270315360}
-  turretPrefab: {fileID: 9116252600651923114, guid: 80d1ed362b63f29488babbbcad4c9113, type: 3}
+  turretPrefab: {fileID: 4631753554758646817, guid: dfbd9c8471aec5c4392e6abfea02d4f0, type: 3}
   healthTargets:
   - {fileID: 1695565570733573284}
   - {fileID: 7619014908300310308}
