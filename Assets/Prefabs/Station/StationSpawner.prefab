@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 935ce74b3de30d6439ecccf0fd00e686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  partCount: 1
+  partCount: 20
   turretProbability: 1
   endPieces:
   - {fileID: 5408309764135150792, guid: 5e4ba5e5dd916d74cbb20b0b8d4ec417, type: 3}
@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fa087e7fca14f43964a3ca1d378344d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthTargets: []
   currentHealth: 0
   maxHealth: 0
   parts: []

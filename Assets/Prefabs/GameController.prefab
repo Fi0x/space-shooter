@@ -61,6 +61,8 @@ MonoBehaviour:
   levelBuilder: {fileID: 895869050301620726}
   flockSpawner: {fileID: 895869050524092559}
   playerDefaultHealth: 1000
+  targetableActive: {fileID: -1283007199816395724, guid: 66d6d6551e3f0d191aa03a09410f76c2, type: 3}
+  targetableInactive: {fileID: -1283007199816395724, guid: 66d6d6551e3f0d191aa03a09410f76c2, type: 3}
 --- !u!1 &895869050301620724
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,7 +269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flockPrefab: {fileID: 4441388412465704470, guid: 9044e0874372c02488a3a45bf756af5d, type: 3}
   minFlocks: 1
-  maxFlocks: 3
+  maxFlocks: 1
   minSpawnRange: 300
   maxSpawnRange: 400
 --- !u!1 &895869050661684332

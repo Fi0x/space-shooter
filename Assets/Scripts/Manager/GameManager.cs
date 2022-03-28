@@ -1,6 +1,8 @@
+using System;
 using Components;
 using Enemy;
 using Ship;
+using Ship.Movement;
 using Stats;
 using UI;
 using UI.GameOver;
@@ -17,7 +19,13 @@ namespace Manager
         [SerializeField] private FlockSpawner flockSpawner;
         [SerializeField] private int playerDefaultHealth = 1000;
 
+        [Header("TargetableManager")] 
+        [SerializeField] private Sprite targetableActive;
+        [SerializeField] private Sprite targetableInactive;
+        
         public GameObject Player { get; private set; }
+        
+        public TargetableManager TargetableManager { get; private set; }
 
         public EnemyManager EnemyManager => this.enemyManager;
 
@@ -50,12 +58,19 @@ namespace Manager
         {
             DontDestroyOnLoad(this.gameObject);
             _instance = this;
+            this.TargetableManager ??= new TargetableManager(targetableActive, targetableInactive);
+            
             this.Player = GameObject.Find("Player");
         }
 
         private void Start()
         {
             this.LoadNextLevel();
+        }
+
+        private void Update()
+        {
+            this.TargetableManager?.NotifyAboutUpdate();
         }
 
         public static void ResetGame()
@@ -89,7 +104,7 @@ namespace Manager
         {
             this.Player.transform.position = new Vector3(0, 0, 0);
             this.Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            this.Player.GetComponent<ShipMovementHandler>().SetNewTargetSpeed(0);
+            this.Player.GetComponent<PlayerShipMovementHandler>().SetNewTargetSpeed(0);
             var playerHealth = this.Player.GetComponent<Health>();
             playerHealth.MaxHealth = this.playerDefaultHealth;
             playerHealth.CurrentHealth = playerHealth.MaxHealth;

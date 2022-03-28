@@ -1,4 +1,5 @@
 using Ship;
+using Ship.Movement;
 using UnityEngine;
 
 namespace Components
@@ -6,7 +7,7 @@ namespace Components
     public class SpaceDust : MonoBehaviour
     {
         [SerializeField] private new ParticleSystem particleSystem;
-        [SerializeField] private ShipMovementHandler smh;
+        [SerializeField] private PlayerShipMovementHandler smh;
 
         private const int ParticlesOverTime = 100;
         private const float MinParticleSize = 0.1f;
@@ -16,7 +17,7 @@ namespace Components
         void FixedUpdate()
         {
             var maxShipSpeed = this.smh.Settings.MaxSpeed + this.smh.Settings.MaxSpeedBoost;
-            var shipSpeed = this.smh.ShipRB.velocity.magnitude;
+            var shipSpeed = this.smh.ShipRb.velocity.magnitude;
         
             var emission = this.particleSystem.emission;
             emission.rateOverTime = ParticlesOverTime / maxShipSpeed * shipSpeed;

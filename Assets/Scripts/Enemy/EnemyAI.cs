@@ -1,5 +1,7 @@
+using System;
 using Manager;
 using Ship;
+using Ship.Movement;
 using UnityEngine;
 
 namespace Enemy
@@ -9,11 +11,11 @@ namespace Enemy
         [Header("AI")]
         [SerializeField] [ReadOnlyInspector] private State state;
         [SerializeField] private Transform[] attackPoints;
+        [SerializeField] private NpcShipMovementHandler shipMovementHandler;
 
         [Header("Roaming")]
         [SerializeField] [ReadOnlyInspector] public Vector3 roamingPosition;
         [SerializeField] private float reachedPositionMaxDistance;
-        [SerializeField] private float speed;
 
         [Header("Attack")]
         [SerializeField] private float timeBetweenAttacks;
@@ -28,14 +30,16 @@ namespace Enemy
         [SerializeField] private Boid boid;
         [SerializeField] private BoidController boidController;
 
+        public BoidController Flock => this.boidController;
+
         public void InitializeEnemyAI(BoidController controller)
         {
             this.boid = this.GetComponent<Boid>();
+            this.shipMovementHandler ??= this.GetComponent<NpcShipMovementHandler>() ??
+                                         throw new NullReferenceException("No NpcShipMovementHandler set or found");
 
             this.state = State.Roaming;
             this.reachedPositionMaxDistance = 20.0f;
-            //this.speed = ShipMovementHandler.TotalMaxSpeed * 0.8f;
-            this.speed = 20f; // TODO
 
             this.waitForAttack = 2.0f;
             this.timeBetweenAttacks = this.waitForAttack;
@@ -47,6 +51,7 @@ namespace Enemy
 
         private void Update()
         {
+     
             switch (this.state)
             {
                 case State.Roaming:
@@ -59,33 +64,34 @@ namespace Enemy
                     this.AttackPlayer();
                     break;
             }
+            
+            this.state = this.UpdateState();
         }
 
         private void ChasePlayer()
         {
-            this.FaceTarget(GameManager.Instance.Player.transform.position);
-            this.transform.position = Vector3.MoveTowards(
-                this.transform.position,
-                GameManager.Instance.Player.transform.position,
-                this.speed / 4 * Time.deltaTime);
-        
-            this.CheckState();
+            var playerPos = GameManager.Instance.Player.transform.position;
+            this.shipMovementHandler.NotifyAboutNewLookAtTarget(playerPos);
+            var direction = playerPos - this.transform.position;
+            this.shipMovementHandler.NotifyAboutNewTargetDirectionWithVelocity(direction.normalized * this.boid.DesiredSpeed);
         }
 
         private void AttackPlayer()
         {
-            this.FaceTarget(GameManager.Instance.Player.transform.position);
+            this.shipMovementHandler.NotifyAboutNewTargetDirectionWithVelocity(Vector3.zero);
+            this.shipMovementHandler.NotifyAboutNewLookAtTarget(GameManager.Instance.Player.transform.position);
 
+            // TODO: Replace with weapon trigger
             this.waitForAttack -= Time.deltaTime;
+            var angleBetweenSelfAndPlayer = Vector3.Angle(this.transform.forward,
+                GameManager.Instance.Player.transform.position - this.transform.position);
             if (this.waitForAttack < 0f
-                && Vector3.Angle(this.transform.forward, GameManager.Instance.Player.transform.position - this.transform.position) < 10)
+                && angleBetweenSelfAndPlayer < 10)
             {
                 this.waitForAttack = this.timeBetweenAttacks;
                 foreach (var attackPoint in this.attackPoints)
                     Instantiate(this.projectilePrefab, attackPoint.position, this.transform.rotation);
             }
-
-            this.CheckState();
         }
 
         private void RoamAround()
@@ -93,20 +99,25 @@ namespace Enemy
             if(Vector3.Distance(this.transform.position, this.roamingPosition) < this.reachedPositionMaxDistance)
                 this.boidController.SetNewRoamingPosition();
                 
-            this.boid.MoveUnit();
-            this.CheckState();
+            var desiredMovementDirection = this.boid.GetDesiredDirectionAndVelocity();
+            this.shipMovementHandler.NotifyAboutNewLookAtTarget(null);
+            this.shipMovementHandler.NotifyAboutNewTargetDirectionWithVelocity(desiredMovementDirection);
         }
 
-        private void CheckState()
+        private State UpdateState()
         {
-            this.state = Vector3.Distance(this.transform.position, GameManager.Instance.Player.transform.position) <= this.sightRange
+            var distanceBetweenSelfAndPlayer =
+                Vector3.Distance(this.transform.position, GameManager.Instance.Player.transform.position);
+            if (distanceBetweenSelfAndPlayer <= this.attackRange)
+                return State.AttackPlayer;
+            
+            
+            return distanceBetweenSelfAndPlayer <= this.sightRange
                 ? this.state = State.ChasePlayer
                 : this.state = State.Roaming;
-
-            if (Vector3.Distance(this.transform.position, GameManager.Instance.Player.transform.position) <= this.attackRange)
-                this.state = State.AttackPlayer;
         }
 
+        [Obsolete]
         private void FaceTarget(Vector3 lookDirection)
         {
             var direction = (lookDirection - this.transform.position).normalized;

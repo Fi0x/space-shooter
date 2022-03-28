@@ -1,7 +1,9 @@
 #nullable enable
 using System;
+using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using System.Linq;
+using Ship.Movement;
 using Ship.Weaponry.Config;
 using Ship.Weaponry.Trigger;
 using UI.Upgrade;
@@ -15,10 +17,14 @@ namespace Ship.Weaponry
         [SerializeField] protected WeaponManager weaponManager = null!;
         [SerializeField] protected WeaponConfigScriptableObject weaponConfig = null!;
 
-        public IWeaponTrigger WeaponTrigger { get; protected set; } = null!;
+        public IWeaponTrigger? WeaponTrigger { get; protected set; } = null;
         protected readonly Dictionary<Enum, int> upgrades = new Dictionary<Enum, int>();
         
-        protected ShipMovementHandler shipMovementHandler = null!;
+        protected PlayerShipMovementHandler playerShipMovementHandler = null!;
+
+        public WeaponConfigScriptableObject WeaponConfig => this.weaponConfig;
+        
+        public abstract bool IsHitScan { get; }
         
         private void OnEnable()
         {
@@ -41,6 +47,10 @@ namespace Ship.Weaponry
 
         protected virtual void SubscribeToWeaponTrigger()
         {
+            if (this.WeaponTrigger == null)
+            {
+                throw new Exception("Weapon Trigger is not registered");
+            }
             this.WeaponTrigger.WeaponFiredEvent += Fire;
         }
 
@@ -53,10 +63,15 @@ namespace Ship.Weaponry
             this.SetupWeaponTrigger();
             this.SubscribeToWeaponTrigger();
             
-            this.shipMovementHandler = this.weaponManager.GetParentShipGameObject().GetComponent<ShipMovementHandler>() ?? throw new NullReferenceException();
+            this.playerShipMovementHandler = this.weaponManager.GetParentShipGameObject().GetComponent<PlayerShipMovementHandler>() ?? throw new NullReferenceException();
 
             UpgradeButton.UpgradePurchasedEvent += (sender, args) =>
             {
+                if (this.WeaponTrigger == null)
+                {
+                    throw new Exception("Weapon trigger is null");
+                }
+                
                 if (args.Type.Equals(Upgrades.UpgradeNames.WeaponFireRate))
                     this.WeaponTrigger.ShotDelayUpgradeLevel = UpgradeHandler.GetSpecificUpgrade(Upgrades.UpgradeNames.WeaponFireRate);
             };
@@ -64,13 +79,13 @@ namespace Ship.Weaponry
 
         private void FireModeChangedEventHandler(bool isFiring)
         {
-            this.WeaponTrigger.NotifyAboutTriggerStateChange(isFiring);
+            this.WeaponTrigger?.NotifyAboutTriggerStateChange(isFiring);
         }
 
         private void FixedUpdate()
         {
             this.gameObject.transform.LookAt(this.weaponManager.Target, this.transform.parent.gameObject.transform.forward);
-            this.WeaponTrigger.Update(Time.fixedDeltaTime);
+            this.WeaponTrigger?.Update(Time.fixedDeltaTime);
         }
     
         protected abstract void Fire();
