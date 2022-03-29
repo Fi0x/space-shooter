@@ -6,11 +6,11 @@ using System.Linq;
 using Manager;
 using UnityEngine;
 using UpgradeSystem;
-using UpgradeNames = UpgradeSystem.Upgrades.UpgradeNames;
+using UpgradeNames = UpgradeSystem.UpgradeNames;
 
 namespace Ship.Movement
 {
-    public class PlayerShipMovementHandler : ShipMovementHandlerBase, IUpgradeable
+    public class PlayerShipMovementHandler : ShipMovementHandlerBase
     {
         [Header("Settings")] [SerializeField] private List<ShipMovementHandlerSettings> settings;
         [SerializeField] private int currentSettingsIndex = 0;
@@ -25,7 +25,6 @@ namespace Ship.Movement
         private InputHandler inputHandler;
         private float desiredSpeed;
         public override Rigidbody ShipRb => this.shipRb;
-        public override Dictionary<Enum, int> Upgrades { get; } = new Dictionary<Enum, int>();
         protected  override GameObject ShipObject => this.shipObject;
         
         public InputHandler InputHandler => this.inputHandler;
@@ -48,8 +47,6 @@ namespace Ship.Movement
 
         private void Start()
         {
-            this.ResetUpgrades();
-            
             this.shipObject = this.gameObject;
             this.shipRb = this.shipObject.GetComponent<Rigidbody>();
             this.inputHandler = this.shipObject.GetComponent<InputHandler>();
@@ -166,9 +163,9 @@ namespace Ship.Movement
             // TODO: this is the wrong place to add this.
             var mouseMultiplier = InputManager.MouseSensitivity;
 
-            var pitchForce = (boosting ? this.Settings.PitchSpeedBoostMultiplier : 1) * this.Settings.PitchSpeed(this.Upgrades[UpgradeNames.EngineRotationSpeedPitch]);
-            var yawForce = (boosting ? this.Settings.YawSpeedBoostMultiplier : 1) * this.Settings.YawSpeed(this.Upgrades[UpgradeNames.EngineRotationSpeedYaw]);
-            var rollForce = (boosting ? this.Settings.RollSpeedBoostMultiplier : 1) * this.Settings.RollSpeed(this.Upgrades[UpgradeNames.EngineRotationSpeedRoll]);
+            var pitchForce = (boosting ? this.Settings.PitchSpeedBoostMultiplier : 1) * this.Settings.PitchSpeed(upgradeData.GetValue(UpgradeNames.EngineHandling));
+            var yawForce = (boosting ? this.Settings.YawSpeedBoostMultiplier : 1) * this.Settings.YawSpeed(upgradeData.GetValue(UpgradeNames.EngineHandling));
+            var rollForce = (boosting ? this.Settings.RollSpeedBoostMultiplier : 1) * this.Settings.RollSpeed(upgradeData.GetValue(UpgradeNames.EngineHandling));
 
             var effectivePitchForce = -input.Pitch * pitchForce * mouseMultiplier;
             var effectiveYawForce = input.Yaw * yawForce * mouseMultiplier;
@@ -197,26 +194,6 @@ namespace Ship.Movement
         public void NotifyAboutCollision()
         {
             this.desiredSpeed = 0;
-        }
-        
-        public void ResetUpgrades()
-        {
-            this.Upgrades.Clear();
-            this.Upgrades.Add(UpgradeNames.EngineAcceleration, 1);
-            this.Upgrades.Add(UpgradeNames.EngineDeceleration, 1);
-            this.Upgrades.Add(UpgradeNames.EngineLateralThrust, 1);
-            this.Upgrades.Add(UpgradeNames.EngineRotationSpeedPitch, 1);
-            this.Upgrades.Add(UpgradeNames.EngineRotationSpeedRoll, 1);
-            this.Upgrades.Add(UpgradeNames.EngineRotationSpeedYaw, 1);
-            this.Upgrades.Add(UpgradeNames.EngineStabilizationSpeed, 1);
-            
-            UpgradeHandler.RegisterUpgrades(this, this.Upgrades.Keys.ToList());
-        }
-
-        public void SetNewUpgradeValue(Enum type, int newLevel)
-        {
-            if (this.Upgrades.ContainsKey(type))
-                this.Upgrades[type] = newLevel;
         }
     }
 }

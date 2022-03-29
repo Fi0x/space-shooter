@@ -10,7 +10,7 @@ namespace Ship.Weaponry
         [NonSerialized]
         protected WeaponProjectileConfigScriptableObject weaponConfigProjectile = null!;
 
-        public float ProjectileSpeed => this.weaponConfigProjectile.ProjectileSpeed * this.upgrades[Upgrades.UpgradeNames.WeaponProjectileSpeed];
+        public float ProjectileSpeed => this.weaponConfigProjectile.ProjectileSpeed * upgradeData.GetValue(UpgradeNames.WeaponProjectileSpeed);
         public float ProjectileTtl => this.weaponConfigProjectile.TimeToLive;
         public WeaponConfigScriptableObject Config => this.weaponConfigProjectile;
 

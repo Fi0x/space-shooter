@@ -1,18 +1,14 @@
 #nullable enable
 using System;
-using System.Runtime.CompilerServices;
-using System.Collections.Generic;
-using System.Linq;
 using Ship.Movement;
 using Ship.Weaponry.Config;
 using Ship.Weaponry.Trigger;
-using UI.Upgrade;
 using UnityEngine;
 using UpgradeSystem;
 
 namespace Ship.Weaponry
 {
-    public abstract class AbstractWeapon : MonoBehaviour, IUpgradeable
+    public abstract class AbstractWeapon : MonoBehaviour
     {
         [SerializeField] protected WeaponManager weaponManager = null!;
         [SerializeField] protected WeaponConfigScriptableObject weaponConfig = null!;
@@ -56,8 +52,6 @@ namespace Ship.Weaponry
 
         protected virtual void Start()
         {
-            this.ResetUpgrades();
-            
             _ = (object)this.weaponConfig ?? throw new NullReferenceException("No Weapon Config is set");
             
             this.SetupWeaponTrigger();
@@ -65,16 +59,11 @@ namespace Ship.Weaponry
             
             this.playerShipMovementHandler = this.weaponManager.GetParentShipGameObject().GetComponent<PlayerShipMovementHandler>() ?? throw new NullReferenceException();
 
-            UpgradeButton.UpgradePurchasedEvent += (sender, args) =>
+            if (this.WeaponTrigger == null)
             {
-                if (this.WeaponTrigger == null)
-                {
-                    throw new Exception("Weapon trigger is null");
-                }
-                
-                if (args.Type.Equals(Upgrades.UpgradeNames.WeaponFireRate))
-                    this.WeaponTrigger.ShotDelayUpgradeLevel = UpgradeHandler.GetSpecificUpgrade(Upgrades.UpgradeNames.WeaponFireRate);
-            };
+                throw new Exception("Weapon trigger is null");
+            }
+            this.WeaponTrigger.ShotDelayUpgradeLevel = upgradeData.GetValue(UpgradeNames.WeaponFireRate);
         }
 
         private void FireModeChangedEventHandler(bool isFiring)
@@ -94,23 +83,6 @@ namespace Ship.Weaponry
         {
             this.WeaponTrigger = null; // Not sure if needed :)
             Destroy(this.gameObject);
-        }
-
-        public void ResetUpgrades()
-        {
-            // this.upgrades.Clear();
-            //
-            // this.upgrades.Add(Upgrades.UpgradeNames.WeaponFireRate, 1);
-            // this.upgrades.Add(Upgrades.UpgradeNames.WeaponProjectileSpeed, 1);
-            // this.upgrades.Add(Upgrades.UpgradeNames.WeaponDamage, 1);
-            //
-            // UpgradeHandler.RegisterUpgrades(this, this.upgrades.Keys.ToList());
-        }
-
-        public void SetNewUpgradeValue(Enum type, int newLevel)
-        {
-            // if (this.upgrades.ContainsKey(type))
-            //     this.upgrades[type] = newLevel;
         }
     }
 }

@@ -233,6 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipRB: {fileID: 0}
+  isPrimaryTarget: 0
 --- !u!114 &6283890719788517310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,6 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9697239d1a64a248d6f8fb6e92d4ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upgradeData: {fileID: 11400000, guid: a7f89c3fc718ecd4f91a1acca6776287, type: 2}
   settings: {fileID: 11400000, guid: 854197c235e57c67daaa37823ea270e8, type: 2}
   shipObject: {fileID: 429333123813247712}
   shipRb: {fileID: 429333123813247738}

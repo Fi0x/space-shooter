@@ -113,7 +113,6 @@ namespace Enemy
 
         private State UpdateState()
         {
-            if(GameManager.Instance.Player == null) return;
             var distanceBetweenSelfAndPlayer =
                 Vector3.Distance(this.transform.position, GameManager.Instance.Player.transform.position);
             if (distanceBetweenSelfAndPlayer <= this.attackRange)

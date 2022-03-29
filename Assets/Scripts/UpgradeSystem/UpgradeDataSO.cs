@@ -8,7 +8,7 @@ namespace UpgradeSystem
     public class UpgradeDataSO : ScriptableObject
     {
         public int freePoints = 0;
-        public List<Upgrade> upgrades;
+        public List<Upgrade> upgrades = new List<Upgrade>();
 
         public float GetValue(UpgradeNames type)
         {

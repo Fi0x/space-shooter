@@ -20,6 +20,7 @@ namespace Manager
         [SerializeField] public UpgradeScreen currentUpgradeScreen;
         [SerializeField] private LevelFlowSO levelFlow;
         [SerializeField] public UpgradeDataSO playerUpgrades;
+        [SerializeField] private EnemyManager enemyManager;
         [SerializeField] private int playerDefaultHealth = 1000;
 
         [Header("TargetableManager")] 
