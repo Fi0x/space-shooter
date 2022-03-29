@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 894703999aaa40c2826d84fa035816d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipRB: {fileID: 0}
+  shipRB: {fileID: 429333123813247738}
   isPrimaryTarget: 0
 --- !u!114 &6283890719788517310
 MonoBehaviour:
