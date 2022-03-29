@@ -41,4 +41,4 @@ MonoBehaviour:
     m_RotationOrder: 4
   projectilePrefab: {fileID: 7175285450214776456, guid: f7b7a68fe307ca241b6dadd73d8d9695, type: 3}
   muzzlePrefab: {fileID: 34087772314234096, guid: 5d5d39291c451da49b563593fa8c0a91, type: 3}
-  projectileSpeed: 5
+  projectileSpeed: 600

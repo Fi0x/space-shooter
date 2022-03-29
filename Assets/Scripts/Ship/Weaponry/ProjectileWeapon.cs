@@ -35,6 +35,7 @@ namespace Ship.Weaponry
             projectile.transform.position = ownPosition;
             var shotDirection = this.weaponManager.Target - ownPosition;
             var projectileDirectionAndVelocity = this.ProjectileSpeed * shotDirection.normalized;
+            Debug.Log(projectileDirectionAndVelocity);
             var projectileScript = projectile.GetComponent<WeaponProjectile>();
             projectileScript.Initialize(
                 projectileDirectionAndVelocity, 

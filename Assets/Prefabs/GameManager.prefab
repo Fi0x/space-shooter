@@ -59,6 +59,9 @@ MonoBehaviour:
   currentUpgradeScreen: {fileID: 0}
   levelFlow: {fileID: 11400000, guid: 65f89e13e56dbb241b9d982a9fa729eb, type: 2}
   playerUpgrades: {fileID: 11400000, guid: a67d90423351a61489b11577fba7c20b, type: 2}
+  enemyManager: {fileID: 0}
   playerDefaultHealth: 1000
+  targetableActive: {fileID: -9026593291582194371, guid: 5d8a99f745cb1b475b5756115b6f00f5, type: 3}
+  targetableInactive: {fileID: -9026593291582194371, guid: 5d8a99f745cb1b475b5756115b6f00f5, type: 3}
   difficulty: 1
   levelIndex: 0

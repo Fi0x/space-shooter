@@ -1757,7 +1757,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiRoot: {fileID: 3300866359363130030}
-  distanceToRoot: 5
+  distanceToRoot: 3
 --- !u!114 &2550703445380079976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1961,7 +1961,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   identifier: WPN_Attachment_1
-  weaponPrefab: {fileID: 1062497909079289124, guid: a3d33a4c0de10719f987bcf5a9178970, type: 3}
+  weaponPrefab: {fileID: 1062497909079289124, guid: 70eb8c51dfd3b9d4280eb58fe8f543aa, type: 3}
   weaponManager: {fileID: 3300866360858875059}
 --- !u!1001 &5361020282682646887
 PrefabInstance:
