@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ChainProjectile
   m_EditorClassIdentifier: 
   type: 1
-  minTimeBetweenShots: 1
+  minTimeBetweenShots: 2
   timeToLive: 3
   damageOverTimeNormalized:
     serializedVersion: 2

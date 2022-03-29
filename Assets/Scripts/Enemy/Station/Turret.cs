@@ -1,4 +1,5 @@
 using System.Collections;
+using Targeting;
 using UnityEngine;
 
 namespace Enemy.Station
@@ -9,7 +10,7 @@ namespace Enemy.Station
         public GameObject projectilePrefab;
         public GameObject muzzleVfx;
         [SerializeField] private float fireRate = 2.5f;
-        [SerializeField] private float projectileSpeed = 75f;
+        [SerializeField] private float projectileSpeed = 250f;
         [SerializeField] private int damage = 10;
         private bool canShoot = true;
         private Rigidbody playerRb;
@@ -18,10 +19,18 @@ namespace Enemy.Station
         {
             if (playerRb == null)
                 playerRb = player.GetComponent<Rigidbody>();
+            var shooterPos = gunPoint.transform.position;
             var playerPos = player.transform.position;
-            playerPos += playerRb.velocity * (0.01f * Vector3.Distance(playerPos, gunPoint.position));
-            Debug.DrawLine(gunPoint.position, predictedTarget);
-                
+            var playerVelocity = playerRb.velocity;
+            var t = TargetingCalculationHelper.GetPredictedTimeOfCollision(gunPoint.transform.position, projectileSpeed,
+                playerPos, playerVelocity);
+            if (t.HasValue)
+            {
+                var predictedPosition = playerPos + playerVelocity * t.Value;
+                Debug.DrawLine(gunPoint.position, predictedPosition, Color.green);
+            
+                return predictedPosition;
+            }
             return playerPos;
         }
 
@@ -49,7 +58,7 @@ namespace Enemy.Station
             EnemyProjectile eP = projectile.GetComponent<EnemyProjectile>();
             eP.speed = projectileSpeed;
             eP.Damage = damage;
-            eP.timeToLive = 10f;
+            eP.timeToLive = 4f;
             eP.direction = gunPoint.forward;
         }
     }

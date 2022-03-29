@@ -346,16 +346,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc0b0c42055dbc4a86e02b74d35cdd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 1245887683407750509, guid: 821157ef7ebe73544a8f04c4ab420298, type: 3}
-  muzzleVfx: {fileID: 86436000187466254, guid: 14250da7dfd7a2942a18ae8aeb2ac9aa, type: 3}
-  fireRate: 5
   gunPoint: {fileID: 7973206537798076165}
   targetTransform: {fileID: 9116252601150480974}
   player: {fileID: 0}
   attackRange: 250
   turnTime: 0.3
   angleOfAttack: 7
+  lockRotation: 0
   maxHealth: 1000
+  projectilePrefab: {fileID: 1245887683407750509, guid: 821157ef7ebe73544a8f04c4ab420298, type: 3}
+  muzzleVfx: {fileID: 86436000187466254, guid: 14250da7dfd7a2942a18ae8aeb2ac9aa, type: 3}
+  fireRate: 5
+  projectileSpeed: 250
+  damage: 10
 --- !u!136 &4055082935499376218
 CapsuleCollider:
   m_ObjectHideFlags: 0
