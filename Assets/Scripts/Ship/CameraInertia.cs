@@ -1,4 +1,5 @@
 using System;
+using Ship.Movement;
 using UnityEngine;
 
 namespace Ship
@@ -36,7 +37,7 @@ namespace Ship
 
 
 
-        [SerializeField] private ShipMovementHandler movementHandler;
+        [SerializeField] private PlayerShipMovementHandler movementHandler;
 
         [Header("ReadOnly")]
         //

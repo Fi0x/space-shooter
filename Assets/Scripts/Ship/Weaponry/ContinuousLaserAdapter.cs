@@ -38,7 +38,6 @@ namespace Ship.Weaponry
             {
                 this.visualEffect.Stop();
             }
-            
         }
     }
 }

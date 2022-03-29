@@ -2,38 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Components;
+using Ship.Movement;
+using UnityEngine;
 using HealthSystem;
-using Ship;
 
-public class ShipCollision : MonoBehaviour
+namespace Ship
 {
-    private void OnCollisionEnter(Collision collision)
+    public class ShipCollision : MonoBehaviour
     {
-        if(DoesCollide(collision.gameObject))
+        private void OnCollisionEnter(Collision collision)
         {
-            //Debug.Log(collision.relativeVelocity.magnitude);
-            if (collision.relativeVelocity.magnitude > 10)
+            if(DoesCollide(collision.gameObject) && collision.relativeVelocity.magnitude > 10)
             {
                 this.gameObject.GetComponent<IDamageable>().TakeDamage((int)collision.relativeVelocity.magnitude);
-                if(this.gameObject.TryGetComponent(out ShipMovementHandler shipMovementHandler))
+                if(this.gameObject.TryGetComponent(out PlayerShipMovementHandler shipMovementHandler))
                 {
                     shipMovementHandler.NotifyAboutCollision();
                 }
             }
         }
-    }
 
-    private bool DoesCollide(GameObject gameObject)
-    {
-        if(gameObject.layer == LayerMask.NameToLayer("Scenery")
-            || gameObject.layer == LayerMask.NameToLayer("Enemy")
-            || gameObject.layer == LayerMask.NameToLayer("Player"))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        private static bool DoesCollide(GameObject gameObject) =>  
+            gameObject.layer == LayerMask.NameToLayer("Scenery")
+                   || gameObject.layer == LayerMask.NameToLayer("Enemy")
+                   || gameObject.layer == LayerMask.NameToLayer("Player");
+        
     }
 }
