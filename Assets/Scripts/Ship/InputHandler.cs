@@ -1,6 +1,8 @@
 #define FIX_POSITION
 
+using System;
 using Manager;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Ship
@@ -74,8 +76,6 @@ namespace Ship
 
         public bool Braking => this.CurrentInputState.Braking;
 
-        public bool SwitchFlightModel { get; set; }
-
         private void Update()
         {
             if(InputManager.WaitingForKeyInput) return;
@@ -104,8 +104,6 @@ namespace Ship
             var isBraking = Input.GetKey(InputManager.BrakingKey);
             var isBoosting = Input.GetKey(InputManager.BoostKey);
 
-            if (Input.GetKeyDown(InputManager.FlightModeSwitchKey)) this.SwitchFlightModel = true;
-
             var isShooting = Input.GetMouseButton(0) || this.debugForceShootingTrue;
 
             this.CurrentInputState.PushNewState(pitch, roll, yaw, thrust, strafe, isBraking, isBoosting, isShooting);
@@ -117,23 +115,23 @@ namespace Ship
             switch (this.xAxisMouseMode)
             {
                 case HorizontalAxisMode.Roll:
-                    roll = mouseAxes.x;
+                    roll = Mathf.Clamp(mouseAxes.x, -1, 1);
                     break;
                 case HorizontalAxisMode.Yaw:
-                    yaw = mouseAxes.x;
+                    yaw = Mathf.Clamp(mouseAxes.x, -1, 1);
                     break;
             }
 
             switch (this.yAxisMouseMode)
             {
                 case VerticalAxisMode.Pitch:
-                    pitch = mouseAxes.y;
+                    pitch = Mathf.Clamp(mouseAxes.y, -1, 1);
                     break;
                 case VerticalAxisMode.PitchInverted:
-                    pitch = -mouseAxes.y;
+                    pitch = -Mathf.Clamp(mouseAxes.y, -1, 1);
                     break;
                 case VerticalAxisMode.Thrust:
-                    thrust = mouseAxes.y;
+                    thrust = Mathf.Clamp(mouseAxes.y, -1, 1);
                     break;
             }
 

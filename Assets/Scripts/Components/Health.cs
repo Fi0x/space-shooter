@@ -1,23 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Enemy;
 using Manager;
+using UI;
 using UnityEngine;
-using Upgrades;
+using System.Collections;
+using Stats;
+using UpgradeSystem;
 
 namespace Components
 {
-    public class Health : MonoBehaviour
+    public class Health : MonoBehaviour, IUpgradeable, IDamageable
     {
         [SerializeField] private bool isPlayer;
+
+        private readonly Dictionary<Enum, int> upgrades = new Dictionary<Enum, int>();
         private int maxHealth;
         public int MaxHealth
         {
-            get => this.maxHealth + UpgradeStats.ArmorLevel * 10;
+            get
+            {
+                if(this.upgrades.ContainsKey(Upgrades.UpgradeNames.Health)) 
+                    return this.maxHealth + this.upgrades[Upgrades.UpgradeNames.Health] * 10;
+                return this.maxHealth;
+            }
             set
             {
                 this.maxHealth = value;
-                this.HealthBar.SetMaxHealth(this.MaxHealth);
+                currentHealth = maxHealth;
+                if(!generateHealthBar)
+                    HealthBar.SetMaxHealth(this.MaxHealth);
             }
         }
+        
+        public static event Action<Health> OnHealthAdded = delegate { };
+        public static event Action<Health> OnHealthRemoved = delegate { };
+        public event Action<float> OnHealthPctChanged;
+        public bool generateHealthBar = false;
+
+        public AnimationCurve flashingCurve;
+        public float flashingDuration;
+        public List<Renderer> renderers;
 
         public GameObject deathVFX;
         public float vfxLifetime = 4.5f;
@@ -30,42 +54,50 @@ namespace Components
             {
                 this.currentHealth = value;
                 if (this.currentHealth > this.MaxHealth) this.currentHealth = this.MaxHealth;
-                this.HealthBar.SetCurrentHealth(this.currentHealth);
+                if (generateHealthBar)
+                {
+                    float currentHealthPct = (float)currentHealth / maxHealth;
+                    OnHealthPctChanged?.Invoke(currentHealthPct);
+                }
+                else
+                {
+                    this.HealthBar.SetCurrentHealth((int)Math.Round(this.currentHealth));
+                }
             }
         }
-
-        private HealthBar healthBar;
-        private HealthBar HealthBar
+        
+        private FixedHealthBar healthBar;
+        private FixedHealthBar HealthBar
         {
             get
             {
-                if(!this.healthBar) this.healthBar = this.GetComponentInChildren<HealthBar>();
+                if(!this.healthBar) this.healthBar = this.GetComponentInChildren<FixedHealthBar>();
                 return this.healthBar;
             }
         }
 
         private void Start()
         {
+            if (generateHealthBar) OnHealthAdded(this);
+            
+            if(this.isPlayer)
+                this.ResetUpgrades();
+            
             this.MaxHealth = 1000;
             this.CurrentHealth = this.MaxHealth;
-
-            UpgradeButton.UpgradePurchasedEvent += (sender, args) =>
-            {
-                if (args.Type == UpgradeButton.Upgrade.Armor)
-                {
-                    UpgradeStats.ArmorLevel += args.Increased ? 1 : -1;
-                    UpgradeMenuValues.InvokeUpgradeCompletedEvent(args);
-                }
-            };
         }
 
         public void TakeDamage(float damage)
         {
             this.CurrentHealth -= damage;
+            //flashing
+            StopCoroutine(Flash(0f));
+            StartCoroutine(Flash(flashingDuration));
+            
 
             if (this.isPlayer)
             {
-                StatCollector.FloatStats[StatCollector.StatValues.DamageTaken] += damage;
+                StatCollector.UpdateGeneralStat("Damage Taken", damage);
 
                 // shieldVFX
                 if(TryGetComponent(out ShieldVFX shieldVFX))
@@ -97,10 +129,38 @@ namespace Components
                 GameManager.GameOver();
             else
             {
-                StatCollector.IntStats[StatCollector.StatValues.EnemiesKilled]++;
-                UpgradeStats.FreeUpgradePoints++;
+                StatCollector.UpdateGeneralStat("Enemies Killed", 1);
+                UpgradeHandler.FreeUpgradePoints++;
+                if (generateHealthBar) OnHealthRemoved(this);
                 Destroy(this.gameObject);
             }
-        } 
+        }
+
+        IEnumerator Flash(float time)
+        {
+            for (float t = 0f; t < time; t += Time.deltaTime)
+            {
+                foreach (var renderer in renderers)
+                {
+                    renderer.material.SetFloat("_FlashingStrength", flashingCurve.Evaluate(t / time));
+                }
+                yield return null;
+            }
+        }
+        
+        public void ResetUpgrades()
+        {
+            this.upgrades.Clear();
+            
+            this.upgrades.Add(Upgrades.UpgradeNames.Health, 1);
+            
+            UpgradeHandler.RegisterUpgrades(this, this.upgrades.Keys.ToList());
+        }
+
+        public void SetNewUpgradeValue(Enum type, int newLevel)
+        {
+            if (this.upgrades.ContainsKey(type))
+                this.upgrades[type] = newLevel;
+        }
     }
 }

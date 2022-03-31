@@ -6,6 +6,7 @@ using Ship.Sensors;
 using Ship.Weaponry.Config;
 using Ship.Weaponry.Trigger;
 using UnityEngine;
+using UpgradeSystem;
 
 namespace Ship.Weaponry
 {
@@ -77,7 +78,8 @@ namespace Ship.Weaponry
                 return;
             }
             var effectiveDamage = this.weaponConfigHitScan.DamageOverDistanceNormalized
-                .Evaluate(distance / this.weaponConfigHitScan.MaxDistance) * timeBetweenLastFrameInMillis;
+                .Evaluate(distance / this.weaponConfigHitScan.MaxDistance) * timeBetweenLastFrameInMillis
+                * this.upgrades[Upgrades.UpgradeNames.WeaponDamage];
 
             var weaponHitInformation = new WeaponHitInformation(
                 WeaponHitInformation.WeaponType.HitScan,
@@ -85,7 +87,7 @@ namespace Ship.Weaponry
                 hit.transform.gameObject.GetComponent<SensorTarget>()
             );
 
-            if (hit.transform.gameObject.TryGetComponent(out Health health))
+            if (hit.transform.gameObject.TryGetComponent(out IDamageable health))
             {
                 // The hit "thing" can take damage
                 health.TakeDamage(effectiveDamage);

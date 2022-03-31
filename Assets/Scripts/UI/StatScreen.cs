@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Ship.Weaponry;
+using System.Security.Cryptography;
+using Stats;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,73 +12,66 @@ namespace UI
     public class StatScreen : MonoBehaviour
     {
         [SerializeField] private GameObject statPrefab;
+        [SerializeField] private GameObject subtopicPrefab;
         [SerializeField] private Scrollbar scrollbar;
         
         private readonly List<GameObject> statList = new List<GameObject>();
 
-        private void Start()
+        private void OnEnable()
         {
-            foreach (var stat in StatCollector.FloatStats)
-            {
-                var newPrefab = Instantiate(this.statPrefab, this.transform);
-                
-                var texts = GetTextComponents(newPrefab);
-                texts.name.text = stat.Key.ToString();
-                var value = Math.Round(stat.Value, 2);
-                texts.value.text = value.ToString(CultureInfo.InvariantCulture);
-                
-                this.statList.Add(newPrefab);
-            }
-            foreach (var stat in StatCollector.IntStats)
-            {
-                var newPrefab = Instantiate(this.statPrefab, this.transform);
+            this.UpdateStatList();
+        }
 
-                var texts = GetTextComponents(newPrefab);
-                texts.name.text = stat.Key.ToString();
-                texts.value.text = stat.Value.ToString();
-                
-                this.statList.Add(newPrefab);
-            }
+        private void UpdateStatList()
+        {
+            foreach (var entry in this.statList)
+                Destroy(entry);
+            this.statList.Clear();
 
-            var list = GetDamageTypeListSortedDescending();
-            foreach (var entry in list.Take(3))
-            {
-                var newPrefab = Instantiate(this.statPrefab, this.transform);
-                var texts = GetTextComponents(newPrefab);
-                texts.name.text = entry.weaponType+ " Damage";
-                var value = Math.Round(entry.damage, 2);
-
-                texts.value.text = value.ToString(CultureInfo.InvariantCulture);
-                
-                this.statList.Add(newPrefab);
-            }
+            if(StatCollector.GeneralStats.Count > 0) 
+                this.CreateSubtopic("General Stats");
+            foreach (var stat in StatCollector.GeneralStats)
+                this.CreateEntry(stat);
+            
+            if(StatCollector.WeaponStats.Count > 0)
+                this.CreateSubtopic("Weapon Stats");
+            foreach (var stat in StatCollector.WeaponStats)
+                this.CreateEntry(stat);
 
             this.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 10 + 50 * this.statList.Count);
+            this.scrollbar.value = 1;
         }
 
-        private static IEnumerable<(float damage, WeaponHitInformation.WeaponType weaponType)> GetDamageTypeListSortedDescending()
+        private void CreateEntry(KeyValuePair<string, float> stat)
         {
-            return from keyvaluePair in StatCollector.WeaponTypeToDamageCausedStatLookup
-                orderby keyvaluePair.Value descending
-                select (keyvaluePair.Value, keyvaluePair.Key);
+            var newPrefab = Instantiate(this.statPrefab, this.transform);
+            
+            var (nameText, valueText) = GetTextComponents(newPrefab);
+            nameText.text = stat.Key;
+            var value = Math.Round(stat.Value, 2);
+            valueText.text = value.ToString(CultureInfo.InvariantCulture);
+            
+            this.statList.Add(newPrefab);
         }
 
-        public void UpdateStats()
+        private void CreateSubtopic(string subtopicName)
         {
-            this.statList.ForEach(entry =>
-            {
-                var texts = GetTextComponents(entry);
-                texts.value.text = StatCollector.GetValueStringForStat(texts.name.text);
-            });
+            var newPrefab = Instantiate(this.subtopicPrefab, this.transform);
+            
+            var textComponents = newPrefab.GetComponentsInChildren<Text>();
+            var nameText = textComponents.First(c => c.gameObject.name.Equals("Name"));
+            nameText.text = subtopicName;
+            
+            this.statList.Add(newPrefab);
         }
 
         private static (Text name, Text value) GetTextComponents(GameObject statObject)
         {
             var textComponents = statObject.GetComponentsInChildren<Text>(); 
-            var nameText = textComponents.Where(c => c.gameObject.name.Equals("Name"));
-            var valueText = textComponents.Where(c => c.gameObject.name.Equals("Value"));
+            var nameText = textComponents.First(c => c.gameObject.name.Equals("Name"));
+            var valueText = textComponents.First(c => c.gameObject.name.Equals("Value"));
 
-            return (nameText.First(), valueText.First());
+            return (nameText, valueText);
         }
     }
 }

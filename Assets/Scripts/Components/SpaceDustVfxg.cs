@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Ship;
+using Ship.Movement;
 using UnityEngine.VFX;
 
 namespace Components
@@ -8,14 +9,14 @@ namespace Components
     public class SpaceDustVfxg : MonoBehaviour
     {
         [SerializeField] private VisualEffect vfx;
-        [SerializeField] private ShipMovementHandler smh;
+        [SerializeField] private PlayerShipMovementHandler smh;
 
 
 
         private void FixedUpdate()
         {
 
-            var velocity = this.smh.ShipRB.velocity;
+            var velocity = this.smh.ShipRb.velocity;
             var speedPercent = this.smh.CurrentSpeed / this.smh.Settings.MaxSpeed;
             if (speedPercent < 0)
             {

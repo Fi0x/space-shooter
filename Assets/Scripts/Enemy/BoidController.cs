@@ -82,8 +82,8 @@ namespace Enemy
                 var rotation = Quaternion.Euler(0, 0, 0);
                 Boid boid = Instantiate(flockUnitPrefab, randomVector, rotation);
                 boid.AssignFlock(this);
-                boid.InitializeSpeed(UnityEngine.Random.Range(minSpeed, maxSpeed));
-                boid.BoidHelper();
+                //boid.InitializeSpeed(UnityEngine.Random.Range(minSpeed, maxSpeed));
+
                 boid.GetComponent<EnemyAI>().InitializeEnemyAI(this);
 
                 // parent

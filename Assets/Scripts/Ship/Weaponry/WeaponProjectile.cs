@@ -33,8 +33,8 @@ namespace Ship.Weaponry
 
             if (this.muzzlePrefab != null)
             {
-                var muzzle = Instantiate(this.muzzlePrefab, this.transform)!;
-                Destroy(muzzle, 1f);
+                var muzzle = Instantiate(this.muzzlePrefab, transform.parent)!;
+                Destroy(muzzle, 3f);
             }
             
             this.trail.SetActive(false);
@@ -82,7 +82,7 @@ namespace Ship.Weaponry
                     damageTaken, 
                     other.gameObject.GetComponent<SensorTarget>()
                 );
-                if (other.gameObject.TryGetComponent(out Health health))
+                if (other.gameObject.TryGetComponent(out IDamageable health))
                 {
                     // The hit "thing" can take damage
                     health.TakeDamage(damageTaken);

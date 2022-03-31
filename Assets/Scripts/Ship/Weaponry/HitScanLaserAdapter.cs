@@ -18,7 +18,7 @@ namespace Ship.Weaponry
 
         protected void SetImpactAlpha(float alpha) => this.visualEffect.SetFloat("ImpactAlpha", alpha);
 
-        protected  void SetLength(float length) => this.visualEffect.SetFloat("length", length);
+        protected virtual void SetLength(float length) => this.visualEffect.SetFloat("length", length);
         
         public abstract void NotifyAboutLaserHittingTarget(float distance);
 
