@@ -1,87 +1,65 @@
 using System.Collections;
-using System.Collections.Generic;
-using Components;
-using Enemy;
-using Manager;
-using Ship.Weaponry.Config;
+using Targeting;
 using UnityEngine;
 
-public class Turret : MonoBehaviour
+namespace Enemy.Station
 {
-    [Header("ProjectileSettings")]
-    public GameObject projectilePrefab;
-    public GameObject muzzleVfx;
-    [SerializeField] private float fireRate = 2.5f;
-    [SerializeField] private Transform gunPoint;
+    public class Turret : TurretBase
+    {
+        [Header("ProjectileSettings")]
+        public GameObject projectilePrefab;
+        public GameObject muzzleVfx;
+        [SerializeField] private float fireRate = 2.5f;
+        [SerializeField] private float projectileSpeed = 250f;
+        [SerializeField] private int damage = 10;
+        private bool canShoot = true;
+        private Rigidbody playerRb;
     
-    [Header("PlayerDetection")]
-    public Transform targetTransform;
-    public GameObject player;
-    [SerializeField] private float attackRange = 200f;
-    [SerializeField] private float turnTime = 0.3f;
-    [SerializeField] private float angleOfAttack = 7f;
+        protected override Vector3 PredictTarget()
+        {
+            if (playerRb == null)
+                playerRb = player.GetComponent<Rigidbody>();
+            var shooterPos = gunPoint.transform.position;
+            var playerPos = player.transform.position;
+            var playerVelocity = playerRb.velocity;
+            var t = TargetingCalculationHelper.GetPredictedTimeOfCollision(gunPoint.transform.position, projectileSpeed,
+                playerPos, playerVelocity);
+            if (t.HasValue)
+            {
+                var predictedPosition = playerPos + playerVelocity * t.Value;
+                Debug.DrawLine(gunPoint.position, predictedPosition, Color.green);
+            
+                return predictedPosition;
+            }
+            return playerPos;
+        }
 
-    [Header("Settings")]
-    [SerializeField] private int maxHealth = 3000;
-    
-    private Vector3 smoothVel = Vector3.zero;
-    private bool canShoot = true;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        player = GameManager.Instance.Player;
-        GetComponent<Health>().MaxHealth = maxHealth;
-        GameManager.Instance.EnemyManager.NotifyAboutNewEnemySpawned(this.gameObject);
-    }
+        protected override void Attack()
+        {
+            if(!canShoot) return;
+            StartCoroutine(Shoot());
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(player == null) return;
-        UpdateTarget();
-    }
+        IEnumerator Shoot()
+        {
+            canShoot = false;
+            SpawnProjectile();
+            yield return new WaitForSeconds(1f / fireRate);
+            canShoot = true;
+        }
 
-    private void UpdateTarget()
-    {
-        float dist = Vector3.Distance(transform.position, player.transform.position);
-        if (dist > attackRange) return;
-        targetTransform.position =
-            Vector3.SmoothDamp(targetTransform.position, player.transform.position, ref smoothVel, turnTime);
-        CheckAngle();
-    }
-
-    private void CheckAngle()
-    {
-        Vector3 desiredTargetDir = (player.transform.position - gunPoint.transform.position).normalized;
-        Vector3 actualTargetDir = gunPoint.forward;
-        float angle = Vector3.Angle(desiredTargetDir, actualTargetDir);
-        if (angle <= angleOfAttack) Attack();
-    }
-
-    private void Attack()
-    {
-        if(!canShoot) return;
-        StartCoroutine(Shoot());
-    }
-
-    IEnumerator Shoot()
-    {
-        canShoot = false;
-        SpawnProjectile();
-        yield return new WaitForSeconds(1f / fireRate);
-        canShoot = true;
-    }
-
-    private void SpawnProjectile()
-    {
-        var muzzle = Instantiate(muzzleVfx, gunPoint);
-        muzzle.transform.position = gunPoint.transform.position;
-        muzzle.transform.rotation = gunPoint.transform.rotation;
-        var projectile = Instantiate(projectilePrefab, gunPoint.transform.position, gunPoint.rotation);
-        EnemyProjectile eP = projectile.GetComponent<EnemyProjectile>();
-        eP.speed = 50f;
-        eP.Damage = 10;
-        eP.timeToLive = 10f;
+        private void SpawnProjectile()
+        {
+            var muzzle = Instantiate(muzzleVfx, gunPoint);
+            var gunPointTransform = gunPoint.transform;
+            muzzle.transform.position = gunPointTransform.position;
+            muzzle.transform.rotation = gunPointTransform.rotation;
+            var projectile = Instantiate(projectilePrefab, gunPointTransform.position, gunPoint.rotation);
+            EnemyProjectile eP = projectile.GetComponent<EnemyProjectile>();
+            eP.speed = projectileSpeed;
+            eP.Damage = damage;
+            eP.timeToLive = 4f;
+            eP.direction = gunPoint.forward;
+        }
     }
 }

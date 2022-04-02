@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 429333123813247739}
   - component: {fileID: 429333123813247742}
   - component: {fileID: 429333123813247743}
+  - component: {fileID: 2723593931573232676}
   - component: {fileID: 429333123813247738}
   - component: {fileID: 3651637442931774677}
   - component: {fileID: -397256906301617565}
@@ -67,8 +68,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62c239c605c9e5d489d06e467dbbdd99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayer: 0
-  generateHealthBar: 1
+  baseHealth: 1000
+  deathVFX: {fileID: 8129684975493300762, guid: f56c7a0d6cf75b84eb81a434de7ae556, type: 3}
+  vfxLifetime: 4
+  onDamageTaken:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2723593931573232676}
+        m_TargetAssemblyTypeName: HealthSystem.DamageFlash, Assembly-CSharp
+        m_MethodName: FlashOnce
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2723593931573232676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429333123813247712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deef907cadd949d0895328cfd2417a9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   flashingCurve:
     serializedVersion: 2
     m_Curve:
@@ -105,8 +137,6 @@ MonoBehaviour:
   flashingDuration: 0.4
   renderers:
   - {fileID: 1529475873497292535}
-  deathVFX: {fileID: 8129684975493300762, guid: f56c7a0d6cf75b84eb81a434de7ae556, type: 3}
-  vfxLifetime: 4
 --- !u!54 &429333123813247738
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -135,9 +165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f21b4b99b9c29a178b554475e6bec69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allegiance: 0
+  allegiance: 2
   targetType: 0
-  isInit: 0
 --- !u!114 &-397256906301617565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 894703999aaa40c2826d84fa035816d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipRB: {fileID: 0}
+  shipRB: {fileID: 429333123813247738}
+  isPrimaryTarget: 0
 --- !u!114 &6283890719788517310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,6 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9697239d1a64a248d6f8fb6e92d4ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upgradeData: {fileID: 11400000, guid: a7f89c3fc718ecd4f91a1acca6776287, type: 2}
   settings: {fileID: 11400000, guid: 854197c235e57c67daaa37823ea270e8, type: 2}
   shipObject: {fileID: 429333123813247712}
   shipRb: {fileID: 429333123813247738}

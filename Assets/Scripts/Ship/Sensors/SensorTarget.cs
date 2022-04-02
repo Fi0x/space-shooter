@@ -7,27 +7,20 @@ namespace Ship.Sensors
     {
         public delegate void TargetDestroyed(SensorTarget target);
 
-        [SerializeField] [ReadOnlyInspector] private TargetAllegiance allegiance;
-        [SerializeField] [ReadOnlyInspector] private TargetType targetType;
-        [SerializeField] [ReadOnlyInspector] private bool isInit = false;
+        [SerializeField] private TargetAllegiance allegiance;
+        [SerializeField] private TargetType targetType;
 
         public TargetAllegiance Allegiance => this.allegiance;
         public TargetType Type => this.targetType;
         public Vector3 Position => this.gameObject.transform.position;
+        
+        public static event Action<SensorTarget> OnSensorTargetAdded = delegate { };
 
         public event TargetDestroyed TargetDestroyedEvent;
 
-        public void Init(TargetType initialTargetType, TargetAllegiance targetAllegiance)
+        private void Start()
         {
-            if (this.isInit)
-            {
-                throw new Exception("Script already initialized");
-            }
-
-            this.isInit = true;
-
-            this.targetType = initialTargetType;
-            this.allegiance = targetAllegiance;
+            OnSensorTargetAdded(this);
         }
 
         private void OnDestroy()
@@ -45,6 +38,7 @@ namespace Ship.Sensors
         public enum TargetType
         {
             Ship,
+            BigShip,
             Station,
             Missile,
             JumpGate

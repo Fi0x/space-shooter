@@ -11,11 +11,12 @@ namespace Enemy
         public float speed = 100f;
         public float timeToLive = 10f;
         private Rigidbody rigidBody;
-        private Vector3 direction;
+        public Vector3 direction = Vector3.zero;
 
         private void Start()
         {
-            this.direction = (GameManager.Instance.Player.transform.position - this.transform.position).normalized;
+            // if(direction == Vector3.zero)
+            //     direction = (GameManager.Instance.Player.transform.position - this.transform.position).normalized;
             this.rigidBody = this.GetComponent<Rigidbody>();
 
             Destroy(this.gameObject, timeToLive);

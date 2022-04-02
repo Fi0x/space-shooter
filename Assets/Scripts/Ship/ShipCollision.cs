@@ -1,6 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using Components;
 using Ship.Movement;
 using UnityEngine;
+using HealthSystem;
 
 namespace Ship
 {
@@ -10,7 +14,7 @@ namespace Ship
         {
             if(DoesCollide(collision.gameObject) && collision.relativeVelocity.magnitude > 10)
             {
-                this.gameObject.GetComponent<Health>().TakeDamage((int)collision.relativeVelocity.magnitude);
+                this.gameObject.GetComponent<IDamageable>().TakeDamage((int)collision.relativeVelocity.magnitude);
                 if(this.gameObject.TryGetComponent(out PlayerShipMovementHandler shipMovementHandler))
                 {
                     shipMovementHandler.NotifyAboutCollision();

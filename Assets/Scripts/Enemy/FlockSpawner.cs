@@ -16,6 +16,13 @@ namespace Enemy
         [SerializeField] private float minSpawnRange = 300;
         [SerializeField] private float maxSpawnRange = 400;
 
+        public void SetDifficulty(float difficulty)
+        {
+            minFlocks = (int) (difficulty * 1f);
+            maxFlocks = (int) (difficulty * 1f) + 1;
+            
+        }
+        
         public void SpawnFlocks()
         {
             var flockCount = Random.Range(this.minFlocks, this.maxFlocks);
@@ -24,9 +31,10 @@ namespace Enemy
                 var randomDirection = new Vector3(
                     Random.Range(-1f, 1f),
                     Random.Range(-1f, 1f),
-                    Random.Range(-1f, 1f));
+                    Random.Range(-1f, 1f)).normalized;
                 var spawnRange = Random.Range(this.minSpawnRange, this.maxSpawnRange);
-                var spawnPosition = GameManager.Instance.Player.transform.position + randomDirection * spawnRange;
+                var spawnPosition = randomDirection * spawnRange;
+                if(GameManager.Instance.Player != null) spawnPosition = GameManager.Instance.Player.transform.position + randomDirection * spawnRange;
                 
                 Instantiate(this.flockPrefab, spawnPosition, Quaternion.identity);
             }

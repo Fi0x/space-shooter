@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/StationBossScene.unity
-    guid: a11f6491a8429774db802d4cbbc8a66d
+    path: Assets/Scenes/StandardLevel.unity
+    guid: d07eb24850ffa4242b4a7a410d2524af
+  - enabled: 1
+    path: Assets/Scenes/BossLevel 1.unity
+    guid: b4cc279ff287c084aa1c67e1b7bbab33
   m_configObjects: {}

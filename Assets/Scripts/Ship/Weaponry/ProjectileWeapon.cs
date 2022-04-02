@@ -10,7 +10,7 @@ namespace Ship.Weaponry
         [NonSerialized]
         protected WeaponProjectileConfigScriptableObject weaponConfigProjectile = null!;
 
-        public float ProjectileSpeed => this.weaponConfigProjectile.ProjectileSpeed * this.upgrades[Upgrades.UpgradeNames.WeaponProjectileSpeed];
+        public float ProjectileSpeed => this.weaponConfigProjectile.ProjectileSpeed * upgradeData.GetValue(UpgradeNames.WeaponProjectileSpeed);
         public float ProjectileTtl => this.weaponConfigProjectile.TimeToLive;
         public WeaponConfigScriptableObject Config => this.weaponConfigProjectile;
 
@@ -26,11 +26,18 @@ namespace Ship.Weaponry
         
         protected override void Fire()
         {
+            //muzzle
+            if (!(weaponConfigProjectile.MuzzlePrefab is null))
+            {
+                var muzzle = Instantiate(weaponConfigProjectile.MuzzlePrefab, transform);
+                Destroy(muzzle, 3f);
+            }
             var projectile = Instantiate(this.weaponConfigProjectile.ProjectilePrefab)!;
             var ownPosition = this.gameObject.transform.position;
             projectile.transform.position = ownPosition;
             var shotDirection = this.weaponManager.Target - ownPosition;
             var projectileDirectionAndVelocity = this.ProjectileSpeed * shotDirection.normalized;
+            Debug.Log(projectileDirectionAndVelocity);
             var projectileScript = projectile.GetComponent<WeaponProjectile>();
             projectileScript.Initialize(
                 projectileDirectionAndVelocity, 
@@ -38,7 +45,7 @@ namespace Ship.Weaponry
                 this.transform.rotation, 
                 this.weaponConfigProjectile.TimeToLive
             );
-            projectileScript.DamageMultiplier = this.upgrades[Upgrades.UpgradeNames.WeaponDamage];
+            projectileScript.DamageMultiplier = upgradeData.GetValue(UpgradeNames.WeaponDamage);
             projectileScript.WeaponHitSomethingEvent += (layer, data) =>
             {
                 // Only continue if the hit target is an enemy.

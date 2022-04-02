@@ -91,6 +91,7 @@ namespace Manager
 
         public void NotifyAboutUpdate()
         {
+            if(GameManager.Instance.Player == null) return;
             this.currentTime += Time.deltaTime;
             if (this.currentTime > Interval)
             {

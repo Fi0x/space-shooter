@@ -90,7 +90,14 @@ namespace Enemy
             {
                 this.waitForAttack = this.timeBetweenAttacks;
                 foreach (var attackPoint in this.attackPoints)
-                    Instantiate(this.projectilePrefab, attackPoint.position, this.transform.rotation);
+                {
+                    var projectile = Instantiate(this.projectilePrefab, attackPoint.position, this.transform.rotation);
+                    EnemyProjectile eP = projectile.GetComponent<EnemyProjectile>();
+                    eP.speed = 50f;
+                    eP.Damage = 25;
+                    eP.timeToLive = 5f;
+                    eP.direction = attackPoint.forward;
+                }
             }
         }
 

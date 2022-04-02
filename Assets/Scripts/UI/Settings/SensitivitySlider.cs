@@ -1,4 +1,5 @@
 using Manager;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,7 +7,7 @@ namespace UI.Settings
 {
     public class SensitivitySlider : MonoBehaviour
     {
-        [SerializeField] private InputField valueField;
+        [SerializeField] private TMP_InputField valueField;
         private Slider slider;
 
         private void Start()

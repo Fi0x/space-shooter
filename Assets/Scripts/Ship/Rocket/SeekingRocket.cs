@@ -18,6 +18,7 @@ namespace Ship.Rocket
         [SerializeField] private Rigidbody rb;
         [SerializeField] private float maxSpeed = 30f;
         [SerializeField] private float turnSpeed = 3f;
+        [SerializeField] private float inertia = 0.1f;
 
         [Header("Stats")]
         [SerializeField] private float explosionRadius;
@@ -45,11 +46,24 @@ namespace Ship.Rocket
 
         private void SteerTowardsTarget()
         {
-            rb.velocity = Vector3.SmoothDamp(rb.velocity, transform.forward * maxSpeed,  ref dampVel,1f);
+            rb.velocity = Vector3.SmoothDamp(rb.velocity, transform.forward * maxSpeed,  ref dampVel, inertia);
             if (target == null) return;
-            var rocketRotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(target.position - transform.position), turnSpeed);
+            Vector3 predicted = PredictTarget();
+            Debug.DrawLine(transform.position, predicted, Color.yellow);
+            var rocketRotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(predicted - transform.position), turnSpeed);
             
             rb.MoveRotation(rocketRotation);
+        }
+
+        private Vector3 PredictTarget()
+        {
+            Vector3 predictedTarget = target.position;
+            if (target.TryGetComponent(out Rigidbody targetRb))
+            {
+                if (rb.velocity.magnitude == 0) return predictedTarget;
+                predictedTarget += targetRb.velocity * (Vector3.Distance(predictedTarget, transform.position) / rb.velocity.magnitude);
+            }
+            return predictedTarget;
         }
 
         private void OnCollisionEnter(Collision other)

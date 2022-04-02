@@ -8,16 +8,15 @@ namespace Ship.Weaponry
 {
     public class WeaponProjectile : MonoBehaviour
     {
-        public GameObject muzzlePrefab = null!;
         public GameObject impactPrefab = null!;
 
         private bool isInit;
         [SerializeField] private Rigidbody rb = null!;
         [SerializeField] private GameObject trail = null!;
 
-        private AnimationCurve damageOverTimeNormalized = null!;
-        private double startTime;
-        private float timeToLive;
+        protected AnimationCurve damageOverTimeNormalized = null!;
+        protected double startTime;
+        protected float timeToLive;
 
         public event Action<int, WeaponHitInformation> WeaponHitSomethingEvent;
 
@@ -31,14 +30,8 @@ namespace Ship.Weaponry
                 vfx.Play();
             }
 
-            if (this.muzzlePrefab != null)
-            {
-                var muzzle = Instantiate(this.muzzlePrefab, transform.parent)!;
-                Destroy(muzzle, 3f);
-            }
-            
-            this.trail.SetActive(false);
-            this.Invoke(nameof(this.MakeTrailVisible), 0.4f);
+            // this.trail.SetActive(false);
+            // this.Invoke(nameof(this.MakeTrailVisible), 0.1f);
         }
 
         public void Initialize(Vector3 directionAndVelocity, AnimationCurve damageOverTimeNormalized, Quaternion rotation, float ttl)
@@ -65,32 +58,37 @@ namespace Ship.Weaponry
         {
             if (ShouldCollide(other))
             {
-                var timeOnImpact = Time.timeAsDouble - this.startTime;
+                HandleCollision(other);
+            }    
+        }
 
-                if (this.impactPrefab != null)
-                {
-                    var pos = this.transform.position;
-                    var closestPoint = other.ClosestPoint(pos);
-                    var impact = Instantiate(this.impactPrefab, closestPoint, Quaternion.LookRotation(pos - closestPoint));
-                    Destroy(impact, 2f);
-                }
+        protected virtual void HandleCollision(Collider other)
+        {
+            var timeOnImpact = Time.timeAsDouble - this.startTime;
+
+            if (this.impactPrefab != null)
+            {
+                var pos = this.transform.position;
+                var closestPoint = other.ClosestPoint(pos);
+                var impact = Instantiate(this.impactPrefab, closestPoint, Quaternion.LookRotation(pos - closestPoint));
+                Destroy(impact, 2f);
+            }
 
                 
-                var damageTaken = (int) (DamageMultiplier * this.damageOverTimeNormalized.Evaluate((float) timeOnImpact / this.timeToLive));
-                var weaponHitInformation = new WeaponHitInformation(
-                    WeaponHitInformation.WeaponType.Projectile, 
-                    damageTaken, 
-                    other.gameObject.GetComponent<SensorTarget>()
-                );
-                if (other.gameObject.TryGetComponent(out IDamageable health))
-                {
-                    // The hit "thing" can take damage
-                    health.TakeDamage(damageTaken);
-                }
-                this.WeaponHitSomethingEvent?.Invoke(other.gameObject.layer, weaponHitInformation);
+            var damageTaken = (int) (DamageMultiplier * this.damageOverTimeNormalized.Evaluate((float) timeOnImpact / this.timeToLive));
+            var weaponHitInformation = new WeaponHitInformation(
+                WeaponHitInformation.WeaponType.Projectile, 
+                damageTaken, 
+                other.gameObject.GetComponent<SensorTarget>()
+            );
+            if (other.gameObject.TryGetComponent(out IDamageable health))
+            {
+                // The hit "thing" can take damage
+                health.TakeDamage(damageTaken);
+            }
+            this.WeaponHitSomethingEvent?.Invoke(other.gameObject.layer, weaponHitInformation);
 
-                Destroy(this.gameObject);
-            }    
+            Destroy(this.gameObject);
         }
 
         private static bool ShouldCollide(Component c)
