@@ -25,7 +25,7 @@ public class RandomizeSound : MonoBehaviour
         this.source.clip = this.clips[i];
         this.source.pitch = Random.Range(this.pitchRange.x, this.pitchRange.y);
         this.source.volume = Random.Range(this.volumeRange.x, this.volumeRange.y);
-        this.source.outputAudioMixerGroup = AudioManager.Mixer.FindMatchingGroups("Effects").First();
+        //this.source.outputAudioMixerGroup = AudioManager.instance.mixer.FindMatchingGroups("Effects").First();
         this.source.Play();
     }
 }

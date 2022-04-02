@@ -18,7 +18,7 @@ namespace Ship.Rocket
         [Header("Stats")]
         [SerializeField] public int maxRocketCharges = 3;
         [SerializeField][ReadOnlyInspector] public int currentCharges;
-        [SerializeField] private float rechargeTime = 3f;
+        [SerializeField] private float rechargeTime = 15f;
         [SerializeField][ReadOnlyInspector] public float chargePct;
         [SerializeField] private float fireDelay = .1f;
         
@@ -43,7 +43,7 @@ namespace Ship.Rocket
 
         public float CalcRechargeTime()
         {
-            return rechargeTime * (1f / (upgradeData.GetValue(UpgradeNames.RocketChargeSpeed) + 1f));
+            return rechargeTime * (1f / (0.25f * upgradeData.GetValue(UpgradeNames.RocketChargeSpeed) + 1f));
         }
 
         public int CalcRocketCharges()
