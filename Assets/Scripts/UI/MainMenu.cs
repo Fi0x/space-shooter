@@ -20,7 +20,7 @@ namespace UI
 
         public void StartGame()
         {
-            bootScript.StartLoading();
+            GameManager.Instance.LoadNextLevel();
         }
         
         public void OpenSettings()
