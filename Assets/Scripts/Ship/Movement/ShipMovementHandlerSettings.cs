@@ -47,17 +47,17 @@ namespace Ship.Movement
 
 
         
-        internal float PitchSpeed(int pitchUpgradeLevel) => this.pitchSpeed * pitchUpgradeLevel;
+        internal float PitchSpeed(float pitchUpgradeLevel) => this.pitchSpeed * pitchUpgradeLevel;
 
-        internal float RollSpeed(int rollUpgradeLevel) => this.rollSpeed * rollUpgradeLevel;
+        internal float RollSpeed(float rollUpgradeLevel) => this.rollSpeed * rollUpgradeLevel;
 
-        internal float YawSpeed(int yawUpgradeLevel) => this.yawSpeed * yawUpgradeLevel;
+        internal float YawSpeed(float yawUpgradeLevel) => this.yawSpeed * yawUpgradeLevel;
 
-        internal float AccelerationForwards(int accelerationUpgradeLevel) => this.accelerationForwards + accelerationUpgradeLevel;
+        internal float AccelerationForwards(float accelerationUpgradeLevel) => this.accelerationForwards + accelerationUpgradeLevel;
 
-        internal float AccelerationBackwards(int brakeUpgradeLevel) => this.accelerationBackwards + brakeUpgradeLevel;
+        internal float AccelerationBackwards(float brakeUpgradeLevel) => this.accelerationBackwards + brakeUpgradeLevel;
 
-        internal float AccelerationLateral(int lateralThrustUpgradeLevel) => this.accelerationLateral + lateralThrustUpgradeLevel;
+        internal float AccelerationLateral(float lateralThrustUpgradeLevel) => this.accelerationLateral + lateralThrustUpgradeLevel;
 
         internal float MaxSpeed=> this.maxSpeed;
 
@@ -87,7 +87,7 @@ namespace Ship.Movement
 
         public float MaxLateralSpeed => this.maxLateralSpeed;
 
-        public float BrakingModifier(int stabilizerUpgradeLevel) => this.brakingModifier * stabilizerUpgradeLevel;
+        public float BrakingModifier(float stabilizerUpgradeLevel) => this.brakingModifier * stabilizerUpgradeLevel;
 
         public float AccelerationForwardsBoostMultiplier => this.accelerationForwardsBoostMultiplier;
 

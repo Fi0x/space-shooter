@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using Manager;
 
 namespace UI
 {
@@ -19,7 +20,7 @@ namespace UI
 
         public void StartGame()
         {
-            bootScript.StartLoading();
+            GameManager.Instance.LoadNextLevel();
         }
         
         public void OpenSettings()

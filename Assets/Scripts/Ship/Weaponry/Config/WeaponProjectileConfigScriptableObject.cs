@@ -9,12 +9,14 @@ namespace Ship.Weaponry.Config
     public class WeaponProjectileConfigScriptableObject : WeaponConfigScriptableObject
     {
         [SerializeField] private float timeToLive;
-        [SerializeField] private AnimationCurve damageOverTimeNormalized = null!;
-        [SerializeField] private GameObject projectilePrefab = null!;
+        [SerializeField] private AnimationCurve damageOverTimeNormalized = null;
+        [SerializeField] private GameObject projectilePrefab = null;
+        [SerializeField] private GameObject muzzlePrefab = null;
         [SerializeField] private float projectileSpeed;
 
         public AnimationCurve DamageOverTimeNormalized => this.damageOverTimeNormalized;
         public GameObject ProjectilePrefab => this.projectilePrefab;
+        public GameObject MuzzlePrefab => muzzlePrefab;
         public float TimeToLive => this.timeToLive;
 
         public float ProjectileSpeed => this.projectileSpeed;

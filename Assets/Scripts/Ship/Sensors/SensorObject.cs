@@ -40,6 +40,7 @@ namespace Ship.Sensors
             sr.sprite = st.Type switch
             {
                 SensorTarget.TargetType.Ship => this.radarManager.SpriteShip,
+                SensorTarget.TargetType.BigShip => radarManager.SpriteBigShip,
                 SensorTarget.TargetType.Station => this.radarManager.SpriteStation,
                 SensorTarget.TargetType.Missile => this.radarManager.SpriteMissile,
                 SensorTarget.TargetType.JumpGate => this.radarManager.SpriteJumpGate,

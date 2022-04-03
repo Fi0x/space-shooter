@@ -25,7 +25,7 @@ namespace Targeting.TargetChoosingStrategy
             
             var value= ProjectileTravelTimeWeight / (projectileTravelTime + ProjectileTravelTimeOffset) * (AngleWeight /
                 (angleDegrees + AngleOffset));
-            Debug.Log(value);
+            //Debug.Log(value);
             return value;
         }
 

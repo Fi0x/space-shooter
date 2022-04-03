@@ -79,7 +79,7 @@ namespace Ship
         private void Update()
         {
             if(InputManager.WaitingForKeyInput) return;
-            if (Input.GetKeyDown(InputManager.PauseKey)) GameManager.ChangePauseState();
+            if (Input.GetKeyDown(InputManager.PauseKey)) GameManager.Instance.ChangePauseState();
             if(GameManager.IsGamePaused) return;
             var mouseAxes = (x: Input.GetAxis("Mouse X"), y: Input.GetAxis("Mouse Y"));
             this.CalculateNewInputValues(mouseAxes);

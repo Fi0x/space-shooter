@@ -37,13 +37,11 @@ namespace Manager
         public void NotifyAboutNewTargetable(Targetable targetable)
         {
             this.targetables.Add(targetable, targetable.UiElement);
-            Debug.Log($"Added Targetable to manager. Now has a total of {targetables.Count}");
         }
 
         public void NotifyAboutTargetableGone(Targetable targetable)
         {
             this.targetables.Remove(targetable);
-            Debug.Log($"Removed Targetable from manager. Now has a total of {targetables.Count}");
             if (this.PrimaryTarget == targetable)
             {
                 this.PrimaryTarget = null;
@@ -91,6 +89,7 @@ namespace Manager
 
         public void NotifyAboutUpdate()
         {
+            if(GameManager.Instance.Player == null) return;
             this.currentTime += Time.deltaTime;
             if (this.currentTime > Interval)
             {

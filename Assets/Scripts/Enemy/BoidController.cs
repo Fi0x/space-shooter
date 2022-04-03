@@ -92,7 +92,7 @@ namespace Enemy
                 allUnits.Add(boid);
 
                 // notify about sensortarget
-                Manager.GameManager.Instance.EnemyManager.NotifyAboutNewEnemySpawned(boid.gameObject);
+                //Manager.GameManager.Instance.EnemyManager.NotifyAboutNewEnemySpawned(boid.gameObject);
             }
         }
 

@@ -24,7 +24,6 @@ namespace Targeting
 
         private void OnEnable()
         {
-            Debug.Log("OnEnable");
             if (this.shipRB == null)
             {
                 this.shipRB = GetComponent<Rigidbody>() ??
@@ -33,7 +32,6 @@ namespace Targeting
             
             if (this.uiElement == null)
             {
-                Debug.Log("Before CreateUIElement");
                 this.CreateUIElement();
             }
             GameManager.Instance.TargetableManager.NotifyAboutNewTargetable(this);

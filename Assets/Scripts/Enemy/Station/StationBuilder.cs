@@ -7,6 +7,7 @@ using World;
 public class StationBuilder : MonoBehaviour
 {
     [Header("StationSettings")]
+    [SerializeField] private StationController controller;
     [SerializeField] private int partCount = 3;
     [SerializeField] private float turretProbability = 0.5f;
 
@@ -17,16 +18,21 @@ public class StationBuilder : MonoBehaviour
 
     private StationPart startPart;
     private StationPart currentPart;
-    private StationController controller;
     
     // Start is called before the first frame update
     void Start()
     {
-        controller = GetComponent<StationController>();
-        BuildStation();
+        //controller = GetComponent<StationController>();
+        //BuildStation();
     }
 
-    private void BuildStation()
+    public void SetDifficulty(float difficulty)
+    {
+        partCount = (int)Mathf.Min(difficulty * .5f, 1);
+        turretProbability = Mathf.Clamp01(difficulty * 0.1f + 0.2f);
+    }
+
+    public void BuildStation()
     {
         //StartPiece
         var startPiece = SpawnStationPart(turretPieces);
@@ -76,6 +82,7 @@ public class StationBuilder : MonoBehaviour
     {
         int i = Random.Range(0, objects.Count);
         if (i < 0) return null;
-        return Instantiate(objects[i], transform);
+        var part = Instantiate(objects[i], transform);
+        return part;
     }
 }

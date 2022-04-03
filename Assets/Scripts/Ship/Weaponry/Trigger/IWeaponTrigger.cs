@@ -10,7 +10,7 @@ namespace Ship.Weaponry.Trigger
         
         public WeaponTriggerState CurrentState { get; }
         float TimeBetweenShots { get; }
-        int ShotDelayUpgradeLevel { get; set; }
+        float ShotDelayUpgradeLevel { get; set; }
 
         public void Update(float dTime);
     }

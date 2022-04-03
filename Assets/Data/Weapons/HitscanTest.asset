@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   minTimeBetweenShots: 0
-  maxDistance: 100
+  maxDistance: 200
   damageOverDistanceNormalized:
     serializedVersion: 2
     m_Curve:

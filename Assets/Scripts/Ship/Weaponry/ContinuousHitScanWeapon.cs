@@ -79,7 +79,7 @@ namespace Ship.Weaponry
             }
             var effectiveDamage = this.weaponConfigHitScan.DamageOverDistanceNormalized
                 .Evaluate(distance / this.weaponConfigHitScan.MaxDistance) * timeBetweenLastFrameInMillis
-                * this.upgrades[Upgrades.UpgradeNames.WeaponDamage];
+                * upgradeData.GetValue(UpgradeNames.WeaponDamage);
 
             var weaponHitInformation = new WeaponHitInformation(
                 WeaponHitInformation.WeaponType.HitScan,

@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Ship.Sensors
 {
@@ -8,40 +7,31 @@ namespace Ship.Sensors
     {
         public delegate void TargetDestroyed(SensorTarget target);
 
-        [SerializeField] [ReadOnlyInspector] private TargetAllegiance allegiance;
-        [SerializeField] [ReadOnlyInspector] private TargetType targetType;
-        [SerializeField] [ReadOnlyInspector] private bool isInit = false;
+        [SerializeField] private TargetAllegiance allegiance;
+        [SerializeField] private TargetType targetType;
 
         public TargetAllegiance Allegiance => this.allegiance;
         public TargetType Type => this.targetType;
         public Vector3 Position => this.gameObject.transform.position;
+        
+        public static event Action<SensorTarget> OnSensorTargetAdded = delegate { };
 
         public event TargetDestroyed TargetDestroyedEvent;
 
-        public UnityAction AllegianceChangeAction;
-
-        public void Init(TargetType initialTargetType, TargetAllegiance targetAllegiance)
+        private void Start()
         {
-            if (this.isInit)
-            {
-                throw new Exception("Script already initialized");
-            }
+            OnSensorTargetAdded(this);
+        }
 
-            this.isInit = true;
-
-            this.targetType = initialTargetType;
-            this.allegiance = targetAllegiance;
+        private void OnDestroy()
+        {
+            this.TargetDestroyedEvent?.Invoke(this);
         }
 
         public void ChangeAllegiance(TargetAllegiance allegiance)
         {
             Debug.Log("SensorTarget.ChangeType");
             this.allegiance = allegiance;
-        }
-
-        private void OnDestroy()
-        {
-            this.TargetDestroyedEvent?.Invoke(this);
         }
 
         public enum TargetAllegiance
@@ -55,6 +45,7 @@ namespace Ship.Sensors
         public enum TargetType
         {
             Ship,
+            BigShip,
             Station,
             Missile,
             JumpGate

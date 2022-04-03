@@ -1,5 +1,6 @@
 using System;
 using Manager;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ namespace UI
         [SerializeField] private GameObject settingsObject;
         [SerializeField] private GameObject keyBindObject;
         [SerializeField] private GameObject statObject;
-        [SerializeField] private Text menuTitle;
+        [SerializeField] private TextMeshProUGUI menuTitle;
         [SerializeField] private Toggle speedIndicatorToggle;
         [SerializeField] private Toggle spaceDustToggle;
 
@@ -20,7 +21,7 @@ namespace UI
         private static GameObject _settingsMenu;
         private static GameObject _keyBindMenu;
         private static GameObject _statMenu;
-        private static Text _menuTitle;
+        private static TextMeshProUGUI _menuTitle;
         private static Toggle _speedIndicatorToggle;
         private static Toggle _spaceDustToggle;
 
@@ -44,8 +45,8 @@ namespace UI
             if(GameManager.IsGamePaused) Pause();
             else Resume();
             
-            SpeedIndicatorVisibilityChanged?.Invoke(null, new BoolEventChangerArgs { NewBoolValue = _speedIndicatorToggle.isOn });
-            SpaceDustVisibilityChanged?.Invoke(null, new BoolEventChangerArgs { NewBoolValue = _spaceDustToggle.isOn });
+            //SpeedIndicatorVisibilityChanged?.Invoke(null, new BoolEventChangerArgs { NewBoolValue = _speedIndicatorToggle.isOn });
+            //SpaceDustVisibilityChanged?.Invoke(null, new BoolEventChangerArgs { NewBoolValue = _spaceDustToggle.isOn });
         }
 
         public static void Pause()

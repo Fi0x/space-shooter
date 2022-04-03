@@ -17,7 +17,6 @@ namespace Ship.Movement
         public override ShipMovementHandlerSettings Settings => this.settings;
         protected override GameObject ShipObject => this.shipObject;
         public override Rigidbody ShipRb => this.shipRb;
-        public override Dictionary<Enum, int> Upgrades { get; } = new Dictionary<Enum, int>();
 
         private Vector3 desiredMovementVector = Vector3.zero;
         private Vector3? desiredLookAtWorldPosition = null;
@@ -76,19 +75,6 @@ namespace Ship.Movement
             this.shipObject ??= this.gameObject;
             this.shipRb ??= this.GetComponent<Rigidbody>() ?? throw new NullReferenceException(nameof(this.shipRb));
             // ReSharper enable ConstantNullCoalescingCondition
-            this.ResetUpgrades(); 
-        }
-        
-        public void ResetUpgrades()
-        {
-            this.Upgrades.Clear();
-            this.Upgrades.Add(UpgradeSystem.Upgrades.UpgradeNames.EngineAcceleration, 1);
-            this.Upgrades.Add(UpgradeSystem.Upgrades.UpgradeNames.EngineDeceleration, 1);
-            this.Upgrades.Add(UpgradeSystem.Upgrades.UpgradeNames.EngineLateralThrust, 1);
-            this.Upgrades.Add(UpgradeSystem.Upgrades.UpgradeNames.EngineRotationSpeedPitch, 1);
-            this.Upgrades.Add(UpgradeSystem.Upgrades.UpgradeNames.EngineRotationSpeedRoll, 1);
-            this.Upgrades.Add(UpgradeSystem.Upgrades.UpgradeNames.EngineRotationSpeedYaw, 1);
-            this.Upgrades.Add(UpgradeSystem.Upgrades.UpgradeNames.EngineStabilizationSpeed, 1);
         }
 
         public void NotifyAboutNewTargetDirectionWithVelocity(Vector3 worldPositionDirectionWithVelocity)

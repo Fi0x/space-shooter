@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UpgradeNames = UpgradeSystem.Upgrades.UpgradeNames;
+using UpgradeSystem;
+using UpgradeNames = UpgradeSystem.UpgradeNames;
 
 namespace Ship.Movement
 {
@@ -12,7 +13,7 @@ namespace Ship.Movement
         protected abstract GameObject ShipObject { get; }
         public  abstract Rigidbody ShipRb { get; }
 
-        public abstract Dictionary<Enum, int> Upgrades { get; }
+        public UpgradeDataSO upgradeData;
         
         protected virtual void ModifyShipVector(Vector3 desiredVector)
         {
@@ -44,14 +45,14 @@ namespace Ship.Movement
 
             if (deltaZLocalSpace > 0)
             {
-                var effectiveAccelerationForce = this.Settings.AccelerationForwards(this.Upgrades[UpgradeNames.EngineAcceleration]);
+                var effectiveAccelerationForce = this.Settings.AccelerationForwards(upgradeData.GetValue(UpgradeNames.EngineAcceleration));
                 if (isBoosting)
                 {
                     effectiveAccelerationForce *= this.Settings.AccelerationForwardsBoostMultiplier;
                 }
                 if (isBraking)
                 {
-                    effectiveAccelerationForce *= this.Settings.BrakingModifier(this.Upgrades[UpgradeNames.EngineStabilizationSpeed]);
+                    effectiveAccelerationForce *= this.Settings.BrakingModifier(upgradeData.GetValue(UpgradeNames.EngineStabilizationSpeed));
                 }
                 var velocityAfterForceLocal = this.ModifyVelocityImmediateLocal(this.ShipRb,
                     Vector3.forward * effectiveAccelerationForce * Time.fixedDeltaTime);
@@ -65,14 +66,14 @@ namespace Ship.Movement
             }
             else
             {
-                var effectiveAccelerationForce = this.Settings.AccelerationBackwards(this.Upgrades[UpgradeNames.EngineDeceleration]);
+                var effectiveAccelerationForce = this.Settings.AccelerationBackwards(upgradeData.GetValue(UpgradeNames.EngineAcceleration));
                 if (isBoosting)
                 {
                     effectiveAccelerationForce *= this.Settings.AccelerationBackwardsBoostMultiplier;
                 }
                 if (isBraking)
                 {
-                    effectiveAccelerationForce *= this.Settings.BrakingModifier(this.Upgrades[UpgradeNames.EngineStabilizationSpeed]);
+                    effectiveAccelerationForce *= this.Settings.BrakingModifier(upgradeData.GetValue(UpgradeNames.EngineStabilizationSpeed));
                 }
 
                 var velocityAfterForceLocal =
@@ -110,7 +111,7 @@ namespace Ship.Movement
             }
             var currentVelocityLocal = this.transform.InverseTransformDirection(this.ShipRb.velocity);
 
-            var effectiveAccelerationLateral = this.Settings.AccelerationLateral(this.Upgrades[UpgradeNames.EngineLateralThrust]);
+            var effectiveAccelerationLateral = this.Settings.AccelerationLateral(upgradeData.GetValue(UpgradeNames.EngineAcceleration));
             if (boosting)
             {
                 effectiveAccelerationLateral *= this.Settings.AccelerationLateralBoostMultiplier;
@@ -118,7 +119,7 @@ namespace Ship.Movement
             var isBraking = Math.Abs(currentVelocityLocal.x) > Math.Abs(xTargetLocalSpace);
             if (isBraking)
             {
-                effectiveAccelerationLateral *= this.Settings.BrakingModifier(this.Upgrades[UpgradeNames.EngineStabilizationSpeed]);
+                effectiveAccelerationLateral *= this.Settings.BrakingModifier(upgradeData.GetValue(UpgradeNames.EngineStabilizationSpeed));
             }
 
             if (deltaXLocalSpace > 0)
@@ -157,7 +158,7 @@ namespace Ship.Movement
             }
             var currentVelocityLocal = this.transform.InverseTransformDirection(this.ShipRb.velocity);
 
-            var effectiveAccelerationLateral = this.Settings.AccelerationLateral(this.Upgrades[UpgradeNames.EngineLateralThrust]);
+            var effectiveAccelerationLateral = this.Settings.AccelerationLateral(upgradeData.GetValue(UpgradeNames.EngineAcceleration));
             if (boosting)
             {
                 effectiveAccelerationLateral *= this.Settings.AccelerationLateralBoostMultiplier;
@@ -165,7 +166,7 @@ namespace Ship.Movement
             var isBraking = Math.Abs(currentVelocityLocal.y) > Math.Abs(yTargetLocalSpace);
             if (isBraking)
             {
-                effectiveAccelerationLateral *= this.Settings.BrakingModifier(this.Upgrades[UpgradeNames.EngineStabilizationSpeed]);
+                effectiveAccelerationLateral *= this.Settings.BrakingModifier(upgradeData.GetValue(UpgradeNames.EngineStabilizationSpeed));
             }
 
             if (deltaYLocalSpace > 0)

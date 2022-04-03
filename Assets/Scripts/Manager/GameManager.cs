@@ -1,22 +1,26 @@
 using System;
 using Components;
-using Enemy;
+using HealthSystem;
+using LevelManagement;
 using Ship;
 using Ship.Movement;
 using Stats;
 using UI;
 using UI.GameOver;
+using UI.Upgrade;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UpgradeSystem;
-using World;
 
 namespace Manager
 {
     public class GameManager : MonoBehaviour
     {
+        //[SerializeField] private EnemyManager enemyManager;
+        [SerializeField] public UpgradeScreen currentUpgradeScreen;
+        [SerializeField] private LevelFlowSO levelFlow;
+        [SerializeField] public UpgradeDataSO playerUpgrades;
         [SerializeField] private EnemyManager enemyManager;
-        [SerializeField] private LevelBuilder levelBuilder;
-        [SerializeField] private FlockSpawner flockSpawner;
         [SerializeField] private int playerDefaultHealth = 1000;
 
         [Header("TargetableManager")] 
@@ -29,11 +33,13 @@ namespace Manager
 
         public EnemyManager EnemyManager => this.enemyManager;
 
-        public LevelBuilder LevelBuilder => this.levelBuilder;
+        
 
         public static bool IsGamePaused { get; set; } = false;
 
-        private static int level;
+        public float difficulty = 1f;
+
+        [SerializeField, ReadOnlyInspector]private int levelIndex = 0;
 
         public void NotifyAboutNewPlayerInstance(GameObject newPlayer)
         {
@@ -56,46 +62,76 @@ namespace Manager
 
         private void Awake()
         {
-            DontDestroyOnLoad(this.gameObject);
-            _instance = this;
-            this.TargetableManager ??= new TargetableManager(targetableActive, targetableInactive);
-            
-            this.Player = GameObject.Find("Player");
+            if (_instance == null)
+            {
+                DontDestroyOnLoad(this.gameObject);
+                _instance = this;
+                this.TargetableManager ??= new TargetableManager(targetableActive, targetableInactive);
+                //this.Player = GameObject.Find("Player");
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
 
         private void Start()
         {
-            this.LoadNextLevel();
+            playerUpgrades.ResetData();
         }
-
+        
         private void Update()
         {
             this.TargetableManager?.NotifyAboutUpdate();
         }
 
-        public static void ResetGame()
+        public void ResetGame()
         {
-            level = 0;
+            levelIndex = -1;
             StatCollector.ResetStats();
-            UpgradeHandler.Reset();
+            playerUpgrades.ResetData();
         }
 
         public void LoadNextLevel()
         {
-            level++;
-            this.EnemyManager.RemoveAllEnemies();
-            this.LevelBuilder.LoadRandomLevel();
-            this.flockSpawner.SpawnFlocks();
-            this.SpawnPlayer();
+            // this.EnemyManager.RemoveAllEnemies();
+            // this.LevelBuilder.LoadRandomLevel();
+            // this.flockSpawner.SpawnFlocks();
+            //this.SpawnPlayer();
+            var levelName = levelFlow.GetNextScene(levelIndex);
+            SceneManager.LoadScene(levelName);
+            levelIndex++;
+            AddDifficulty();
+        }
+        
+        public void ShowUpgradeScreen()
+        {
+            currentUpgradeScreen.gameObject.SetActive(true);
+            currentUpgradeScreen.ShowUpgradeScreen();
+            
+            IsGamePaused = true;
+            currentUpgradeScreen.gameObject.SetActive(true);
+            Time.timeScale = 0;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        
+            //_scrollbar.value = 1;
+        
+            //UpgradeScreenShownEvent?.Invoke(null, null);
         }
 
-        public static void ChangePauseState()
+        private void AddDifficulty()
+        {
+            difficulty = 1f + Mathf.Log(levelIndex) * 3f;
+        }
+
+        public void ChangePauseState()
         {
             if(IsGamePaused) OverlayMenu.Resume();
             else OverlayMenu.Pause();
         }
 
-        public static void GameOver()
+        public void GameOver()
         {
             GameOverScreen.ShowGameOverScreen();
         }
