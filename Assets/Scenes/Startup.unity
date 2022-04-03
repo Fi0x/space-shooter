@@ -7630,7 +7630,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 597882344}
-  m_LocalRotation: {x: 0.046958707, y: -0.0057944935, z: 0.000272407, w: 0.99888}
+  m_LocalRotation: {x: 0.046958707, y: -0.0057944898, z: 0.00027240685, w: 0.99888}
   m_LocalPosition: {x: -8.769745, y: 8.333237, z: -20.307068}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -10086,7 +10086,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346180542}
-  m_LocalRotation: {x: 0.046958707, y: -0.0057944935, z: 0.000272407, w: 0.99888}
+  m_LocalRotation: {x: 0.046958707, y: -0.0057944898, z: 0.00027240685, w: 0.99888}
   m_LocalPosition: {x: -3.0834227, y: 3.2813454, z: -1.7559725}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -11191,6 +11191,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 895869049893343052, guid: 4e8ffcd01f03d0840bd723e2843c660e, type: 3}
+      propertyPath: upgradeMagnitudeLookupScriptableObjectTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 83761d8198e1445d3848a086e20f3b90, type: 2}
     - target: {fileID: 895869049893343053, guid: 4e8ffcd01f03d0840bd723e2843c660e, type: 3}
       propertyPath: m_RootOrder
       value: 12
