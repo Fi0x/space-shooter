@@ -61,6 +61,7 @@ namespace Components
         private void Start()
         {
             MaxHealth = (int)this.upgradeData.GetValue(UpgradeNames.Health);
+            Debug.LogWarning(MaxHealth);
             CurrentHealth = this.MaxHealth;
         }
         

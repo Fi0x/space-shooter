@@ -155,7 +155,7 @@ namespace UpgradeSystem.CostAndGain
             ValidateAndThrowOnUpgradeOutOfBounds(UpgradeNames.Health, level);
 
 
-            uint HealthFn(decimal lvl) => 100 + (uint) Math.Ceiling(100 * lvl - lvl * lvl);
+            uint HealthFn(int lvl) => 100 + (uint) (100 * lvl - lvl * lvl);
 
             var healthNow = HealthFn(level - 1);
             var healthAfterUpgrade = HealthFn(level);

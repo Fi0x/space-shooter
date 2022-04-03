@@ -43,12 +43,14 @@ namespace Ship.Rocket
 
         public float CalcRechargeTime()
         {
-            return rechargeTime * (1f / (0.25f * upgradeData.GetValue(UpgradeNames.RocketChargeSpeed) + 1f));
+            //return rechargeTime * (1f / (0.25f * upgradeData.GetValue(UpgradeNames.RocketChargeSpeed) + 1f));
+            return upgradeData.GetValue(UpgradeNames.RocketChargeSpeed);
         }
 
         public int CalcRocketCharges()
         {
-            return maxRocketCharges + (int)upgradeData.GetValue(UpgradeNames.MaxRockets);
+            //return maxRocketCharges + (int)upgradeData.GetValue(UpgradeNames.MaxRockets);
+            return (int) upgradeData.GetValue(UpgradeNames.MaxRockets);
         }
 
         private void UpdateRocketCharging()

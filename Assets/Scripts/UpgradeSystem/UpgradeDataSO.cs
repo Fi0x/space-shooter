@@ -83,7 +83,7 @@ namespace UpgradeSystem
             freePoints = 0;
             foreach (var entry in this.upgrades.Values)
             {
-                entry.points = 1;
+                entry.points = 0;
             }
         }
 
@@ -95,7 +95,7 @@ namespace UpgradeSystem
             bool isCopy = false;
             foreach (var type in (UpgradeNames[])Enum.GetValues(typeof(UpgradeNames)))
             { 
-                upgrades[type] = (new Upgrade(type, 1));
+                upgrades[type] = (new Upgrade(type, 0));
             }
         }
 
