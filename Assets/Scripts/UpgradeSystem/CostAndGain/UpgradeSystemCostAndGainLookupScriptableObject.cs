@@ -30,7 +30,7 @@ namespace UpgradeSystem.CostAndGain
 
         protected abstract UpgradeData GetUpgradeDataForLevelImpl(UpgradeNames upgrade, int level);
 
-        protected bool CanUpgrade(UpgradeNames upgrade, int level)
+        public bool CanUpgrade(UpgradeNames upgrade, int level)
         {
             this.ValidateInput(upgrade, level);
             return this.CanUpgradeImpl(upgrade, level);

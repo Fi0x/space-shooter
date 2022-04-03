@@ -22,10 +22,10 @@ namespace UpgradeSystem
             _ => "Unknown",
         };
         
-        public static List<T> FisherYatesCardDeckShuffle<T>(List<T>aList) {
+        public static IList<T> FisherYatesCardDeckShuffle<T>(IList<T>aList) {
  
             System.Random _random = new System.Random ();
- 
+            
             T myGO;
  
             int n = aList.Count;

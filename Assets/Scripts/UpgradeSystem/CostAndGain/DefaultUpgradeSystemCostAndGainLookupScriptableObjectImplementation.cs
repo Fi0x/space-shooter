@@ -55,7 +55,7 @@ namespace UpgradeSystem.CostAndGain
                     float WeaponDamageFn(int lvl) => (float) (1 + (.8f * lvl - 0.02f * lvl * lvl) * .5);
                     return this.GetUpgradeDataForWeaponMultiplier(level, WeaponDamageFn, UpgradeNames.WeaponDamage);
                 case UpgradeNames.WeaponProjectileSpeed:
-                    float WeaponProjSpeedFn(int lvl) => (float) (1 + (.8f * lvl - 0.02f * lvl * lvl) * .5);
+                    float WeaponProjSpeedFn(int lvl) => (float) (1 + (.8f * lvl - 0.02f * lvl * lvl) * .2);
                     return this.GetUpgradeDataForWeaponMultiplier(level, WeaponProjSpeedFn, UpgradeNames.WeaponProjectileSpeed);
                 case UpgradeNames.WeaponFireRate:
                     float WeaponRofFn(int lvl) => (float) (1 + (.8f * lvl - 0.04f * lvl * lvl) / 8);

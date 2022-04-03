@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manager;
@@ -17,6 +18,7 @@ namespace UI.Upgrade
         [SerializeField] private GameObject subtopicPrefab;
         [SerializeField] private Scrollbar scrollbar;
         [SerializeField] private TextMeshProUGUI freePointTextField;
+        [SerializeField] private int upgradesToShow = 3;
 
         public UpgradeDataSO upgradeData;
 
@@ -105,20 +107,13 @@ namespace UI.Upgrade
 
         public int CalculateDecreaseCost(UpgradeNames type)
         {
-            var upgrade = upgradeData.GetUpgrade(type);
-            return CalculateUpgradeCost(upgrade.points - 1, upgrade.costMultiplier);
-        }
-        
-        public int CalculateUpgradeCost(UpgradeNames type)
-        {
-            var upgrade = upgradeData.GetUpgrade(type);
-            return CalculateUpgradeCost(upgrade.points, upgrade.costMultiplier);
+            return 0; // TODO
         }
 
-        private int CalculateUpgradeCost(int currentPoints, float multiplier)
-        {
-            return (int) (Mathf.Exp(0.1f * currentPoints) * multiplier);
-        }
+        public int CalculateUpgradeCost(UpgradeNames type) => (int)upgradeData.GetNextUpgrade(type).Cost;
+    
+        /**
+        [Obsolete]
         private void ExpandUpgradeList()
         {
             foreach (var field in fields)
@@ -158,15 +153,20 @@ namespace UI.Upgrade
             this.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 10 + 50 * (upgradeData.upgrades.Count + this.subtopicCount));
             this.scrollbar.value = 1;
         }
+        **/
 
         private void GenerateRandomUpgrades()
         {
-            var upgradeList = new List<UpgradeSystem.Upgrade>(upgradeData.upgrades);
+            var upgradeList = this.upgradeData.GetAllUpgradeable();
             upgradeList = UpgradeHelper.FisherYatesCardDeckShuffle(upgradeList);
-            for (int i = 0; i < 3; i++)
+            Debug.LogError(upgradeList.Count);
+            
+            foreach (var upgradeType in upgradeList.Take(upgradesToShow))
             {
-                SpawnUpgradeField(upgradeList[i].type);
+                SpawnUpgradeField(upgradeType);
             }
+            
+            
             UpdateAllFields();
         }
 

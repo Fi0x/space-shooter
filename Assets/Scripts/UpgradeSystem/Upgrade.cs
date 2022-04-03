@@ -1,6 +1,5 @@
 using System;
 using System.Text.RegularExpressions;
-using UnityEngine;
 
 namespace UpgradeSystem
 {
@@ -8,45 +7,19 @@ namespace UpgradeSystem
     public class Upgrade
     {
         public UpgradeNames type;
-        public CalculationType calculationType;
         public float costMultiplier = 1f;
         public int points;
 
         public Upgrade()
         {
-            type = UpgradeNames.Unknown;
-            calculationType = CalculationType.Linear;
+            type = UpgradeNames.Health;
             points = 1;
         }
         
-        public Upgrade(UpgradeNames type, CalculationType calcType, int points)
+        public Upgrade(UpgradeNames type, int points)
         {
             this.type = type;
-            this.calculationType = calcType;
             this.points = points;
-        }
-        
-        public float GetValue() => calculationType switch
-        {
-            CalculationType.Linear => CalculateLinear(),
-            CalculationType.Exponential => CalculateExponential(),
-            CalculationType.Logarithmic => CalculateLogarithmic(),
-            _ => 0
-        };
-
-        private float CalculateLinear()
-        {
-            return points;
-        }
-
-        private float CalculateExponential()
-        {
-            return Mathf.Exp(points);
-        }
-
-        private float CalculateLogarithmic()
-        {
-            return Mathf.Log(points + 1)/Mathf.Log(2);
         }
         
         public static string GetDisplayName(Enum type)
@@ -74,14 +47,5 @@ namespace UpgradeSystem
         
         MaxRockets,
         RocketChargeSpeed,
-            
-        Unknown
-    }
-
-    public enum CalculationType
-    {
-        Linear,
-        Logarithmic,
-        Exponential
     }
 }

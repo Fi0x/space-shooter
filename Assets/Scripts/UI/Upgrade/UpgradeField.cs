@@ -17,7 +17,7 @@ namespace UI.Upgrade
         [SerializeField] private TextMeshProUGUI downgradeCostText;
 
         [Header("Values")]
-        public UpgradeNames type = UpgradeNames.Unknown;
+        public UpgradeNames type;
         private int startPoints;
 
         private void Start()
@@ -27,6 +27,8 @@ namespace UI.Upgrade
 
         public void UpdateField()
         {
+            var upgradeData = upgradeScreen.upgradeData.GetNextUpgrade(type);
+
             nameText.text = type.ToString();
             pointsText.text = upgradeScreen.upgradeData.GetPoints(type).ToString();
             upgradeCostText.text = "-" + upgradeScreen.CalculateUpgradeCost(type) + " Points";

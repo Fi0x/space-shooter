@@ -13,19 +13,16 @@ namespace Components
     {
         
         [SerializeField] private UpgradeDataSO upgradeData;
-        [SerializeField] private int baseHealth = 1000;
+
+        [ReadOnlyInspector] [SerializeField] private int maxHealth = 0;
         
-        private int maxHealth;
+        
         public int MaxHealth
         {
-            get
-            {
-                if(upgradeData != null) 
-                    return this.maxHealth + (int)(upgradeData.GetValue(UpgradeNames.Health) * 100);
-                return this.maxHealth;
-            }
+            get => (int)Math.Round(upgradeData.GetValue(UpgradeNames.Health));
             set
             {
+                Debug.LogError($"HEALTH: {value}");
                 this.maxHealth = value;
                 currentHealth = maxHealth;
                 HealthBar.SetMaxHealth(this.MaxHealth);
@@ -40,7 +37,7 @@ namespace Components
             {
                 this.currentHealth = value;
                 if (this.currentHealth > this.MaxHealth) this.currentHealth = this.MaxHealth;
-                this.HealthBar.SetCurrentHealth((int)Math.Round(this.currentHealth));
+                this.HealthBar.SetCurrentHealth((int)Math.Ceiling(this.currentHealth));
                 
             }
         }
@@ -63,7 +60,7 @@ namespace Components
         
         private void Start()
         {
-            MaxHealth = baseHealth;
+            MaxHealth = (int)this.upgradeData.GetValue(UpgradeNames.Health);
             CurrentHealth = this.MaxHealth;
         }
         

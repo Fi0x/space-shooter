@@ -14,39 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   freePoints: 0
   upgrades:
-  - type: 0
-    calculationType: 0
-    costMultiplier: 1
-    points: 1
-  - type: 1
-    calculationType: 0
-    costMultiplier: 1
-    points: 1
-  - type: 2
-    calculationType: 0
-    costMultiplier: 1
-    points: 1
-  - type: 3
-    calculationType: 0
-    costMultiplier: 1
-    points: 1
-  - type: 4
-    calculationType: 0
-    costMultiplier: 1
-    points: 1
-  - type: 5
-    calculationType: 0
-    costMultiplier: 1
-    points: 1
-  - type: 6
-    calculationType: 0
-    costMultiplier: 1
-    points: 1
-  - type: 7
-    calculationType: 0
-    costMultiplier: 1
-    points: 1
-  - type: 8
-    calculationType: 0
-    costMultiplier: 1
-    points: 1
+    m_Keys: 000000000100000002000000030000000400000005000000060000000700000008000000
+    m_Values:
+    - type: 0
+      costMultiplier: 1
+      points: 1
+    - type: 1
+      costMultiplier: 1
+      points: 1
+    - type: 2
+      costMultiplier: 1
+      points: 1
+    - type: 3
+      costMultiplier: 1
+      points: 1
+    - type: 4
+      costMultiplier: 1
+      points: 1
+    - type: 5
+      costMultiplier: 1
+      points: 1
+    - type: 6
+      costMultiplier: 1
+      points: 1
+    - type: 7
+      costMultiplier: 1
+      points: 1
+    - type: 8
+      costMultiplier: 1
+      points: 1
+  upgradeLookupSO: {fileID: 11400000, guid: 83761d8198e1445d3848a086e20f3b90, type: 2}
