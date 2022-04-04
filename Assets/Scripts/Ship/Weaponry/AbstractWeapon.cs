@@ -63,7 +63,7 @@ namespace Ship.Weaponry
             {
                 throw new Exception("Weapon trigger is null");
             }
-            this.WeaponTrigger.ShotDelayUpgradeLevel = upgradeData.GetValue(UpgradeNames.WeaponFireRate);
+            this.WeaponTrigger.ShotDelayMultiplier = upgradeData.GetValue(UpgradeNames.WeaponFireRate);
         }
 
         private void FireModeChangedEventHandler(bool isFiring)

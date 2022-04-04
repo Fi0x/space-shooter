@@ -21,6 +21,11 @@ public class LightningStrike : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (target == null)
+        {
+            return;
+        }
+        
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(target.position, 0.2f);
         Gizmos.color = Color.blue;

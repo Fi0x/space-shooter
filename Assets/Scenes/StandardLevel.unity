@@ -554,6 +554,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OverlayMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 243280529640456282, guid: 3ca40f708acfd8447b7e68a4e2b62658, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 243280529640456286, guid: 3ca40f708acfd8447b7e68a4e2b62658, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1276,25 +1280,13 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 635918284814173395, guid: 1e8007049c03bd144a3fedb3503007af, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1626450762562299830, guid: 1e8007049c03bd144a3fedb3503007af, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5177844871229336924, guid: 1e8007049c03bd144a3fedb3503007af, type: 3}
       propertyPath: m_Name
       value: UpgradeMenu
       objectReference: {fileID: 0}
     - target: {fileID: 6422267082718012184, guid: 1e8007049c03bd144a3fedb3503007af, type: 3}
-      propertyPath: m_SizeDelta.y
+      propertyPath: m_SizeDelta.x
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6422267082718012184, guid: 1e8007049c03bd144a3fedb3503007af, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 183.297
       objectReference: {fileID: 0}
     - target: {fileID: 6900995016762602819, guid: 1e8007049c03bd144a3fedb3503007af, type: 3}
       propertyPath: m_Pivot.x
@@ -1759,6 +1751,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GUICanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6155685581360887124, guid: 30f846dd0bcea97478416e78bd394928, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7431620868142545128, guid: 30f846dd0bcea97478416e78bd394928, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2033,6 +2029,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 951997195087441061, guid: 36ae60c6c0f16b14287aa3da4c2a367b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 174.65955
+      objectReference: {fileID: 0}
     - target: {fileID: 2536428214596888712, guid: 36ae60c6c0f16b14287aa3da4c2a367b, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2048,6 +2048,10 @@ PrefabInstance:
     - target: {fileID: 8100473625114354735, guid: 36ae60c6c0f16b14287aa3da4c2a367b, type: 3}
       propertyPath: m_Name
       value: GameOverScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 8100473625114354735, guid: 36ae60c6c0f16b14287aa3da4c2a367b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36ae60c6c0f16b14287aa3da4c2a367b, type: 3}
@@ -2150,6 +2154,10 @@ PrefabInstance:
     - target: {fileID: 4151912426267508039, guid: 082d377d7a620c049b2ebdca90b8d7c0, type: 3}
       propertyPath: m_Name
       value: HealthBarCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4151912426267508039, guid: 082d377d7a620c049b2ebdca90b8d7c0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 082d377d7a620c049b2ebdca90b8d7c0, type: 3}

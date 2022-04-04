@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Manager;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UpgradeSystem.CostAndGain;
 
 namespace UpgradeSystem
 {
@@ -8,33 +12,57 @@ namespace UpgradeSystem
     public class UpgradeDataSO : ScriptableObject
     {
         public int freePoints = 0;
-        public List<Upgrade> upgrades = new List<Upgrade>();
+
+        [SerializeField]
+        private SerializedDictionary<UpgradeNames, Upgrade> upgrades = new SerializedDictionary<UpgradeNames, Upgrade>();
+
+        [SerializeField] private UpgradeSystemCostAndGainLookupScriptableObject upgradeLookupSO;
+
+        private void OnEnable()
+        {
+            if (this.upgradeLookupSO is null)
+            {
+                throw new NullReferenceException("Upgrade Lookup is not set.");
+            }
+        }
+
+
+        public IReadOnlyDictionary<UpgradeNames, Upgrade> Upgrades => this.upgrades;
 
         public float GetValue(UpgradeNames type)
         {
-            foreach (var upgrade in upgrades)
+            if (this.upgrades.ContainsKey(type))
             {
-                if (upgrade.type == type)
-                    return upgrade.GetValue();
+                var currentLevel = this.upgrades[type].points;
+                return this.upgradeLookupSO.GetUpgradeDataForLevel(type, currentLevel).ToValue;
             }
 
             return 0;
         }
 
+        public UpgradeData GetNextUpgrade(UpgradeNames type)
+        {
+            return this.upgradeLookupSO.GetUpgradeDataForLevel(type, upgrades[type].points + 1);
+        }
+
         public int GetPoints(UpgradeNames type)
         {
-            foreach (var upgrade in upgrades)
+            if (this.upgrades.ContainsKey(type))
             {
-                if (upgrade.type == type)
-                    return upgrade.points;
+                return this.upgrades[type].points;
             }
-
+            
             return 0;
         }
 
         public Upgrade GetUpgrade(UpgradeNames type)
         {
-            return upgrades.Find(upgrade => upgrade.type == type);
+            if (!this.upgrades.ContainsKey(type))
+            {
+                throw new Exception("Upgrade Type is not supported");
+            }
+            
+            return this.upgrades[type];
         }
 
         public void AddPoints(UpgradeNames type, int points)
@@ -53,9 +81,9 @@ namespace UpgradeSystem
         public void ResetData()
         {
             freePoints = 0;
-            foreach (var upgrade in upgrades)
+            foreach (var entry in this.upgrades.Values)
             {
-                upgrade.points = 1;
+                entry.points = 0;
             }
         }
 
@@ -65,11 +93,18 @@ namespace UpgradeSystem
             freePoints = 0;
             upgrades.Clear();
             bool isCopy = false;
-            foreach (var type in Enum.GetNames(typeof(UpgradeNames)))
-            {
-                if(type != "Unknown")
-                    upgrades.Add(new Upgrade(Upgrade.GetTypeFromDisplayName(type), CalculationType.Linear, 1));
+            foreach (var type in (UpgradeNames[])Enum.GetValues(typeof(UpgradeNames)))
+            { 
+                upgrades[type] = (new Upgrade(type, 0));
             }
+        }
+
+        public IList<UpgradeNames> GetAllUpgradeable()
+        {
+            var valuesThatCanBeUpgraded = from val in this.upgrades.Keys
+                where this.upgradeLookupSO.CanUpgrade(val, this.upgrades[val].points)
+                select val;
+            return valuesThatCanBeUpgraded.ToList();
         }
     }
 }

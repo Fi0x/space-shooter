@@ -47,6 +47,11 @@ namespace Manager
             if (this.PrimaryTarget == targetable)
             {
                 this.PrimaryTarget = null;
+                var player = GameManager.Instance.Player;
+                if (player is null)
+                {
+                    return;
+                }
                 this.RecalculatePrimaryTarget(GameManager.Instance.Player.GetComponent<WeaponManager>());
             }
         }

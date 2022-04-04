@@ -11,6 +11,7 @@ using UI.Upgrade;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UpgradeSystem;
+using UpgradeSystem.CostAndGain;
 
 namespace Manager
 {
@@ -26,6 +27,11 @@ namespace Manager
         [Header("TargetableManager")] 
         [SerializeField] private Sprite targetableActive;
         [SerializeField] private Sprite targetableInactive;
+
+        [Header("UpgradeConfig")] [SerializeField]
+        private UpgradeSystemCostAndGainLookupScriptableObject upgradeMagnitudeLookupScriptableObjectTable;
+
+        public UpgradeSystemCostAndGainLookupScriptableObject UpgradeMagnitudeLookupScriptableObjectTable => this.upgradeMagnitudeLookupScriptableObjectTable;
         
         public GameObject Player { get; private set; }
         
@@ -78,6 +84,10 @@ namespace Manager
         private void Start()
         {
             playerUpgrades.ResetData();
+            if (this.upgradeMagnitudeLookupScriptableObjectTable == null)
+            {
+                throw new NullReferenceException(nameof(this.upgradeMagnitudeLookupScriptableObjectTable));
+            }
         }
         
         private void Update()

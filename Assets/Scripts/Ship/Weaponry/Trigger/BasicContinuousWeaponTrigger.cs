@@ -38,7 +38,7 @@ namespace Ship.Weaponry.Trigger
         public event Action<WeaponTriggerState> StateChangedEvent;
         public WeaponTriggerState CurrentState { get; private set; } = WeaponTriggerState.NotFiring;
         public float TimeBetweenShots => 0;
-        public float ShotDelayUpgradeLevel { get; set; }
+        public float ShotDelayMultiplier { get; set; }
 
         public void Update(float dTime)
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,40 +10,48 @@ namespace UI.Upgrade
     public class UpgradeField : MonoBehaviour
     {
         [Header("Dependencies")] public UpgradeScreen upgradeScreen;
-        [SerializeField] private Button increaseButton;
-        [SerializeField] private Button decreaseButton;
+        [SerializeField] private Image image;
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI pointsText;
+        [SerializeField] private TextMeshProUGUI fromText;
+        [SerializeField] private TextMeshProUGUI toText;
+        [SerializeField] private TextMeshProUGUI gainText;
+        [SerializeField] private TextMeshProUGUI descriptionText;
         [SerializeField] private TextMeshProUGUI upgradeCostText;
-        [SerializeField] private TextMeshProUGUI downgradeCostText;
+        [SerializeField] private TextMeshProUGUI buyButtonText;
+        [SerializeField] private Button increaseButton;
 
         [Header("Values")]
-        public UpgradeNames type = UpgradeNames.Unknown;
+        public UpgradeNames type;
         private int startPoints;
 
         private void Start()
         {
-            startPoints = upgradeScreen.upgradeData.GetPoints(type);
         }
 
         public void UpdateField()
         {
+            var upgradeObject = upgradeScreen.upgradeData.GetNextUpgrade(type);
+            
+            image.sprite = upgradeScreen.spriteLookup.GetSprite(type);
             nameText.text = type.ToString();
+
+            var canUpgrade = upgradeScreen.upgradeData.GetAllUpgradeable().Contains(type);
+            
+   
             pointsText.text = upgradeScreen.upgradeData.GetPoints(type).ToString();
-            upgradeCostText.text = "-" + upgradeScreen.CalculateUpgradeCost(type) + " Points";
-            downgradeCostText.text = "+" + upgradeScreen.CalculateDecreaseCost(type) + " Points";
-            increaseButton.interactable = upgradeScreen.upgradeData.freePoints >= upgradeScreen.CalculateUpgradeCost(type);
-            decreaseButton.interactable = upgradeScreen.upgradeData.GetPoints(type) > startPoints;
+            fromText.text = upgradeObject.FromValue.ToString("F2");
+            toText.text = canUpgrade ? upgradeObject.ToValue.ToString("F2") : "";
+            gainText.text = canUpgrade ? upgradeObject.UpgradeString : "";
+            descriptionText.text = "TODO - Add Description";
+            upgradeCostText.text = canUpgrade ? "-" + upgradeScreen.CalculateUpgradeCost(type) + " Points" : "";
+            increaseButton.interactable = upgradeScreen.upgradeData.freePoints >= upgradeScreen.CalculateUpgradeCost(type) && canUpgrade;
+            buyButtonText.text = canUpgrade ? "Upgrade" : "Max Reached";
         }
 
         public void BuyIncrease()
         {
             upgradeScreen.PurchaseUpgrade(type, true);
-        }
-
-        public void BuyDecrease()
-        {
-            upgradeScreen.PurchaseUpgrade(type, false);
         }
     }
 }
