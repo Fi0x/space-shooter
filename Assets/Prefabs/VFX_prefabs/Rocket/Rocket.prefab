@@ -4865,27 +4865,27 @@ MonoBehaviour:
   turnSpeed: 3
   inertia: 0.1
   explosionRadius: 30
-  damage: 3000
+  damage: 600
   damageFalloff:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: -1.8909092
-      outSlope: -1.8909092
+      inSlope: -2.9252796
+      outSlope: -2.9252796
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.018478261
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -0.4593301
-      outSlope: -0.4593301
+      inSlope: -0.59563303
+      outSlope: -0.59563303
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.23750001
+      inWeight: 0.09619564
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
