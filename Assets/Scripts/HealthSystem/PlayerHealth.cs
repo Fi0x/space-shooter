@@ -22,7 +22,6 @@ namespace Components
             get => (int)Math.Round(upgradeData.GetValue(UpgradeNames.Health));
             set
             {
-                Debug.LogError($"HEALTH: {value}");
                 this.maxHealth = value;
                 currentHealth = maxHealth;
                 HealthBar.SetMaxHealth(this.MaxHealth);
@@ -61,7 +60,6 @@ namespace Components
         private void Start()
         {
             MaxHealth = (int)this.upgradeData.GetValue(UpgradeNames.Health);
-            Debug.LogWarning(MaxHealth);
             CurrentHealth = this.MaxHealth;
         }
         

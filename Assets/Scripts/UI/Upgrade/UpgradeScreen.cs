@@ -160,7 +160,6 @@ namespace UI.Upgrade
         {
             var upgradeList = this.upgradeData.GetAllUpgradeable();
             upgradeList = UpgradeHelper.FisherYatesCardDeckShuffle(upgradeList);
-            Debug.LogError(upgradeList.Count);
             
             foreach (var upgradeType in upgradeList.Take(upgradesToShow))
             {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +18,7 @@ namespace UI.Upgrade
         [SerializeField] private TextMeshProUGUI gainText;
         [SerializeField] private TextMeshProUGUI descriptionText;
         [SerializeField] private TextMeshProUGUI upgradeCostText;
+        [SerializeField] private TextMeshProUGUI buyButtonText;
         [SerializeField] private Button increaseButton;
 
         [Header("Values")]
@@ -29,16 +31,22 @@ namespace UI.Upgrade
 
         public void UpdateField()
         {
+            var upgradeObject = upgradeScreen.upgradeData.GetNextUpgrade(type);
+            
             image.sprite = upgradeScreen.spriteLookup.GetSprite(type);
             nameText.text = type.ToString();
-            //TODO
+
+            var canUpgrade = upgradeScreen.upgradeData.GetAllUpgradeable().Contains(type);
+            
+   
             pointsText.text = upgradeScreen.upgradeData.GetPoints(type).ToString();
-            fromText.text = "from points";
-            toText.text = "to points";
-            gainText.text = "gain text";
-            descriptionText.text = "a description";
-            upgradeCostText.text = "-" + upgradeScreen.CalculateUpgradeCost(type) + " Points";
-            increaseButton.interactable = upgradeScreen.upgradeData.freePoints >= upgradeScreen.CalculateUpgradeCost(type);
+            fromText.text = upgradeObject.FromValue.ToString("F2");
+            toText.text = canUpgrade ? upgradeObject.ToValue.ToString("F2") : "";
+            gainText.text = canUpgrade ? upgradeObject.UpgradeString : "";
+            descriptionText.text = "TODO - Add Description";
+            upgradeCostText.text = canUpgrade ? "-" + upgradeScreen.CalculateUpgradeCost(type) + " Points" : "";
+            increaseButton.interactable = upgradeScreen.upgradeData.freePoints >= upgradeScreen.CalculateUpgradeCost(type) && canUpgrade;
+            buyButtonText.text = canUpgrade ? "Upgrade" : "Max Reached";
         }
 
         public void BuyIncrease()

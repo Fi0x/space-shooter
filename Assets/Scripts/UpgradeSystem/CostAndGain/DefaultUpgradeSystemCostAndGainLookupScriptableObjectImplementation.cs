@@ -15,7 +15,7 @@ namespace UpgradeSystem.CostAndGain
             {UpgradeNames.RocketChargeSpeed, 10},
             {UpgradeNames.WeaponDamage, 20},
             {UpgradeNames.WeaponProjectileSpeed, 20},
-            {UpgradeNames.WeaponFireRate, 10},
+            {UpgradeNames.WeaponFireRate, 3},
             {UpgradeNames.EngineAcceleration, 20},
             {UpgradeNames.EngineHandling, 20},
             {UpgradeNames.EngineStabilizationSpeed, 20},
@@ -23,11 +23,12 @@ namespace UpgradeSystem.CostAndGain
         
         protected override bool CanUpgradeImpl(UpgradeNames upgrade, int level)
         {
-            return this.MaxLevel[upgrade] >= level;
+            return this.MaxLevel[upgrade] > level;
         }
 
         private void ValidateAndThrowOnUpgradeOutOfBounds(UpgradeNames upgrade, int level)
         {
+            return;
             if (!CanUpgradeImpl(upgrade, level))
             {
                 throw new ArgumentOutOfRangeException(nameof(level),
@@ -58,8 +59,8 @@ namespace UpgradeSystem.CostAndGain
                     float WeaponProjSpeedFn(int lvl) => (float) (1 + (.8f * lvl - 0.02f * lvl * lvl) * .2);
                     return this.GetUpgradeDataForWeaponMultiplier(level, WeaponProjSpeedFn, UpgradeNames.WeaponProjectileSpeed);
                 case UpgradeNames.WeaponFireRate:
-                    float WeaponRofFn(int lvl) => (float) (1 + (.8f * lvl - 0.04f * lvl * lvl) / 8);
-                    return this.GetUpgradeDataForWeaponMultiplier(level, WeaponRofFn, UpgradeNames.WeaponFireRate);
+                    float WeaponTimeBetweenShotMultiplierFn(int lvl) => (float) (1 - (.8f * lvl - 0.04f * lvl * lvl) / 8);
+                    return this.GetUpgradeDataForWeaponMultiplier(level, WeaponTimeBetweenShotMultiplierFn, UpgradeNames.WeaponFireRate);
                 
                 // Movement
                 
@@ -155,7 +156,7 @@ namespace UpgradeSystem.CostAndGain
             ValidateAndThrowOnUpgradeOutOfBounds(UpgradeNames.Health, level);
 
 
-            uint HealthFn(int lvl) => 100 + (uint) (100 * lvl - lvl * lvl);
+            uint HealthFn(int lvl) => 300 + (uint) (100 * lvl - lvl * lvl);
 
             var healthNow = HealthFn(level - 1);
             var healthAfterUpgrade = HealthFn(level);

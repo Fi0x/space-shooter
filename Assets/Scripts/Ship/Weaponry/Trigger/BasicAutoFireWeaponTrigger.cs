@@ -24,7 +24,16 @@ namespace Ship.Weaponry.Trigger
 
         public WeaponTriggerState CurrentState { get; protected set; } = WeaponTriggerState.NotFiring;
         public float TimeBetweenShots => this.cfg.MinTimeBetweenShots * this.ShotDelayMultiplier;
-        public float ShotDelayMultiplier { get; set; } = 1f;
+        private float sdm = 1f;
+        public float ShotDelayMultiplier
+        {
+            get => sdm;
+            set
+            {
+                sdm = value;
+                Debug.LogWarning(sdm);
+            }
+        }
 
         public void Update(float dTime)
         {

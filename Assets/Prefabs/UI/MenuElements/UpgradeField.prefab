@@ -640,7 +640,7 @@ GameObject:
   - component: {fileID: 8203956887438818963}
   - component: {fileID: 4814166217440189603}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PurchaseBtn Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1560,6 +1560,7 @@ MonoBehaviour:
   gainText: {fileID: 5943298458385817105}
   descriptionText: {fileID: 1990283713175118026}
   upgradeCostText: {fileID: 7010624933613284345}
+  buyButtonText: {fileID: 4814166217440189603}
   increaseButton: {fileID: 4192854970757169405}
   type: 6
 --- !u!1 &8327611383647612696
