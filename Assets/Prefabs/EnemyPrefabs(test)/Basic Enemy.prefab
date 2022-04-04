@@ -204,8 +204,8 @@ MonoBehaviour:
   timeBetweenAttacks: 0
   waitForAttack: 0
   projectilePrefab: {fileID: 7276553157955487200, guid: 58d48bb45d8d3e749be06bd4b3f5e245, type: 3}
-  sightRange: 0
-  attackRange: 0
+  sightRange: 300
+  attackRange: 100
   boid: {fileID: 0}
   boidController: {fileID: 0}
 --- !u!114 &1834885643341442195

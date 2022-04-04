@@ -43,8 +43,6 @@ namespace Enemy
 
             this.waitForAttack = 2.0f;
             this.timeBetweenAttacks = this.waitForAttack;
-            this.sightRange = 125.0f;
-            this.attackRange = 75.0f;
 
             this.boidController = controller;
         }
