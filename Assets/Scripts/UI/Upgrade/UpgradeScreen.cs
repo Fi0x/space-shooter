@@ -21,6 +21,7 @@ namespace UI.Upgrade
         [SerializeField] private int upgradesToShow = 3;
 
         public UpgradeDataSO upgradeData;
+        public UpgradeSpriteLookupSO spriteLookup;
 
         private Dictionary<UpgradeNames, UpgradeField> fields;
         private int subtopicCount;

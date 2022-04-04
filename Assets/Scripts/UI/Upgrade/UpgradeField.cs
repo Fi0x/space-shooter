@@ -9,12 +9,15 @@ namespace UI.Upgrade
     public class UpgradeField : MonoBehaviour
     {
         [Header("Dependencies")] public UpgradeScreen upgradeScreen;
-        [SerializeField] private Button increaseButton;
-        [SerializeField] private Button decreaseButton;
+        [SerializeField] private Image image;
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI pointsText;
+        [SerializeField] private TextMeshProUGUI fromText;
+        [SerializeField] private TextMeshProUGUI toText;
+        [SerializeField] private TextMeshProUGUI gainText;
+        [SerializeField] private TextMeshProUGUI descriptionText;
         [SerializeField] private TextMeshProUGUI upgradeCostText;
-        [SerializeField] private TextMeshProUGUI downgradeCostText;
+        [SerializeField] private Button increaseButton;
 
         [Header("Values")]
         public UpgradeNames type;
@@ -22,29 +25,25 @@ namespace UI.Upgrade
 
         private void Start()
         {
-            startPoints = upgradeScreen.upgradeData.GetPoints(type);
         }
 
         public void UpdateField()
         {
-            var upgradeData = upgradeScreen.upgradeData.GetNextUpgrade(type);
-
+            image.sprite = upgradeScreen.spriteLookup.GetSprite(type);
             nameText.text = type.ToString();
+            //TODO
             pointsText.text = upgradeScreen.upgradeData.GetPoints(type).ToString();
+            fromText.text = "from points";
+            toText.text = "to points";
+            gainText.text = "gain text";
+            descriptionText.text = "a description";
             upgradeCostText.text = "-" + upgradeScreen.CalculateUpgradeCost(type) + " Points";
-            downgradeCostText.text = "+" + upgradeScreen.CalculateDecreaseCost(type) + " Points";
             increaseButton.interactable = upgradeScreen.upgradeData.freePoints >= upgradeScreen.CalculateUpgradeCost(type);
-            decreaseButton.interactable = upgradeScreen.upgradeData.GetPoints(type) > startPoints;
         }
 
         public void BuyIncrease()
         {
             upgradeScreen.PurchaseUpgrade(type, true);
-        }
-
-        public void BuyDecrease()
-        {
-            upgradeScreen.PurchaseUpgrade(type, false);
         }
     }
 }
