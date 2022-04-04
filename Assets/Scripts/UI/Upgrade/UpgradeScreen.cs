@@ -19,6 +19,7 @@ namespace UI.Upgrade
         [SerializeField] private TextMeshProUGUI freePointTextField;
 
         public UpgradeDataSO upgradeData;
+        public UpgradeSpriteLookupSO spriteLookup;
 
         private Dictionary<UpgradeNames, UpgradeField> fields;
         private int subtopicCount;

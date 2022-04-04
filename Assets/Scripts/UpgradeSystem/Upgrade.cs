@@ -14,7 +14,7 @@ namespace UpgradeSystem
 
         public Upgrade()
         {
-            type = UpgradeNames.Unknown;
+            type = UpgradeNames.Health;
             calculationType = CalculationType.Linear;
             points = 1;
         }
@@ -73,9 +73,7 @@ namespace UpgradeSystem
         Health,
         
         MaxRockets,
-        RocketChargeSpeed,
-            
-        Unknown
+        RocketChargeSpeed
     }
 
     public enum CalculationType
