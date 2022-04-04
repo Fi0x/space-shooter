@@ -15,7 +15,7 @@ namespace UpgradeSystem.CostAndGain
             {UpgradeNames.RocketChargeSpeed, 10},
             {UpgradeNames.WeaponDamage, 20},
             {UpgradeNames.WeaponProjectileSpeed, 20},
-            {UpgradeNames.WeaponFireRate, 3},
+            {UpgradeNames.WeaponFireRate, 10},
             {UpgradeNames.EngineAcceleration, 20},
             {UpgradeNames.EngineHandling, 20},
             {UpgradeNames.EngineStabilizationSpeed, 20},
