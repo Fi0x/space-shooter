@@ -97,7 +97,7 @@ namespace Manager
 
         public void ResetGame()
         {
-            levelIndex = -1;
+            levelIndex = 0;
             StatCollector.ResetStats();
             playerUpgrades.ResetData();
         }
@@ -112,6 +112,12 @@ namespace Manager
             SceneManager.LoadScene(levelName);
             levelIndex++;
             AddDifficulty();
+        }
+
+        public void ReturnToMenu()
+        {
+            ResetGame();
+            SceneManager.LoadScene("Startup");
         }
         
         public void ShowUpgradeScreen()
