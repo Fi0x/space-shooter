@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 using Manager;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -10,6 +11,7 @@ namespace UI
         public BootScript bootScript;
         public GameObject settingsPrefab;
         public CanvasGroup fadeCanvasGroup;
+        public Image loadingBar;
         public float fadeTime = 5f;
         public float delay = 2f;
 
@@ -37,9 +39,16 @@ namespace UI
         private IEnumerator FadeIn(float time)
         {
             fadeCanvasGroup.alpha = 1f;
-            yield return new WaitForSeconds(delay);
+            
+            float elapsed1 = 0f;
+            while (elapsed1 < delay)
+            {
+                elapsed1 += Time.unscaledDeltaTime;
+                loadingBar.fillAmount = Mathf.Lerp(0f, 1f, elapsed1 / time);
+                yield return null;
+            }
+            
             float elapsed = 0f;
-
             while (elapsed < time)
             {
                 elapsed += Time.unscaledDeltaTime;

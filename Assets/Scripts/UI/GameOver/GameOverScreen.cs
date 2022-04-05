@@ -30,10 +30,12 @@ namespace UI.GameOver
 
         public static void ReturnToMenu()
         {
-            GameManager.Instance.ResetGame();
-            GameManager.Instance.LoadNextLevel();
-            _gameOverMenu.SetActive(false);
-            OverlayMenu.Pause();
+            GameManager.IsGamePaused = false;
+            Time.timeScale = 1f;
+            Cursor.visible = true;
+            GameManager.Instance.ReturnToMenu();
+            //_gameOverMenu.SetActive(false);
+            //OverlayMenu.Pause();
         }
     }
 }

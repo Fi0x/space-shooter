@@ -75,7 +75,10 @@ namespace UI
 
         public static void Quit()
         {
-            Application.Quit();
+            Resume();
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            GameManager.Instance.ReturnToMenu();
         }
 
         public static void Settings()
