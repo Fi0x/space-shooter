@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f21b4b99b9c29a178b554475e6bec69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allegiance: 2
+  allegiance: 3
   targetType: 1
 --- !u!1 &9116252600677988906
 GameObject:
