@@ -71,7 +71,18 @@ namespace Enemy
                 return;
             
             this.state = updatedState;
-            this.target.UpdateAllegiance(updatedState == State.Roaming ? SensorTarget.TargetAllegiance.Neutral : SensorTarget.TargetAllegiance.Hostile);
+            switch (updatedState)
+            {
+                case State.ChasePlayer:
+                    this.target.UpdateAllegiance(SensorTarget.TargetAllegiance.Hostile);
+                    break;
+                case State.AttackPlayer:
+                    this.target.UpdateAllegiance(SensorTarget.TargetAllegiance.Aggressive);
+                    break;
+                case State.Roaming:
+                    this.target.UpdateAllegiance(SensorTarget.TargetAllegiance.Neutral);
+                    break;
+            }
         }
 
         private void ChasePlayer()

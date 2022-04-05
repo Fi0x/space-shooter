@@ -42,7 +42,8 @@ namespace Ship.Sensors
         {
             Friendly,
             Neutral,
-            Hostile
+            Hostile,
+            Aggressive
         }
 
         public enum TargetType

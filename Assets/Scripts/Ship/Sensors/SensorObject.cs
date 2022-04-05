@@ -61,8 +61,10 @@ namespace Ship.Sensors
                 SensorTarget.TargetAllegiance.Friendly => this.radarManager.ColorFriendly,
                 SensorTarget.TargetAllegiance.Neutral => this.radarManager.ColorNeutral,
                 SensorTarget.TargetAllegiance.Hostile => this.radarManager.ColorHostile,
+                SensorTarget.TargetAllegiance.Aggressive => this.radarManager.ColorAggressive,
                 _ => throw new Exception("Unexpected Sensor Target Allegiance")
             };
+            Debug.Log("New allegiance: " + newAllegiance);
         }
 
         private void OnSensorTargetDestroyedEventHandler(SensorTarget _)
