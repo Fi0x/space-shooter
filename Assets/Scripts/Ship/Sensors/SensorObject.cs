@@ -28,13 +28,7 @@ namespace Ship.Sensors
             this.radarManager = rm;
             this.spriteObject = this.gameObject.GetComponentInChildren<SpriteRenderer>().gameObject;
             var sr = this.spriteObject.GetComponent<SpriteRenderer>();
-            sr.color = st.Allegiance switch
-            {
-                SensorTarget.TargetAllegiance.Friendly => this.radarManager.ColorFriendly,
-                SensorTarget.TargetAllegiance.Neutral => this.radarManager.ColorNeutral,
-                SensorTarget.TargetAllegiance.Hostile => this.radarManager.ColorHostile,
-                _ => throw new Exception("Unexpected Sensor Target Allegiance")
-            };
+            this.UpdateAllegianceColor(st.Allegiance);
 
             sr.sprite = st.Type switch
             {
@@ -52,6 +46,25 @@ namespace Ship.Sensors
             this.target.TargetDestroyedEvent += this.OnSensorTargetDestroyedEventHandler;
 
             this.isInit = true;
+
+            this.target.AllegianceChangedEvent += (sender, args) =>
+            {
+                this.UpdateAllegianceColor(this.target.Allegiance);
+            };
+        }
+
+        private void UpdateAllegianceColor(SensorTarget.TargetAllegiance newAllegiance)
+        {
+            var sr = this.spriteObject.GetComponent<SpriteRenderer>();
+            sr.color = newAllegiance switch
+            {
+                SensorTarget.TargetAllegiance.Friendly => this.radarManager.ColorFriendly,
+                SensorTarget.TargetAllegiance.Neutral => this.radarManager.ColorNeutral,
+                SensorTarget.TargetAllegiance.Hostile => this.radarManager.ColorHostile,
+                SensorTarget.TargetAllegiance.Aggressive => this.radarManager.ColorAggressive,
+                _ => throw new Exception("Unexpected Sensor Target Allegiance")
+            };
+            Debug.Log("New allegiance: " + newAllegiance);
         }
 
         private void OnSensorTargetDestroyedEventHandler(SensorTarget _)

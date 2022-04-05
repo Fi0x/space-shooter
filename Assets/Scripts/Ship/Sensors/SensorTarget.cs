@@ -17,6 +17,16 @@ namespace Ship.Sensors
         public static event Action<SensorTarget> OnSensorTargetAdded = delegate { };
 
         public event TargetDestroyed TargetDestroyedEvent;
+        public event EventHandler AllegianceChangedEvent;
+
+        public void UpdateAllegiance(TargetAllegiance newAllegiance)
+        {
+            if(newAllegiance == this.allegiance)
+                return;
+            
+            this.allegiance = newAllegiance;
+            this.AllegianceChangedEvent?.Invoke(null, null);
+        }
 
         private void Start()
         {
@@ -32,7 +42,8 @@ namespace Ship.Sensors
         {
             Friendly,
             Neutral,
-            Hostile
+            Hostile,
+            Aggressive
         }
 
         public enum TargetType
