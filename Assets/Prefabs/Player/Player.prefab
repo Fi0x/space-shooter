@@ -1729,7 +1729,7 @@ MonoBehaviour:
   inputHandler: {fileID: 3300866360858875063}
   ship: {fileID: 3300866360858875051}
   targetChangeCheckInterval: 10
-  defaultConversionDistance: 50
+  defaultConversionDistance: 200
   debugWeaponConvergence: 0
   enemyHitEvent:
     m_PersistentCalls:
@@ -2311,11 +2311,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 8824902617610137727, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
---- !u!224 &3300866361196139677 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8824902617696493401, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
-  m_PrefabInstance: {fileID: 6320611156441893828}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4676034763207629616 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1680914188732027124, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
@@ -2341,5 +2336,10 @@ MonoBehaviour:
 --- !u!1 &3300866361009781688 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8824902617610137724, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
+  m_PrefabInstance: {fileID: 6320611156441893828}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &3300866361196139677 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8824902617696493401, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
   m_PrefabInstance: {fileID: 6320611156441893828}
   m_PrefabAsset: {fileID: 0}
