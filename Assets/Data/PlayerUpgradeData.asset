@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   freePoints: 0
   upgrades:
-    m_Keys: 000000000100000002000000030000000400000005000000060000000700000008000000
+    m_Keys: 00000000010000000200000003000000040000000500000006000000070000000800000009000000
     m_Values:
-    - type: 0
+    - type: 9
       costMultiplier: 1
       points: 0
     - type: 1
@@ -41,6 +41,9 @@ MonoBehaviour:
       costMultiplier: 1
       points: 0
     - type: 8
+      costMultiplier: 1
+      points: 0
+    - type: 9
       costMultiplier: 1
       points: 0
   upgradeLookupSO: {fileID: 11400000, guid: 83761d8198e1445d3848a086e20f3b90, type: 2}
