@@ -1,8 +1,8 @@
 using System;
 using Components;
 using HealthSystem;
+using Helper;
 using LevelManagement;
-using Ship;
 using Ship.Movement;
 using Stats;
 using UI;
@@ -11,34 +11,20 @@ using UI.Upgrade;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UpgradeSystem;
-using UpgradeSystem.CostAndGain;
 
 namespace Manager
 {
     public class GameManager : MonoBehaviour
     {
-        //[SerializeField] private EnemyManager enemyManager;
         [SerializeField] public UpgradeScreen currentUpgradeScreen;
         [SerializeField] private LevelFlowSO levelFlow;
         [SerializeField] public UpgradeDataSO playerUpgrades;
-        [SerializeField] private EnemyManager enemyManager;
-        [SerializeField] private int playerDefaultHealth = 1000;
-
-        [Header("TargetableManager")] 
-        [SerializeField] private Sprite targetableActive;
-        [SerializeField] private Sprite targetableInactive;
-
-        [Header("UpgradeConfig")] [SerializeField]
-        private UpgradeSystemCostAndGainLookupScriptableObject upgradeMagnitudeLookupScriptableObjectTable;
-
-        public UpgradeSystemCostAndGainLookupScriptableObject UpgradeMagnitudeLookupScriptableObjectTable => this.upgradeMagnitudeLookupScriptableObjectTable;
         
-        public GameObject Player { get; private set; }
-        
-        public TargetableManager TargetableManager { get; private set; }
-
-        public EnemyManager EnemyManager => this.enemyManager;
-
+        public GameObject Player
+        {
+            get => player;
+            private set => player = value;
+        }
         
 
         public static bool IsGamePaused { get; set; } = false;
@@ -46,6 +32,7 @@ namespace Manager
         public float difficulty = 1f;
 
         [SerializeField, ReadOnlyInspector]private int levelIndex = 0;
+        [SerializeField, ReadOnlyInspector] private GameObject player;
 
         public void NotifyAboutNewPlayerInstance(GameObject newPlayer)
         {
@@ -53,6 +40,8 @@ namespace Manager
         }
 
         private static GameManager _instance;
+        [SerializeField] private TargetableManagerScriptableObject targetableManager;
+
         public static GameManager Instance
         {
             get
@@ -66,13 +55,14 @@ namespace Manager
             }
         }
 
+        public TargetableManagerScriptableObject TargetableManager => this.targetableManager;
+
         private void Awake()
         {
             if (_instance == null)
             {
                 DontDestroyOnLoad(this.gameObject);
-                _instance = this;
-                this.TargetableManager ??= new TargetableManager(targetableActive, targetableInactive);
+                _instance = this; 
                 //this.Player = GameObject.Find("Player");
             }
             else
@@ -84,10 +74,6 @@ namespace Manager
         private void Start()
         {
             playerUpgrades.ResetData();
-            if (this.upgradeMagnitudeLookupScriptableObjectTable == null)
-            {
-                throw new NullReferenceException(nameof(this.upgradeMagnitudeLookupScriptableObjectTable));
-            }
         }
         
         private void Update()
@@ -117,7 +103,7 @@ namespace Manager
         public void ReturnToMenu()
         {
             ResetGame();
-            SceneManager.LoadScene("Startup");
+            SceneManager.LoadScene(SceneManagerUtils.SceneId.Startup.AsInt());
         }
         
         public void ShowUpgradeScreen()
@@ -152,13 +138,14 @@ namespace Manager
             GameOverScreen.ShowGameOverScreen();
         }
 
+        [Obsolete]
         private void SpawnPlayer()
         {
             this.Player.transform.position = new Vector3(0, 0, 0);
             this.Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
             this.Player.GetComponent<PlayerShipMovementHandler>().SetNewTargetSpeed(0);
             var playerHealth = this.Player.GetComponent<Health>();
-            playerHealth.MaxHealth = this.playerDefaultHealth;
+            playerHealth.MaxHealth = 100;//this.playerDefaultHealth;
             playerHealth.CurrentHealth = playerHealth.MaxHealth;
         }
     }

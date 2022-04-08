@@ -22,12 +22,10 @@ namespace Targeting
             return new PrimaryTargetChoosingHelper(strategy);
         }
 
-        public Targetable? GetTargetableToTarget(Transform selfTransform, float ownProjectileSpeed, Targetable? currentPrimaryTarget = null)
+        public Targetable? GetTargetableToTarget(Transform selfTransform, float ownProjectileSpeed, IEnumerable<Targetable?> allTargetables, Targetable? currentPrimaryTarget = null)
         {
             var currentPrimaryTargetScore = EvaluateTargetable(selfTransform, ownProjectileSpeed, currentPrimaryTarget) ?? float.NegativeInfinity;
             
-            var allTargetables = GameManager.Instance.TargetableManager.Targets;
-
             var maxTargetScore = float.NegativeInfinity;
             Targetable? maxTarget = null;
             

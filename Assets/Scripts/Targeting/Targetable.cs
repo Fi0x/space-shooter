@@ -10,11 +10,9 @@ namespace Targeting
 {
     public class Targetable : MonoBehaviour
     {
-
-        [SerializeField] private Rigidbody shipRB = null!;
         [SerializeField, ReadOnlyInspector] private bool isPrimaryTarget = false;
 
-        public Vector3 Velocity => this.shipRB.velocity;
+        public virtual Vector3 Velocity => Vector3.zero;
         private TargetableUIObject? uiElement = null;
 
         public TargetableUIObject UiElement =>
@@ -22,26 +20,28 @@ namespace Targeting
 
         public bool IsPrimaryTarget => this.isPrimaryTarget;
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             Debug.Log("OnEnable");
-            if (this.shipRB == null)
-            {
-                this.shipRB = GetComponent<Rigidbody>() ??
-                              throw new NullReferenceException("No Rigidbody set. Could not infer from GameObject.");
-            }
-            
+
             if (this.uiElement == null)
             {
                 Debug.Log("Before CreateUIElement");
                 this.CreateUIElement();
             }
+
             GameManager.Instance.TargetableManager.NotifyAboutNewTargetable(this);
         }
 
         private void CreateUIElement()
         {
-            var manager = GameManager.Instance.Player.GetComponent<Ui3DManager>() ??
+            var player = GameManager.Instance.Player;
+            if (player == null)
+            {
+                Debug.LogError("Player was null. Did not create UI Element");
+                return;
+            }
+            var manager = player.GetComponent<Ui3DManager>() ??
                           throw new NullReferenceException("No 3D UI Manager on the Player");
             var gameObjectToInstantiate = new GameObject("Targetable 3DUI");
             gameObjectToInstantiate.AddComponent<TargetableUIObject>();
@@ -52,9 +52,10 @@ namespace Targeting
             this.uiElement = uiElementInstance;
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             GameManager.Instance.TargetableManager.NotifyAboutTargetableGone(this);
+
             if (this.uiElement)
             {
                 this.uiElement!.NotifyAboutParentBeingDestroyed();
@@ -104,26 +105,22 @@ namespace Targeting
                 return null;
             }
 
-            var ownMovement = this.GetOwnMovement();
+            var ownMovement = this.Velocity;
 
             var position = this.transform.position + timeOfCollision.Value * ownMovement;
             return (position, timeOfCollision.Value, timeOfCollision.Value < ttl);
         }
 
-        private Vector3 GetOwnMovement() => this.shipRB.velocity;
-
-
         // Some black magic is happening here. Its pretty hard to get it from the code.
         // Please refer to this Desmos Page: https://www.desmos.com/calculator/jthl2vjkps
         private float? GetPredictedTimeOfCollision(Vector3 shooterPosition, float projectileSpeed)
         {
-            var velocity = this.GetOwnMovement();
-            if (float.IsNaN(velocity.x) || velocity.magnitude <= 0.01f)
+            if (float.IsNaN(this.Velocity.x) || this.Velocity.magnitude <= 0.01f)
             {
                 return null;
             }
             return TargetingCalculationHelper.GetPredictedTimeOfCollision(shooterPosition, projectileSpeed,
-                this.transform.position, velocity);
+                this.transform.position, this.Velocity);
         }
 
         public void NotifyAboutPrimaryTargetStateChange(bool isThisTargetablePrimaryTarget)
