@@ -16,7 +16,7 @@ MonoBehaviour:
   upgrades:
     m_Keys: 00000000010000000200000003000000040000000500000006000000070000000800000009000000
     m_Values:
-    - type: 9
+    - type: 0
       costMultiplier: 1
       points: 0
     - type: 1
