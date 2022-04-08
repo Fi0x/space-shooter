@@ -105,12 +105,10 @@ namespace UpgradeSystem.CostAndGain
         {
             this.ValidateAndThrowOnUpgradeOutOfBounds(UpgradeNames.WeaponType, level);
 
-            //TODO: Create list of possible weapons; Get weapon names by type number
-            var currentType = level;
-            var nextType = level + 1;
-            var message = $"{currentType}->{nextType}";
+            //TODO: Get weapon names by type number
+            var message = $"{level}->{level + 1}";
 
-            return new UpgradeData(level, 10, currentType, nextType, message);
+            return new UpgradeData(level, 10, level, level + 1, message);
 
         }
         private UpgradeData GetUpgradeDataForWeaponMultiplier(int level, Func<int, float> multiplierFn, UpgradeNames upgrade)
