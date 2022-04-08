@@ -20,10 +20,13 @@ namespace Targeting
 
         public bool IsPrimaryTarget => this.isPrimaryTarget;
 
-        protected virtual void OnEnable()
+        
+        protected virtual void PreStart() {}
+        protected virtual void PostStart() {}
+        
+        protected virtual void Start()
         {
-            Debug.Log("OnEnable");
-
+            this.PreStart();
             if (this.uiElement == null)
             {
                 Debug.Log("Before CreateUIElement");
@@ -31,10 +34,17 @@ namespace Targeting
             }
 
             GameManager.Instance.TargetableManager.NotifyAboutNewTargetable(this);
+            this.PostStart();
         }
 
         private void CreateUIElement()
         {
+            var instance = GameManager.Instance;
+            if (instance == null)
+            {
+                Debug.LogError("EEE: Instance is null!");
+                return;
+            }
             var player = GameManager.Instance.Player;
             if (player == null)
             {
