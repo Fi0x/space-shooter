@@ -13,6 +13,7 @@ namespace UpgradeSystem.CostAndGain
             {UpgradeNames.Health, 50},
             {UpgradeNames.MaxRockets, 10},
             {UpgradeNames.RocketChargeSpeed, 10},
+            {UpgradeNames.WeaponType, 100},
             {UpgradeNames.WeaponDamage, 20},
             {UpgradeNames.WeaponProjectileSpeed, 20},
             {UpgradeNames.WeaponFireRate, 10},
@@ -52,6 +53,8 @@ namespace UpgradeSystem.CostAndGain
                 
                 // Weapons
                 
+                case UpgradeNames.WeaponType:
+                    return this.GetUpgradeDataForWeaponType(level);
                 case UpgradeNames.WeaponDamage:
                     float WeaponDamageFn(int lvl) => (float) (1 + (.8f * lvl - 0.02f * lvl * lvl) * .5);
                     return this.GetUpgradeDataForWeaponMultiplier(level, WeaponDamageFn, UpgradeNames.WeaponDamage);
@@ -98,6 +101,18 @@ namespace UpgradeSystem.CostAndGain
             return new UpgradeData(level, GetCostForWeaponMultipliers(level), multiplierNow, multiplierThen, message);
         }
 
+        private UpgradeData GetUpgradeDataForWeaponType(int level)
+        {
+            this.ValidateAndThrowOnUpgradeOutOfBounds(UpgradeNames.WeaponType, level);
+
+            //TODO: Create list of possible weapons; Get weapon names by type number
+            var currentType = level;
+            var nextType = level + 1;
+            var message = $"{currentType}->{nextType}";
+
+            return new UpgradeData(level, 10, currentType, nextType, message);
+
+        }
         private UpgradeData GetUpgradeDataForWeaponMultiplier(int level, Func<int, float> multiplierFn, UpgradeNames upgrade)
         {
             ValidateAndThrowOnUpgradeOutOfBounds(upgrade, level);
