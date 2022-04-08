@@ -105,8 +105,8 @@ namespace UpgradeSystem.CostAndGain
         {
             this.ValidateAndThrowOnUpgradeOutOfBounds(UpgradeNames.WeaponType, level);
 
-            //TODO: Get weapon names by type number
-            var message = $"{level}->{level + 1}";
+            string LevelToName(int level) => level % 3 == 0 ? "Chained" : level % 3 == 1 ? "Projectile" : "Laser";
+            var message = $"{LevelToName(level)} to {LevelToName(level + 1)}";
 
             return new UpgradeData(level, 10, level, level + 1, message);
 
