@@ -3,6 +3,7 @@ using System.Linq;
 using Manager;
 using Ship.Weaponry;
 using Targeting.TargetChoosingStrategy;
+using UnityEditor;
 using UnityEngine;
 
 #nullable enable
@@ -33,6 +34,12 @@ namespace Targeting
             {
                 if (targetable == currentPrimaryTarget)
                 {
+                    continue;
+                }
+
+                if (targetable == null)
+                {
+                    Debug.LogWarning("Null");
                     continue;
                 }
 
@@ -75,23 +82,24 @@ namespace Targeting
                         positionAndTimeOfCollision.Value.pos, positionAndTimeOfCollision.Value.time);
                 }
             }
-
-            if (currentPrimaryTargetScore != null)
-            {
-                Debug.Log($"Eval of {targetable.name} is {(currentPrimaryTargetScore.Value * 100):F2}");
-            }
-            else if(targetable != null)
-            {
-                Debug.Log($"Eval of {targetable.name} is null");
-            }
+            
             return currentPrimaryTargetScore;
         }
 
         private static (Vector3 pos, float time)? GetPositionAndTimeOfCollision(float projectileSpeed, Vector3 ownPos, Vector3 theirPos,
             Vector3 theirVelocity)
         {
+
+            if (projectileSpeed == 0)
+            {
+                // HitScan fix
+                return (theirPos, 0);
+            }
+            
+            
             if (theirVelocity.magnitude < 0.01f)
             {
+                // Stationary Fix
                 return (theirPos, Vector3.Distance(ownPos, theirPos) / projectileSpeed);
             }
             
