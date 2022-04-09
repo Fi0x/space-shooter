@@ -33,7 +33,7 @@ namespace Manager
         public void NotifyAboutNewTargetable(Targetable targetable)
         {
             this.targetables.Add(targetable, targetable.UiElement);
-            Debug.Log($"Added Targetable to manager. Now has a total of {targetables.Count}");
+            Debug.Log($"Added Targetable {targetable.gameObject.name} to manager. Now has a total of {targetables.Count}");
         }
 
         public void NotifyAboutTargetableGone(Targetable targetable)

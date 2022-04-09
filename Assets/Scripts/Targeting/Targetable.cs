@@ -4,6 +4,7 @@ using Manager;
 using Ship.Weaponry;
 using Ship.Weaponry.Config;
 using UI.Ui3D;
+using UnityEditor;
 using UnityEngine;
 
 namespace Targeting
@@ -29,7 +30,6 @@ namespace Targeting
             this.PreStart();
             if (this.uiElement == null)
             {
-                Debug.Log("Before CreateUIElement");
                 this.CreateUIElement();
             }
 
@@ -115,6 +115,14 @@ namespace Targeting
                 return null;
             }
 
+            if (float.IsNaN(timeOfCollision.Value))
+            {
+                // Special Handling when there is no movement
+                var travelTime = Vector3.Distance(shooterPosition, this.transform.position) / projectileSpeed;
+
+                return (this.transform.position, travelTime, travelTime < ttl);
+            }
+
             var ownMovement = this.Velocity;
 
             var position = this.transform.position + timeOfCollision.Value * ownMovement;
@@ -125,10 +133,16 @@ namespace Targeting
         // Please refer to this Desmos Page: https://www.desmos.com/calculator/jthl2vjkps
         private float? GetPredictedTimeOfCollision(Vector3 shooterPosition, float projectileSpeed)
         {
-            if (float.IsNaN(this.Velocity.x) || this.Velocity.magnitude <= 0.01f)
+            if (float.IsNaN(this.Velocity.x))
             {
                 return null;
             }
+
+            if (this.Velocity.magnitude <= 0.01f)
+            {
+                return float.NaN;
+            }
+            
             return TargetingCalculationHelper.GetPredictedTimeOfCollision(shooterPosition, projectileSpeed,
                 this.transform.position, this.Velocity);
         }

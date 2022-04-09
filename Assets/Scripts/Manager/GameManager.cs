@@ -23,11 +23,7 @@ namespace Manager
         public GameObject Player
         {
             get => player;
-            private set
-            {
-                Debug.LogWarning("Updating Player to "+value.GetInstanceID());
-                player = value;
-            }
+            private set => player = value;
         }
 
 
@@ -65,15 +61,12 @@ namespace Manager
         {
             if (_instance == null)
             {
-                Debug.LogError("None Present. Setting this Instance.");
-
                 DontDestroyOnLoad(this.gameObject);
                 _instance = this; 
                 //this.Player = GameObject.Find("Player");
             }
             else
             {
-                Debug.LogError("Already Present. Destroying this Instance.");
                 Destroy(gameObject);
             }
         }
