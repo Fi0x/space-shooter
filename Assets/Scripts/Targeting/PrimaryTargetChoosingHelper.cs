@@ -62,7 +62,7 @@ namespace Targeting
             float? currentPrimaryTargetScore = null;
             if (targetable != null)
             {
-                var positionAndTimeOfCollision = this.GetPositionAndTimeOfCollision(ownProjectileSpeed, selfTransform.position,
+                var positionAndTimeOfCollision = GetPositionAndTimeOfCollision(ownProjectileSpeed, selfTransform.position,
                     targetable.transform.position, targetable.Velocity);
 
                 if (positionAndTimeOfCollision == null)
@@ -76,12 +76,26 @@ namespace Targeting
                 }
             }
 
+            if (currentPrimaryTargetScore != null)
+            {
+                Debug.Log($"Eval of {targetable.name} is {(currentPrimaryTargetScore.Value * 100):F2}");
+            }
+            else if(targetable != null)
+            {
+                Debug.Log($"Eval of {targetable.name} is null");
+            }
             return currentPrimaryTargetScore;
         }
 
-        private (Vector3 pos, float time)? GetPositionAndTimeOfCollision(float projectileSpeed, Vector3 ownPos, Vector3 theirPos,
+        private static (Vector3 pos, float time)? GetPositionAndTimeOfCollision(float projectileSpeed, Vector3 ownPos, Vector3 theirPos,
             Vector3 theirVelocity)
         {
+            if (theirVelocity.magnitude < 0.01f)
+            {
+                return (theirPos, Vector3.Distance(ownPos, theirPos) / projectileSpeed);
+            }
+            
+            
             var timeOfCollision =
                 TargetingCalculationHelper.GetPredictedTimeOfCollision(ownPos, projectileSpeed, theirPos,
                     theirVelocity);
