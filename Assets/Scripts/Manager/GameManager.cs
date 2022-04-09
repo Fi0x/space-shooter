@@ -38,8 +38,23 @@ namespace Manager
         public TargetableManager TargetableManager { get; private set; }
 
         public EnemyManager EnemyManager => this.enemyManager;
-
-        public event EventHandler LevelCompletedEvent;//TODO: Invoke event when x% of enemies are destroyed
+        
+        public int EnemyLevelCounter { get; set; }
+        private int _destroyedEnemiesInLevel;
+        public int DestroyedEnemyLevelCounter {
+            get
+            {
+                return this._destroyedEnemiesInLevel;
+            }
+            set
+            {
+                this._destroyedEnemiesInLevel = value;
+                if(100f / this.EnemyLevelCounter * this._destroyedEnemiesInLevel > 80)
+                    this.LevelCompletedEvent?.Invoke(null, null);
+            }
+        }
+        
+        public event EventHandler LevelCompletedEvent;//TODO: Also invoke if station gets destroyed
         
 
         public static bool IsGamePaused { get; set; } = false;

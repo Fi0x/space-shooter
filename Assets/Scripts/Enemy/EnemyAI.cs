@@ -48,6 +48,8 @@ namespace Enemy
 
             this.boidController = controller;
             this.target = this.GetComponent<SensorTarget>();
+
+            GameManager.Instance.EnemyLevelCounter++;
         }
 
         private void Update()

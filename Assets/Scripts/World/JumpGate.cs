@@ -1,7 +1,5 @@
-using System;
 using Manager;
 using Stats;
-using UI.Upgrade;
 using UnityEngine;
 
 public class JumpGate : MonoBehaviour
@@ -9,14 +7,23 @@ public class JumpGate : MonoBehaviour
     [SerializeField] private string transitionSceneName;
     [SerializeField] private GameObject animationPlane;
 
+    private bool isActivated;
+
     private void Start()
     {
         this.animationPlane.SetActive(false);
-        GameManager.Instance.LevelCompletedEvent += (sender, args) => this.animationPlane.SetActive(true);
+        GameManager.Instance.LevelCompletedEvent += (sender, args) =>
+        {
+            this.isActivated = true;
+            this.animationPlane.SetActive(true);
+        };
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if(!this.isActivated)
+            return;
+        
         if (other.gameObject.layer == 8)
         {
             StatCollector.UpdateGeneralStat("Levels Completed", 1);

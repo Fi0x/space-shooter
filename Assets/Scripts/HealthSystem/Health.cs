@@ -80,8 +80,9 @@ namespace HealthSystem
             StatCollector.UpdateGeneralStat("Enemies Killed", 1);
             GameManager.Instance.playerUpgrades.freePoints++;
             OnHealthRemoved(this);
+
+            GameManager.Instance.DestroyedEnemyLevelCounter++;
             Destroy(this.gameObject);
-            
         }
     }
 }
