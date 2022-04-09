@@ -39,6 +39,7 @@ namespace Manager
 
         public EnemyManager EnemyManager => this.enemyManager;
 
+        public event EventHandler LevelCompletedEvent;//TODO: Invoke event when x% of enemies are destroyed
         
 
         public static bool IsGamePaused { get; set; } = false;
