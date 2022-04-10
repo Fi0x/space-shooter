@@ -266,6 +266,21 @@ MonoBehaviour:
   identifier: WPN_Attachment_2
   weaponPrefab: {fileID: 1062497909079289124, guid: 70eb8c51dfd3b9d4280eb58fe8f543aa, type: 3}
   weaponManager: {fileID: 3300866360858875059}
+  WeaponFiredAndIsChargingEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5790078647014208658}
+        m_TargetAssemblyTypeName: ChargeIndicator, Assembly-CSharp
+        m_MethodName: Charge
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3300866359108440626
 GameObject:
   m_ObjectHideFlags: 0
@@ -2011,6 +2026,21 @@ MonoBehaviour:
   identifier: WPN_Attachment_1
   weaponPrefab: {fileID: 1062497909079289124, guid: 70eb8c51dfd3b9d4280eb58fe8f543aa, type: 3}
   weaponManager: {fileID: 3300866360858875059}
+  WeaponFiredAndIsChargingEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5480555130990532553}
+        m_TargetAssemblyTypeName: ChargeIndicator, Assembly-CSharp
+        m_MethodName: Charge
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6720290853641997171
 GameObject:
   m_ObjectHideFlags: 0
@@ -2139,6 +2169,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effect: {fileID: 8512165271584996435}
+  chargingColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  chargedColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!1 &8405621862918273266
 GameObject:
   m_ObjectHideFlags: 0
@@ -2264,6 +2296,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effect: {fileID: 7298691643831212690}
+  chargingColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  chargedColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!1 &8925755978789306628
 GameObject:
   m_ObjectHideFlags: 0
@@ -2596,22 +2630,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 8824902617610137727, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
---- !u!1 &3300866361009781688 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8824902617610137724, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
-  m_PrefabInstance: {fileID: 6320611156441893828}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3300866361009781690 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8824902617610137726, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
-  m_PrefabInstance: {fileID: 6320611156441893828}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3300866361009781688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4676034763207629616 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1680914188732027124, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
@@ -2623,6 +2641,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3300866361009781690 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8824902617610137726, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
+  m_PrefabInstance: {fileID: 6320611156441893828}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3300866361009781688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &3300866361009781688 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8824902617610137724, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
+  m_PrefabInstance: {fileID: 6320611156441893828}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &3300866361196139677 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8824902617696493401, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}

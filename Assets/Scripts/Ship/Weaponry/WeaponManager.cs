@@ -17,7 +17,7 @@ namespace Ship.Weaponry
         [SerializeField] private GameObject ship = null!;
         [SerializeField] private uint targetChangeCheckInterval = 10;
         [SerializeField] private float defaultConversionDistance = 50;
-        [SerializeField, ReadOnlyInspector] private float debugWeaponConvergence = 0f;    
+        [SerializeField, ReadOnlyInspector] private float debugWeaponConvergence = 0f;
         
         private uint currentTargetChangeCheckInterval = 0;
 
@@ -51,7 +51,7 @@ namespace Ship.Weaponry
         {
             StatCollector.UpdateWeaponStat($"{weaponHitInformation.Type} Damage", weaponHitInformation.Damage);
         }
-
+        
         private void Update()
         {
             if (currentTargetChangeCheckInterval++ >= this.targetChangeCheckInterval)
