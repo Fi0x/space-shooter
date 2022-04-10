@@ -504,7 +504,7 @@ GameObject:
   - component: {fileID: 3300866359363130030}
   - component: {fileID: 3300866359363130031}
   - component: {fileID: 3300866359363130024}
-  - component: {fileID: 3300866359363130025}
+  - component: {fileID: 7731520949817720202}
   m_Layer: 12
   m_Name: CanopyUI
   m_TagString: Untagged
@@ -583,25 +583,18 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!95 &3300866359363130025
-Animator:
-  serializedVersion: 3
+--- !u!114 &7731520949817720202
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3300866359363130029}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 63ee9ac33eb0163cd85e1095a8073b3d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e49acb5d602d43008fdea313de9294e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3300866359364893018
 GameObject:
   m_ObjectHideFlags: 0
@@ -1599,6 +1592,7 @@ GameObject:
   - component: {fileID: -4775171038451007952}
   - component: {fileID: 2575169505675492670}
   - component: {fileID: 8879019818371713883}
+  - component: {fileID: 7389715958161491098}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -1806,6 +1800,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiRoot: {fileID: 3300866359363130030}
   distanceToRoot: 3
+--- !u!114 &7389715958161491098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3300866360858875051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2795f463a09466abe2c2c02bec4551a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: 3a124775e1914e17abbeef9444c49c38, type: 2}
+  pollingRateSeconds: 0.2
+  currentState: 0
+  newStateEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  newNoiseLevelEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2550703445380079976
 MonoBehaviour:
   m_ObjectHideFlags: 0
