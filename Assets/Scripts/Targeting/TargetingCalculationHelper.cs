@@ -6,9 +6,16 @@ namespace Targeting
 {
     public static class TargetingCalculationHelper
     {
-        // Don't bother trying to understand this through the code itself.
-        // This is a Method that resolves the following equation for its first Root
-        // https://www.desmos.com/calculator/jthl2vjkps
+        /** Don't bother trying to understand this through the code itself.
+         * This is a Method that resolves the following equation for its first Root
+         * https://www.desmos.com/calculator/jthl2vjkps
+         *
+         * This defines a function of time to the distance between a projectile and the target. The first root
+         * defines the time of collision. Using the time, one can determine where the player has to shoot to hit the
+         * target.
+         *
+         * But again.. don't try to make sense of this. Look at the link above instead.
+         */
         public static float? GetPredictedTimeOfCollision(Vector3 shooterPosition, float projectileSpeed, Vector3 targetInitialPosition, Vector3 targetVelocity)
         {
             var deltaPosition = targetInitialPosition - shooterPosition;

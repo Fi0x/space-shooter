@@ -11,7 +11,7 @@ namespace Targeting.TargetChoosingStrategy
         private const float AngleOffset = 0.1f;
 
 
-        public BasicHitScanTargetChoosingStrategy(float targetBias = 10)
+        public BasicHitScanTargetChoosingStrategy(float targetBias = 0.03f)
         {
             this.CurrentTargetBias = targetBias;
         }
@@ -19,7 +19,7 @@ namespace Targeting.TargetChoosingStrategy
         // See https://www.desmos.com/calculator/lm4oibbmxo
         public float Evaluate(Transform self, Transform target, Vector3 targetPositionOnCollision, float _)
         {
-            var angleDegrees = Vector3.Angle(self.forward, targetPositionOnCollision - target.position);
+            var angleDegrees = Vector3.Angle(self.forward, targetPositionOnCollision - self.position);
 
             return (AngleWeight /
                 (angleDegrees + AngleOffset));

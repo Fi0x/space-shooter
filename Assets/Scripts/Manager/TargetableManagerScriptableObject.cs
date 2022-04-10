@@ -8,10 +8,14 @@ using UnityEngine;
 
 namespace Manager
 {
-    public class TargetableManager
+    
+    [CreateAssetMenu(fileName = "TargetableManagerScriptableObject", menuName = "ScriptableObject/Gameplay/TargetingManager",
+        order = 50)]
+    public class TargetableManagerScriptableObject : ScriptableObject
     {
-        private PrimaryTargetChoosingHelper projectileTargetChoosingHelper;
-        private PrimaryTargetChoosingHelper hitScanTargetChoosingHelper;
+        private PrimaryTargetChoosingHelper projectileTargetChoosingHelper = PrimaryTargetChoosingHelper.WithStrategy(new BasicProjectileTargetChoosingStrategy());
+        private PrimaryTargetChoosingHelper hitScanTargetChoosingHelper = PrimaryTargetChoosingHelper.WithStrategy(new BasicHitScanTargetChoosingStrategy());
+        
 
         private const float Interval = 0.5f;
         private float currentTime = 0;
@@ -19,25 +23,17 @@ namespace Manager
         private readonly Dictionary<Targetable, TargetableUIObject> targetables =
             new Dictionary<Targetable, TargetableUIObject>();
 
-        public Sprite TargetableInactiveSprite { get; }
-        public Sprite TargetableActiveSprite { get; }
+        [SerializeField] private Sprite targetableInactiveSprite;
+        [SerializeField] private Sprite targetableActiveSprite;
 
-        public TargetableManager(Sprite targetableActive, Sprite targetableInactive)
-        {
-            this.projectileTargetChoosingHelper =
-                PrimaryTargetChoosingHelper.WithStrategy(new BasicProjectileTargetChoosingStrategy());
-            this.hitScanTargetChoosingHelper = 
-                PrimaryTargetChoosingHelper.WithStrategy(new BasicHitScanTargetChoosingStrategy());
+        public Sprite TargetableInactiveSprite => targetableInactiveSprite;
 
-            this.TargetableActiveSprite = targetableActive;
-            this.TargetableInactiveSprite = targetableInactive;
-        }
-
-
+        public Sprite TargetableActiveSprite => targetableActiveSprite;
+        
         public void NotifyAboutNewTargetable(Targetable targetable)
         {
             this.targetables.Add(targetable, targetable.UiElement);
-            Debug.Log($"Added Targetable to manager. Now has a total of {targetables.Count}");
+            Debug.Log($"Added Targetable {targetable.gameObject.name} to manager. Now has a total of {targetables.Count}");
         }
 
         public void NotifyAboutTargetableGone(Targetable targetable)
@@ -52,7 +48,7 @@ namespace Manager
                 {
                     return;
                 }
-                this.RecalculatePrimaryTarget(GameManager.Instance.Player.GetComponent<WeaponManager>());
+                this.RecalculatePrimaryTarget(player.GetComponent<WeaponManager>());
             }
         }
 
@@ -64,13 +60,13 @@ namespace Manager
             {
                 this.PrimaryTarget =
                     this.hitScanTargetChoosingHelper.GetTargetableToTarget(playerWeaponManager.transform, 
-                        0f, this.PrimaryTarget);
+                        0f, this.targetables.Keys ,this.PrimaryTarget);
             }
             else if (weapon is ProjectileWeapon projectileWeapon)
             {
                 this.PrimaryTarget =
                     this.projectileTargetChoosingHelper.GetTargetableToTarget(playerWeaponManager.transform,
-                        projectileWeapon.ProjectileSpeed, this.PrimaryTarget);
+                        projectileWeapon.ProjectileSpeed, this.targetables.Keys, this.PrimaryTarget);
             }
             else
             {
@@ -108,5 +104,6 @@ namespace Manager
         public Targetable? PrimaryTarget { get; private set; } = null;
 
         public IEnumerable<Targetable> Targets => this.targetables.Keys;
+
     }
 }
