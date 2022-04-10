@@ -44,10 +44,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicClips:
-  - name: Ambience
-    clip: {fileID: 8300000, guid: 065ccdc0aca78954aa5d0daf9b4adfdf, type: 3}
+  - name: MainMusic
+    clip: {fileID: 8300000, guid: 2ea288e0b06e54e45a5e828ab465ade8, type: 3}
     mixerGroup: {fileID: -4222048158043185666, guid: 54012366f9c84714d9b5cd4580426a2c, type: 2}
-    volume: 0.064
+    volume: 0.05
     pitch: 1
     loop: 1
     source: {fileID: 0}
@@ -84,6 +84,28 @@ MonoBehaviour:
     mixerGroup: {fileID: 7833254931724580291, guid: 54012366f9c84714d9b5cd4580426a2c, type: 2}
     volume: 0.07
     pitch: 1.2
+    loop: 0
+    source: {fileID: 0}
+  - name: Music1
+    clip: {fileID: 8300000, guid: a95b498fe270d410891ecd8549bcf125, type: 3}
+    mixerGroup: {fileID: 7833254931724580291, guid: 54012366f9c84714d9b5cd4580426a2c, type: 2}
+    volume: 0.05
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Music2
+    clip: {fileID: 8300000, guid: 8b3752be2477a4cbc998943a1c58bf89, type: 3}
+    mixerGroup: {fileID: 7833254931724580291, guid: 54012366f9c84714d9b5cd4580426a2c, type: 2}
+    volume: 0.05
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  activeMusic:
+    name: 
+    clip: {fileID: 0}
+    mixerGroup: {fileID: 0}
+    volume: 0
+    pitch: 0
     loop: 0
     source: {fileID: 0}
   mixer: {fileID: 24100000, guid: 54012366f9c84714d9b5cd4580426a2c, type: 2}

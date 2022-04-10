@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -9,6 +10,7 @@ namespace Manager
     {
         public static AudioManager instance;
         public Sound[] musicClips;
+        public Sound activeMusic;
         [SerializeField] public AudioMixer mixer;
         
         public static event EventHandler AudioManagerInitializedEvent;
@@ -43,7 +45,7 @@ namespace Manager
 
         private void Start()
         {
-            this.Play("Ambience");
+            this.ChangeMusic("MainMusic");
         }
 
         public void Play(string soundName)
@@ -55,6 +57,45 @@ namespace Manager
                 return;
             }
             s.source.Play();
+        }
+
+        public void ChangeMusic(string newMusic)
+        {
+            var s = Array.Find(instance.musicClips, sound => sound.name == newMusic);
+            if (s == null)
+            {
+                Debug.LogWarning("Sound: " + newMusic + " not found!");
+                return;
+            }
+
+            if (activeMusic == null)
+            {
+                s.source.Play();
+                activeMusic = s;
+                return;
+            }
+            StartCoroutine(FadeMusic(activeMusic, s, 2f));
+        }
+
+        IEnumerator FadeMusic(Sound from, Sound to, float time)
+        {
+            var oldFromVolume = from.source.volume;
+            for (float t = 0f; t < time; t += Time.deltaTime)
+            {
+                from.source.volume = oldFromVolume * (1f - (t / time));
+                yield return null;
+            }
+            from.source.Stop();
+            to.source.Play();
+            var oldToVolume = to.source.volume;
+            for (float t = 0f; t < time; t += Time.deltaTime)
+            {
+                to.source.volume = oldToVolume * (t / time);
+                yield return null;
+            }
+            from.source.volume = oldFromVolume;
+            to.source.volume = oldToVolume;
+            activeMusic = to;
         }
 
         public void UpdateMasterVolume(float volume)

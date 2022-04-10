@@ -15,6 +15,7 @@ namespace LevelManagement
 
         [Header("LevelSettings")]
         public bool spawnStation = false;
+        public string musicName = "MainMusic";
 
         private void Awake()
         {
@@ -25,6 +26,7 @@ namespace LevelManagement
         {
             BuildLevel();
             SpawnEnemies();
+            AudioManager.instance.ChangeMusic(musicName);
         }
 
         private void BuildLevel()
