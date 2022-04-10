@@ -7,6 +7,7 @@ namespace UpgradeSystem
     {
         public static string GetUpgradeCategory(UpgradeNames upgradeType) => upgradeType switch
         {
+            UpgradeNames.WeaponType => "Weapons",
             UpgradeNames.WeaponDamage => "Weapons",
             UpgradeNames.WeaponFireRate => "Weapons",
             UpgradeNames.WeaponProjectileSpeed => "Weapons",

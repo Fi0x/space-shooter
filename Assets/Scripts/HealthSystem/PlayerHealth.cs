@@ -62,16 +62,16 @@ namespace Components
             MaxHealth = (int)this.upgradeData.GetValue(UpgradeNames.Health);
             CurrentHealth = this.MaxHealth;
         }
-        
+
         public void TakeDamage(float damage)
         {
             onDamageTaken?.Invoke();
             OnDamageTaken?.Invoke(this);
-            
+
             this.CurrentHealth -= damage;
             StatCollector.UpdateGeneralStat("Damage Taken", damage);
-            
-            if(this.CurrentHealth > 0)
+
+            if (this.CurrentHealth > 0)
                 return;
 
             onDeath?.Invoke();

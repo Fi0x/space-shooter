@@ -4,17 +4,16 @@ using Manager;
 using Ship.Weaponry;
 using Ship.Weaponry.Config;
 using UI.Ui3D;
+using UnityEditor;
 using UnityEngine;
 
 namespace Targeting
 {
     public class Targetable : MonoBehaviour
     {
-
-        [SerializeField] private Rigidbody shipRB = null!;
         [SerializeField, ReadOnlyInspector] private bool isPrimaryTarget = false;
 
-        public Vector3 Velocity => this.shipRB.velocity;
+        public virtual Vector3 Velocity => Vector3.zero;
         private TargetableUIObject? uiElement = null;
 
         public TargetableUIObject UiElement =>
@@ -22,26 +21,37 @@ namespace Targeting
 
         public bool IsPrimaryTarget => this.isPrimaryTarget;
 
-        private void OnEnable()
+        
+        protected virtual void PreStart() {}
+        protected virtual void PostStart() {}
+        
+        protected virtual void Start()
         {
-            Debug.Log("OnEnable");
-            if (this.shipRB == null)
-            {
-                this.shipRB = GetComponent<Rigidbody>() ??
-                              throw new NullReferenceException("No Rigidbody set. Could not infer from GameObject.");
-            }
-            
+            this.PreStart();
             if (this.uiElement == null)
             {
-                Debug.Log("Before CreateUIElement");
                 this.CreateUIElement();
             }
+
             GameManager.Instance.TargetableManager.NotifyAboutNewTargetable(this);
+            this.PostStart();
         }
 
         private void CreateUIElement()
         {
-            var manager = GameManager.Instance.Player.GetComponent<Ui3DManager>() ??
+            var instance = GameManager.Instance;
+            if (instance == null)
+            {
+                Debug.LogError("EEE: Instance is null!");
+                return;
+            }
+            var player = GameManager.Instance.Player;
+            if (player == null)
+            {
+                Debug.LogError("Player was null. Did not create UI Element");
+                return;
+            }
+            var manager = player.GetComponent<Ui3DManager>() ??
                           throw new NullReferenceException("No 3D UI Manager on the Player");
             var gameObjectToInstantiate = new GameObject("Targetable 3DUI");
             gameObjectToInstantiate.AddComponent<TargetableUIObject>();
@@ -52,9 +62,10 @@ namespace Targeting
             this.uiElement = uiElementInstance;
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             GameManager.Instance.TargetableManager.NotifyAboutTargetableGone(this);
+
             if (this.uiElement)
             {
                 this.uiElement!.NotifyAboutParentBeingDestroyed();
@@ -104,26 +115,36 @@ namespace Targeting
                 return null;
             }
 
-            var ownMovement = this.GetOwnMovement();
+            if (float.IsNaN(timeOfCollision.Value))
+            {
+                // Special Handling when there is no movement
+                var travelTime = Vector3.Distance(shooterPosition, this.transform.position) / projectileSpeed;
+
+                return (this.transform.position, travelTime, travelTime < ttl);
+            }
+
+            var ownMovement = this.Velocity;
 
             var position = this.transform.position + timeOfCollision.Value * ownMovement;
             return (position, timeOfCollision.Value, timeOfCollision.Value < ttl);
         }
 
-        private Vector3 GetOwnMovement() => this.shipRB.velocity;
-
-
         // Some black magic is happening here. Its pretty hard to get it from the code.
         // Please refer to this Desmos Page: https://www.desmos.com/calculator/jthl2vjkps
         private float? GetPredictedTimeOfCollision(Vector3 shooterPosition, float projectileSpeed)
         {
-            var velocity = this.GetOwnMovement();
-            if (float.IsNaN(velocity.x) || velocity.magnitude <= 0.01f)
+            if (float.IsNaN(this.Velocity.x))
             {
                 return null;
             }
+
+            if (this.Velocity.magnitude <= 0.01f)
+            {
+                return float.NaN;
+            }
+            
             return TargetingCalculationHelper.GetPredictedTimeOfCollision(shooterPosition, projectileSpeed,
-                this.transform.position, velocity);
+                this.transform.position, this.Velocity);
         }
 
         public void NotifyAboutPrimaryTargetStateChange(bool isThisTargetablePrimaryTarget)

@@ -1,6 +1,8 @@
 #nullable enable
 using System;
 using UnityEngine;
+using UnityEngine.Events;
+using UpgradeSystem;
 
 namespace Ship.Weaponry
 {
@@ -12,9 +14,11 @@ namespace Ship.Weaponry
     public class WeaponAttachmentPoint : MonoBehaviour
     {
         [SerializeField] private string identifier = "WPN_Attachment_X";
-        [SerializeField] private GameObject weaponPrefab = null!;
         [SerializeField] private WeaponManager weaponManager = null!;
+        [SerializeField] private UpgradeDataSO upgradeData;
 
+        [SerializeField] public UnityEvent<float> WeaponFiredAndIsChargingEvent;
+        
         public WeaponManager WeaponManager => this.weaponManager;
 
         public AbstractWeapon? Child { get; private set; }
@@ -35,11 +39,18 @@ namespace Ship.Weaponry
                 this.Child = null;
             }
 
-            var newGameObject = Instantiate(weaponPrefab, this.transform);
+            var correctPrefab = this.WeaponManager.GetWeaponForLevel((int) this.upgradeData.GetValue(UpgradeNames.WeaponType));
+            var newGameObject = Instantiate(correctPrefab, this.transform);
 
             this.Child = newGameObject.GetComponent<AbstractWeapon>() ?? throw new Exception(
                 "Given Prefab is not a weapon (it does not have a Script that inherits from AbstractWeapon");
             this.NewWeaponBuiltEvent?.Invoke(this.Child);
+            
+            this.Child.OnInitEvent += weapon =>
+            {
+                weapon.WeaponTrigger.WeaponFiredEvent += () =>
+                    this.WeaponFiredAndIsChargingEvent.Invoke(weapon.WeaponTrigger.TimeBetweenShots);
+            };
         }
 
         public event Action<AbstractWeapon>? NewWeaponBuiltEvent;
