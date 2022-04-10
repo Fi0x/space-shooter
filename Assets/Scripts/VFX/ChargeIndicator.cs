@@ -6,7 +6,7 @@ using UnityEngine.VFX;
 
 public class ChargeIndicator : MonoBehaviour
 {
-    public List<VisualEffect> effects = new List<VisualEffect>();
+    public VisualEffect effect;
 
     private int colorId;
     private int timeId;
@@ -18,19 +18,14 @@ public class ChargeIndicator : MonoBehaviour
 
     public void Charge(float time)
     {
-        foreach (var effect in effects)
-        {
-            //effect.Stop();
-            effect.SetFloat(timeId, time);
-            effect.Play();
-        }
+        //effect.Stop();
+        effect.SetFloat(timeId, time);
+        effect.Play();
     }
 
     public void SetColor(Color color)
     {
-        foreach (var effect in effects)
-        {
-            effect.SetVector4(colorId, color);
-        }
+        effect.SetVector4(colorId, color);
+        
     }
 }
