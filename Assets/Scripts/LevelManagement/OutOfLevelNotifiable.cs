@@ -1,4 +1,9 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using Manager;
 using UnityEngine;
 using UnityEngine.Events;
 using UpgradeSystem;
@@ -16,6 +21,12 @@ namespace LevelManagement
 
         [SerializeField] public UnityEvent<OutOfLevelNotifierScriptableObject.OutOfLevelState> newStateEvent;
         [SerializeField] public UnityEvent<float> newNoiseLevelEvent;
+
+        [Header("UI Elements")] 
+        [SerializeField] private GameObject lowSignalUI;
+        [SerializeField] private GameObject criticalSignalUI;
+        [SerializeField] private GameObject noSignalUI;
+        
 
         private float currentTimer = 0;
 
@@ -43,8 +54,50 @@ namespace LevelManagement
             {
                 this.UpdateNoisePercent(this.config.GetCurrentNoiseFraction(this));
             }
+
+            if (currentState == OutOfLevelNotifierScriptableObject.OutOfLevelState.ConnectionLost)
+            {
+                StartCoroutine(PlayerLostCoroutine());
+            }
+
+            this.UpdateUi(newState);
         }
-        
+
+        private void UpdateUi(OutOfLevelNotifierScriptableObject.OutOfLevelState newState)
+        {
+            this.HideAllUi();
+
+            var uiToActivate = newState switch
+            {
+                OutOfLevelNotifierScriptableObject.OutOfLevelState.NoNoise => null,
+                OutOfLevelNotifierScriptableObject.OutOfLevelState.LowNoise => this.lowSignalUI,
+                OutOfLevelNotifierScriptableObject.OutOfLevelState.NoiseAndWarning => this.criticalSignalUI,
+                OutOfLevelNotifierScriptableObject.OutOfLevelState.ConnectionLost => this.noSignalUI,
+                _ => null
+            };
+            if (uiToActivate != null)
+            {
+                uiToActivate.SetActive(true);
+            }
+        }
+
+        private void HideAllUi()
+        {
+            // First unset all
+            foreach (var entry in new[] {this.criticalSignalUI, this.lowSignalUI, this.noSignalUI})
+            {
+                entry.SetActive(false);
+            }        
+        }
+
+        private IEnumerator PlayerLostCoroutine()
+        {
+            yield return new WaitForSeconds(1f);
+            // Reset UI
+            this.HideAllUi();
+            GameManager.Instance.GameOver();
+        }
+
 
         private void UpdateNoisePercent(float currentNoiseFraction)
         {
