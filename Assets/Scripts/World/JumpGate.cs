@@ -1,34 +1,55 @@
+using System;
 using Manager;
 using Stats;
 using UnityEngine;
 
-public class JumpGate : MonoBehaviour
+namespace World
 {
-    [SerializeField] private string transitionSceneName;
-    [SerializeField] private GameObject animationPlane;
-
-    private bool isActivated;
-
-    private void Start()
+    public class JumpGate : MonoBehaviour
     {
-        this.animationPlane.SetActive(false);
-        GameManager.Instance.LevelCompletedEvent += (sender, args) =>
+        [SerializeField] private string transitionSceneName;
+        [SerializeField] private GameObject animationPlane;
+
+        [SerializeField, ReadOnlyInspector] private bool isActivated;
+
+        private void OnEnable()
         {
+            GameManager.Instance.LevelCompletedEvent += this.HandleLevelCompletedEvent;
+        }
+
+        private void OnDisable()
+        {
+            GameManager.Instance.LevelCompletedEvent -= this.HandleLevelCompletedEvent;
+        }
+
+        private void HandleLevelCompletedEvent()
+        {
+            if (this.isActivated)
+            {
+                return;
+            }
+            Debug.Log("Opening Portal");
             this.isActivated = true;
             this.animationPlane.SetActive(true);
-        };
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(!this.isActivated)
-            return;
+        }
         
-        if (other.gameObject.layer == 8)
+
+        private void Start()
         {
-            StatCollector.UpdateGeneralStat("Levels Completed", 1);
-            GameManager.Instance.ShowUpgradeScreen();
-            GameManager.Instance.DestroyedEnemyLevelCounter = 0;
+            this.isActivated = false;
+            this.animationPlane.SetActive(this.isActivated);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if(!this.isActivated)
+                return;
+        
+            if (other.gameObject.layer == 8)
+            {
+                StatCollector.UpdateGeneralStat("Levels Completed", 1);
+                GameManager.Instance.ShowUpgradeScreen();
+            }
         }
     }
 }

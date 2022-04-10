@@ -27,7 +27,6 @@ public class ChargeIndicator : MonoBehaviour
 
     private IEnumerator ChargeCoroutine(float time)
     {
-        Debug.Log(time);
         effect.Stop();
         SetColor(this.chargingColor);
         effect.SetFloat(timeId, time);

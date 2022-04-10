@@ -26,24 +26,35 @@ namespace Manager
             private set => player = value;
         }
 
-        public EnemyManager EnemyManager => this.enemyManager;
-        
-        public int EnemyLevelCounter { get; set; }
-        private int _destroyedEnemiesInLevel;
+
+        public int EnemyLevelCounter
+        {
+            get => enemyLevelCounter;
+            set => enemyLevelCounter = value;
+        }
+
+        [SerializeField, ReadOnlyInspector]
+        private int destroyedEnemiesInLevel;
         public int DestroyedEnemyLevelCounter {
-            get
-            {
-                return this._destroyedEnemiesInLevel;
-            }
+            get => this.destroyedEnemiesInLevel;
             set
             {
-                this._destroyedEnemiesInLevel = value;
-                if(100f / this.EnemyLevelCounter * this._destroyedEnemiesInLevel > 80)
-                    this.LevelCompletedEvent?.Invoke(null, null);
+                this.destroyedEnemiesInLevel = value;
+                if (value <= 0)
+                {
+                    return;
+                }
+                // if 80% are dead, consider the level completed
+                var fractionDead = (float)this.destroyedEnemiesInLevel / this.EnemyLevelCounter;
+                Debug.LogWarning(fractionDead);
+                if(fractionDead > .8f)
+                {
+                    this.LevelCompletedEvent?.Invoke();
+                }
             }
         }
         
-        public event EventHandler LevelCompletedEvent;//TODO: Also invoke if station gets destroyed
+        public event Action LevelCompletedEvent;//TODO: Also invoke if station gets destroyed
         
 
         public static bool IsGamePaused { get; set; } = false;
@@ -60,6 +71,7 @@ namespace Manager
 
         private static GameManager _instance;
         [SerializeField] private TargetableManagerScriptableObject targetableManager;
+        [SerializeField, ReadOnlyInspector] private int enemyLevelCounter;
 
         public static GameManager Instance
         {
@@ -105,7 +117,7 @@ namespace Manager
             levelIndex = 0;
             StatCollector.ResetStats();
             playerUpgrades.ResetData();
-            this._destroyedEnemiesInLevel = 0;
+            this.destroyedEnemiesInLevel = 0;
         }
 
         public void LoadNextLevel()
@@ -156,17 +168,6 @@ namespace Manager
         public void GameOver()
         {
             GameOverScreen.ShowGameOverScreen();
-        }
-
-        [Obsolete]
-        private void SpawnPlayer()
-        {
-            this.Player.transform.position = new Vector3(0, 0, 0);
-            this.Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            this.Player.GetComponent<PlayerShipMovementHandler>().SetNewTargetSpeed(0);
-            var playerHealth = this.Player.GetComponent<Health>();
-            playerHealth.MaxHealth = 100;//this.playerDefaultHealth;
-            playerHealth.CurrentHealth = playerHealth.MaxHealth;
         }
     }
 }
