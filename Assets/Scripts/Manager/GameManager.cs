@@ -116,6 +116,7 @@ namespace Manager
             levelIndex = 0;
             StatCollector.ResetStats();
             playerUpgrades.ResetData();
+            this._destroyedEnemiesInLevel = 0;
         }
 
         public void LoadNextLevel()

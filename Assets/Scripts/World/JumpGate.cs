@@ -28,6 +28,7 @@ public class JumpGate : MonoBehaviour
         {
             StatCollector.UpdateGeneralStat("Levels Completed", 1);
             GameManager.Instance.ShowUpgradeScreen();
+            GameManager.Instance.DestroyedEnemyLevelCounter = 0;
         }
     }
 }
