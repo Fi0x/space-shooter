@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c65812a048a84f138dfdc8c9b4c55b53, type: 3}
   m_Name: PlayerUpgradeData
   m_EditorClassIdentifier: 
-  freePoints: 14
+  freePoints: 0
   upgrades:
     m_Keys: 00000000010000000200000003000000040000000500000006000000070000000800000009000000
     m_Values:
