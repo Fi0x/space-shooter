@@ -25,7 +25,7 @@ namespace VFX
 
         IEnumerator ExplosionSequence()
         {
-            yield return new WaitForSeconds(2f);
+            //yield return new WaitForSeconds(2f);
             float elapsed = 0f;
             //start vfx
             ringExplosion.Play();
