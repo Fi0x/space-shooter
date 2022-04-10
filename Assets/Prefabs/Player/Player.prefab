@@ -264,8 +264,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   identifier: WPN_Attachment_2
-  weaponPrefab: {fileID: 1062497909079289124, guid: 70eb8c51dfd3b9d4280eb58fe8f543aa, type: 3}
   weaponManager: {fileID: 3300866360858875059}
+  upgradeData: {fileID: 11400000, guid: a67d90423351a61489b11577fba7c20b, type: 2}
 --- !u!1 &3300866359108440626
 GameObject:
   m_ObjectHideFlags: 0
@@ -1725,6 +1725,10 @@ MonoBehaviour:
   targetChangeCheckInterval: 10
   defaultConversionDistance: 200
   debugWeaponConvergence: 0
+  possibleWeaponPrefabs:
+  - {fileID: 1062497909079289124, guid: a3d33a4c0de10719f987bcf5a9178970, type: 3}
+  - {fileID: 7926824900738252276, guid: 02d70531b0bd0efeead1441259ec6d93, type: 3}
+  - {fileID: 1062497909079289124, guid: 70eb8c51dfd3b9d4280eb58fe8f543aa, type: 3}
   enemyHitEvent:
     m_PersistentCalls:
       m_Calls:
@@ -2024,8 +2028,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   identifier: WPN_Attachment_1
-  weaponPrefab: {fileID: 1062497909079289124, guid: 70eb8c51dfd3b9d4280eb58fe8f543aa, type: 3}
   weaponManager: {fileID: 3300866360858875059}
+  upgradeData: {fileID: 11400000, guid: a67d90423351a61489b11577fba7c20b, type: 2}
 --- !u!1001 &5361020282682646887
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2326,6 +2330,11 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 8824902617610137727, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
+--- !u!224 &3300866361196139677 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8824902617696493401, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
+  m_PrefabInstance: {fileID: 6320611156441893828}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4676034763207629616 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1680914188732027124, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
@@ -2351,10 +2360,5 @@ MonoBehaviour:
 --- !u!1 &3300866361009781688 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8824902617610137724, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
-  m_PrefabInstance: {fileID: 6320611156441893828}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &3300866361196139677 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8824902617696493401, guid: 5964fbab9271ed14380ded9e71097d5a, type: 3}
   m_PrefabInstance: {fileID: 6320611156441893828}
   m_PrefabAsset: {fileID: 0}
