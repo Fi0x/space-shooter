@@ -3,6 +3,7 @@ using System.Linq;
 using Manager;
 using Ship.Weaponry;
 using Targeting.TargetChoosingStrategy;
+using UnityEditor;
 using UnityEngine;
 
 #nullable enable
@@ -22,12 +23,10 @@ namespace Targeting
             return new PrimaryTargetChoosingHelper(strategy);
         }
 
-        public Targetable? GetTargetableToTarget(Transform selfTransform, float ownProjectileSpeed, Targetable? currentPrimaryTarget = null)
+        public Targetable? GetTargetableToTarget(Transform selfTransform, float ownProjectileSpeed, IEnumerable<Targetable?> allTargetables, Targetable? currentPrimaryTarget = null)
         {
             var currentPrimaryTargetScore = EvaluateTargetable(selfTransform, ownProjectileSpeed, currentPrimaryTarget) ?? float.NegativeInfinity;
             
-            var allTargetables = GameManager.Instance.TargetableManager.Targets;
-
             var maxTargetScore = float.NegativeInfinity;
             Targetable? maxTarget = null;
             
@@ -35,6 +34,12 @@ namespace Targeting
             {
                 if (targetable == currentPrimaryTarget)
                 {
+                    continue;
+                }
+
+                if (targetable == null)
+                {
+                    Debug.LogWarning("Null");
                     continue;
                 }
 
@@ -64,7 +69,7 @@ namespace Targeting
             float? currentPrimaryTargetScore = null;
             if (targetable != null)
             {
-                var positionAndTimeOfCollision = this.GetPositionAndTimeOfCollision(ownProjectileSpeed, selfTransform.position,
+                var positionAndTimeOfCollision = GetPositionAndTimeOfCollision(ownProjectileSpeed, selfTransform.position,
                     targetable.transform.position, targetable.Velocity);
 
                 if (positionAndTimeOfCollision == null)
@@ -77,13 +82,28 @@ namespace Targeting
                         positionAndTimeOfCollision.Value.pos, positionAndTimeOfCollision.Value.time);
                 }
             }
-
+            
             return currentPrimaryTargetScore;
         }
 
-        private (Vector3 pos, float time)? GetPositionAndTimeOfCollision(float projectileSpeed, Vector3 ownPos, Vector3 theirPos,
+        private static (Vector3 pos, float time)? GetPositionAndTimeOfCollision(float projectileSpeed, Vector3 ownPos, Vector3 theirPos,
             Vector3 theirVelocity)
         {
+
+            if (projectileSpeed == 0)
+            {
+                // HitScan fix
+                return (theirPos, 0);
+            }
+            
+            
+            if (theirVelocity.magnitude < 0.01f)
+            {
+                // Stationary Fix
+                return (theirPos, Vector3.Distance(ownPos, theirPos) / projectileSpeed);
+            }
+            
+            
             var timeOfCollision =
                 TargetingCalculationHelper.GetPredictedTimeOfCollision(ownPos, projectileSpeed, theirPos,
                     theirVelocity);
