@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1535048721158392417}
   - component: {fileID: 6272486687605896736}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret02 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6393671206213009465}
   - component: {fileID: 5856244360488031684}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret05 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3817374195177772188}
   - component: {fileID: 3802465767366566427}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4060222850324083775}
   - component: {fileID: 4560137958507404749}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3514345695248095966}
   - component: {fileID: 4411510019618523495}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BottomSnapPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,7 +230,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6227481870324075015}
   - component: {fileID: 893751883225934795}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret04 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,7 +274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2340160888738469843}
   - component: {fileID: 5352290808136154120}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -318,7 +318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5685512452921293881}
   - component: {fileID: 4606371038900572334}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret03 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,7 +362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1131478686877508397}
   - component: {fileID: 2402275132704912486}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -405,7 +405,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7074736358656192507}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TurretSpawnPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -460,7 +460,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2930124855065855564}
   - component: {fileID: 1573937039606611364}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret12 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -504,7 +504,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6383011857462937667}
   - component: {fileID: 1050906225493934775}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -548,7 +548,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6117539955591767121}
   - component: {fileID: 4956437510099230285}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -595,9 +595,9 @@ GameObject:
   - component: {fileID: 6546599221362596527}
   - component: {fileID: 2271932456522595411}
   - component: {fileID: 7499599979198439438}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Station_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -742,7 +742,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2133186488949342176}
   - component: {fileID: 8627125700790182614}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -786,7 +786,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3846751213814914978}
   - component: {fileID: 5687702851207566464}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret10 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -830,7 +830,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8571764108026349735}
   - component: {fileID: 4409184008202157916}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -874,7 +874,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2696591866305779459}
   - component: {fileID: 5302731685297931509}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TopSnapPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -918,7 +918,7 @@ GameObject:
   m_Component:
   - component: {fileID: 124514977082898127}
   - component: {fileID: 1968062068735231222}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -962,7 +962,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5839965120137363242}
   - component: {fileID: 526097368233729902}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1006,7 +1006,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5138362943619286815}
   - component: {fileID: 7639585147909312442}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret01 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1050,7 +1050,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2907526999580460188}
   - component: {fileID: 632400784052551617}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret06 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1094,7 +1094,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2746881648534250009}
   - component: {fileID: 6326473681864729770}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret11 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1138,7 +1138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4862223227669335556}
   - component: {fileID: 8245133336881509978}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1182,7 +1182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7050435144378121723}
   - component: {fileID: 7449819746768248578}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1226,7 +1226,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3652830424840291828}
   - component: {fileID: 4021062430236490176}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret08 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1270,7 +1270,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1576631871886413072}
   - component: {fileID: 1573241722353138245}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret09 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1314,7 +1314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5629069167154153952}
   - component: {fileID: 6519926140201661532}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret07 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1357,7 +1357,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5973383970541127694}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Targets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1392,6 +1392,10 @@ PrefabInstance:
     - target: {fileID: 1440212619306393677, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
       propertyPath: m_Name
       value: StationBattery_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1440212619306393677, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1781025303321819895, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
       propertyPath: m_RootOrder
@@ -1466,6 +1470,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StationBattery_01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1440212619306393677, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1781025303321819895, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1539,6 +1547,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StationBattery_01 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1440212619306393677, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1781025303321819895, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1611,6 +1623,10 @@ PrefabInstance:
     - target: {fileID: 1440212619306393677, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
       propertyPath: m_Name
       value: StationBattery_01 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1440212619306393677, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1781025303321819895, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
       propertyPath: m_RootOrder
