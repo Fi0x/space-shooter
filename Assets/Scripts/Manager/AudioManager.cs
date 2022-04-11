@@ -10,7 +10,7 @@ namespace Manager
     {
         public static AudioManager instance;
         public Sound[] musicClips;
-        public Sound activeMusic;
+        public AudioSource activeMusic = null;
         [SerializeField] public AudioMixer mixer;
         
         public static event EventHandler AudioManagerInitializedEvent;
@@ -45,7 +45,7 @@ namespace Manager
 
         private void Start()
         {
-            this.ChangeMusic("Music1");
+            this.ChangeMusic("MainMusic");
         }
 
         public void Play(string soundName)
@@ -67,36 +67,37 @@ namespace Manager
                 Debug.LogWarning("Sound: " + newMusic + " not found!");
                 return;
             }
-
+            if(activeMusic == s.source) return;
             if (activeMusic == null)
             {
+                Debug.Log("no active music");
                 s.source.Play();
-                activeMusic = s;
+                activeMusic = s.source;
                 return;
             }
-            StartCoroutine(FadeMusic(activeMusic, s, 2f));
+            StartCoroutine(FadeMusic(activeMusic, s.source, 2f));
         }
 
-        IEnumerator FadeMusic(Sound from, Sound to, float time)
+        IEnumerator FadeMusic(AudioSource from, AudioSource to, float time)
         {
             if (from == null) yield break;
-            var oldFromVolume = from.source.volume;
+            var oldFromVolume = from.volume;
             for (float t = 0f; t < time; t += Time.deltaTime)
             {
-                from.source.volume = oldFromVolume * (1f - (t / time));
+                from.volume = oldFromVolume * (1f - (t / time));
                 yield return null;
             }
-            from.source.Stop();
+            from.Stop();
             
-            to.source.Play();
-            var oldToVolume = to.source.volume;
+            to.Play();
+            var oldToVolume = to.volume;
             for (float k = 0f; k < time; k += Time.deltaTime)
             {
-                to.source.volume = oldToVolume * (k / time);
+                to.volume = oldToVolume * (k / time);
                 yield return null;
             }
-            from.source.volume = oldFromVolume;
-            to.source.volume = oldToVolume;
+            from.volume = oldFromVolume;
+            to.volume = oldToVolume;
             activeMusic = to;
         }
 
@@ -129,7 +130,7 @@ namespace Manager
 
         public bool loop;
 
-        [HideInInspector]
+        [HideInInspector, NonSerialized]
         public AudioSource source;
     }
 }
