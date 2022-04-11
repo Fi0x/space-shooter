@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 339706900098507882}
   - component: {fileID: 5201848747576537493}
   - component: {fileID: 3075825480072160338}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Station_02
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -293,6 +293,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f54714b6f65f9eb47bd4e4773f42e4e8, type: 3}
       propertyPath: m_Name
       value: SM_Prop_SpaceWalk_Tube_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f54714b6f65f9eb47bd4e4773f42e4e8, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f54714b6f65f9eb47bd4e4773f42e4e8, type: 3}

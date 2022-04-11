@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3011666676548367568}
   - component: {fileID: 3939343572440619934}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BottomSnapPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7403719379927414796}
   - component: {fileID: 5362681678019549582}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TopSnapPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,9 +101,9 @@ GameObject:
   - component: {fileID: 5768778396916172061}
   - component: {fileID: 4524920978031560385}
   - component: {fileID: 2847319655424259303}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: StationEnd_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

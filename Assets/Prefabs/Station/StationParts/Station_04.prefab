@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 8149868207012514744}
   - component: {fileID: 4099267201827604385}
   - component: {fileID: 937547520048994872}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Part2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -369,9 +369,9 @@ GameObject:
   - component: {fileID: 2843535879591117311}
   - component: {fileID: 679801150405231047}
   - component: {fileID: 1939780773173620079}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Station_04
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -544,7 +544,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5684075655610689385}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HealthTargets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -581,6 +581,10 @@ PrefabInstance:
     - target: {fileID: 1440212619306393677, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
       propertyPath: m_Name
       value: StationBattery_06
+      objectReference: {fileID: 0}
+    - target: {fileID: 1440212619306393677, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1781025303321819895, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
       propertyPath: m_RootOrder
@@ -667,6 +671,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StationBattery_05
       objectReference: {fileID: 0}
+    - target: {fileID: 1440212619306393677, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1781025303321819895, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -751,6 +759,10 @@ PrefabInstance:
     - target: {fileID: 1440212619306393677, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
       propertyPath: m_Name
       value: StationBattery_01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1440212619306393677, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1781025303321819895, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
       propertyPath: m_RootOrder
@@ -837,6 +849,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StationBattery_04
       objectReference: {fileID: 0}
+    - target: {fileID: 1440212619306393677, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1781025303321819895, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -922,6 +938,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StationBattery_01
       objectReference: {fileID: 0}
+    - target: {fileID: 1440212619306393677, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1781025303321819895, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1006,6 +1026,10 @@ PrefabInstance:
     - target: {fileID: 1440212619306393677, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
       propertyPath: m_Name
       value: StationBattery_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1440212619306393677, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1781025303321819895, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
       propertyPath: m_RootOrder
