@@ -77,10 +77,12 @@ namespace HealthSystem
             if(this.TryGetComponent(out Boid boid))
                 boid.RemoveBoidFromAssignedFlock();
             
-            
-            OnHealthRemoved(this);
-
             Destroy(this.gameObject);
+        }
+
+        private void OnDestroy()
+        {
+            OnHealthRemoved(this);
         }
     }
 }

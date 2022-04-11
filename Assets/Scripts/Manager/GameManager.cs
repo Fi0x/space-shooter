@@ -77,7 +77,7 @@ namespace Manager
         {
             get
             {
-                if (_instance == null)
+                if (_instance is null)
                 {
                     Debug.LogWarning("Instance is null");
                 }
