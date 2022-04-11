@@ -114,6 +114,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_6a0309fcfd354f46ba77b971f8fc4093: 1
+    - Vector1_fd88cd25f0004e06996136a152d0c3fc: 0.05
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -124,6 +125,7 @@ Material:
     - _DetailAlbedoMapScale: 1
     - _DetailAmount: 1
     - _DetailNormalMapScale: 1
+    - _DissolveAmount: 0
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _FlashingStrength: 0
@@ -145,6 +147,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_07d7919f2c674137b80b803f45ef79fd: {r: 13.741176, g: 1.7266399, b: 1.7266399, a: 0}
+    - Color_e1cfdef056d14042bbdadaffdbfccaec: {r: 1.647059, g: 0.6196079, b: 0.227451, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 3.9474466, g: 0.9300267, b: 0.9300267, a: 1}

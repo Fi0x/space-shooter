@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Components;
 using HealthSystem;
 using UnityEngine;
+using VFX;
 using Random = UnityEngine.Random;
 
 public class StationPart : MonoBehaviour
@@ -14,6 +15,7 @@ public class StationPart : MonoBehaviour
 
     [Header("StationSettings")]
     public GameObject turretPrefab;
+    public StationRemover stationRemover;
     [SerializeField] private List<Health> healthTargets;
     
     [Header("DebrisRemoval")]

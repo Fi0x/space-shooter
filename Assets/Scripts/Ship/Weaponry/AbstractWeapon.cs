@@ -21,6 +21,8 @@ namespace Ship.Weaponry
         public WeaponConfigScriptableObject WeaponConfig => this.weaponConfig;
         
         public abstract bool IsHitScan { get; }
+
+        public event Action<AbstractWeapon> OnInitEvent = null!;
         
         private void OnEnable()
         {
@@ -64,6 +66,7 @@ namespace Ship.Weaponry
                 throw new Exception("Weapon trigger is null");
             }
             this.WeaponTrigger.ShotDelayMultiplier = upgradeData.GetValue(UpgradeNames.WeaponFireRate);
+            this.OnInitEvent.Invoke(this);
         }
 
         private void FireModeChangedEventHandler(bool isFiring)

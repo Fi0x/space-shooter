@@ -7,7 +7,8 @@ using World;
 public class StationBuilder : MonoBehaviour
 {
     [Header("StationSettings")]
-    [SerializeField] private StationController controller;
+    [SerializeField]
+    public StationController controller;
     [SerializeField] private int partCount = 3;
     [SerializeField] private float turretProbability = 0.5f;
 
@@ -68,7 +69,10 @@ public class StationBuilder : MonoBehaviour
                 controller.AddTarget(target);
             }
         }
-        
+
+        controller.isInit = true;
+        controller.InvokeStartEvents();
+
     }
 
     private GameObject SpawnStationPart(IReadOnlyList<GameObject> objects)
