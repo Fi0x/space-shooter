@@ -45,7 +45,7 @@ namespace Manager
 
         private void Start()
         {
-            this.ChangeMusic("MainMusic");
+            this.ChangeMusic("Music1");
         }
 
         public void Play(string soundName)
@@ -79,6 +79,7 @@ namespace Manager
 
         IEnumerator FadeMusic(Sound from, Sound to, float time)
         {
+            if (from == null) yield break;
             var oldFromVolume = from.source.volume;
             for (float t = 0f; t < time; t += Time.deltaTime)
             {
@@ -86,11 +87,12 @@ namespace Manager
                 yield return null;
             }
             from.source.Stop();
+            
             to.source.Play();
             var oldToVolume = to.source.volume;
-            for (float t = 0f; t < time; t += Time.deltaTime)
+            for (float k = 0f; k < time; k += Time.deltaTime)
             {
-                to.source.volume = oldToVolume * (t / time);
+                to.source.volume = oldToVolume * (k / time);
                 yield return null;
             }
             from.source.volume = oldFromVolume;
