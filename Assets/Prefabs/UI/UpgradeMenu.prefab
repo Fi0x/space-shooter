@@ -701,6 +701,7 @@ MonoBehaviour:
   subtopicPrefab: {fileID: 7940315755182864410, guid: b24f2fe2fce422d48a1758a5f1d03957, type: 3}
   scrollbar: {fileID: 6325152566870038791}
   freePointTextField: {fileID: 305131379137474930}
+  upgradesToShow: 3
   upgradeData: {fileID: 11400000, guid: a67d90423351a61489b11577fba7c20b, type: 2}
   spriteLookup: {fileID: 11400000, guid: 0cb5cff1822d95a46bc86e4f82a8852d, type: 2}
 --- !u!1 &5361372535592393656
@@ -823,7 +824,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1935624714812577592}
   m_HandleRect: {fileID: 635918284814173395}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -865,7 +866,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -723.3428, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &2172948891006631165
 CanvasRenderer:
@@ -892,7 +893,7 @@ MonoBehaviour:
     m_Right: 5
     m_Top: 5
     m_Bottom: 5
-  m_ChildAlignment: 0
+  m_ChildAlignment: 4
   m_Spacing: 30
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
@@ -908,7 +909,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6600698492340897614}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
   m_Name: 
