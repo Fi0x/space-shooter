@@ -71,7 +71,7 @@ public class StationBuilder : MonoBehaviour
         }
 
         controller.isInit = true;
-        //controller.InvokeStartEvents();
+        controller.InvokeStartEvents();
 
     }
 

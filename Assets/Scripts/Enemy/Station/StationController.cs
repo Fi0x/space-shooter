@@ -27,7 +27,7 @@ namespace Enemy.Station
 
         private void Start()
         {
-            InvokeStartEvents();
+            //InvokeStartEvents();
         }
 
         public void InvokeStartEvents()
