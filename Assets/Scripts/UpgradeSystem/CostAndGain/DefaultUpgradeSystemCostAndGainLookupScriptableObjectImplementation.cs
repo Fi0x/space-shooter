@@ -13,6 +13,7 @@ namespace UpgradeSystem.CostAndGain
             {UpgradeNames.Health, 50},
             {UpgradeNames.MaxRockets, 10},
             {UpgradeNames.RocketChargeSpeed, 10},
+            {UpgradeNames.WeaponType, 100},
             {UpgradeNames.WeaponDamage, 20},
             {UpgradeNames.WeaponProjectileSpeed, 20},
             {UpgradeNames.WeaponFireRate, 10},
@@ -52,6 +53,8 @@ namespace UpgradeSystem.CostAndGain
                 
                 // Weapons
                 
+                case UpgradeNames.WeaponType:
+                    return this.GetUpgradeDataForWeaponType(level);
                 case UpgradeNames.WeaponDamage:
                     float WeaponDamageFn(int lvl) => (float) (1 + (.8f * lvl - 0.02f * lvl * lvl) * .5);
                     return this.GetUpgradeDataForWeaponMultiplier(level, WeaponDamageFn, UpgradeNames.WeaponDamage);
@@ -98,6 +101,16 @@ namespace UpgradeSystem.CostAndGain
             return new UpgradeData(level, GetCostForWeaponMultipliers(level), multiplierNow, multiplierThen, message);
         }
 
+        private UpgradeData GetUpgradeDataForWeaponType(int level)
+        {
+            this.ValidateAndThrowOnUpgradeOutOfBounds(UpgradeNames.WeaponType, level);
+
+            string LevelToName(int level) => level % 3 == 0 ? "Chained" : level % 3 == 1 ? "Projectile" : "Laser";
+            var message = $"{LevelToName(level)} to {LevelToName(level + 1)}";
+
+            return new UpgradeData(level, 10, level, level + 1, message);
+
+        }
         private UpgradeData GetUpgradeDataForWeaponMultiplier(int level, Func<int, float> multiplierFn, UpgradeNames upgrade)
         {
             ValidateAndThrowOnUpgradeOutOfBounds(upgrade, level);

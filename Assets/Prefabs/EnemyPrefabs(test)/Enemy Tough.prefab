@@ -54,6 +54,7 @@ GameObject:
   - component: {fileID: 5574722349668472982}
   - component: {fileID: 4490608332931612992}
   - component: {fileID: -8088360904882032721}
+  - component: {fileID: 6431978367167144851}
   m_Layer: 0
   m_Name: Enemy Tough
   m_TagString: Untagged
@@ -250,8 +251,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f21b4b99b9c29a178b554475e6bec69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allegiance: 2
+  allegiance: 1
   targetType: 0
+--- !u!114 &6431978367167144851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7148358328865412359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c5ababcbb8a4e5d8c32ad723ef807d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPrimaryTarget: 0
+  shipRb: {fileID: 0}
 --- !u!1001 &29970948627316932
 PrefabInstance:
   m_ObjectHideFlags: 0

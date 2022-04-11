@@ -7,6 +7,7 @@ using Stats;
 using Targeting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Ship.Weaponry
 {
@@ -17,7 +18,8 @@ namespace Ship.Weaponry
         [SerializeField] private GameObject ship = null!;
         [SerializeField] private uint targetChangeCheckInterval = 10;
         [SerializeField] private float defaultConversionDistance = 50;
-        [SerializeField, ReadOnlyInspector] private float debugWeaponConvergence = 0f;    
+        [SerializeField, ReadOnlyInspector] private float debugWeaponConvergence = 0f;
+        [SerializeField] private List<GameObject> possibleWeaponPrefabs = new List<GameObject>();
         
         private uint currentTargetChangeCheckInterval = 0;
 
@@ -51,7 +53,7 @@ namespace Ship.Weaponry
         {
             StatCollector.UpdateWeaponStat($"{weaponHitInformation.Type} Damage", weaponHitInformation.Damage);
         }
-
+        
         private void Update()
         {
             if (currentTargetChangeCheckInterval++ >= this.targetChangeCheckInterval)
@@ -123,6 +125,12 @@ namespace Ship.Weaponry
             if (weaponAttachmentPoint == null) throw new ArgumentNullException(nameof(weaponAttachmentPoint));
 
             this.weaponAttachmentPoints.Add(weaponAttachmentPoint);
+        }
+
+        public GameObject GetWeaponForLevel(int level)
+        {
+            var idx = (level - 1) % this.possibleWeaponPrefabs.Count;
+            return this.possibleWeaponPrefabs[idx];
         }
     }
 }

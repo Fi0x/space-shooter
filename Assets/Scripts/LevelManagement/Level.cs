@@ -18,11 +18,12 @@ namespace LevelManagement
 
         private void Awake()
         {
-            BuildLevel();
+            
         }
 
         private void Start()
         {
+            BuildLevel();
             SpawnEnemies();
         }
 

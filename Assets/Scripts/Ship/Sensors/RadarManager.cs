@@ -21,10 +21,12 @@ namespace Ship.Sensors
         [SerializeField] private Color friendlyColor;
         [SerializeField] private Color neutralColor;
         [SerializeField] private Color hostileColor;
+        [SerializeField] private Color aggressiveColor;
 
         public Color ColorFriendly => this.friendlyColor;
         public Color ColorNeutral => this.neutralColor;
         public Color ColorHostile => this.hostileColor;
+        public Color ColorAggressive => this.aggressiveColor;
 
         public Sprite SpriteShip => this.shipTargetSprite;
         public Sprite SpriteBigShip => bigShipTargetSprite;

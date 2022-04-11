@@ -20,13 +20,6 @@ public class StationBuilder : MonoBehaviour
     private StationPart startPart;
     private StationPart currentPart;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        //controller = GetComponent<StationController>();
-        //BuildStation();
-    }
-
     public void SetDifficulty(float difficulty)
     {
         partCount = (int)Mathf.Min(difficulty * .5f, 1);
@@ -82,9 +75,9 @@ public class StationBuilder : MonoBehaviour
 
     }
 
-    private GameObject SpawnStationPart(List<GameObject> objects)
+    private GameObject SpawnStationPart(IReadOnlyList<GameObject> objects)
     {
-        int i = Random.Range(0, objects.Count);
+        var i = Random.Range(0, objects.Count);
         if (i < 0) return null;
         var part = Instantiate(objects[i], transform);
         return part;

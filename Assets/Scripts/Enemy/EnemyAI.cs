@@ -1,7 +1,8 @@
 using System;
 using Manager;
-using Ship;
 using Ship.Movement;
+using Ship.Sensors;
+using Stats;
 using UnityEngine;
 
 namespace Enemy
@@ -30,6 +31,8 @@ namespace Enemy
         [SerializeField] private Boid boid;
         [SerializeField] private BoidController boidController;
 
+        private SensorTarget target;
+
         public BoidController Flock => this.boidController;
 
         public void InitializeEnemyAI(BoidController controller)
@@ -45,6 +48,9 @@ namespace Enemy
             this.timeBetweenAttacks = this.waitForAttack;
 
             this.boidController = controller;
+            this.target = this.GetComponent<SensorTarget>();
+
+            GameManager.Instance.EnemyLevelCounter++;
         }
 
         private void Update()
@@ -62,8 +68,24 @@ namespace Enemy
                     this.AttackPlayer();
                     break;
             }
+
+            var updatedState = this.UpdateState();
+            if (updatedState == this.state)
+                return;
             
-            this.state = this.UpdateState();
+            this.state = updatedState;
+            switch (updatedState)
+            {
+                case State.ChasePlayer:
+                    this.target.UpdateAllegiance(SensorTarget.TargetAllegiance.Hostile);
+                    break;
+                case State.AttackPlayer:
+                    this.target.UpdateAllegiance(SensorTarget.TargetAllegiance.Aggressive);
+                    break;
+                case State.Roaming:
+                    this.target.UpdateAllegiance(SensorTarget.TargetAllegiance.Neutral);
+                    break;
+            }
         }
 
         private void ChasePlayer()
@@ -135,6 +157,13 @@ namespace Enemy
             Roaming,
             ChasePlayer,
             AttackPlayer,
+        }
+
+        private void OnDestroy()
+        {
+            StatCollector.UpdateGeneralStat("Enemies Killed", 1);
+            GameManager.Instance.playerUpgrades.freePoints++;
+            GameManager.Instance.DestroyedEnemyLevelCounter++;
         }
     }
 }

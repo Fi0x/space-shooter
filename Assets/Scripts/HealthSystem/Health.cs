@@ -77,10 +77,7 @@ namespace HealthSystem
             if(this.TryGetComponent(out Boid boid))
                 boid.RemoveBoidFromAssignedFlock();
             
-            StatCollector.UpdateGeneralStat("Enemies Killed", 1);
-            GameManager.Instance.playerUpgrades.freePoints++;
             Destroy(this.gameObject);
-            
         }
 
         private void OnDestroy()

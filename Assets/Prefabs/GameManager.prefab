@@ -63,6 +63,7 @@ MonoBehaviour:
   playerDefaultHealth: 1000
   targetableActive: {fileID: -9026593291582194371, guid: 5d8a99f745cb1b475b5756115b6f00f5, type: 3}
   targetableInactive: {fileID: -9026593291582194371, guid: 5d8a99f745cb1b475b5756115b6f00f5, type: 3}
-  upgradeMagnitudeLookupScriptableObjectTable: {fileID: 11400000, guid: 83761d8198e1445d3848a086e20f3b90, type: 2}
   difficulty: 1
   levelIndex: 0
+  player: {fileID: 0}
+  targetableManager: {fileID: 11400000, guid: 9fc1cc7d565c4b3e4a7b1a9c644ca451, type: 2}

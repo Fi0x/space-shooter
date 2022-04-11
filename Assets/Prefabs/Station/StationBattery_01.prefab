@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2016897507168690003}
   - component: {fileID: 8441681970924666173}
   - component: {fileID: -4334164689054044936}
+  - component: {fileID: 5794145932784714286}
   m_Layer: 7
   m_Name: StationBattery_01
   m_TagString: Enemy
@@ -32,8 +33,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
-  m_Children:
-  - {fileID: 4140045486956579393}
+  m_Children: [{fileID: 4140045486956579393}]
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -112,7 +112,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseHealth: 1000
-  deathVFX: {fileID: 4575459077408144046, guid: 7dd684bdb178dfa4e938b3c83400203f, type: 3}
+  deathVFX: {fileID: 4575459077408144046, guid: 7dd684bdb178dfa4e938b3c83400203f,
+    type: 3}
   vfxLifetime: 4.5
   onDamageTaken:
     m_PersistentCalls:
@@ -194,6 +195,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allegiance: 2
   targetType: 0
+--- !u!114 &5794145932784714286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440212619306393677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 894703999aaa40c2826d84fa035816d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPrimaryTarget: 0
 --- !u!1 &8367345528011985004
 GameObject:
   m_ObjectHideFlags: 0
