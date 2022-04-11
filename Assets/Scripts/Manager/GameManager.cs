@@ -27,6 +27,36 @@ namespace Manager
         }
 
 
+        public int EnemyLevelCounter
+        {
+            get => enemyLevelCounter;
+            set => enemyLevelCounter = value;
+        }
+
+        [SerializeField, ReadOnlyInspector]
+        private int destroyedEnemiesInLevel;
+        public int DestroyedEnemyLevelCounter {
+            get => this.destroyedEnemiesInLevel;
+            set
+            {
+                this.destroyedEnemiesInLevel = value;
+                if (value <= 0)
+                {
+                    return;
+                }
+                // if 80% are dead, consider the level completed
+                var fractionDead = (float)this.destroyedEnemiesInLevel / this.EnemyLevelCounter;
+                Debug.LogWarning(fractionDead);
+                if(fractionDead > .8f)
+                {
+                    this.LevelCompletedEvent?.Invoke();
+                }
+            }
+        }
+        
+        public event Action LevelCompletedEvent;//TODO: Also invoke if station gets destroyed
+        
+
         public static bool IsGamePaused { get; set; } = false;
 
         public float difficulty = 1f;
@@ -41,6 +71,7 @@ namespace Manager
 
         private static GameManager _instance;
         [SerializeField] private TargetableManagerScriptableObject targetableManager;
+        [SerializeField, ReadOnlyInspector] private int enemyLevelCounter;
 
         public static GameManager Instance
         {
@@ -86,6 +117,7 @@ namespace Manager
             levelIndex = 0;
             StatCollector.ResetStats();
             playerUpgrades.ResetData();
+            this.destroyedEnemiesInLevel = 0;
         }
 
         public void LoadNextLevel()
@@ -136,17 +168,6 @@ namespace Manager
         public void GameOver()
         {
             GameOverScreen.ShowGameOverScreen();
-        }
-
-        [Obsolete]
-        private void SpawnPlayer()
-        {
-            this.Player.transform.position = new Vector3(0, 0, 0);
-            this.Player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            this.Player.GetComponent<PlayerShipMovementHandler>().SetNewTargetSpeed(0);
-            var playerHealth = this.Player.GetComponent<Health>();
-            playerHealth.MaxHealth = 100;//this.playerDefaultHealth;
-            playerHealth.CurrentHealth = playerHealth.MaxHealth;
         }
     }
 }
