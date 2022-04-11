@@ -17,6 +17,7 @@ namespace UI
 
         private void Start()
         {
+            AudioManager.instance.ChangeMusic("MainMusic");
             StartCoroutine(FadeIn(fadeTime));
         }
 

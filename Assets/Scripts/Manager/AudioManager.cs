@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -9,6 +10,7 @@ namespace Manager
     {
         public static AudioManager instance;
         public Sound[] musicClips;
+        public AudioSource activeMusic = null;
         [SerializeField] public AudioMixer mixer;
         
         public static event EventHandler AudioManagerInitializedEvent;
@@ -43,7 +45,7 @@ namespace Manager
 
         private void Start()
         {
-            this.Play("Ambience");
+            this.ChangeMusic("MainMusic");
         }
 
         public void Play(string soundName)
@@ -55,6 +57,48 @@ namespace Manager
                 return;
             }
             s.source.Play();
+        }
+
+        public void ChangeMusic(string newMusic)
+        {
+            var s = Array.Find(instance.musicClips, sound => sound.name == newMusic);
+            if (s == null)
+            {
+                Debug.LogWarning("Sound: " + newMusic + " not found!");
+                return;
+            }
+            if(activeMusic == s.source) return;
+            if (activeMusic == null)
+            {
+                Debug.Log("no active music");
+                s.source.Play();
+                activeMusic = s.source;
+                return;
+            }
+            StartCoroutine(FadeMusic(activeMusic, s.source, 2f));
+        }
+
+        IEnumerator FadeMusic(AudioSource from, AudioSource to, float time)
+        {
+            if (from == null) yield break;
+            var oldFromVolume = from.volume;
+            for (float t = 0f; t < time; t += Time.deltaTime)
+            {
+                from.volume = oldFromVolume * (1f - (t / time));
+                yield return null;
+            }
+            from.Stop();
+            
+            to.Play();
+            var oldToVolume = to.volume;
+            for (float k = 0f; k < time; k += Time.deltaTime)
+            {
+                to.volume = oldToVolume * (k / time);
+                yield return null;
+            }
+            from.volume = oldFromVolume;
+            to.volume = oldToVolume;
+            activeMusic = to;
         }
 
         public void UpdateMasterVolume(float volume)
@@ -86,7 +130,7 @@ namespace Manager
 
         public bool loop;
 
-        [HideInInspector]
+        [HideInInspector, NonSerialized]
         public AudioSource source;
     }
 }

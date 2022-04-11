@@ -1234,7 +1234,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6422267082718012184, guid: 1e8007049c03bd144a3fedb3503007af, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0000038146973
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6900995016762602819, guid: 1e8007049c03bd144a3fedb3503007af, type: 3}
       propertyPath: m_Pivot.x
@@ -1959,7 +1959,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 951997195087441061, guid: 36ae60c6c0f16b14287aa3da4c2a367b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 40.08409
+      value: 174.73216
       objectReference: {fileID: 0}
     - target: {fileID: 1941489835598437797, guid: 36ae60c6c0f16b14287aa3da4c2a367b, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -2101,6 +2101,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4747781369981647372, guid: 6357ca930a097874e864d2558612e595, type: 3}
+      propertyPath: musicName
+      value: Music2
+      objectReference: {fileID: 0}
     - target: {fileID: 4747781369981647372, guid: 6357ca930a097874e864d2558612e595, type: 3}
       propertyPath: spawnStation
       value: 1
