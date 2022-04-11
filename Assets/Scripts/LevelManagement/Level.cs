@@ -31,7 +31,13 @@ namespace LevelManagement
         {
             levelBuilder.LoadRandomLevel();
             stationBuilder.SetDifficulty(GameManager.Instance.difficulty);
-            if(spawnStation) stationBuilder.BuildStation();
+            if (!spawnStation)
+            {
+                Destroy(stationBuilder.controller.gameObject);
+                Destroy(stationBuilder);
+                return;
+            }
+            stationBuilder.BuildStation();
         }
 
         private void SpawnEnemies()

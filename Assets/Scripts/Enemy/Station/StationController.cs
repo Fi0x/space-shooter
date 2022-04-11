@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Components;
 using HealthSystem;
+using Manager;
 using UnityEngine;
 
 namespace Enemy.Station
@@ -16,6 +17,9 @@ namespace Enemy.Station
         [Header("Parts & Turrets")]
         [SerializeField] public List<StationPart> parts;
         [SerializeField] public List<Turret> turrets;
+
+        public bool isInit = false;
+        public bool isDying = false;
         
         public static event Action<StationController> OnBossHealthAdded = delegate { };
         public static event Action<StationController> OnBossHealthRemoved = delegate { };
@@ -23,6 +27,12 @@ namespace Enemy.Station
 
         private void Start()
         {
+            //InvokeStartEvents();
+        }
+
+        public void InvokeStartEvents()
+        {
+            Debug.Log("invoked station events");
             OnBossHealthAdded?.Invoke(this);
             OnHealthPctChanged?.Invoke(1f);
         }
@@ -35,6 +45,8 @@ namespace Enemy.Station
 
         private void Update()
         {
+            if(!isInit) return;
+            if(isDying) return;
             if (currentHealth <= 0)
             {
                 DestroyStation();
@@ -43,7 +55,14 @@ namespace Enemy.Station
 
         private void DestroyStation()
         {
+            isDying = true;
+            //Debug.LogWarning("Station Destroyed!");
             OnBossHealthRemoved?.Invoke(this);
+            GameManager.Instance.playerUpgrades.freePoints += 10;
+            foreach (var part in parts)
+            {
+                part.stationRemover.Explode();
+            }
         }
 
         public void AddTarget(Health health)
@@ -68,7 +87,7 @@ namespace Enemy.Station
 
         private void OnDisable()
         {
-            DestroyStation();
+            //DestroyStation();
         }
     }
 }

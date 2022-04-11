@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Manager;
 using Ship.Sensors;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -61,6 +62,13 @@ namespace World
             
             this.CreateAsteroids();
             this.PlacePortal();
+            this.ResetCounters();
+        }
+
+        private void ResetCounters()
+        {
+            GameManager.Instance.DestroyedEnemyLevelCounter = 0;
+            GameManager.Instance.EnemyLevelCounter = 0;
         }
 
         private void CreateAsteroids()

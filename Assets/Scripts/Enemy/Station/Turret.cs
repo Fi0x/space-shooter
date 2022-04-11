@@ -14,7 +14,7 @@ namespace Enemy.Station
         [SerializeField] private int damage = 10;
         private bool canShoot = true;
         private Rigidbody playerRb;
-    
+
         protected override Vector3 PredictTarget()
         {
             if (playerRb == null)

@@ -2,6 +2,7 @@ using System;
 using Manager;
 using Ship.Movement;
 using Ship.Sensors;
+using Stats;
 using UnityEngine;
 
 namespace Enemy
@@ -48,6 +49,8 @@ namespace Enemy
 
             this.boidController = controller;
             this.target = this.GetComponent<SensorTarget>();
+
+            GameManager.Instance.EnemyLevelCounter++;
         }
 
         private void Update()
@@ -154,6 +157,13 @@ namespace Enemy
             Roaming,
             ChasePlayer,
             AttackPlayer,
+        }
+
+        private void OnDestroy()
+        {
+            StatCollector.UpdateGeneralStat("Enemies Killed", 1);
+            GameManager.Instance.playerUpgrades.freePoints++;
+            GameManager.Instance.DestroyedEnemyLevelCounter++;
         }
     }
 }

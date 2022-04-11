@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ShipMatEnemyMetallic
-  m_Shader: {fileID: -6465566751694194690, guid: e5647ec1fc480ab498201f590424a33d, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 964595063aacadc4cb37339425c02c10, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -55,13 +55,16 @@ Material:
     - Vector1_6a0309fcfd354f46ba77b971f8fc4093: 1
     - Vector1_c529b569d9cf47f5a2936621ef4dbb09: 0
     - Vector1_f22351a5e530424c94408d3850e8fc2e: 0.476
+    - Vector1_fd88cd25f0004e06996136a152d0c3fc: 0.05
     - Vector1_ff544a4e6835432695b2d9639530d726: 1
+    - _DissolveAmount: 0
     - _FlashingStrength: 0
     - _Metallic: 0.721
     - _Smoothness: 0.42
     m_Colors:
     - Color_025161ed9c524bdd8f044a15a7d13b9c: {r: 1, g: 1, b: 1, a: 0}
     - Color_07d7919f2c674137b80b803f45ef79fd: {r: 1, g: 1, b: 1, a: 0}
+    - Color_e1cfdef056d14042bbdadaffdbfccaec: {r: 1.647059, g: 0.6196079, b: 0.227451, a: 0}
     - _EmissionColor: {r: 2.996078, g: 2.996078, b: 2.996078, a: 1}
     - _FlashingColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
