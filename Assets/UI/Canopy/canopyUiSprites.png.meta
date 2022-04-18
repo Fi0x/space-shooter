@@ -39,6 +39,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -220,6 +221,12 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      canopyUiSprites_1: 90552832038109653
+      canopyUiSprites_3: -9026593291582194371
+      canopyUiSprites_4: 8299907334195038221
+      canopyUiSprites_2: -4585037549960267790
+      canopyUiSprites_0: 8838231677444702852
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
