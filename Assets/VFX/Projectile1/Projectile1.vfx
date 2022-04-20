@@ -772,10 +772,14 @@ MonoBehaviour:
   castShadows: 0
   useExposureWeight: 0
   flipbookLayout: 0
-  shaderGraph: {fileID: -5475051401550479605, guid: e678a4da360ac5e45a20b9531e1cf6f3, type: 3}
+  shaderGraph: {fileID: 4333940904281232215, guid: e678a4da360ac5e45a20b9531e1cf6f3, type: 3}
   materialSettings:
-    m_PropertyNames: []
-    m_PropertyValues: []
+    m_PropertyNames:
+    - _QueueOffset
+    - _QueueControl
+    m_PropertyValues:
+    - 0
+    - 0
   MeshCount: 1
   lod: 0
 --- !u!114 &8926484042661614597

@@ -20,7 +20,7 @@ MonoBehaviour:
     x: 239
     y: -190
     width: 2348
-    height: 2657
+    height: 2675
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1377,10 +1377,6 @@ MonoBehaviour:
     expanded: 0
   - m_Id: 3
     linkedSlots:
-    - outputSlot: {fileID: 8926484042661614597}
-      inputSlot: {fileID: 8926484042661614689}
-    - outputSlot: {fileID: 8926484042661614597}
-      inputSlot: {fileID: 8926484042661614691}
     - outputSlot: {fileID: 8926484042661614597}
       inputSlot: {fileID: 8926484042661614822}
     position: {x: 1750, y: 300}
@@ -3268,8 +3264,6 @@ MonoBehaviour:
     expanded: 0
   - m_Id: 3
     linkedSlots:
-    - outputSlot: {fileID: 8926484042661614676}
-      inputSlot: {fileID: 8926484042661614690}
     - outputSlot: {fileID: 8926484042661614676}
       inputSlot: {fileID: 8926484042661614826}
     position: {x: 1750, y: 423}
