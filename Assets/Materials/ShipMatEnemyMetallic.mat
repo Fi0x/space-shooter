@@ -62,6 +62,8 @@ Material:
     - _DissolveAmount: 0
     - _FlashingStrength: 0
     - _Metallic: 0.721
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - _Smoothness: 0.42
     m_Colors:
     - Color_025161ed9c524bdd8f044a15a7d13b9c: {r: 1, g: 1, b: 1, a: 0}

@@ -24,6 +24,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: a33ecb899d9ce064189c43847b5c1918, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _LaserShape:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -40,9 +44,18 @@ Material:
     m_Floats:
     - Vector1_8060793dc7cd46c591ef2601807e8963: 5
     - Vector1_b0cc77a0b010471e88178466406b2737: 0
+    - _EdgeSmoothness: 0
+    - _FrontBackSmoothness: 0.1
+    - _NoiseSpeed: -5
+    - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors:
     - Color_9014ed095a964cbe8de33e8485982d54: {r: 1.445437, g: 3.285084, b: 12.54902, a: 1}
     - Vector2_39b1cd2900c846bda1d711fcab50a2ed: {r: 1, g: 4, b: 0, a: 0}
+    - _Color: {r: 1.445437, g: 3.285084, b: 12.54902, a: 1}
+    - _Movement: {r: -5, g: 0, b: 0, a: 0}
+    - _NoiseTiling: {r: 1, g: 4, b: 0, a: 0}
+    - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8371638950524673576
 MonoBehaviour:

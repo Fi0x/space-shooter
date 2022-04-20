@@ -11453,8 +11453,12 @@ MonoBehaviour:
   flipbookLayout: 0
   shaderGraph: {fileID: 4333940904281232215, guid: 7a83323c304c2da438ced06b82f5e6bd, type: 3}
   materialSettings:
-    m_PropertyNames: []
-    m_PropertyValues: []
+    m_PropertyNames:
+    - _QueueOffset
+    - _QueueControl
+    m_PropertyValues:
+    - 0
+    - 0
   MeshCount: 1
   lod: 0
 --- !u!114 &8926484042661615038

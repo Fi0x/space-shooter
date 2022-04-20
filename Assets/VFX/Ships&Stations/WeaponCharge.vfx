@@ -1542,8 +1542,12 @@ MonoBehaviour:
   flipbookLayout: 0
   shaderGraph: {fileID: 4333940904281232215, guid: 1852667833b18ff4eb39b2555aeee2b0, type: 3}
   materialSettings:
-    m_PropertyNames: []
-    m_PropertyValues: []
+    m_PropertyNames:
+    - _QueueOffset
+    - _QueueControl
+    m_PropertyValues:
+    - 0
+    - 0
   MeshCount: 1
   lod: 0
 --- !u!114 &8926484042661614671
@@ -5401,8 +5405,12 @@ MonoBehaviour:
   flipbookLayout: 0
   shaderGraph: {fileID: 4333940904281232215, guid: 1852667833b18ff4eb39b2555aeee2b0, type: 3}
   materialSettings:
-    m_PropertyNames: []
-    m_PropertyValues: []
+    m_PropertyNames:
+    - _QueueOffset
+    - _QueueControl
+    m_PropertyValues:
+    - 0
+    - 0
   MeshCount: 1
   lod: 0
 --- !u!114 &8926484042661614811
