@@ -7,6 +7,7 @@ using Stats;
 using Targeting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
 namespace Ship.Weaponry
@@ -14,7 +15,7 @@ namespace Ship.Weaponry
     public class WeaponManager : MonoBehaviour
     {
         [SerializeField] private Transform target = null!;
-        [SerializeField] private InputHandler inputHandler = null!;
+        [SerializeField] private InputMap input;
         [SerializeField] private GameObject ship = null!;
         [SerializeField] private uint targetChangeCheckInterval = 10;
         [SerializeField] private float defaultConversionDistance = 50;
@@ -42,11 +43,17 @@ namespace Ship.Weaponry
         private void OnEnable()
         {
             this.enemyHitEvent.AddListener(HandleEnemyHitEvent);
+            input = new InputMap();
+            input.Player.Enable();
+            input.Player.Shoot.performed += FirePressed;
+            input.Player.Shoot.canceled += FireReleased;
         }
 
         private void OnDisable()
         {
             this.enemyHitEvent.RemoveListener(HandleEnemyHitEvent);
+            input.Player.Shoot.performed -= FirePressed;
+            input.Player.Shoot.canceled -= FireReleased;
         }
 
         private static void HandleEnemyHitEvent(WeaponHitInformation weaponHitInformation)
@@ -63,15 +70,16 @@ namespace Ship.Weaponry
             }
 
             this.UpdateWeaponConvergence();
-            
-            
-            
-            if (this.isShooting == this.inputHandler.CurrentInputState.Shooting)
-                return;
+        }
 
-            this.isShooting = this.inputHandler.CurrentInputState.Shooting;
-            
-            this.FireModeChangedEvent?.Invoke(this.isShooting);
+        private void FirePressed(InputAction.CallbackContext ctx)
+        {
+            FireModeChangedEvent?.Invoke(true);
+        }
+
+        private void FireReleased(InputAction.CallbackContext ctx)
+        {
+            FireModeChangedEvent?.Invoke(false);
         }
 
         private void UpdateWeaponConvergence()

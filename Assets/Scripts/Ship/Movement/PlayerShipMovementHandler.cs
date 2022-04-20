@@ -22,12 +22,12 @@ namespace Ship.Movement
 
         private GameObject shipObject;
         private Rigidbody shipRb;
-        private InputHandler inputHandler;
+        private InputMap input;
         private float desiredSpeed;
         public override Rigidbody ShipRb => this.shipRb;
         protected  override GameObject ShipObject => this.shipObject;
         
-        public InputHandler InputHandler => this.inputHandler;
+        //public InputMap Input => this.input;
 
         public override ShipMovementHandlerSettings Settings => this.settings[this.currentSettingsIndex];
 
@@ -45,11 +45,21 @@ namespace Ship.Movement
         /// </summary>
         public event Action ForcesAppliedEvent;
 
+        private void OnEnable()
+        {
+            input = new InputMap();
+            input.Player.Enable();
+        }
+
+        private void OnDisable()
+        {
+            input.Player.Disable();
+        }
+
         private void Start()
         {
             this.shipObject = this.gameObject;
             this.shipRb = this.shipObject.GetComponent<Rigidbody>();
-            this.inputHandler = this.shipObject.GetComponent<InputHandler>();
 
             this.totalMaxSpeed = this.Settings.MaxSpeed + this.Settings.MaxSpeedBoost;
         }
@@ -69,11 +79,11 @@ namespace Ship.Movement
 
         private void FixedUpdate()
         {
-            var input = this.inputHandler.CurrentInputState;
-            this.ApplyInputChanges(input);
+            //var input = this.inputHandler.CurrentInputState;
+            this.ApplyInputChanges();
 
-            this.HandleAngularVelocity(input);
-            this.ModifyShipVector(input);
+            this.HandleAngularVelocity();
+            this.ModifyShipVector();
             var velocity = this.ShipRb.velocity;
             this.CurrentSpeed = velocity.magnitude;
             this.EffectiveForwardSpeed = this.transform.InverseTransformDirection(velocity).z;
@@ -82,29 +92,13 @@ namespace Ship.Movement
 
         public float EffectiveForwardSpeed { get; private set; }
 
-        private void ApplyInputChanges(InputHandler.InputState input)
+        private void ApplyInputChanges()
         {
             var oldDesiredSpeed = this.desiredSpeed;
-            if (input.Braking)
-            {
-                this.desiredSpeed = 0f;
-            }
-            else
-            {
-                if (input.Boosting && false) // Disabled boost setting speed to max
-                {
-                    if (this.desiredSpeed < 0)
-                    {
-                        this.desiredSpeed = -this.TotalMaxSpeed;
-                    }
-                    else
-                    {
-                        this.desiredSpeed = this.TotalMaxSpeed;
-                    }
-                }
-                else
-                {
-                    this.desiredSpeed += input.Thrust * this.Settings.MaxSpeed * 0.01f;
+            var accelerationInput = input.Player.Acceleration.ReadValue<float>();
+            
+            { 
+                this.desiredSpeed += accelerationInput * this.Settings.MaxSpeed * 0.01f;
 
                     var maxSpeed = this.Settings.MaxSpeed;
                     if (this.desiredSpeed > maxSpeed)
@@ -115,61 +109,63 @@ namespace Ship.Movement
                     else if (this.desiredSpeed < -maxSpeed)
                     {
                         // Clamp if at max reverse speed
-                        this.desiredSpeed = -maxSpeed;
+                        this.desiredSpeed = -maxSpeed; 
                     }
-                }
-
-
             }
             if (Math.Abs(this.desiredSpeed - oldDesiredSpeed) > 0.1)
             {
                 this.DesiredSpeedChangedEvent?.Invoke(this.desiredSpeed, this.Settings.MaxSpeed);
             }
 
-            if (this.isBoosting != input.Boosting)
+            if (this.isBoosting != input.Player.Boosting.WasPerformedThisFrame())
             {
-                this.isBoosting = input.Boosting;
+                this.isBoosting = input.Player.Boosting.WasPerformedThisFrame();
                 this.BoostingStateChangedEvent?.Invoke(this.isBoosting);
             }
-            
         }
 
 
-        private void ModifyShipVector(InputHandler.InputState input)
+        private void ModifyShipVector()
         {
             var shipForward = this.shipObject.transform.forward;
             var targetVector = shipForward * this.desiredSpeed;
-            if (input.Strafe != 0.0f)
+            var strafeInput = input.Player.LeftRight.ReadValue<float>();
+            if (strafeInput != 0.0f)
             {
-                targetVector += this.transform.TransformDirection(Vector3.right * input.Strafe * this.Settings.LateralMaxSpeed);
+                targetVector += this.transform.TransformDirection(Vector3.right * strafeInput * this.Settings.LateralMaxSpeed);
             }
             
             base.ModifyShipVector(targetVector);
         }
 
         protected override void HandleLateralX(float deltaXLocalSpace, float xTargetLocalSpace, bool boosting = false) 
-            => base.HandleLateralX(deltaXLocalSpace, xTargetLocalSpace, this.InputHandler.IsBoosting);
+            => base.HandleLateralX(deltaXLocalSpace, xTargetLocalSpace, input.Player.Boosting.WasPerformedThisFrame());
 
         protected override void HandleLateralY(float deltaXLocalSpace, float xTargetLocalSpace, bool boosting = false) 
-            => base.HandleLateralY(deltaXLocalSpace, xTargetLocalSpace, this.InputHandler.IsBoosting);
+            => base.HandleLateralY(deltaXLocalSpace, xTargetLocalSpace, input.Player.Boosting.WasPerformedThisFrame());
         
-        protected void HandleAngularVelocity(InputHandler.InputState input)
+        protected void HandleAngularVelocity()
         {
-            var boosting = this.inputHandler.IsBoosting;
+            var boosting = input.Player.Boosting.WasPerformedThisFrame();
 
             var currentWorldAngularVelocity = this.shipRb.angularVelocity;
             var currentLocalAngularVelocity = this.shipObject.transform.InverseTransformDirection(currentWorldAngularVelocity);
 
             // TODO: this is the wrong place to add this.
             var mouseMultiplier = InputManager.MouseSensitivity;
+            var turnInput = input.Player.Turn.ReadValue<Vector2>();
 
-            var pitchForce = (boosting ? this.Settings.PitchSpeedBoostMultiplier : 1) * this.Settings.PitchSpeed(upgradeData.GetValue(UpgradeNames.EngineHandling));
-            var yawForce = (boosting ? this.Settings.YawSpeedBoostMultiplier : 1) * this.Settings.YawSpeed(upgradeData.GetValue(UpgradeNames.EngineHandling));
-            var rollForce = (boosting ? this.Settings.RollSpeedBoostMultiplier : 1) * this.Settings.RollSpeed(upgradeData.GetValue(UpgradeNames.EngineHandling));
+            var maxPitchForce = (boosting ? this.Settings.PitchSpeedBoostMultiplier : 1) * Settings.PitchSpeed(upgradeData.GetValue(UpgradeNames.EngineHandling));
+            var maxYawForce = (boosting ? this.Settings.YawSpeedBoostMultiplier : 1) * Settings.YawSpeed(upgradeData.GetValue(UpgradeNames.EngineHandling));
+            var maxRollForce = (boosting ? this.Settings.RollSpeedBoostMultiplier : 1) * Settings.RollSpeed(upgradeData.GetValue(UpgradeNames.EngineHandling));
 
-            var effectivePitchForce = -input.Pitch * pitchForce * mouseMultiplier;
-            var effectiveYawForce = input.Yaw * yawForce * mouseMultiplier;
-            var effectiveRollForce = -input.Roll * rollForce;
+            var pitchForce = -turnInput.y * mouseMultiplier;
+            var yawForce = turnInput.x * mouseMultiplier;
+            var rollForce = -input.Player.Roll.ReadValue<float>();
+
+            var effectivePitchForce = Mathf.Clamp(pitchForce, -maxPitchForce, maxPitchForce);
+            var effectiveYawForce = Mathf.Clamp(yawForce, -maxYawForce, maxYawForce);
+            var effectiveRollForce = Mathf.Clamp(rollForce, -maxRollForce, maxRollForce);
 
             var angularForce = new Vector3(effectivePitchForce, effectiveYawForce, effectiveRollForce);
             currentLocalAngularVelocity += angularForce;

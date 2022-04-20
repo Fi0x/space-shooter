@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Manager;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UpgradeSystem;
 
 namespace Ship.Rocket
@@ -9,7 +10,7 @@ namespace Ship.Rocket
     public class RocketSpawner : MonoBehaviour
     {
         [Header("Dependencies")]
-        [SerializeField] private InputHandler input;
+         private InputMap input;
         [SerializeField] private Rigidbody shipRb;
         public Transform spawnPoint;
         public GameObject prefab;
@@ -25,6 +26,19 @@ namespace Ship.Rocket
         private Coroutine chargingCoroutine;
         private bool canFire = true;
 
+        private void OnEnable()
+        {
+            input = new InputMap();
+            input.Player.Enable();
+            input.Player.AltShoot.performed += Fire;
+        }
+
+        private void OnDisable()
+        {
+            input.Player.Disable();
+            input.Player.AltShoot.performed -= Fire;
+        }
+
         private void Start()
         {
             currentCharges = maxRocketCharges;
@@ -33,11 +47,6 @@ namespace Ship.Rocket
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetMouseButtonDown(1))
-            {
-                Fire();
-            }
-
             UpdateRocketCharging();
         }
 
@@ -79,7 +88,7 @@ namespace Ship.Rocket
             chargingCoroutine = null;
         }
 
-        private void Fire()
+        private void Fire(InputAction.CallbackContext ctx)
         {
             if(currentCharges <= 0) return;
             if (!canFire) return;
