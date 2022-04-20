@@ -44,6 +44,8 @@ Material:
     m_Floats:
     - Vector1_19bbd40a132f4898b3ed96030247549d: 1
     - VertexFrequency: 1
+    - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors:
     - BackColor: {r: 2.901961, g: 1.019608, b: 0.4862745, a: 1}
     - Color_2d38eebf418a4c56a99270df9387f930: {r: 2.901961, g: 1.019608, b: 0.4862745, a: 1}
