@@ -2,6 +2,7 @@ using System;
 using Manager;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace UI
@@ -27,7 +28,7 @@ namespace UI
 
         public static event EventHandler<BoolEventChangerArgs> SpeedIndicatorVisibilityChanged;
         public static event EventHandler<BoolEventChangerArgs> SpaceDustVisibilityChanged;
-
+        
         private void Start()
         {
             _overlayMenu = this.gameObject;
