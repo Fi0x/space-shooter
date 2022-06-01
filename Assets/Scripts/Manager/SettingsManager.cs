@@ -98,21 +98,21 @@ namespace Manager
 
         private void LoadSettingsFromDisk()
         {
-            this.DisplaySpeedIndicator = PlayerPrefs.GetInt(this.DisplaySpeedIndicator.ToString(), 1) == 1;
-            this.DisplaySpaceDust = PlayerPrefs.GetInt(this.DisplaySpaceDust.ToString(), 1) == 1;
-            this.MouseSensitivity = PlayerPrefs.GetFloat(this.MouseSensitivity.ToString(), 0.3f);
-            this.MasterVolume = PlayerPrefs.GetFloat(this.MasterVolume.ToString(), 0);
-            this.MusicVolume = PlayerPrefs.GetFloat(this.MusicVolume.ToString(), 0);
-            this.EffectsVolume = PlayerPrefs.GetFloat(this.EffectsVolume.ToString(), 0);
+            this.displaySpeedIndicator = PlayerPrefs.GetInt(this.displaySpeedIndicator.ToString(), 1) == 1;
+            this.displaySpaceDust = PlayerPrefs.GetInt(this.displaySpaceDust.ToString(), 1) == 1;
+            this.mouseSensitivity = PlayerPrefs.GetFloat(this.mouseSensitivity.ToString(), 0.3f);
+            this.masterVolume = PlayerPrefs.GetFloat(this.masterVolume.ToString(), 0);
+            this.musicVolume = PlayerPrefs.GetFloat(this.musicVolume.ToString(), 0);
+            this.effectsVolume = PlayerPrefs.GetFloat(this.effectsVolume.ToString(), 0);
         }
         private void WriteSettingsToDisk()
         {
-            PlayerPrefs.SetInt(this.DisplaySpeedIndicator.ToString(), this.DisplaySpeedIndicator ? 1 : 0);
-            PlayerPrefs.SetInt(this.DisplaySpaceDust.ToString(), this.DisplaySpaceDust ? 1 : 0);
-            PlayerPrefs.SetFloat(this.MouseSensitivity.ToString(), this.MouseSensitivity);
-            PlayerPrefs.SetFloat(this.MasterVolume.ToString(), this.MasterVolume);
-            PlayerPrefs.SetFloat(this.MusicVolume.ToString(), this.MusicVolume);
-            PlayerPrefs.SetFloat(this.EffectsVolume.ToString(), this.EffectsVolume);
+            PlayerPrefs.SetInt(this.displaySpeedIndicator.ToString(), this.displaySpeedIndicator ? 1 : 0);
+            PlayerPrefs.SetInt(this.displaySpaceDust.ToString(), this.displaySpaceDust ? 1 : 0);
+            PlayerPrefs.SetFloat(this.mouseSensitivity.ToString(), this.mouseSensitivity);
+            PlayerPrefs.SetFloat(this.masterVolume.ToString(), this.masterVolume);
+            PlayerPrefs.SetFloat(this.musicVolume.ToString(), this.musicVolume);
+            PlayerPrefs.SetFloat(this.effectsVolume.ToString(), this.effectsVolume);
         }
     }
 }

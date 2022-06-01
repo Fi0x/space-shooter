@@ -14,7 +14,7 @@ namespace UI.Settings
         {
             this.slider = this.gameObject.GetComponent<Slider>();
             
-            this.valueField.text = $"{InputManager.MouseSensitivity}";
+            this.valueField.text = $"{InputManager.MouseSensitivity}";//TODO: Use new SettingsManager
             this.slider.value = InputManager.MouseSensitivity;
         }
 
