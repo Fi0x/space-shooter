@@ -95,7 +95,7 @@
                     "id": "a8477521-1378-4e28-bb41-58fcd95ba10b",
                     "path": "<Mouse>/delta",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "ScaleVector2(x=0.1,y=0.1)",
                     "groups": "KeyboardMouse",
                     "action": "Turn",
                     "isComposite": false,
