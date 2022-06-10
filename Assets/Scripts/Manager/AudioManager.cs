@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -45,6 +44,12 @@ namespace Manager
 
         private void Start()
         {
+            SettingsManager.SettingsChangedEvent += (sender, args) =>
+            {
+                this.mixer.SetFloat("musicVolume", SettingsManager.Instance.MusicVolume);
+                this.mixer.SetFloat("masterVolume", SettingsManager.Instance.MasterVolume);
+                this.mixer.SetFloat("effectsVolume", SettingsManager.Instance.EffectsVolume);
+            };
             this.ChangeMusic("MainMusic");
         }
 
@@ -99,19 +104,6 @@ namespace Manager
             from.volume = oldFromVolume;
             to.volume = oldToVolume;
             activeMusic = to;
-        }
-
-        public void UpdateMasterVolume(float volume)
-        {
-            this.mixer.SetFloat("masterVolume", volume);
-        }
-        public void UpdateMusicAmbientVolume(float volume)
-        {
-            this.mixer.SetFloat("musicVolume", volume);
-        }
-        public void UpdateEffectsVolume(float volume)
-        {
-            this.mixer.SetFloat("effectsVolume", volume);
         }
     }
 

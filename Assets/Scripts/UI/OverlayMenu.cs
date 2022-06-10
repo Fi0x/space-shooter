@@ -25,9 +25,6 @@ namespace UI
         private static Toggle _speedIndicatorToggle;
         private static Toggle _spaceDustToggle;
 
-        public static event EventHandler<BoolEventChangerArgs> SpeedIndicatorVisibilityChanged;
-        public static event EventHandler<BoolEventChangerArgs> SpaceDustVisibilityChanged;
-
         private void Start()
         {
             _overlayMenu = this.gameObject;
@@ -120,11 +117,11 @@ namespace UI
 
         public static void InvokeSpeedIndicatorVisibilityChange()
         {
-            SpeedIndicatorVisibilityChanged?.Invoke(null, new BoolEventChangerArgs { NewBoolValue = _speedIndicatorToggle.isOn });
+            SettingsManager.Instance.DisplaySpeedIndicator = _speedIndicatorToggle.isOn;
         }
         public static void InvokeSpaceDustVisibilityChange()
         {
-            SpaceDustVisibilityChanged?.Invoke(null, new BoolEventChangerArgs { NewBoolValue = _spaceDustToggle.isOn });
+            SettingsManager.Instance.DisplaySpaceDust = _spaceDustToggle.isOn;
         }
     }
 
