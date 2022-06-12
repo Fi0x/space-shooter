@@ -19,8 +19,8 @@ namespace UI.Settings
         {
             this.slider = this.gameObject.GetComponent<Slider>();
 
-            this.valueField.text = "0";
-            this.slider.value = 0;
+            this.valueField.text = this.GetVolumeForType().ToString();
+            this.slider.value = this.GetVolumeForType();
         }
 
         public void SliderUpdated()
@@ -50,10 +50,7 @@ namespace UI.Settings
             }
 
             this.slider.value = newValue;
-            if (AudioManager.instance == null)
-                AudioManager.AudioManagerInitializedEvent += (sender, args) => { this.UpdateVolume(newValue); };
-            else 
-                this.UpdateVolume(newValue);
+            this.UpdateVolume(newValue);
         }
 
         private void UpdateVolume(float newValue)
@@ -61,15 +58,30 @@ namespace UI.Settings
             switch (this.soundCategory)
             {
                 case SliderType.Music:
-                    AudioManager.instance.UpdateMusicAmbientVolume(newValue);
+                    SettingsManager.Instance.MusicVolume = newValue;
                     break;
                 case SliderType.Effects:
-                    AudioManager.instance.UpdateEffectsVolume(newValue);
+                    SettingsManager.Instance.EffectsVolume = newValue;
                     break;
                 case SliderType.Master:
-                    AudioManager.instance.UpdateMasterVolume(newValue);
+                    SettingsManager.Instance.MasterVolume = newValue;
                     break;
             }
+        }
+
+        private float GetVolumeForType()
+        {
+            switch (this.soundCategory)
+            {
+                case SliderType.Music:
+                    return SettingsManager.Instance.MusicVolume;
+                case SliderType.Effects:
+                    return SettingsManager.Instance.EffectsVolume;
+                case SliderType.Master:
+                    return SettingsManager.Instance.MasterVolume;
+            }
+
+            return 0;
         }
 
         private enum SliderType
