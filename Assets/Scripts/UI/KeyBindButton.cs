@@ -1,18 +1,33 @@
 using Manager;
+using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace UI
 {
     public class KeyBindButton : MonoBehaviour
     {
-        private void Start()
-        {
-            var text = InputManager.GetKeyCodeForName(this.gameObject.name);
-            this.gameObject.GetComponentInChildren<Text>().text = text;
+        [SerializeField] private InputActionReference rebindAction;
+        [SerializeField] private PlayerInput playerInput;
+        [SerializeField] private TMP_Text keyText;
+        [SerializeField] private InputBinding bindingMask;
 
-            var button = this.gameObject.GetComponent<Button>();
-            button.onClick.AddListener(() => InputManager.Instance.NextKeyToBind(button));
+        public void StartRebind()
+        {
+            rebindAction.action.Disable();
+            keyText.text = "Waiting for input ...";
+
+            rebindAction.action.PerformInteractiveRebinding()
+                .WithBindingGroup("KeyboardMouse")
+                .WithBindingMask(bindingMask)
+                .OnComplete(operation => CompleteRebind())
+                .Start();
+        }
+
+        private void CompleteRebind()
+        {
+            
         }
     }
 }
