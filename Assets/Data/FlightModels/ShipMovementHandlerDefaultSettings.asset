@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: ShipMovementHandlerDefaultSettings
   m_EditorClassIdentifier: 
   profileName: DefaultProfile
-  pitchSpeed: 0.4
-  rollSpeed: 0.4
-  yawSpeed: 0.3
+  pitchSpeed: 0.2
+  rollSpeed: 0.2
+  yawSpeed: 0.15
   accelerationForwards: 50
   accelerationBackwards: 50
   accelerationLateral: 50
   maxLateralSpeed: 50
-  maxSpeed: 150
+  maxSpeed: 250
   maxSpeedBoost: 75
-  brakingModifier: 1.2
+  brakingModifier: 1.4
   accelerationForwardsBoostMultiplier: 2
   accelerationBackwardsBoostMultiplier: 1.2
   accelerationLateralBoostMultiplier: 0.7

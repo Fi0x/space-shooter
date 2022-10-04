@@ -14,11 +14,9 @@ GameObject:
   - component: {fileID: 2723593931573232676}
   - component: {fileID: 429333123813247738}
   - component: {fileID: 3651637442931774677}
-  - component: {fileID: -397256906301617565}
-  - component: {fileID: 1544793552462117733}
   - component: {fileID: 1834885643341442195}
-  - component: {fileID: 6283890719788517310}
   - component: {fileID: 325739634944604490}
+  - component: {fileID: 3219216073594415172}
   m_Layer: 7
   m_Name: Basic Enemy
   m_TagString: Enemy
@@ -36,6 +34,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.7560527, y: -3.3147933, z: -0.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 429333124123432732}
   - {fileID: 4961875227451673628}
@@ -167,47 +166,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allegiance: 1
   targetType: 0
---- !u!114 &-397256906301617565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 429333123813247712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb88f7ef104ad77409f0b1294ee9b420, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fovAngle: 360
-  smoothDamp: 1
-  desiredSpeed: 50
---- !u!114 &1544793552462117733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 429333123813247712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 572f3b9ce60f95c428bb0f95d265b33b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  state: 0
-  attackPoints:
-  - {fileID: 429333124123432732}
-  - {fileID: 4961875227451673628}
-  shipMovementHandler: {fileID: 6283890719788517310}
-  roamingPosition: {x: 0, y: 0, z: 0}
-  reachedPositionMaxDistance: 0
-  timeBetweenAttacks: 0
-  waitForAttack: 0
-  projectilePrefab: {fileID: 7276553157955487200, guid: 58d48bb45d8d3e749be06bd4b3f5e245, type: 3}
-  sightRange: 300
-  attackRange: 100
-  boid: {fileID: 0}
-  boidController: {fileID: 0}
 --- !u!114 &1834885643341442195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,23 +178,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb2153f824d0cd94c814dcbdbe7ae33a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6283890719788517310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 429333123813247712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9697239d1a64a248d6f8fb6e92d4ca3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upgradeData: {fileID: 11400000, guid: a7f89c3fc718ecd4f91a1acca6776287, type: 2}
-  settings: {fileID: 11400000, guid: 854197c235e57c67daaa37823ea270e8, type: 2}
-  shipObject: {fileID: 429333123813247712}
-  shipRb: {fileID: 429333123813247738}
-  rotationRate: 70
 --- !u!114 &325739634944604490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,6 +192,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPrimaryTarget: 0
   shipRb: {fileID: 429333123813247738}
+--- !u!114 &3219216073594415172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429333123813247712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cf17c01c2a81324bb440e217d96ade1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  updateFrequency: 0.5
+  enemySettings: {fileID: 11400000, guid: 72fac3106583a6248b4b73cd3451b592, type: 2}
+  rb: {fileID: 429333123813247738}
+  xAxisPID:
+    kP: 0
+    kI: 0
+    kD: 0
+    p: 0
+    i: 0
+    d: 0
+    previousError: 0
+  xAxisP: 0.85
+  xAxisI: 0.3
+  xAxisD: 0.5
+  zAxisPID:
+    kP: 0
+    kI: 0
+    kD: 0
+    p: 0
+    i: 0
+    d: 0
+    previousError: 0
+  zAxisP: 0.85
+  zAxisI: 0.3
+  zAxisD: 0.5
 --- !u!1 &429333124123432733
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,6 +256,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2.2, y: 0, z: 3.406}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 429333123813247739}
   m_RootOrder: 0
@@ -309,6 +289,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.94}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 429333123813247739}
   m_RootOrder: 2
@@ -332,6 +313,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -388,6 +370,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2.2, y: 0, z: 3.339}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 429333123813247739}
   m_RootOrder: 1
