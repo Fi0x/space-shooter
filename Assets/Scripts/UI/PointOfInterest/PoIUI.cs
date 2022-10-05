@@ -32,11 +32,11 @@ namespace UI
                 var camPosition = cam.WorldToScreenPoint(position + Vector3.up * offset);
                 transform.position = camPosition;
 
-                if (IsBehindObstacle(position, cam.transform.position))
-                {
-                    canvasGroup.alpha = 0f;
-                    return;
-                }
+                // if (IsBehindObstacle(position, cam.transform.position))
+                // {
+                //     canvasGroup.alpha = 0f;
+                //     return;
+                // }
                 
                 float f = Vector3.Distance(position, cam.transform.position);
                 f = Mathf.Clamp(f, rangeValues.x, rangeValues.y);
