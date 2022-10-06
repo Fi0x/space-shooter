@@ -9,6 +9,7 @@ using UI;
 using UI.GameOver;
 using UI.Upgrade;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 using UpgradeSystem;
 
@@ -19,6 +20,7 @@ namespace Manager
         [SerializeField] public UpgradeScreen currentUpgradeScreen;
         [SerializeField] private LevelFlowSO levelFlow;
         [SerializeField] public UpgradeDataSO playerUpgrades;
+        [SerializeField] private GameObject textManagerPrefab;
         
         public GameObject Player
         {
@@ -86,6 +88,8 @@ namespace Manager
             }
         }
 
+        public TextManager Texts { get; set; }
+
         public TargetableManagerScriptableObject TargetableManager => this.targetableManager;
 
         private void Awake()
@@ -128,8 +132,11 @@ namespace Manager
             //this.SpawnPlayer();
             var levelName = levelFlow.GetNextScene(levelIndex);
             SceneManager.LoadScene(levelName);
-            levelIndex++;
-            AddDifficulty();
+            this.Texts = Instantiate(this.textManagerPrefab).GetComponent<TextManager>();
+            this.levelIndex++;
+            this.AddDifficulty();
+            
+            Texts.ShowText("Test", 0);
         }
 
         public void ReturnToMenu()

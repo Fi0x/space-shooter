@@ -7245,7 +7245,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.9612817, y: 1}
+    m_SensorSize: {x: 2.238921, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -10417,6 +10417,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 895869049893343052, guid: 4e8ffcd01f03d0840bd723e2843c660e, type: 3}
+      propertyPath: textManagerPrefab
+      value: 
+      objectReference: {fileID: 3186029111866029911, guid: 9d4c7c571905c7f49a887d2572af5981, type: 3}
     - target: {fileID: 895869049893343052, guid: 4e8ffcd01f03d0840bd723e2843c660e, type: 3}
       propertyPath: upgradeMagnitudeLookupScriptableObjectTable
       value: 
