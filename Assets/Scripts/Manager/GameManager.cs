@@ -88,8 +88,6 @@ namespace Manager
             }
         }
 
-        public TextManager Texts { get; set; }
-
         public TargetableManagerScriptableObject TargetableManager => this.targetableManager;
 
         private void Awake()
@@ -130,13 +128,13 @@ namespace Manager
             // this.LevelBuilder.LoadRandomLevel();
             // this.flockSpawner.SpawnFlocks();
             //this.SpawnPlayer();
+            TextManager.Instance.CleanUp();
             var levelName = levelFlow.GetNextScene(levelIndex);
             SceneManager.LoadScene(levelName);
-            this.Texts = Instantiate(this.textManagerPrefab).GetComponent<TextManager>();
             this.levelIndex++;
             this.AddDifficulty();
             
-            Texts.ShowText("Test", 0);
+            TextManager.Instance.ShowText("Test", 0);
         }
 
         public void ReturnToMenu()

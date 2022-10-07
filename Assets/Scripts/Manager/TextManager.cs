@@ -8,6 +8,22 @@ public class TextManager : MonoBehaviour
 {
     [SerializeField] private GameObject textPrefab;
     [SerializeField] private GameObject anchorPoint;
+
+    public static TextManager Instance { get; private set; }
+
+    private void Start()
+    {
+        if (Instance == null)
+        {
+            DontDestroyOnLoad(this.gameObject);
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    
     public void ShowText(string text, int displayTime)
     {
         var inst = Instantiate(this.textPrefab);
@@ -16,8 +32,11 @@ public class TextManager : MonoBehaviour
         //TODO: Delete entry after display time is over
     }
 
-    private void Start()
+    public void CleanUp()
     {
-        Debug.Log("TEST initialized");
+        while (this.transform.childCount > 0)
+        {
+            Destroy(this.transform.GetChild(0));
+        }
     }
 }
