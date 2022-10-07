@@ -39,6 +39,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  projectilePrefab: {fileID: 4496975871354837890, guid: a0a7eed553613104984a94cbf72b4382, type: 3}
-  muzzlePrefab: {fileID: 1055613617594485524, guid: 799ac91c021c1c246a26e565f30cf05c, type: 3}
+  projectilePrefab: {fileID: 7276553157955487200, guid: af77ec5ac4ec70c429a163e7a324129b, type: 3}
+  muzzlePrefab: {fileID: 5338839266056552377, guid: 2bcce53c1aebdaf4ebabbacdd2507c98, type: 3}
   projectileSpeed: 300
