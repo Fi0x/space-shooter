@@ -9,17 +9,34 @@ public class TextManager : MonoBehaviour
     [SerializeField] private GameObject textPrefab;
     [SerializeField] private GameObject anchorPoint;
 
-    public static TextManager Instance { get; private set; }
+    private static TextManager _instance;
 
-    private void Start()
+    public static TextManager Instance
     {
-        if (Instance == null)
+        get
+        {
+            Debug.Log("Instance accessed");
+            if (_instance is null)
+            {
+                Debug.LogWarning("Instance is null");
+            }
+
+            return _instance;
+        }
+    }
+
+    private void Awake()
+    {
+        Debug.Log("Awoken");
+        if (_instance == null)
         {
             DontDestroyOnLoad(this.gameObject);
-            Instance = this;
+            _instance = this;
+            Debug.Log("Instance saved");
         }
         else
         {
+            Debug.Log("Destroying object");
             Destroy(gameObject);
         }
     }

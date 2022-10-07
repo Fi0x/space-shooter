@@ -23,6 +23,7 @@ namespace UI
 
         public void StartGame()
         {
+            Debug.Log("Start clicked");
             GameManager.Instance.LoadNextLevel();
         }
         

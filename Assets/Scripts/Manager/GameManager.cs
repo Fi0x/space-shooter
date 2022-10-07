@@ -124,17 +124,19 @@ namespace Manager
 
         public void LoadNextLevel()
         {
-            // this.EnemyManager.RemoveAllEnemies();
-            // this.LevelBuilder.LoadRandomLevel();
-            // this.flockSpawner.SpawnFlocks();
-            //this.SpawnPlayer();
-            TextManager.Instance.CleanUp();
             var levelName = levelFlow.GetNextScene(levelIndex);
             SceneManager.LoadScene(levelName);
             this.levelIndex++;
             this.AddDifficulty();
             
-            TextManager.Instance.ShowText("Test", 0);
+            Debug.Log("Loading new level");
+            if(TextManager.Instance != null)
+                Debug.Log("Text Manager is not null");
+            else
+                Debug.Log("Text manager is null");
+            TextManager.Instance.CleanUp();//TODO: Find out why this is crashing Unity
+            Debug.Log("Text manager cleaned");
+            // TextManager.Instance.ShowText("Test", 0);
         }
 
         public void ReturnToMenu()
