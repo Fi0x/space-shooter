@@ -1,15 +1,12 @@
 using System;
-using Components;
-using HealthSystem;
+using System.Collections.Generic;
 using Helper;
 using LevelManagement;
-using Ship.Movement;
 using Stats;
 using UI;
 using UI.GameOver;
 using UI.Upgrade;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 using UpgradeSystem;
 
@@ -28,7 +25,21 @@ namespace Manager
             private set => player = value;
         }
 
-        public TextManager Texts { get; set; }
+        private TextManager textManager;
+        public TextManager Texts
+        {
+            private get => this.textManager;
+            set
+            {
+                this.textManager = value;
+                foreach (var (text, ttl) in this.textBuffer)
+                {
+                    this.textManager.CreateText(text, ttl);
+                }
+                this.textBuffer.Clear();
+            }
+        }
+        private List<(string text, float ttl)> textBuffer = new List<(string text, float ttl)>();
 
         public int EnemyLevelCounter
         {
@@ -43,22 +54,28 @@ namespace Manager
             set
             {
                 this.destroyedEnemiesInLevel = value;
-                if (value <= 0)
-                {
+                if (value <= 0 || this.EnemyLevelCounter == 0)
                     return;
-                }
-                // if 80% are dead, consider the level completed
+                
                 var fractionDead = (float)this.destroyedEnemiesInLevel / this.EnemyLevelCounter;
-                Debug.LogWarning(fractionDead);
-                if(fractionDead > .8f)
+                
+                this.CreateNewText((fractionDead * 100f) + "% of enemy ships destroyed", 2);
+                
+                if(fractionDead >= .8f && !this.levelAlreadyCompleted)
                 {
-                    this.LevelCompletedEvent?.Invoke();
+                    this.CompleteLevel();
+                    this.levelAlreadyCompleted = true;
                 }
             }
         }
         
-        public event Action LevelCompletedEvent;//TODO: Also invoke if station gets destroyed
-        
+        public event Action LevelCompletedEvent;
+        private bool levelAlreadyCompleted;
+
+        public void CompleteLevel()
+        {
+            this.LevelCompletedEvent?.Invoke();
+        }
 
         public static bool IsGamePaused { get; set; } = false;
 
@@ -129,6 +146,7 @@ namespace Manager
             SceneManager.LoadScene(levelName);
             this.levelIndex++;
             this.AddDifficulty();
+            this.levelAlreadyCompleted = false;
         }
 
         public void ReturnToMenu()
@@ -167,6 +185,14 @@ namespace Manager
         public void GameOver()
         {
             GameOverScreen.ShowGameOverScreen();
+        }
+
+        public void CreateNewText(string text, float ttl = 0)
+        {
+            if(this.Texts == null)
+                this.textBuffer.Add((text, ttl));
+            else
+                this.Texts.CreateText(text, ttl);
         }
     }
 }

@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Manager
 {
@@ -11,17 +10,35 @@ namespace Manager
         private void Start()
         {
             GameManager.Instance.Texts = this;
-            this.ShowText("Test");
-            this.ShowText("Timed Test", 2);
+            this.CreateText("Destroy at least 80% of enemy ships");
+
+            GameManager.Instance.LevelCompletedEvent += () =>
+            {
+                this.RemoveAllTexts();
+                this.CreateText("Fly through a portal to complete the level");
+            };
         }
 
-        public void ShowText(string text, float displayTime = 0)
+        private void OnDestroy()
+        {
+            GameManager.Instance.Texts = null;
+        }
+
+        public void CreateText(string text, float displayTime = 0)
         {
             var inst = Instantiate(this.textPrefab, this.transform);
             inst.GetComponent<TextMeshProUGUI>().SetText(text);
-            
-            if(displayTime > 0)
+
+            if (displayTime > 0)
                 Destroy(inst, displayTime);
+        }
+
+        public void RemoveAllTexts()
+        {
+            while (this.transform.childCount > 0)
+            {
+                DestroyImmediate(this.transform.GetChild(0).gameObject);
+            }
         }
     }
 }
