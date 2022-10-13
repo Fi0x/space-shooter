@@ -94,6 +94,16 @@ namespace Ship.Movement
 
         private void ApplyInputChanges()
         {
+            if (SettingsManager.Instance.NewMovementModel)
+            {
+                if (this.input.Player.Acceleration.ReadValue<float>() > 0)
+                    this.desiredSpeed = this.Settings.MaxSpeed;
+                else
+                    this.desiredSpeed = 0;
+
+                return;
+            }
+            
             var oldDesiredSpeed = this.desiredSpeed;
             var accelerationInput = input.Player.Acceleration.ReadValue<float>();
             
