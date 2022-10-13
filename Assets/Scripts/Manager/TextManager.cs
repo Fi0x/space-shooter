@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Manager
 {
@@ -10,14 +11,17 @@ namespace Manager
         private void Start()
         {
             GameManager.Instance.Texts = this;
-            this.ShowText("Test", 0);
+            this.ShowText("Test");
+            this.ShowText("Timed Test", 2);
         }
 
-        public void ShowText(string text, int displayTime)
+        public void ShowText(string text, float displayTime = 0)
         {
             var inst = Instantiate(this.textPrefab, this.transform);
-            inst.GetComponent<TextMeshPro>().text = text;
-            //TODO: Delete entry after display time is over
+            inst.GetComponent<TextMeshProUGUI>().SetText(text);
+            
+            if(displayTime > 0)
+                Destroy(inst, displayTime);
         }
     }
 }
