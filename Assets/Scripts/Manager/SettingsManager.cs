@@ -41,6 +41,18 @@ namespace Manager
             }
         }
         
+        private bool newMovementModel;
+        public bool NewMovementModel
+        {
+            get => this.newMovementModel;
+            set
+            {
+                SettingsChangedEvent?.Invoke(null, null);
+                this.newMovementModel = value;
+                this.WriteSettingsToDisk();
+            }
+        }
+
         private float mouseSensitivity;//TODO Use this new system for mouse-sensitivity (after new-input-system merge)
         public float MouseSensitivity
         {

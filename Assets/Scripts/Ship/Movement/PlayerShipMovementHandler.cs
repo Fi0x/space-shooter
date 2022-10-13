@@ -101,7 +101,7 @@ namespace Ship.Movement
                 this.desiredSpeed += accelerationInput * this.Settings.MaxSpeed * 0.01f;
 
                     var maxSpeed = this.Settings.MaxSpeed;
-                    var minSpeed = this.Settings.MinSpeed;
+                    var minSpeed = SettingsManager.Instance.NewMovementModel ? this.Settings.MinSpeed : -maxSpeed;
                     if (this.desiredSpeed > maxSpeed)
                     {
                         // Clamp if at max speed

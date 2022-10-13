@@ -16,6 +16,7 @@ namespace UI
         [SerializeField] private TextMeshProUGUI menuTitle;
         [SerializeField] private Toggle speedIndicatorToggle;
         [SerializeField] private Toggle spaceDustToggle;
+        [SerializeField] private Toggle movementModeToggle;
 
         private static GameObject _overlayMenu;
         private static GameObject _pauseMenu;
@@ -25,6 +26,7 @@ namespace UI
         private static TextMeshProUGUI _menuTitle;
         private static Toggle _speedIndicatorToggle;
         private static Toggle _spaceDustToggle;
+        private static Toggle _movementModeToggle;
 
         private void Start()
         {
@@ -36,9 +38,11 @@ namespace UI
             _menuTitle = this.menuTitle;
             _speedIndicatorToggle = this.speedIndicatorToggle;
             _spaceDustToggle = this.spaceDustToggle;
+            _movementModeToggle = this.movementModeToggle;
             
             _speedIndicatorToggle.isOn = true;
-            _spaceDustToggle.isOn = true;
+            _spaceDustToggle.isOn = false;
+            _movementModeToggle.isOn = false;
             
             if(GameManager.IsGamePaused) Pause();
             else Resume();
@@ -118,11 +122,15 @@ namespace UI
 
         public static void InvokeSpeedIndicatorVisibilityChange()
         {
-            SettingsManager.Instance.DisplaySpeedIndicator = _speedIndicatorToggle.isOn;
+            SettingsManager.Instance.DisplaySpeedIndicator = !_speedIndicatorToggle.isOn;
         }
         public static void InvokeSpaceDustVisibilityChange()
         {
-            SettingsManager.Instance.DisplaySpaceDust = _spaceDustToggle.isOn;
+            SettingsManager.Instance.DisplaySpaceDust = !_spaceDustToggle.isOn;
+        }
+        public static void InvokeMovementTypeChange()
+        {
+            SettingsManager.Instance.NewMovementModel = _movementModeToggle.isOn;
         }
     }
 
