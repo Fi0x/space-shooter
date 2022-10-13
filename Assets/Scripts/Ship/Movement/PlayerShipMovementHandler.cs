@@ -101,15 +101,16 @@ namespace Ship.Movement
                 this.desiredSpeed += accelerationInput * this.Settings.MaxSpeed * 0.01f;
 
                     var maxSpeed = this.Settings.MaxSpeed;
+                    var minSpeed = this.Settings.MinSpeed;
                     if (this.desiredSpeed > maxSpeed)
                     {
                         // Clamp if at max speed
                         this.desiredSpeed = maxSpeed;
                     }
-                    else if (this.desiredSpeed < -maxSpeed)
+                    else if (this.desiredSpeed < minSpeed)
                     {
                         // Clamp if at max reverse speed
-                        this.desiredSpeed = -maxSpeed; 
+                        this.desiredSpeed = minSpeed; 
                     }
             }
             if (Math.Abs(this.desiredSpeed - oldDesiredSpeed) > 0.1)
