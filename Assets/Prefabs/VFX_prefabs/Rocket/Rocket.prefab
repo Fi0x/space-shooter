@@ -5012,7 +5012,7 @@ MonoBehaviour:
   timeBetweenUpdates: 0.5
   rb: {fileID: 4789725940651663089}
   maxSpeed: 75
-  turnSpeed: 3
+  turnSpeed: 5
   inertia: 0.1
   explosionRadius: 30
   damage: 600

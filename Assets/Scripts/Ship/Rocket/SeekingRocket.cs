@@ -16,7 +16,7 @@ namespace Ship.Rocket
 
         [Header("Movement")]
         [SerializeField] private Rigidbody rb;
-        [SerializeField] private float maxSpeed = 30f;
+        [SerializeField] public float maxSpeed = 30f;
         [SerializeField] private float turnSpeed = 3f;
         [SerializeField] private float inertia = 0.1f;
 
