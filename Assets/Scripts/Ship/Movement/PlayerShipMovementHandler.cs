@@ -25,8 +25,8 @@ namespace Ship.Movement
         private InputMap input;
         private float desiredSpeed;
         public override Rigidbody ShipRb => this.shipRb;
-        protected  override GameObject ShipObject => this.shipObject;
-        
+        protected override GameObject ShipObject => this.shipObject;
+
         //public InputMap Input => this.input;
 
         public override ShipMovementHandlerSettings Settings => this.settings[this.currentSettingsIndex];
@@ -94,45 +94,11 @@ namespace Ship.Movement
 
         private void ApplyInputChanges()
         {
-            if (SettingsManager.Instance.NewMovementModel)
-            {
-                if (this.input.Player.Acceleration.ReadValue<float>() > 0)
-                    this.desiredSpeed = this.Settings.MaxSpeed;
-                else
-                    this.desiredSpeed = 0;
-
-                return;
-            }
-            
-            var oldDesiredSpeed = this.desiredSpeed;
-            var accelerationInput = input.Player.Acceleration.ReadValue<float>();
-            
-            { 
-                this.desiredSpeed += accelerationInput * this.Settings.MaxSpeed * 0.01f;
-
-                    var maxSpeed = this.Settings.MaxSpeed;
-                    var minSpeed = SettingsManager.Instance.NewMovementModel ? this.Settings.MinSpeed : -maxSpeed;
-                    if (this.desiredSpeed > maxSpeed)
-                    {
-                        // Clamp if at max speed
-                        this.desiredSpeed = maxSpeed;
-                    }
-                    else if (this.desiredSpeed < minSpeed)
-                    {
-                        // Clamp if at max reverse speed
-                        this.desiredSpeed = minSpeed; 
-                    }
-            }
-            if (Math.Abs(this.desiredSpeed - oldDesiredSpeed) > 0.1)
-            {
-                this.DesiredSpeedChangedEvent?.Invoke(this.desiredSpeed, this.Settings.MaxSpeed);
-            }
-
-            if (this.isBoosting != input.Player.Boosting.WasPerformedThisFrame())
-            {
-                this.isBoosting = input.Player.Boosting.WasPerformedThisFrame();
-                this.BoostingStateChangedEvent?.Invoke(this.isBoosting);
-            }
+            var inVal = this.input.Player.Acceleration.ReadValue<float>();
+            if (inVal != 0)
+                this.desiredSpeed = inVal > 0 ? this.Settings.MaxSpeed : this.Settings.MinSpeed;
+            else
+                this.desiredSpeed = 0;
         }
 
 
@@ -145,16 +111,16 @@ namespace Ship.Movement
             {
                 targetVector += this.transform.TransformDirection(Vector3.right * strafeInput * this.Settings.LateralMaxSpeed);
             }
-            
+
             base.ModifyShipVector(targetVector);
         }
 
-        protected override void HandleLateralX(float deltaXLocalSpace, float xTargetLocalSpace, bool boosting = false) 
+        protected override void HandleLateralX(float deltaXLocalSpace, float xTargetLocalSpace, bool boosting = false)
             => base.HandleLateralX(deltaXLocalSpace, xTargetLocalSpace, input.Player.Boosting.WasPerformedThisFrame());
 
-        protected override void HandleLateralY(float deltaXLocalSpace, float xTargetLocalSpace, bool boosting = false) 
+        protected override void HandleLateralY(float deltaXLocalSpace, float xTargetLocalSpace, bool boosting = false)
             => base.HandleLateralY(deltaXLocalSpace, xTargetLocalSpace, input.Player.Boosting.WasPerformedThisFrame());
-        
+
         protected void HandleAngularVelocity()
         {
             var boosting = input.Player.Boosting.WasPerformedThisFrame();

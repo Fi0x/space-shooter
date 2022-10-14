@@ -124,14 +124,6 @@ namespace UI
         {
             SettingsManager.Instance.DisplaySpeedIndicator = !_speedIndicatorToggle.isOn;
         }
-        public static void InvokeSpaceDustVisibilityChange()
-        {
-            SettingsManager.Instance.DisplaySpaceDust = !_spaceDustToggle.isOn;
-        }
-        public static void InvokeMovementTypeChange()
-        {
-            SettingsManager.Instance.NewMovementModel = _movementModeToggle.isOn;
-        }
     }
 
     public class BoolEventChangerArgs : EventArgs
