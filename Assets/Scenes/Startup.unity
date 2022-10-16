@@ -10446,6 +10446,10 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 895869049893343052, guid: 4e8ffcd01f03d0840bd723e2843c660e, type: 3}
+      propertyPath: textManagerPrefab
+      value: 
+      objectReference: {fileID: 3186029111866029911, guid: 9d4c7c571905c7f49a887d2572af5981, type: 3}
+    - target: {fileID: 895869049893343052, guid: 4e8ffcd01f03d0840bd723e2843c660e, type: 3}
       propertyPath: upgradeMagnitudeLookupScriptableObjectTable
       value: 
       objectReference: {fileID: 11400000, guid: 83761d8198e1445d3848a086e20f3b90, type: 2}
