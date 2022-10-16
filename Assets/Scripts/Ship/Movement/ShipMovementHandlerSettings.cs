@@ -20,6 +20,7 @@ namespace Ship.Movement
         [SerializeField] private float accelerationLateral = 1f;
         [SerializeField] private float maxLateralSpeed = 50f;
         [SerializeField] private float maxSpeed = 150f;
+        [SerializeField] private float minSpeed = 0f;
         [SerializeField] private float maxSpeedBoost = 75f;
 
         /**
@@ -59,7 +60,8 @@ namespace Ship.Movement
 
         internal float AccelerationLateral(float lateralThrustUpgradeLevel) => this.accelerationLateral + lateralThrustUpgradeLevel;
 
-        internal float MaxSpeed=> this.maxSpeed;
+        internal float MaxSpeed => this.maxSpeed;
+        internal float MinSpeed => this.minSpeed;
 
         internal float MaxSpeedBoost
         {
