@@ -43,9 +43,8 @@ namespace Manager
                 this.PrimaryTarget = null;
                 var player = GameManager.Instance.Player;
                 if (player is null)
-                {
                     return;
-                }
+                
                 this.RecalculatePrimaryTarget(player.GetComponent<WeaponManager>());
             }
         }
