@@ -74,9 +74,6 @@ namespace HealthSystem
 
             AudioManager.instance.Play("EnemyKilled");
             
-            if(this.TryGetComponent(out Boid boid))
-                boid.RemoveBoidFromAssignedFlock();
-            
             Destroy(this.gameObject);
         }
 

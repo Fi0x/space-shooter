@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 683074106d3f4a6e9b3449cb47a346a6, type: 3}
-  m_Name: DefaultEnemy
+  m_Name: EliteEnemy
   m_EditorClassIdentifier: 
-  radius: 5
+  radius: 20
   sightDistance: 250
   collisionMask:
     serializedVersion: 2
     m_Bits: 8576
   acceleration: 50
-  maxSpeed: 100
-  tiltSpeed: 75
+  maxSpeed: 50
+  tiltSpeed: 25
   maxAngularVelocity: 1000
-  rollSpeed: 100
+  rollSpeed: 25

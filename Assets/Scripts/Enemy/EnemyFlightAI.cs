@@ -24,33 +24,32 @@ public class EnemyFlightAI : MonoBehaviour
     
     [SerializeField] private PID zAxisPID;
     [SerializeField, Range(-10, 10)] private float zAxisP, zAxisI, zAxisD;
+
+    public void SetTarget(Transform newTarget)
+    {
+        target = newTarget;
+    }
     
     private void Update()
     {
         Debug.DrawLine(transform.position, targetPosition, Color.cyan);
         Debug.DrawLine(transform.position, transform.position + transform.up, Color.yellow);
+        Debug.DrawLine(transform.position, transform.position + desiredDirection * 20f, Color.magenta);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         xAxisPID = new PID(xAxisP, xAxisI, xAxisD);
+        zAxisPID = new PID(zAxisP, zAxisI, zAxisD);
         rb.maxAngularVelocity = enemySettings.maxAngularVelocity;
         StartCoroutine(UpdateAll());
     }
 
     private void FixedUpdate()
     {
-        Vector3 rotationDirection = Vector3.RotateTowards(transform.forward, desiredDirection, 360, 0.00f);
-        Quaternion targetRotation = Quaternion.LookRotation(rotationDirection);
-
-        float xAngleError = Mathf.DeltaAngle(transform.rotation.eulerAngles.x, targetRotation.eulerAngles.x);
-        float xTorqueCorrection = xAxisPID.GetOutput(xAngleError, Time.fixedDeltaTime);
-        
-        float zAngleError = Mathf.DeltaAngle(transform.rotation.eulerAngles.z, targetRotation.eulerAngles.z);
-        float zTorqueCorrection = zAxisPID.GetOutput(zAngleError, Time.fixedDeltaTime);
-        
-        rb.AddRelativeTorque(new Vector3(xTorqueCorrection, 0, zTorqueCorrection));
+        CalculateXRotation();
+        CalculateZRotation();
     }
 
     private void OnDisable()
@@ -64,17 +63,35 @@ public class EnemyFlightAI : MonoBehaviour
         {
             UpdateTarget();
             CheckCollision();
-            //Move();
+            Move();
             
             yield return new WaitForSeconds(updateFrequency);
         }
     }
 
+    private void CalculateXRotation()
+    {
+        Vector3 rightVector = transform.right;
+        float f = Vector3.Dot(desiredDirection, rightVector);
+        transform.RotateAround(transform.position, transform.forward, -f * Time.deltaTime * enemySettings.rollSpeed);
+    }
+
+    private void CalculateZRotation()
+    {
+        Vector3 upVector = transform.up;
+        float f = Vector3.Dot(desiredDirection, upVector);
+        transform.RotateAround(transform.position, transform.right, -f * Time.deltaTime * enemySettings.tiltSpeed);
+    }
+
     private void UpdateTarget()
     {
-        //var player = GameManager.Instance.Player;
-        //targetPosition = player.transform.position + player.GetComponent<Rigidbody>().velocity.magnitude * player.transform.forward;
-        targetPosition = target.position;
+        if (target == null)
+        {
+            var player = GameManager.Instance.Player;
+            target = player.transform;
+        }
+        targetPosition = target.position + target.GetComponent<Rigidbody>().velocity.magnitude * target.forward;
+        //targetPosition = target.position;
     }
 
     private void CheckCollision()
@@ -83,11 +100,29 @@ public class EnemyFlightAI : MonoBehaviour
         float dist;
         if (CheckDirection(dir, Vector3.zero, out dist))
         {
-            desiredDirection = Vector3.Lerp(this.transform.forward, this.transform.up, 0.5f);
+            // Find different direction
+            desiredDirection = this.transform.up;
+            Vector3 dodgeVector = transform. forward;
+            // for (int x = -1; x < 2; x++)
+            // {
+            //     for (int y = -1; y < 2; y++)
+            //     {
+            //         Vector2 rotation = new Vector2(x, y);
+            //         Vector3 direction = transform.forward;
+            //         direction += x * transform.right;
+            //         direction += y * transform.up;
+            //         direction.Normalize();
+            //         float distance = -1f;
+            //         if (CheckDirection(direction, Vector3.zero, out distance))
+            //         {
+            //             dodgeVector -= direction * distance;
+            //         }
+            //     }
+            // }
         }
         else
         {
-            desiredDirection = (targetPosition - transform.position);
+            desiredDirection = (targetPosition - transform.position).normalized;
         }
     }
 
@@ -99,25 +134,18 @@ public class EnemyFlightAI : MonoBehaviour
             enemySettings.collisionMask))
         {
             distance = hit.distance;
+            Debug.DrawLine(transform.position, hit.point, Color.red);
             return true;
         }
 
+        Debug.DrawLine(transform.position, transform.position + worldDirection.normalized * enemySettings.sightDistance, Color.green);
         distance = Mathf.Infinity;
         return false;
     }
 
     private void Move()
     {
-        var currentAngular = rb.angularVelocity;
-        var dotTilt = Vector3.Dot(transform.up, desiredDirection);
-        var tilt =  Remap(-1, 1, 1, 0, dotTilt) * enemySettings.tiltSpeed;
-        var dotRoll = 0;
-        var roll = Vector3.Dot(-transform.right, desiredDirection) * enemySettings.rollSpeed;
-        var values = new Vector3(tilt, 0, roll);
-        var damped = Vector3.SmoothDamp(currentAngular, values, ref refer, updateFrequency);
-        rb.angularVelocity = values;
-        var acc = transform.forward * (enemySettings.acceleration * (enemySettings.maxSpeed - rb.velocity.magnitude) * Time.deltaTime);
-        //rb.velocity += acc;
+        rb.velocity = transform.forward * enemySettings.maxSpeed;
     }
 
     private float Remap(float minOld, float maxOld, float minNew, float maxNew, float value)

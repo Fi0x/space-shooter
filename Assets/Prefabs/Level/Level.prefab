@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4747781369981647373}
   m_RootOrder: 0
@@ -48,6 +49,8 @@ MonoBehaviour:
   maxHealth: 0
   parts: []
   turrets: []
+  isInit: 0
+  isDying: 0
 --- !u!1 &4747781369762152013
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +60,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4747781369762152010}
-  - component: {fileID: 4747781369762152011}
   m_Layer: 0
   m_Name: EnemyManager
   m_TagString: Untagged
@@ -75,39 +77,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4747781369981647373}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4747781369762152011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4747781369762152013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58b75bfab1f46fe46b20a1a756b8aa40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flockUnitPrefab: {fileID: -397256906301617565, guid: 93f0741716cf79c1094b9b5108c04537, type: 3}
-  flockSize: 0
-  spawnBounds: {x: 0, y: 0, z: 0}
-  _minSpeed: 0
-  _maxSpeed: 0
-  _cohesionDistance: 0
-  _avoidanceDistance: 0
-  _alignmentDistance: 0
-  _obstacleDistance: 0
-  _cohesionWeight: 0
-  _avoidanceWeight: 0
-  _alignmentWeight: 0
-  _obstacleWeight: 0
-  _roamingPosition: {x: 0, y: 0, z: 0}
-  roamingPosReachedDistance: 0
-  minDistanceFromPlayer: 0
-  maxDistanceFromPlayer: 0
 --- !u!1 &4747781369981647374
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,6 +112,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -14.593745, y: 11.075542, z: -18.431496}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4747781369340946278}
   - {fileID: 4747781369762152010}
@@ -157,9 +132,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelBuilder: {fileID: 4747781369981647375}
-  flockSpawner: {fileID: 4747781369981647371}
+  enemySpawner: {fileID: 4747781369981647371}
   stationBuilder: {fileID: 4747781369981647370}
   spawnStation: 0
+  musicName: MainMusic
 --- !u!114 &4747781369981647375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,9 +275,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31a73d13e69a68e4a99a5aa588355d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flockPrefab: {fileID: 4441388412465704470, guid: 9044e0874372c02488a3a45bf756af5d, type: 3}
-  minFlocks: 1
-  maxFlocks: 3
+  enemyPrefab: {fileID: 429333123813247712, guid: 93f0741716cf79c1094b9b5108c04537, type: 3}
+  minBasic: 5
+  maxBasic: 10
+  eliteEnemyPrefab: {fileID: 7148358328865412359, guid: c9edf87119f5f8240b233fa8ffa440db, type: 3}
+  minElite: 0
+  maxElite: 1
   minSpawnRange: 300
   maxSpawnRange: 400
 --- !u!114 &4747781369981647370

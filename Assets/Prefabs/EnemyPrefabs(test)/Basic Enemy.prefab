@@ -205,9 +205,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  updateFrequency: 0.5
+  updateFrequency: 0.1
   enemySettings: {fileID: 11400000, guid: 72fac3106583a6248b4b73cd3451b592, type: 2}
   rb: {fileID: 429333123813247738}
+  rotationSpeed: 2
+  speed: 100
   xAxisPID:
     kP: 0
     kI: 0

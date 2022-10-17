@@ -123,6 +123,54 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &118855179 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7148358328865412359, guid: c9edf87119f5f8240b233fa8ffa440db, type: 3}
+  m_PrefabInstance: {fileID: 4628413028586947803}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &118855184 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 2265533180129265028, guid: c9edf87119f5f8240b233fa8ffa440db, type: 3}
+  m_PrefabInstance: {fileID: 4628413028586947803}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &118855189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118855179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cf17c01c2a81324bb440e217d96ade1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1533133169}
+  updateFrequency: 0.1
+  enemySettings: {fileID: 11400000, guid: 72fac3106583a6248b4b73cd3451b592, type: 2}
+  rb: {fileID: 118855184}
+  xAxisPID:
+    kP: 0
+    kI: 0
+    kD: 0
+    p: 0
+    i: 0
+    d: 0
+    previousError: 0
+  xAxisP: 0
+  xAxisI: 0
+  xAxisD: 0
+  zAxisPID:
+    kP: 0
+    kI: 0
+    kD: 0
+    p: 0
+    i: 0
+    d: 0
+    previousError: 0
+  zAxisP: 0
+  zAxisI: 0
+  zAxisD: 0
 --- !u!1 &127115332
 GameObject:
   m_ObjectHideFlags: 0
@@ -1667,7 +1715,11 @@ PrefabInstance:
       objectReference: {fileID: 1533133169}
     - target: {fileID: 3219216073594415172, guid: 93f0741716cf79c1094b9b5108c04537, type: 3}
       propertyPath: updateFrequency
-      value: 0.1
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 3651637442931774677, guid: 93f0741716cf79c1094b9b5108c04537, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93f0741716cf79c1094b9b5108c04537, type: 3}
@@ -2054,6 +2106,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Ship_Station_01
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c340489f69779c34aa453ad22e2d7695, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c340489f69779c34aa453ad22e2d7695, type: 3}
 --- !u!1 &1398850822 stripped
@@ -2344,7 +2400,7 @@ SphereCollider:
   m_GameObject: {fileID: 1533133164}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -2547,7 +2603,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1781025303321819895, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 78.6
+      value: -1.8
       objectReference: {fileID: 0}
     - target: {fileID: 1781025303321819895, guid: 3e4285eacb924ea4c8f734ab2bedeba6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3236,7 +3292,7 @@ GameObject:
   - component: {fileID: 1789023900}
   - component: {fileID: 1789023899}
   - component: {fileID: 1789023898}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3584,6 +3640,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StationExplosion
       objectReference: {fileID: 0}
+    - target: {fileID: 3897150559107055348, guid: de3b02937baa9b24c800959b29b67f43, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 3897150559107055350, guid: de3b02937baa9b24c800959b29b67f43, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -3709,6 +3769,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6431978367167144851, guid: c9edf87119f5f8240b233fa8ffa440db, type: 3}
+      propertyPath: shipRb
+      value: 
+      objectReference: {fileID: 118855184}
     - target: {fileID: 7148358328865412359, guid: c9edf87119f5f8240b233fa8ffa440db, type: 3}
       propertyPath: m_Name
       value: SM_Ship_Cruiser_01
@@ -3727,7 +3791,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7529951138956316605, guid: c9edf87119f5f8240b233fa8ffa440db, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 16.5
+      value: 200.3
       objectReference: {fileID: 0}
     - target: {fileID: 7529951138956316605, guid: c9edf87119f5f8240b233fa8ffa440db, type: 3}
       propertyPath: m_LocalPosition.z

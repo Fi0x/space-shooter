@@ -10,6 +10,7 @@ namespace Ship
 {
     public class ShipCollision : MonoBehaviour
     {
+        [SerializeField] private float damageMultiplier = 1.0f;
         private void OnCollisionEnter(Collision collision)
         {
             if(DoesCollide(collision.gameObject) && collision.relativeVelocity.magnitude > 10)
@@ -26,6 +27,5 @@ namespace Ship
             gameObject.layer == LayerMask.NameToLayer("Scenery")
                    || gameObject.layer == LayerMask.NameToLayer("Enemy")
                    || gameObject.layer == LayerMask.NameToLayer("Player");
-        
     }
 }
