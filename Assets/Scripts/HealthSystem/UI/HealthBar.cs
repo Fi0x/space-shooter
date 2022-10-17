@@ -29,6 +29,7 @@ namespace UI
             cam = Camera.main;
             if(visibleWhenFull) return;
             canvasGroup.alpha = 0f;
+            distanceText.text = "";
         }
 
         public void SetHealth(Health health)
@@ -73,7 +74,7 @@ namespace UI
                 }
                 
                 AdjustScale(position);
-                UpdateDistance(position);
+                //UpdateDistance(position);
                 CheckIfOutsideOfScreen(position);
             }
         }
