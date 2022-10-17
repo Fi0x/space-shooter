@@ -18,7 +18,7 @@ namespace UI
             this.slider.value = this.offset;
             SettingsManager.SettingsChangedEvent += (sender, args) =>
             {
-                this.gameObject.SetActive(SettingsManager.Instance.DisplaySpeedIndicator);
+                this.gameObject.SetActive(false);
             };
         }
 
