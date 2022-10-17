@@ -19,7 +19,6 @@ namespace UI
             SettingsManager.SettingsChangedEvent += (sender, args) =>
             {
                 this.gameObject.SetActive(SettingsManager.Instance.DisplaySpeedIndicator);
-                this.spaceDust.SetActive(SettingsManager.Instance.DisplaySpaceDust);
             };
         }
 

@@ -13,7 +13,6 @@ namespace Components
     {
         
         [SerializeField] private UpgradeDataSO upgradeData;
-        [SerializeField] private AudioClip hitSound;
 
         [ReadOnlyInspector] [SerializeField] private int maxHealth = 0;
         
@@ -69,9 +68,7 @@ namespace Components
             onDamageTaken?.Invoke();
             OnDamageTaken?.Invoke(this);
 
-            var audioSrc = this.GetComponent<AudioSource>();
-            audioSrc.clip = this.hitSound;
-            audioSrc.Play();
+            AudioManager.instance.Play("PlayerHit");
 
             this.CurrentHealth -= damage;
             StatCollector.UpdateGeneralStat("Damage Taken", damage);

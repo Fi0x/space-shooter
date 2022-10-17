@@ -33,13 +33,11 @@ namespace Manager
         public void NotifyAboutNewTargetable(Targetable targetable)
         {
             this.targetables.Add(targetable, targetable.UiElement);
-            Debug.Log($"Added Targetable {targetable.gameObject.name} to manager. Now has a total of {targetables.Count}");
         }
 
         public void NotifyAboutTargetableGone(Targetable targetable)
         {
             this.targetables.Remove(targetable);
-            Debug.Log($"Removed Targetable from manager. Now has a total of {targetables.Count}");
             if (this.PrimaryTarget == targetable)
             {
                 this.PrimaryTarget = null;

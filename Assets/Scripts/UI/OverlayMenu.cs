@@ -14,8 +14,6 @@ namespace UI
         [SerializeField] private GameObject keyBindObject;
         [SerializeField] private GameObject statObject;
         [SerializeField] private TextMeshProUGUI menuTitle;
-        [SerializeField] private Toggle speedIndicatorToggle;
-        [SerializeField] private Toggle spaceDustToggle;
 
         private static GameObject _overlayMenu;
         private static GameObject _pauseMenu;
@@ -23,8 +21,6 @@ namespace UI
         private static GameObject _keyBindMenu;
         private static GameObject _statMenu;
         private static TextMeshProUGUI _menuTitle;
-        private static Toggle _speedIndicatorToggle;
-        private static Toggle _spaceDustToggle;
 
         private void Start()
         {
@@ -34,11 +30,6 @@ namespace UI
             _keyBindMenu = this.keyBindObject;
             _statMenu = this.statObject;
             _menuTitle = this.menuTitle;
-            _speedIndicatorToggle = this.speedIndicatorToggle;
-            _spaceDustToggle = this.spaceDustToggle;
-            
-            _speedIndicatorToggle.isOn = true;
-            _spaceDustToggle.isOn = true;
             
             if(GameManager.IsGamePaused) Pause();
             else Resume();
@@ -64,6 +55,7 @@ namespace UI
 
         public static void Resume()
         {
+            Debug.Log("overlay menu resuming game");
             GameManager.IsGamePaused = false;
             _overlayMenu.SetActive(false);
             Time.timeScale = 1;
@@ -114,15 +106,6 @@ namespace UI
             _settingsMenu.SetActive(false);
             _keyBindMenu.SetActive(false);
             _statMenu.SetActive(false);
-        }
-
-        public static void InvokeSpeedIndicatorVisibilityChange()
-        {
-            SettingsManager.Instance.DisplaySpeedIndicator = _speedIndicatorToggle.isOn;
-        }
-        public static void InvokeSpaceDustVisibilityChange()
-        {
-            SettingsManager.Instance.DisplaySpaceDust = _spaceDustToggle.isOn;
         }
     }
 

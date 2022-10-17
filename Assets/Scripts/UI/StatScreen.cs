@@ -29,6 +29,9 @@ namespace UI
                 Destroy(entry);
             this.statList.Clear();
 
+            var score = CalculateHighscore();
+            this.CreateEntry(new KeyValuePair<string, float>("Highscore", score));
+            
             if(StatCollector.GeneralStats.Count > 0) 
                 this.CreateSubtopic("General Stats");
             foreach (var stat in StatCollector.GeneralStats)
@@ -73,6 +76,21 @@ namespace UI
             var valueText = textComponents.First(c => c.gameObject.name.Equals("Value"));
 
             return (nameText, valueText);
+        }
+
+        private static long CalculateHighscore()
+        {
+            var levels = StatCollector.GeneralStats.FirstOrDefault(pair => pair.Key.Equals("Levels Completed")).Value;
+            var kills = StatCollector.GeneralStats.FirstOrDefault(pair => pair.Key.Equals("Enemies Killed")).Value;
+            var damageTaken = StatCollector.GeneralStats.FirstOrDefault(pair => pair.Key.Equals("Damage Taken")).Value;
+
+            var causedDamage = 0f;
+            foreach (var pair in StatCollector.WeaponStats)
+            {
+                causedDamage += pair.Value;
+            }
+
+            return (long) (levels * 100 + kills - damageTaken + causedDamage);
         }
     }
 }
