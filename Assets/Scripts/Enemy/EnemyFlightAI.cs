@@ -101,23 +101,26 @@ public class EnemyFlightAI : MonoBehaviour
         {
             // Find different direction
             desiredDirection = this.transform.up;
-            Vector3 dodgeVector = transform. forward;
-            // for (int x = -1; x < 2; x++)
-            // {
-            //     for (int y = -1; y < 2; y++)
-            //     {
-            //         Vector2 rotation = new Vector2(x, y);
-            //         Vector3 direction = transform.forward;
-            //         direction += x * transform.right;
-            //         direction += y * transform.up;
-            //         direction.Normalize();
-            //         float distance = -1f;
-            //         if (CheckDirection(direction, Vector3.zero, out distance))
-            //         {
-            //             dodgeVector -= direction * distance;
-            //         }
-            //     }
-            // }
+            Vector3 dodgeVector = transform.forward;
+            for (int x = -1; x < 2; x++)
+            {
+                for (int y = -1; y < 2; y++)
+                {
+                    Vector2 rotation = new Vector2(x, y);
+                    Vector3 direction = transform.forward;
+                    direction += x * transform.right;
+                    direction += y * transform.up;
+                    direction.Normalize();
+                    float distance = -1f;
+                    if (!CheckDirection(direction, Vector3.zero, out distance))
+                    {
+                        dodgeVector = direction;
+                        desiredDirection = direction;
+                        return;
+                    }
+                }
+            }
+            desiredDirection = -transform.forward;
         }
         else
         {
