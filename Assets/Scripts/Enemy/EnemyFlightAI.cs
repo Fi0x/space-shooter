@@ -13,17 +13,12 @@ public class EnemyFlightAI : MonoBehaviour
     [SerializeField] private float updateFrequency = 0.1f;
 
     [SerializeField] private EnemyAISO enemySettings;
-
+    
     [SerializeField] private Rigidbody rb;
     private Vector3 desiredDirection;
     private Vector3 targetPosition;
     private Vector3 refer = Vector3.zero;
-
-    [SerializeField] private PID xAxisPID;
-    [SerializeField, Range(-10, 10)] private float xAxisP, xAxisI, xAxisD;
-    
-    [SerializeField] private PID zAxisPID;
-    [SerializeField, Range(-10, 10)] private float zAxisP, zAxisI, zAxisD;
+    private Vector3 homePosition;
 
     public void SetTarget(Transform newTarget)
     {
@@ -40,9 +35,7 @@ public class EnemyFlightAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        xAxisPID = new PID(xAxisP, xAxisI, xAxisD);
-        zAxisPID = new PID(zAxisP, zAxisI, zAxisD);
-        rb.maxAngularVelocity = enemySettings.maxAngularVelocity;
+        homePosition = transform.position;
         StartCoroutine(UpdateAll());
     }
 
@@ -89,6 +82,12 @@ public class EnemyFlightAI : MonoBehaviour
         {
             var player = GameManager.Instance.Player;
             target = player.transform;
+        }
+
+        if (Vector3.Distance(transform.position, homePosition) > enemySettings.patrolRadius)
+        {
+            targetPosition = homePosition;
+            return;
         }
         targetPosition = target.position + target.GetComponent<Rigidbody>().velocity.magnitude * target.forward;
         //targetPosition = target.position;

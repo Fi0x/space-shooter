@@ -11,10 +11,14 @@ namespace Enemy
         public LayerMask collisionMask;
 
         [Header("Movement")] 
-        public float acceleration;
         public float maxSpeed;
         public float tiltSpeed;
-        public float maxAngularVelocity;
         public float rollSpeed;
+        public float patrolRadius;
+
+        [Header("Combat")]
+        public GameObject projectilePrefab;
+        public float attackSpeed;
+        public float attackAngle = 5f;
     }
 }

@@ -17,8 +17,7 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 8576
-  acceleration: 50
   maxSpeed: 50
   tiltSpeed: 25
-  maxAngularVelocity: 1000
   rollSpeed: 25
+  patrolRadius: 1000

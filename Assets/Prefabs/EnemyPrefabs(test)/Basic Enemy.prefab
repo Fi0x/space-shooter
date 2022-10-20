@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1834885643341442195}
   - component: {fileID: 325739634944604490}
   - component: {fileID: 3219216073594415172}
+  - component: {fileID: 2714754733733886026}
   m_Layer: 7
   m_Name: Basic Enemy
   m_TagString: Enemy
@@ -178,6 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb2153f824d0cd94c814dcbdbe7ae33a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!114 &325739634944604490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,30 +210,23 @@ MonoBehaviour:
   updateFrequency: 0.1
   enemySettings: {fileID: 11400000, guid: 72fac3106583a6248b4b73cd3451b592, type: 2}
   rb: {fileID: 429333123813247738}
-  rotationSpeed: 2
-  speed: 100
-  xAxisPID:
-    kP: 0
-    kI: 0
-    kD: 0
-    p: 0
-    i: 0
-    d: 0
-    previousError: 0
-  xAxisP: 0.85
-  xAxisI: 0.3
-  xAxisD: 0.5
-  zAxisPID:
-    kP: 0
-    kI: 0
-    kD: 0
-    p: 0
-    i: 0
-    d: 0
-    previousError: 0
-  zAxisP: 0.85
-  zAxisI: 0.3
-  zAxisD: 0.5
+--- !u!114 &2714754733733886026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429333123813247712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 470554bc829348338fa691d2d2d9a190, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPoints:
+  - {fileID: 429333124123432732}
+  - {fileID: 4961875227451673628}
+  enemySettings: {fileID: 11400000, guid: 72fac3106583a6248b4b73cd3451b592, type: 2}
+  target: {fileID: 0}
 --- !u!1 &429333124123432733
 GameObject:
   m_ObjectHideFlags: 0

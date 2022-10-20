@@ -17,8 +17,10 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 8576
-  acceleration: 50
-  maxSpeed: 100
+  maxSpeed: 85
   tiltSpeed: 75
-  maxAngularVelocity: 1000
   rollSpeed: 100
+  patrolRadius: 1000
+  projectilePrefab: {fileID: 7276553157955487200, guid: 58d48bb45d8d3e749be06bd4b3f5e245, type: 3}
+  attackSpeed: 5
+  attackAngle: 10
