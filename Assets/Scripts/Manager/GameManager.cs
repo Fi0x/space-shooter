@@ -57,6 +57,9 @@ namespace Manager
                 if (value <= 0 || this.EnemyLevelCounter == 0)
                     return;
                 
+                if(this.destroyedEnemiesInLevel >= this.EnemyLevelCounter)
+                    return;
+                
                 var fractionDead = (float)this.destroyedEnemiesInLevel / this.EnemyLevelCounter;
                 
                 this.CreateNewText((fractionDead * 100f) + "% of enemy ships destroyed", 2);
@@ -137,6 +140,7 @@ namespace Manager
             levelIndex = 0;
             StatCollector.ResetStats();
             playerUpgrades.ResetData();
+            this.EnemyLevelCounter = 0;
             this.destroyedEnemiesInLevel = 0;
         }
 
