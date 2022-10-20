@@ -35,6 +35,7 @@ public class EnemyFlightAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameManager.Instance.EnemyLevelCounter++;
         homePosition = transform.position;
         StartCoroutine(UpdateAll());
     }
@@ -48,6 +49,11 @@ public class EnemyFlightAI : MonoBehaviour
     private void OnDisable()
     {
         StopCoroutine(UpdateAll());
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.DestroyedEnemyLevelCounter++;
     }
 
     IEnumerator UpdateAll()
