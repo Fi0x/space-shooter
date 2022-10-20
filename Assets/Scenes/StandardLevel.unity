@@ -164,7 +164,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 243280528410533937, guid: 3ca40f708acfd8447b7e68a4e2b62658, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -163.90697
+      value: -179.77652
       objectReference: {fileID: 0}
     - target: {fileID: 243280528437372279, guid: 3ca40f708acfd8447b7e68a4e2b62658, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1432,10 +1432,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 635918284814173395, guid: 1e8007049c03bd144a3fedb3503007af, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5177844871229336924, guid: 1e8007049c03bd144a3fedb3503007af, type: 3}
       propertyPath: m_Name
       value: UpgradeMenu
@@ -1582,7 +1578,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &270187238
 GameObject:
@@ -1753,7 +1749,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!114 &541036991
 MonoBehaviour:
@@ -1891,10 +1887,6 @@ PrefabInstance:
     - target: {fileID: 895869049893343043, guid: 4e8ffcd01f03d0840bd723e2843c660e, type: 3}
       propertyPath: m_Name
       value: GameManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 895869049893343052, guid: 4e8ffcd01f03d0840bd723e2843c660e, type: 3}
-      propertyPath: difficulty
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 895869049893343053, guid: 4e8ffcd01f03d0840bd723e2843c660e, type: 3}
       propertyPath: m_RootOrder
@@ -2077,7 +2069,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8007864319342163543, guid: 3f91705d7a2ae2c49926ab54a5e1f82a, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8007864319342163543, guid: 3f91705d7a2ae2c49926ab54a5e1f82a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2250,7 +2242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 951997195087441061, guid: 36ae60c6c0f16b14287aa3da4c2a367b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 144.23456
+      value: 128.36502
       objectReference: {fileID: 0}
     - target: {fileID: 2536428214596888712, guid: 36ae60c6c0f16b14287aa3da4c2a367b, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2392,33 +2384,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4747781369762152011, guid: 6357ca930a097874e864d2558612e595, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4747781369981647371, guid: 6357ca930a097874e864d2558612e595, type: 3}
-      propertyPath: maxBasic
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4747781369981647371, guid: 6357ca930a097874e864d2558612e595, type: 3}
-      propertyPath: minBasic
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4747781369981647371, guid: 6357ca930a097874e864d2558612e595, type: 3}
-      propertyPath: maxFlocks
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4747781369981647371, guid: 6357ca930a097874e864d2558612e595, type: 3}
-      propertyPath: minFlocks
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 4747781369981647372, guid: 6357ca930a097874e864d2558612e595, type: 3}
       propertyPath: musicName
       value: Music1
       objectReference: {fileID: 0}
     - target: {fileID: 4747781369981647373, guid: 6357ca930a097874e864d2558612e595, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4747781369981647373, guid: 6357ca930a097874e864d2558612e595, type: 3}
       propertyPath: m_LocalPosition.x

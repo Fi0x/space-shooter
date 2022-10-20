@@ -56,13 +56,14 @@ namespace Enemy.Station
         private void DestroyStation()
         {
             isDying = true;
-            //Debug.LogWarning("Station Destroyed!");
             OnBossHealthRemoved?.Invoke(this);
             GameManager.Instance.playerUpgrades.freePoints += 10;
             foreach (var part in parts)
             {
                 part.stationRemover.Explode();
             }
+            
+            GameManager.Instance.CompleteLevel();
         }
 
         public void AddTarget(Health health)

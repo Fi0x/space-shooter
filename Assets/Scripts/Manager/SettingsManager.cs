@@ -17,30 +17,6 @@ namespace Manager
             }
         }
 
-        private bool displaySpeedIndicator;
-        public bool DisplaySpeedIndicator
-        {
-            get => this.displaySpeedIndicator;
-            set
-            {
-                SettingsChangedEvent?.Invoke(null, null);
-                this.displaySpeedIndicator = value;
-                this.WriteSettingsToDisk();
-            }
-        }
-        
-        private bool displaySpaceDust;
-        public bool DisplaySpaceDust
-        {
-            get => this.displaySpaceDust;
-            set
-            {
-                SettingsChangedEvent?.Invoke(null, null);
-                this.displaySpaceDust = value;
-                this.WriteSettingsToDisk();
-            }
-        }
-        
         private float mouseSensitivity;//TODO Use this new system for mouse-sensitivity (after new-input-system merge)
         public float MouseSensitivity
         {
@@ -98,8 +74,6 @@ namespace Manager
 
         private void LoadSettingsFromDisk()
         {
-            this.displaySpeedIndicator = PlayerPrefs.GetInt(this.displaySpeedIndicator.ToString(), 1) == 1;
-            this.displaySpaceDust = PlayerPrefs.GetInt(this.displaySpaceDust.ToString(), 1) == 1;
             this.mouseSensitivity = PlayerPrefs.GetFloat(this.mouseSensitivity.ToString(), 0.3f);
             this.masterVolume = PlayerPrefs.GetFloat(this.masterVolume.ToString(), 0);
             this.musicVolume = PlayerPrefs.GetFloat(this.musicVolume.ToString(), 0);
@@ -107,8 +81,6 @@ namespace Manager
         }
         private void WriteSettingsToDisk()
         {
-            PlayerPrefs.SetInt(this.displaySpeedIndicator.ToString(), this.displaySpeedIndicator ? 1 : 0);
-            PlayerPrefs.SetInt(this.displaySpaceDust.ToString(), this.displaySpaceDust ? 1 : 0);
             PlayerPrefs.SetFloat(this.mouseSensitivity.ToString(), this.mouseSensitivity);
             PlayerPrefs.SetFloat(this.masterVolume.ToString(), this.masterVolume);
             PlayerPrefs.SetFloat(this.musicVolume.ToString(), this.musicVolume);

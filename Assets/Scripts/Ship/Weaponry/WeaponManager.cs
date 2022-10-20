@@ -89,8 +89,8 @@ namespace Ship.Weaponry
             {
                 throw new NullReferenceException("Weapon is not set!");
             }
-
-            var primaryTarget = GameManager.Instance.TargetableManager.PrimaryTarget;
+            
+            var primaryTarget = GameManager.Instance?.TargetableManager.PrimaryTarget;
             
             var weaponConvergence = this.defaultConversionDistance;
 
