@@ -20,5 +20,6 @@ namespace Enemy
         public GameObject projectilePrefab;
         public float attackSpeed;
         public float attackAngle = 5f;
+        public GameObject muzzleEffect;
     }
 }

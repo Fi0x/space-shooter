@@ -33,10 +33,14 @@ namespace Enemy
 
         private void Attack()
         {
+            Transform current = attackPoints[index];
             var projectile = Instantiate(enemySettings.projectilePrefab);
-            projectile.transform.SetPositionAndRotation(attackPoints[index].position, attackPoints[index].rotation);
-            projectile.GetComponent<EnemyProjectile>().direction = attackPoints[index].forward;
+            projectile.transform.SetPositionAndRotation(current.position, current.rotation);
+            projectile.GetComponent<EnemyProjectile>().direction = current.forward;
             index = (index + 1) % attackPoints.Count;
+            if(enemySettings.muzzleEffect == null) return;
+            var muzzle = Instantiate(enemySettings.muzzleEffect, current.position, current.rotation, current);
+            Destroy(muzzle, 3f);
         }
 
         private IEnumerator ResetAttack()

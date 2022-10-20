@@ -8,29 +8,28 @@ namespace Enemy
         [Header("Basic Enemy")]
         [SerializeField] private GameObject enemyPrefab;
         [SerializeField] private int minBasic = 5;
-        [SerializeField] private int maxBasic = 10;
+        [SerializeField] private int maxBasic = 7;
         
         [Header("Elite Enemy")]
         [SerializeField] private GameObject eliteEnemyPrefab;
         [SerializeField] private int minElite = 0;
-        [SerializeField] private int maxElite = 1;
+        [SerializeField] private int maxElite = 0;
 
         [Header("Spawn Ranges")]
         [SerializeField] private float minSpawnRange = 300;
         [SerializeField] private float maxSpawnRange = 400;
 
-        public void SetDifficulty(float difficulty)
+        private float difficulty = 0;
+
+        public void SetDifficulty(float newDifficulty)
         {
-            minBasic = (int) (difficulty * 1f);
-            maxBasic = (int) (difficulty * 1f) + 1;
-            minElite = (int) (difficulty * 1f);
-            maxElite = (int) (difficulty * 1f) + 1;
+            difficulty = newDifficulty;
         }
         
         public void SpawnBasic()
         {
             var flockCount = Random.Range(minBasic, maxBasic);
-            for(var i = 0; i < flockCount; i++)
+            for(var i = 0; i < flockCount + 0.5 * difficulty; i++)
             {
                 var randomDirection = new Vector3(
                     Random.Range(-1f, 1f),
@@ -47,7 +46,7 @@ namespace Enemy
         public void SpawnElite()
         {
             var flockCount = Random.Range(minElite, maxElite);
-            for(var i = 0; i < flockCount; i++)
+            for(var i = 0; i < flockCount + 0.25 * difficulty; i++)
             {
                 var randomDirection = new Vector3(
                     Random.Range(-1f, 1f),
