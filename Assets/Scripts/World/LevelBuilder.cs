@@ -67,8 +67,8 @@ namespace World
 
         private void ResetCounters()
         {
-            GameManager.Instance.DestroyedEnemyLevelCounter = 0;
             GameManager.Instance.EnemyLevelCounter = 0;
+            GameManager.Instance.DestroyedEnemyLevelCounter = 0;
         }
 
         private void CreateAsteroids()
