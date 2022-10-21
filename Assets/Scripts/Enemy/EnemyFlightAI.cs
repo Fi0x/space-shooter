@@ -54,6 +54,7 @@ public class EnemyFlightAI : MonoBehaviour
     private void OnDestroy()
     {
         GameManager.Instance.DestroyedEnemyLevelCounter++;
+        GameManager.Instance.playerUpgrades.freePoints++;
     }
 
     IEnumerator UpdateAll()
