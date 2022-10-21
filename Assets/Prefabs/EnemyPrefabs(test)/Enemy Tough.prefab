@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5729994455417868439}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ExhaustVfx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,6 +26,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5687540626227691811}
   - {fileID: 6034107659134296158}
@@ -55,7 +56,8 @@ GameObject:
   - component: {fileID: 4490608332931612992}
   - component: {fileID: -8088360904882032721}
   - component: {fileID: 6431978367167144851}
-  m_Layer: 0
+  - component: {fileID: 2225229738886792305}
+  m_Layer: 7
   m_Name: Enemy Tough
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,6 +74,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.9415989, y: 16.5, z: 74.97711}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7127109540661501754}
   - {fileID: 8198232475542901518}
@@ -98,6 +101,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -139,7 +143,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -9151641554998775791, guid: 6540dd5b5b2c3dc48b0b493348e9e77a, type: 3}
 --- !u!54 &2265533180129265028
@@ -266,7 +270,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPrimaryTarget: 0
-  shipRb: {fileID: 0}
+  shipRb: {fileID: 2265533180129265028}
+--- !u!114 &2225229738886792305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7148358328865412359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cf17c01c2a81324bb440e217d96ade1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  updateFrequency: 0.1
+  enemySettings: {fileID: 11400000, guid: 4a075a8c9e8466d459a4fcfb16e8b6d5, type: 2}
+  rb: {fileID: 2265533180129265028}
 --- !u!1001 &29970948627316932
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -281,6 +301,10 @@ PrefabInstance:
     - target: {fileID: 1396912974814580372, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
       propertyPath: m_Name
       value: EngineExhaust (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1396912974814580372, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1740927539561714734, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
       propertyPath: m_RootOrder
@@ -342,6 +366,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2279873793145097798, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
 --- !u!4 &1748379845739812074 stripped
@@ -363,6 +391,10 @@ PrefabInstance:
     - target: {fileID: 1396912974814580372, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
       propertyPath: m_Name
       value: EngineExhaust (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1396912974814580372, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1740927539561714734, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
       propertyPath: m_RootOrder
@@ -424,6 +456,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2279873793145097798, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
 --- !u!4 &2149899828435773564 stripped
@@ -438,6 +474,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7529951138956316605}
     m_Modifications:
+    - target: {fileID: 4517341977716191936, guid: 80d1ed362b63f29488babbbcad4c9113, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5105008496487162524, guid: 80d1ed362b63f29488babbbcad4c9113, type: 3}
+      propertyPath: maxHealth
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 7269392907759773017, guid: 80d1ed362b63f29488babbbcad4c9113, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667857191920227102, guid: 80d1ed362b63f29488babbbcad4c9113, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9116252600651923114, guid: 80d1ed362b63f29488babbbcad4c9113, type: 3}
       propertyPath: m_Name
       value: TurretObject (1)
@@ -520,6 +572,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EngineExhaust (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1396912974814580372, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1740927539561714734, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -580,6 +636,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2279873793145097798, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
 --- !u!4 &700947383040062837 stripped
@@ -594,6 +654,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7529951138956316605}
     m_Modifications:
+    - target: {fileID: 4517341977716191936, guid: 80d1ed362b63f29488babbbcad4c9113, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5105008496487162524, guid: 80d1ed362b63f29488babbbcad4c9113, type: 3}
+      propertyPath: maxHealth
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 7269392907759773017, guid: 80d1ed362b63f29488babbbcad4c9113, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667857191920227102, guid: 80d1ed362b63f29488babbbcad4c9113, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9116252600651923114, guid: 80d1ed362b63f29488babbbcad4c9113, type: 3}
       propertyPath: m_Name
       value: TurretObject
@@ -676,6 +752,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EngineExhaust (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1396912974814580372, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1740927539561714734, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -736,6 +816,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2279873793145097798, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
 --- !u!4 &3025600165850813615 stripped
@@ -757,6 +841,10 @@ PrefabInstance:
     - target: {fileID: 1396912974814580372, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
       propertyPath: m_Name
       value: EngineExhaust (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1396912974814580372, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1740927539561714734, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
       propertyPath: m_RootOrder
@@ -818,6 +906,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2279873793145097798, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
 --- !u!4 &3298492320243291566 stripped
@@ -839,6 +931,10 @@ PrefabInstance:
     - target: {fileID: 1396912974814580372, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
       propertyPath: m_Name
       value: EngineExhaust (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1396912974814580372, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1740927539561714734, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
       propertyPath: m_RootOrder
@@ -900,6 +996,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2279873793145097798, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
 --- !u!4 &6034107659134296158 stripped
@@ -921,6 +1021,10 @@ PrefabInstance:
     - target: {fileID: 1396912974814580372, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
       propertyPath: m_Name
       value: EngineExhaust (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1396912974814580372, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1740927539561714734, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
       propertyPath: m_RootOrder
@@ -982,6 +1086,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2279873793145097798, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
 --- !u!4 &5659609813315001154 stripped
@@ -1003,6 +1111,10 @@ PrefabInstance:
     - target: {fileID: 1396912974814580372, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
       propertyPath: m_Name
       value: EngineExhaust
+      objectReference: {fileID: 0}
+    - target: {fileID: 1396912974814580372, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1740927539561714734, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
       propertyPath: m_RootOrder
@@ -1063,6 +1175,10 @@ PrefabInstance:
     - target: {fileID: 2279873793145097796, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2279873793145097798, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
