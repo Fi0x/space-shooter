@@ -5041,7 +5041,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maxLifetime: 2
+  maxLifetime: 4
   vfxPrefab: {fileID: 4575459077408144046, guid: bbad63171a29d84489d6bebc5db3d219, type: 3}
   vfxLifetime: 5
 --- !u!136 &1125137880335566016
