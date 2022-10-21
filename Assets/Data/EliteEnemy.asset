@@ -9,10 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9415b481b10d4668b81733f8e6eb9262, type: 3}
-  m_Name: OutOfLevelNotifierScriptableObject
+  m_Script: {fileID: 11500000, guid: 683074106d3f4a6e9b3449cb47a346a6, type: 3}
+  m_Name: EliteEnemy
   m_EditorClassIdentifier: 
-  levelOrigin: {x: 0, y: 0, z: 0}
-  noiseStartDistance: 3500
-  warningDistance: 4000
-  connectionLostDistance: 5000
+  radius: 20
+  sightDistance: 250
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 8576
+  maxSpeed: 50
+  tiltSpeed: 25
+  rollSpeed: 25
+  patrolRadius: 1000
