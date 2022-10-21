@@ -10,17 +10,12 @@ namespace LevelManagement
     {
         [Header("Builders")]
         public LevelBuilder levelBuilder;
-        public FlockSpawner flockSpawner;
+        public EnemySpawner enemySpawner;
         public StationBuilder stationBuilder;
 
         [Header("LevelSettings")]
         public bool spawnStation = false;
         public string musicName = "MainMusic";
-
-        private void Awake()
-        {
-            
-        }
 
         private void Start()
         {
@@ -44,8 +39,9 @@ namespace LevelManagement
 
         private void SpawnEnemies()
         {
-            flockSpawner.SetDifficulty(GameManager.Instance.difficulty);
-            flockSpawner.SpawnFlocks();
+            enemySpawner.SetDifficulty(GameManager.Instance.difficulty);
+            enemySpawner.SpawnBasic();
+            enemySpawner.SpawnElite();
         }
     }
 }
