@@ -277,12 +277,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 429333123813247712, guid: 93f0741716cf79c1094b9b5108c04537, type: 3}
   minBasic: 5
-  maxBasic: 10
+  maxBasic: 7
   eliteEnemyPrefab: {fileID: 7148358328865412359, guid: c9edf87119f5f8240b233fa8ffa440db, type: 3}
   minElite: 0
-  maxElite: 1
+  maxElite: 0
   minSpawnRange: 300
   maxSpawnRange: 400
+  mask:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!114 &4747781369981647370
 MonoBehaviour:
   m_ObjectHideFlags: 0

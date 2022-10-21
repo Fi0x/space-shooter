@@ -56,9 +56,16 @@ namespace Manager
                 this.destroyedEnemiesInLevel = value;
                 if (value <= 0 || this.EnemyLevelCounter == 0)
                     return;
-                
-                if(this.destroyedEnemiesInLevel >= this.EnemyLevelCounter)
+
+                if (this.destroyedEnemiesInLevel >= this.EnemyLevelCounter)
+                {
+                    if (!levelAlreadyCompleted)
+                    {
+                        this.CompleteLevel();
+                        this.levelAlreadyCompleted = true;
+                    }
                     return;
+                }
                 
                 var fractionDead = (float)this.destroyedEnemiesInLevel / this.EnemyLevelCounter;
                 

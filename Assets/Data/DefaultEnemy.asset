@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683074106d3f4a6e9b3449cb47a346a6, type: 3}
   m_Name: DefaultEnemy
   m_EditorClassIdentifier: 
-  radius: 5
+  radius: 7
   sightDistance: 250
   collisionMask:
     serializedVersion: 2
