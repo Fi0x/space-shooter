@@ -1,4 +1,5 @@
 using TMPro;
+using UI.InGame;
 using UnityEngine;
 
 namespace Manager
@@ -6,6 +7,7 @@ namespace Manager
     public class TextManager : MonoBehaviour
     {
         [SerializeField] private GameObject textPrefab;
+        private int nextID = 1;
 
         private void Start()
         {
@@ -25,22 +27,32 @@ namespace Manager
         {
             var inst = Instantiate(this.textPrefab, this.transform);
             inst.GetComponent<TextMeshProUGUI>().SetText(text);
+            inst.GetComponent<GameText>().CustomId = this.nextID;
 
             if (displayTime > 0)
                 Destroy(inst, displayTime);
+            else
+                inst.GetComponent<GameText>().PermanentText = true;
+
+            this.nextID++;
         }
 
-        public void RemoveAllTexts()
+        private void RemovePermanentTexts()
         {
-            while (this.transform.childCount > 0)
+            for (var i = 0; i < this.transform.childCount; i++)
             {
-                DestroyImmediate(this.transform.GetChild(0).gameObject);
+                var child = this.transform.GetChild(i).gameObject;
+                if (child.GetComponent<GameText>().PermanentText)
+                {
+                    DestroyImmediate(child);
+                    i--;
+                }
             }
         }
 
         private void HandleLevelCompletedEvent()
         {
-            this.RemoveAllTexts();
+            this.RemovePermanentTexts();
             this.CreateText("Fly through a portal to complete the level");
         }
     }
