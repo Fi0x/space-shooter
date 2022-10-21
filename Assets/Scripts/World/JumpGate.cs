@@ -15,6 +15,7 @@ namespace World
 
         private void OnEnable()
         {
+            this.isActivated = false;
             GameManager.Instance.LevelCompletedEvent += this.HandleLevelCompletedEvent;
         }
 
@@ -27,6 +28,7 @@ namespace World
         {
             if (this.isActivated)
             {
+                Debug.Log("Portal already open");
                 return;
             }
             Debug.Log("Opening Portal");
@@ -37,8 +39,12 @@ namespace World
 
         private void Start()
         {
-            this.isActivated = false;
             this.animationPlane.SetActive(this.isActivated);
+        }
+
+        private void Awake()
+        {
+            this.isActivated = false;
         }
 
         private void OnTriggerEnter(Collider other)

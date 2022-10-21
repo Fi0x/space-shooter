@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -50,62 +51,59 @@ MonoBehaviour:
     volume: 0.05
     pitch: 1
     loop: 1
-    source: {fileID: 0}
   - name: GUIConfirm
     clip: {fileID: 8300000, guid: 57f3a8916c98c354e99341c30cee54aa, type: 3}
     mixerGroup: {fileID: 7833254931724580291, guid: 54012366f9c84714d9b5cd4580426a2c, type: 2}
     volume: 0.15
     pitch: 1
     loop: 0
-    source: {fileID: 0}
   - name: GUIDeny
     clip: {fileID: 8300000, guid: 57f3a8916c98c354e99341c30cee54aa, type: 3}
     mixerGroup: {fileID: 7833254931724580291, guid: 54012366f9c84714d9b5cd4580426a2c, type: 2}
     volume: 0.15
     pitch: 0.6
     loop: 0
-    source: {fileID: 0}
   - name: GUIEnter
     clip: {fileID: 8300000, guid: 5ebec1823e3a8e0458c30bbb0721cbb5, type: 3}
     mixerGroup: {fileID: 7833254931724580291, guid: 54012366f9c84714d9b5cd4580426a2c, type: 2}
     volume: 0.03
     pitch: 0.7
     loop: 0
-    source: {fileID: 0}
   - name: RocketCharged
     clip: {fileID: 8300000, guid: 269ce77c2f146ad48a1e5ea7c6977e81, type: 3}
     mixerGroup: {fileID: 7833254931724580291, guid: 54012366f9c84714d9b5cd4580426a2c, type: 2}
     volume: 0.07
     pitch: 0.9
     loop: 0
-    source: {fileID: 0}
   - name: EnemyKilled
-    clip: {fileID: 8300000, guid: d0e2108502e4cc74985ee85a33863a47, type: 3}
+    clip: {fileID: 8300000, guid: c0d477db35757424787a726cdeae4de1, type: 3}
     mixerGroup: {fileID: 7833254931724580291, guid: 54012366f9c84714d9b5cd4580426a2c, type: 2}
     volume: 0.07
     pitch: 1.2
     loop: 0
-    source: {fileID: 0}
+  - name: EnemyHit
+    clip: {fileID: 8300000, guid: d0e2108502e4cc74985ee85a33863a47, type: 3}
+    mixerGroup: {fileID: -4222048158043185666, guid: 54012366f9c84714d9b5cd4580426a2c, type: 2}
+    volume: 0.05
+    pitch: 1
+    loop: 0
   - name: Music1
     clip: {fileID: 8300000, guid: a95b498fe270d410891ecd8549bcf125, type: 3}
     mixerGroup: {fileID: -4222048158043185666, guid: 54012366f9c84714d9b5cd4580426a2c, type: 2}
     volume: 0.05
     pitch: 1
     loop: 1
-    source: {fileID: 0}
   - name: Music2
     clip: {fileID: 8300000, guid: 8b3752be2477a4cbc998943a1c58bf89, type: 3}
     mixerGroup: {fileID: -4222048158043185666, guid: 54012366f9c84714d9b5cd4580426a2c, type: 2}
     volume: 0.05
     pitch: 1
     loop: 1
-    source: {fileID: 0}
-  activeMusic:
-    name: 
-    clip: {fileID: 0}
-    mixerGroup: {fileID: 0}
-    volume: 0
-    pitch: 0
+  - name: PlayerHit
+    clip: {fileID: 8300000, guid: 1e5b901039c1b25499c005d969de1910, type: 3}
+    mixerGroup: {fileID: -4222048158043185666, guid: 54012366f9c84714d9b5cd4580426a2c, type: 2}
+    volume: 0.05
+    pitch: 1
     loop: 0
-    source: {fileID: 0}
+  activeMusic: {fileID: 0}
   mixer: {fileID: 24100000, guid: 54012366f9c84714d9b5cd4580426a2c, type: 2}

@@ -12,16 +12,13 @@ namespace Manager
             GameManager.Instance.Texts = this;
             this.CreateText("Destroy at least 80% of enemy ships");
 
-            GameManager.Instance.LevelCompletedEvent += () =>
-            {
-                this.RemoveAllTexts();
-                this.CreateText("Fly through a portal to complete the level");
-            };
+            GameManager.Instance.LevelCompletedEvent += this.HandleLevelCompletedEvent;
         }
 
         private void OnDestroy()
         {
             GameManager.Instance.Texts = null;
+            GameManager.Instance.LevelCompletedEvent -= this.HandleLevelCompletedEvent;
         }
 
         public void CreateText(string text, float displayTime = 0)
@@ -39,6 +36,12 @@ namespace Manager
             {
                 DestroyImmediate(this.transform.GetChild(0).gameObject);
             }
+        }
+
+        private void HandleLevelCompletedEvent()
+        {
+            this.RemoveAllTexts();
+            this.CreateText("Fly through a portal to complete the level");
         }
     }
 }

@@ -59,9 +59,12 @@ namespace HealthSystem
         {
             onDamageTaken?.Invoke();
             this.CurrentHealth -= damage;
-            
-            if(this.CurrentHealth > 0)
+
+            if (this.CurrentHealth > 0)
+            {
+                AudioManager.instance.Play("EnemyHit");
                 return;
+            }
             
             onDeath?.Invoke();
             
