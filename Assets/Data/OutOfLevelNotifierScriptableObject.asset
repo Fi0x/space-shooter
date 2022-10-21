@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: OutOfLevelNotifierScriptableObject
   m_EditorClassIdentifier: 
   levelOrigin: {x: 0, y: 0, z: 0}
-  noiseStartDistance: 1200
-  warningDistance: 1400
-  connectionLostDistance: 1700
+  noiseStartDistance: 3500
+  warningDistance: 4000
+  connectionLostDistance: 5000

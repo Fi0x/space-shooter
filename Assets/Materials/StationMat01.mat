@@ -116,7 +116,7 @@ Material:
     m_Ints: []
     m_Floats:
     - Vector1_6a0309fcfd354f46ba77b971f8fc4093: 1
-    - Vector1_fd88cd25f0004e06996136a152d0c3fc: 0.05
+    - Vector1_fd88cd25f0004e06996136a152d0c3fc: 0.037
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -150,12 +150,12 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_07d7919f2c674137b80b803f45ef79fd: {r: 13.741176, g: 1.7266399, b: 1.7266399, a: 0}
-    - Color_e1cfdef056d14042bbdadaffdbfccaec: {r: 6.588235, g: 2.035109, b: 0.93132114, a: 0}
+    - Color_e1cfdef056d14042bbdadaffdbfccaec: {r: 26.352947, g: 8.140439, b: 3.7252858, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 3.9474466, g: 0.9300267, b: 0.9300267, a: 1}
     - _EmissiveColor: {r: 9.67302, g: 1.1406863, b: 1.1406863, a: 1}
-    - _FlashingColor: {r: 0.16078432, g: 0.000000028111577, b: 0, a: 0}
+    - _FlashingColor: {r: 0.709, g: 0, b: 0, a: 0}
     - _RimColor: {r: 0.018378422, g: 0.018378422, b: 0.066037714, a: 0}
     - _Spec: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}

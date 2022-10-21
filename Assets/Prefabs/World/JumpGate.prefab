@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 624009237650571824}
   m_Father: {fileID: 5396273606559468481}
@@ -52,6 +53,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -110,6 +112,7 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8118121464682808926}
   m_RootOrder: 0
@@ -153,6 +156,7 @@ VisualEffect:
       m_Array: []
 --- !u!73398921 &943228267777863308
 VFXRenderer:
+  serializedVersion: 1
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -162,6 +166,7 @@ VFXRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -169,8 +174,6 @@ VFXRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -203,6 +206,7 @@ GameObject:
   - component: {fileID: 2591458388778690682}
   - component: {fileID: 6167499923788672713}
   - component: {fileID: 6515504846156514616}
+  - component: {fileID: -8878764088865841185}
   m_Layer: 0
   m_Name: JumpGate
   m_TagString: Untagged
@@ -220,6 +224,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8118121464682808926}
   - {fileID: 4823868483310409827}
@@ -241,6 +246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionSceneName: SampleScene
   animationPlane: {fileID: 502866275912188330}
+  isActivated: 0
 --- !u!65 &6167499923788672713
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -268,6 +274,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allegiance: 0
   targetType: 0
+--- !u!114 &-8878764088865841185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4206583101062002519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f80ed0a77ced84343bd816d8801697db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &159890001702448482
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 683074106d3f4a6e9b3449cb47a346a6, type: 3}
+  m_Name: DefaultEnemy
+  m_EditorClassIdentifier: 
+  radius: 7
+  sightDistance: 250
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 8576
+  maxSpeed: 85
+  tiltSpeed: 75
+  rollSpeed: 100
+  patrolRadius: 1000
+  projectilePrefab: {fileID: 7276553157955487200, guid: 58d48bb45d8d3e749be06bd4b3f5e245, type: 3}
+  attackSpeed: 5
+  attackAngle: 10
+  muzzleEffect: {fileID: 5338839266056552377, guid: 0d691d7fda95eaa4db0ddfe1edf39c54, type: 3}

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Components;
+using Manager;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -8,7 +9,8 @@ namespace Ship.Rocket
 {
     public class SeekingRocket : MonoBehaviour
     {
-        [Header("RocketTargeting")]
+        [Header("RocketTargeting")] 
+        [SerializeField] private TargetableManagerScriptableObject targetManager;
         [SerializeField] private float seekingRadius = 200f;
         [SerializeField] private LayerMask targetMask;
         [SerializeField] private Transform target;
@@ -16,7 +18,7 @@ namespace Ship.Rocket
 
         [Header("Movement")]
         [SerializeField] private Rigidbody rb;
-        [SerializeField] private float maxSpeed = 30f;
+        [SerializeField] public float maxSpeed = 30f;
         [SerializeField] private float turnSpeed = 3f;
         [SerializeField] private float inertia = 0.1f;
 
@@ -95,7 +97,7 @@ namespace Ship.Rocket
         {
             for (;;)
             {
-                target = CheckForTarget();
+                target = targetManager.PrimaryTarget != null ? targetManager.PrimaryTarget.transform : CheckForTarget();
                 if(target !=null)
                     Debug.DrawLine(transform.position, target.position, Color.green);
                 yield return new WaitForSeconds(timeBetweenUpdates);

@@ -59,9 +59,12 @@ namespace HealthSystem
         {
             onDamageTaken?.Invoke();
             this.CurrentHealth -= damage;
-            
-            if(this.CurrentHealth > 0)
+
+            if (this.CurrentHealth > 0)
+            {
+                AudioManager.instance.Play("EnemyHit");
                 return;
+            }
             
             onDeath?.Invoke();
             
@@ -73,9 +76,6 @@ namespace HealthSystem
             }
 
             AudioManager.instance.Play("EnemyKilled");
-            
-            if(this.TryGetComponent(out Boid boid))
-                boid.RemoveBoidFromAssignedFlock();
             
             Destroy(this.gameObject);
         }
