@@ -259,7 +259,7 @@ MonoBehaviour:
   - {fileID: 8026507357531248318, guid: 3c1f367bcf308592897026cdfca03215, type: 3}
   - {fileID: 2221158870545068552, guid: b130227b70c3ba45dbf05435bb283891, type: 3}
   - {fileID: 8796878406112795121, guid: 52d88c56fbe481c5798f752973c28365, type: 3}
-  jumpGatePrefab: {fileID: 1490899251462389509, guid: c75ea80e2c175fe49b4387a3478bc439, type: 3}
+  jumpGatePrefab: {fileID: 6372381283558359837, guid: 036c98d5fd7109c4d9d6ebb3577d4a3d, type: 3}
   sectorData:
     m_Values: []
   isConstructed: 0

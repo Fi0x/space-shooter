@@ -1860,6 +1860,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 635918284814173395, guid: 1e8007049c03bd144a3fedb3503007af, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5177844871229336924, guid: 1e8007049c03bd144a3fedb3503007af, type: 3}
       propertyPath: m_Name
       value: UpgradeMenu
@@ -2214,14 +2218,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3300866359364892837, guid: eb0684947c05d0242992087803751413, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3300866359364892837, guid: eb0684947c05d0242992087803751413, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 3300866359423065451, guid: eb0684947c05d0242992087803751413, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2280,31 +2276,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb0684947c05d0242992087803751413, type: 3}
---- !u!1 &830439967 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3300866360278854118, guid: eb0684947c05d0242992087803751413, type: 3}
-  m_PrefabInstance: {fileID: 830439966}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &830439968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 830439967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Version: 1
-  m_UsePipelineSettings: 1
-  m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
-  m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
-  m_LightCookieSize: {x: 1, y: 1}
-  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1001 &867704532
 PrefabInstance:
   m_ObjectHideFlags: 0

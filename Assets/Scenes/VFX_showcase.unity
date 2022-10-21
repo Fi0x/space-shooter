@@ -325,7 +325,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4552624190632747054, guid: 6da7318e5b02b424eb96b2675e83b2e3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 38.214947
+      value: 17.2
       objectReference: {fileID: 0}
     - target: {fileID: 4552624190632747054, guid: 6da7318e5b02b424eb96b2675e83b2e3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -735,6 +735,31 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cc72dadfe5766474d8c51614d9c37572, type: 3}
   m_PrefabInstance: {fileID: 220367314}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &237537962 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7371032383100219505, guid: 6da7318e5b02b424eb96b2675e83b2e3, type: 3}
+  m_PrefabInstance: {fileID: 148993212}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &237537964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237537962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1001 &283437969
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -912,7 +937,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8125389832781216342, guid: af77ec5ac4ec70c429a163e7a324129b, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8125389832781216342, guid: af77ec5ac4ec70c429a163e7a324129b, type: 3}
       propertyPath: m_Materials.Array.size
@@ -937,7 +962,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4575459077408144040, guid: bbad63171a29d84489d6bebc5db3d219, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4575459077408144040, guid: bbad63171a29d84489d6bebc5db3d219, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1584,7 +1609,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2279873793145097796, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2279873793145097796, guid: dc1384b2b5930e545a70afd23084c481, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1732,7 +1757,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3049176853643928628, guid: a0a7eed553613104984a94cbf72b4382, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3049176853643928628, guid: a0a7eed553613104984a94cbf72b4382, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2666,7 +2691,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1684869308
 Transform:
   m_ObjectHideFlags: 0
@@ -3151,7 +3176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8129684975493300763, guid: f56c7a0d6cf75b84eb81a434de7ae556, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8129684975493300763, guid: f56c7a0d6cf75b84eb81a434de7ae556, type: 3}
       propertyPath: m_Materials.Array.size
@@ -3565,7 +3590,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1245887683106197207, guid: 821157ef7ebe73544a8f04c4ab420298, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1245887683106197207, guid: 821157ef7ebe73544a8f04c4ab420298, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -3769,10 +3794,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 6431978367167144851, guid: c9edf87119f5f8240b233fa8ffa440db, type: 3}
-      propertyPath: shipRb
-      value: 
-      objectReference: {fileID: 118855184}
     - target: {fileID: 7148358328865412359, guid: c9edf87119f5f8240b233fa8ffa440db, type: 3}
       propertyPath: m_Name
       value: SM_Ship_Cruiser_01
@@ -3957,7 +3978,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6923379917456701452, guid: b6efa792232d4c146b8e44ad0116caae, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6923379917456701452, guid: b6efa792232d4c146b8e44ad0116caae, type: 3}
       propertyPath: m_Materials.Array.data[0]

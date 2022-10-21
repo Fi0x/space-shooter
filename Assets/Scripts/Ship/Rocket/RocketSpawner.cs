@@ -110,7 +110,10 @@ namespace Ship.Rocket
             
             //spawn rocket
             Transform spawnTransform = spawnPoint.transform;
+            var shipVelocity = shipRb.velocity.magnitude;
             var rocket = Instantiate(prefab, spawnTransform.position, spawnTransform.rotation);
+            rocket.GetComponent<SeekingRocket>().maxSpeed =
+                rocket.GetComponent<SeekingRocket>().maxSpeed + Mathf.Min(shipVelocity, 0f);
             float speed = Mathf.Min(Vector3.Dot(shipRb.velocity.normalized, spawnTransform.forward) * shipRb.velocity.magnitude, 0f);
             rocket.GetComponent<Rigidbody>().velocity = speed * spawnTransform.forward;
         }

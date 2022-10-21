@@ -12,6 +12,7 @@ namespace UI
     public class HealthBar : MonoBehaviour
     {
         [SerializeField] private Image barImage;
+        [SerializeField] private TextMeshProUGUI distanceText;
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private float updateSpeedSeconds = 0.2f;
         [SerializeField] private float offset = 0f;
@@ -28,6 +29,7 @@ namespace UI
             cam = Camera.main;
             if(visibleWhenFull) return;
             canvasGroup.alpha = 0f;
+            distanceText.text = "";
         }
 
         public void SetHealth(Health health)
@@ -71,33 +73,48 @@ namespace UI
                     return;
                 }
                 
-                float f = Vector3.Distance(position, cam.transform.position);
-                f = Mathf.Clamp(f, rangeValues.x, rangeValues.y);
-                f = f / Mathf.Abs(rangeValues.y - rangeValues.x);
-                
-                float size = Mathf.Lerp(minMaxSize.y, minMaxSize.x, f);
-                GetComponent<RectTransform>().sizeDelta = new Vector2((int)size, (int)(size / 5));
-                
-                
-                var camTransform = cam.transform;
-                float dot = Vector3.Dot(camTransform.forward,
-                    (position - camTransform.position).normalized);
-                //dot = 1f;
-                
-                if (dot >= 0)
-                {
-                    if (barImage.fillAmount >= 1f && !visibleWhenFull)
-                    {
-                        canvasGroup.alpha = 0f;
-                        return;
-                    }
+                AdjustScale(position);
+                //UpdateDistance(position);
+                CheckIfOutsideOfScreen(position);
+            }
+        }
 
-                    canvasGroup.alpha = 1f;
-                }
-                else
+        private void AdjustScale(Vector3 position)
+        {
+            float f = Vector3.Distance(position, cam.transform.position);
+            f = Mathf.Clamp(f, rangeValues.x, rangeValues.y);
+            f = f / Mathf.Abs(rangeValues.y - rangeValues.x);
+                
+            float size = Mathf.Lerp(minMaxSize.y, minMaxSize.x, f);
+            GetComponent<RectTransform>().sizeDelta = new Vector2((int)size, (int)(size / 5));
+        }
+
+        private void UpdateDistance(Vector3 position)
+        {
+            Vector3 camPosition = cam.transform.position;
+            float dist = (position - camPosition).magnitude;
+            distanceText.text = dist.ToString("N0") + "m";
+        }
+
+        private void CheckIfOutsideOfScreen(Vector3 position)
+        {
+            var camTransform = cam.transform;
+            float dot = Vector3.Dot(camTransform.forward,
+                (position - camTransform.position).normalized);
+            //dot = 1f;
+                
+            if (dot >= 0)
+            {
+                if (barImage.fillAmount >= 1f && !visibleWhenFull)
                 {
                     canvasGroup.alpha = 0f;
+                    return;
                 }
+                canvasGroup.alpha = 1f;
+            }
+            else
+            {
+                canvasGroup.alpha = 0f;
             }
         }
 
