@@ -5004,6 +5004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b7819c423e84ca4a7411a477c9ad1a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetManager: {fileID: 11400000, guid: 9fc1cc7d565c4b3e4a7b1a9c644ca451, type: 2}
   seekingRadius: 300
   targetMask:
     serializedVersion: 2
@@ -5011,7 +5012,7 @@ MonoBehaviour:
   target: {fileID: 0}
   timeBetweenUpdates: 0.5
   rb: {fileID: 4789725940651663089}
-  maxSpeed: 75
+  maxSpeed: 150
   turnSpeed: 5
   inertia: 0.1
   explosionRadius: 30
