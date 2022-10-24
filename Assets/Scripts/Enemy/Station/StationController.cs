@@ -75,7 +75,8 @@ namespace Enemy.Station
         
         private void Awake()
         {
-            Health.OnHealthRemoved += OnTargetDestroyed;
+            Health.OnHealthRemoved += this.OnTargetDestroyed;
+            GameManager.Instance.CreateNewText("Destroy the station or at least 80% of enemy ships", 0, "mainGoal");
         }
 
         private void OnTargetDestroyed(Health obj)

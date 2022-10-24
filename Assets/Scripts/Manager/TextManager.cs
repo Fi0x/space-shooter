@@ -10,8 +10,8 @@ namespace Manager
 
         private void Start()
         {
+            this.CreateText("Destroy at least 80% of enemy ships", 0, "mainGoal");
             GameManager.Instance.Texts = this;
-            this.CreateText("Destroy at least 80% of enemy ships");
 
             GameManager.Instance.LevelCompletedEvent += this.HandleLevelCompletedEvent;
         }
@@ -22,11 +22,11 @@ namespace Manager
             GameManager.Instance.LevelCompletedEvent -= this.HandleLevelCompletedEvent;
         }
 
-        public void CreateText(string text, float displayTime = 0, int id = 0)
+        public void CreateText(string text, float displayTime = 0, string id = "")
         {
             GameObject inst;
 
-            if (id == 0)
+            if (id.Equals(""))
                 inst = Instantiate(this.textPrefab, this.transform);
             else
             {
@@ -59,7 +59,7 @@ namespace Manager
             }
         }
 
-        private GameObject GetTextWithId(int id)
+        private GameObject GetTextWithId(string id)
         {
             for (var i = 0; i < this.transform.childCount; i++)
             {

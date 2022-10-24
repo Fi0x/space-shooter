@@ -6,7 +6,7 @@ namespace UI.InGame
 {
     public class GameText : MonoBehaviour
     {
-        public int CustomId { get; set; }
+        public string CustomId { get; set; }
         public bool PermanentText { get; set; }
     }
 }
