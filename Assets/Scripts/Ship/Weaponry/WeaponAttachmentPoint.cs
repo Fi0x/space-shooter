@@ -54,7 +54,7 @@ namespace Ship.Weaponry
             if (this.Child != null)
             {
                 this.Child.Remove();
-                this.Child = null;
+                // this.Child = null;
             }
             
             this.LoadWeapon();
@@ -66,7 +66,7 @@ namespace Ship.Weaponry
             if(this.Child != null)
                 Destroy(this.Child.gameObject);
 
-            if (ctx.ReadValue<int>() > 0)
+            if (ctx.ReadValue<float>() > 0)
                 this.currentWeaponIdx--;
             else
                 this.currentWeaponIdx++;
