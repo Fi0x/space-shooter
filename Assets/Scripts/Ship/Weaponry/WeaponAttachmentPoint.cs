@@ -1,7 +1,9 @@
 #nullable enable
 using System;
+using Ship.Movement;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UpgradeSystem;
 
 namespace Ship.Weaponry
@@ -20,6 +22,7 @@ namespace Ship.Weaponry
         [SerializeField] public UnityEvent<float> WeaponFiredAndIsChargingEvent;
 
         private int currentWeaponIdx;
+        private InputMap input;
         
         public WeaponManager WeaponManager => this.weaponManager;
 
@@ -31,6 +34,19 @@ namespace Ship.Weaponry
             if (this.weaponManager == null) throw new ArgumentNullException(nameof(this.weaponManager));
             this.weaponManager.NotifyAboutNewWeaponAttachmentPoint(this);
             this.Rebuild();
+        }
+
+        private void OnEnable()
+        {
+            this.input = new InputMap();
+            this.input.Player.Enable();
+            this.input.Player.NextWeapon.performed += this.ChangeWeapon;
+        }
+
+        private void OnDisable()
+        {
+            this.input.Player.Disable();
+            this.input.Player.NextWeapon.performed -= this.ChangeWeapon;
         }
 
         private void Rebuild()
@@ -45,12 +61,12 @@ namespace Ship.Weaponry
         }
 
         //TODO: Call when mouse-wheel is scrolled
-        private void ChangeWeapon(bool previous = false)
+        private void ChangeWeapon(InputAction.CallbackContext ctx)
         {
             if(this.Child != null)
                 Destroy(this.Child.gameObject);
 
-            if (previous)
+            if (ctx.ReadValue<int>() > 0)
                 this.currentWeaponIdx--;
             else
                 this.currentWeaponIdx++;

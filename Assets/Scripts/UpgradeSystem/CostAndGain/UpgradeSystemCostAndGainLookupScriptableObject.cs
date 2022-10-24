@@ -24,6 +24,7 @@ namespace UpgradeSystem.CostAndGain
 
         public UpgradeData GetUpgradeDataForLevel(UpgradeNames upgrade, int level)
         {
+            Debug.Log("Getting upgrade data for level: " + upgrade);
             this.ValidateInput(upgrade, level);
             return this.GetUpgradeDataForLevelImpl(upgrade, level);
         }
@@ -32,6 +33,7 @@ namespace UpgradeSystem.CostAndGain
 
         public bool CanUpgrade(UpgradeNames upgrade, int level)
         {
+            Debug.Log("Checking if can be upgraded: " + upgrade);
             this.ValidateInput(upgrade, level);
             return this.CanUpgradeImpl(upgrade, level);
         }
