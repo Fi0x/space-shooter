@@ -35,7 +35,6 @@ namespace UpgradeSystem
     
     public enum UpgradeNames
     {
-        WeaponType,
         WeaponDamage,
         WeaponFireRate,
         WeaponProjectileSpeed,

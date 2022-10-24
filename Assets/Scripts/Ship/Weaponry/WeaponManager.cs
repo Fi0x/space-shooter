@@ -140,5 +140,10 @@ namespace Ship.Weaponry
             var idx = (level - 1) % this.possibleWeaponPrefabs.Count;
             return this.possibleWeaponPrefabs[idx];
         }
+
+        public int CountWeaponTypes()
+        {
+            return this.possibleWeaponPrefabs.Count;
+        }
     }
 }

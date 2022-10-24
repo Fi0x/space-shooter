@@ -18,6 +18,8 @@ namespace Ship.Weaponry
         [SerializeField] private UpgradeDataSO upgradeData;
 
         [SerializeField] public UnityEvent<float> WeaponFiredAndIsChargingEvent;
+
+        private int currentWeaponIdx;
         
         public WeaponManager WeaponManager => this.weaponManager;
 
@@ -38,14 +40,39 @@ namespace Ship.Weaponry
                 this.Child.Remove();
                 this.Child = null;
             }
+            
+            this.LoadWeapon();
+        }
 
-            var correctPrefab = this.WeaponManager.GetWeaponForLevel((int) this.upgradeData.GetValue(UpgradeNames.WeaponType));
+        //TODO: Call when mouse-wheel is scrolled
+        private void ChangeWeapon(bool previous = false)
+        {
+            if(this.Child != null)
+                Destroy(this.Child.gameObject);
+
+            if (previous)
+                this.currentWeaponIdx--;
+            else
+                this.currentWeaponIdx++;
+
+            if (this.currentWeaponIdx < 0)
+                this.currentWeaponIdx = this.WeaponManager.CountWeaponTypes() - 1;
+            else if (this.currentWeaponIdx >= this.WeaponManager.CountWeaponTypes())
+                this.currentWeaponIdx = 0;
+            
+            this.LoadWeapon();
+        }
+
+        private void LoadWeapon()
+        {
+            var correctPrefab = this.WeaponManager.GetWeaponForLevel(this.currentWeaponIdx);
             var newGameObject = Instantiate(correctPrefab, this.transform);
 
             this.Child = newGameObject.GetComponent<AbstractWeapon>() ?? throw new Exception(
                 "Given Prefab is not a weapon (it does not have a Script that inherits from AbstractWeapon");
             this.NewWeaponBuiltEvent?.Invoke(this.Child);
             
+            //TODO: Check if this needs to be unassigned when weapons get switched
             this.Child.OnInitEvent += weapon =>
             {
                 weapon.WeaponTrigger.WeaponFiredEvent += () =>
