@@ -7,7 +7,6 @@ namespace Manager
     public class TextManager : MonoBehaviour
     {
         [SerializeField] private GameObject textPrefab;
-        private int nextID = 1;
 
         private void Start()
         {
@@ -23,18 +22,28 @@ namespace Manager
             GameManager.Instance.LevelCompletedEvent -= this.HandleLevelCompletedEvent;
         }
 
-        public void CreateText(string text, float displayTime = 0)
+        public void CreateText(string text, float displayTime = 0, int id = 0)
         {
-            var inst = Instantiate(this.textPrefab, this.transform);
+            GameObject inst;
+
+            if (id == 0)
+                inst = Instantiate(this.textPrefab, this.transform);
+            else
+            {
+                inst = this.GetTextWithId(id);
+                if (inst == null)
+                    inst = Instantiate(this.textPrefab, this.transform);
+            }
+
             inst.GetComponent<TextMeshProUGUI>().SetText(text);
-            inst.GetComponent<GameText>().CustomId = this.nextID;
+            var gameText = inst.GetComponent<GameText>();
+
+            gameText.CustomId = id;
 
             if (displayTime > 0)
                 Destroy(inst, displayTime);
             else
-                inst.GetComponent<GameText>().PermanentText = true;
-
-            this.nextID++;
+                gameText.PermanentText = true;
         }
 
         private void RemovePermanentTexts()
@@ -48,6 +57,20 @@ namespace Manager
                     i--;
                 }
             }
+        }
+
+        private GameObject GetTextWithId(int id)
+        {
+            for (var i = 0; i < this.transform.childCount; i++)
+            {
+                var child = this.transform.GetChild(i).gameObject;
+                if (child.GetComponent<GameText>().CustomId == id)
+                {
+                    return child;
+                }
+            }
+
+            return null;
         }
 
         private void HandleLevelCompletedEvent()
