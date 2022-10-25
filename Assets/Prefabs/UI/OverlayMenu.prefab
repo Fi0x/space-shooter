@@ -342,6 +342,42 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 243280530085373562}
     m_Modifications:
+    - target: {fileID: 2639244223427806984, guid: af5d75af5c5edbe4586de2243099f27b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 243280529640456287}
+    - target: {fileID: 2639244223427806984, guid: af5d75af5c5edbe4586de2243099f27b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Settings
+      objectReference: {fileID: 0}
+    - target: {fileID: 2639244223427806984, guid: af5d75af5c5edbe4586de2243099f27b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI.OverlayMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5206457844681020024, guid: af5d75af5c5edbe4586de2243099f27b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 243280529640456287}
+    - target: {fileID: 5206457844681020024, guid: af5d75af5c5edbe4586de2243099f27b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Quit
+      objectReference: {fileID: 0}
+    - target: {fileID: 5206457844681020024, guid: af5d75af5c5edbe4586de2243099f27b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI.OverlayMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7238468862730593256, guid: af5d75af5c5edbe4586de2243099f27b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 243280529640456287}
+    - target: {fileID: 7238468862730593256, guid: af5d75af5c5edbe4586de2243099f27b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Stats
+      objectReference: {fileID: 0}
+    - target: {fileID: 7238468862730593256, guid: af5d75af5c5edbe4586de2243099f27b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI.OverlayMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7449782892393261290, guid: af5d75af5c5edbe4586de2243099f27b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -349,6 +385,22 @@ PrefabInstance:
     - target: {fileID: 7449782892393261290, guid: af5d75af5c5edbe4586de2243099f27b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Stats
+      objectReference: {fileID: 0}
+    - target: {fileID: 8444763944100494516, guid: af5d75af5c5edbe4586de2243099f27b, type: 3}
+      propertyPath: m_fontSize
+      value: 18.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8444763944119051029, guid: af5d75af5c5edbe4586de2243099f27b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 243280529640456287}
+    - target: {fileID: 8444763944119051029, guid: af5d75af5c5edbe4586de2243099f27b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Resume
+      objectReference: {fileID: 0}
+    - target: {fileID: 8444763944119051029, guid: af5d75af5c5edbe4586de2243099f27b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI.OverlayMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 9082660475345819971, guid: af5d75af5c5edbe4586de2243099f27b, type: 3}
       propertyPath: m_Name
@@ -512,6 +564,18 @@ PrefabInstance:
     - target: {fileID: 1371846865202188441, guid: 01caa0ba44c283b4781299a9e57ba181, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899165011287511971, guid: 01caa0ba44c283b4781299a9e57ba181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 243280529640456287}
+    - target: {fileID: 1899165011287511971, guid: 01caa0ba44c283b4781299a9e57ba181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BackToMainOverlay
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899165011287511971, guid: 01caa0ba44c283b4781299a9e57ba181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI.OverlayMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2039668057897337099, guid: 01caa0ba44c283b4781299a9e57ba181, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1110,7 +1174,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5599558533447713821, guid: 9eb97ea1cc52729469c0081c66a9e87e, type: 3}
       propertyPath: m_Size
-      value: 0.5127108
+      value: 0.57657725
       objectReference: {fileID: 0}
     - target: {fileID: 5599558533447713821, guid: 9eb97ea1cc52729469c0081c66a9e87e, type: 3}
       propertyPath: m_Value
@@ -1118,7 +1182,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5599558533632486025, guid: 9eb97ea1cc52729469c0081c66a9e87e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -153.61475
+      value: -133.4813
       objectReference: {fileID: 0}
     - target: {fileID: 5599558533856250202, guid: 9eb97ea1cc52729469c0081c66a9e87e, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1304,6 +1368,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8557067763587667353, guid: 9eb97ea1cc52729469c0081c66a9e87e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 243280529640456287}
+    - target: {fileID: 8557067763587667353, guid: 9eb97ea1cc52729469c0081c66a9e87e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Settings
+      objectReference: {fileID: 0}
+    - target: {fileID: 8557067763587667353, guid: 9eb97ea1cc52729469c0081c66a9e87e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI.OverlayMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 9163252171861126700, guid: 9eb97ea1cc52729469c0081c66a9e87e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1339,9 +1415,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 243280530085373562}
     m_Modifications:
+    - target: {fileID: 713668863730819377, guid: 181bca8bfa18059448b9f3c1d19957d9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 713668863730819377, guid: 181bca8bfa18059448b9f3c1d19957d9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2439800126216952957, guid: 181bca8bfa18059448b9f3c1d19957d9, type: 3}
       propertyPath: m_Name
       value: StatMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 2792605718350257165, guid: 181bca8bfa18059448b9f3c1d19957d9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 282.62262
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445940178714377441, guid: 181bca8bfa18059448b9f3c1d19957d9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 243280529640456287}
+    - target: {fileID: 3445940178714377441, guid: 181bca8bfa18059448b9f3c1d19957d9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Settings
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445940178714377441, guid: 181bca8bfa18059448b9f3c1d19957d9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI.OverlayMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4474064106308156844, guid: 181bca8bfa18059448b9f3c1d19957d9, type: 3}
       propertyPath: m_Pivot.x
@@ -1426,6 +1526,14 @@ PrefabInstance:
     - target: {fileID: 4474064106308156844, guid: 181bca8bfa18059448b9f3c1d19957d9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295960064693544151, guid: 181bca8bfa18059448b9f3c1d19957d9, type: 3}
+      propertyPath: m_Size
+      value: 0.7828085
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295960064693544151, guid: 181bca8bfa18059448b9f3c1d19957d9, type: 3}
+      propertyPath: m_Value
+      value: -0.0000004538585
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 181bca8bfa18059448b9f3c1d19957d9, type: 3}
