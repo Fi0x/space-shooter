@@ -949,6 +949,34 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5067174962568996338, guid: 01caa0ba44c283b4781299a9e57ba181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 243280529640456287}
+    - target: {fileID: 5067174962568996338, guid: 01caa0ba44c283b4781299a9e57ba181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: KeyBinds
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067174962568996338, guid: 01caa0ba44c283b4781299a9e57ba181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI.OverlayMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067174962568996349, guid: 01caa0ba44c283b4781299a9e57ba181, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067174962568996349, guid: 01caa0ba44c283b4781299a9e57ba181, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067174962568996349, guid: 01caa0ba44c283b4781299a9e57ba181, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067174962568996349, guid: 01caa0ba44c283b4781299a9e57ba181, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5635434607634800163, guid: 01caa0ba44c283b4781299a9e57ba181, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1437,7 +1465,7 @@ PrefabInstance:
       objectReference: {fileID: 243280529640456287}
     - target: {fileID: 3445940178714377441, guid: 181bca8bfa18059448b9f3c1d19957d9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Settings
+      value: Pause
       objectReference: {fileID: 0}
     - target: {fileID: 3445940178714377441, guid: 181bca8bfa18059448b9f3c1d19957d9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
