@@ -141,9 +141,9 @@ namespace Ship.Weaponry
             return this.possibleWeaponPrefabs[idx];
         }
 
-        public int CountWeaponTypes()
+        public List<GameObject> GetAllPossibleWeapons()
         {
-            return this.possibleWeaponPrefabs.Count;
+            return this.possibleWeaponPrefabs;
         }
     }
 }

@@ -1,5 +1,6 @@
 #nullable enable
 using System;
+using System.Collections.Generic;
 using Ship.Movement;
 using UnityEngine;
 using UnityEngine.Events;
@@ -27,12 +28,13 @@ namespace Ship.Weaponry
         public WeaponManager WeaponManager => this.weaponManager;
 
         public AbstractWeapon? Child { get; private set; }
-
+        private List<GameObject> possibleWeapons = new List<GameObject>();
 
         private void Start()
         {
             if (this.weaponManager == null) throw new ArgumentNullException(nameof(this.weaponManager));
             this.weaponManager.NotifyAboutNewWeaponAttachmentPoint(this);
+            this.possibleWeapons = this.WeaponManager.GetAllPossibleWeapons();
             this.Rebuild();
         }
 
@@ -63,26 +65,29 @@ namespace Ship.Weaponry
         //TODO: Call when mouse-wheel is scrolled
         private void ChangeWeapon(InputAction.CallbackContext ctx)
         {
-            if(this.Child != null)
-                Destroy(this.Child.gameObject);
-
             if (ctx.ReadValue<float>() > 0)
                 this.currentWeaponIdx--;
             else
                 this.currentWeaponIdx++;
 
             if (this.currentWeaponIdx < 0)
-                this.currentWeaponIdx = this.WeaponManager.CountWeaponTypes() - 1;
-            else if (this.currentWeaponIdx >= this.WeaponManager.CountWeaponTypes())
+                this.currentWeaponIdx = this.possibleWeapons.Count - 1;
+            else if (this.currentWeaponIdx >= this.possibleWeapons.Count)
                 this.currentWeaponIdx = 0;
             
+            GameObject oldWeapon = null;
+            if(this.Child != null)
+                oldWeapon = this.Child.gameObject;
+
             this.LoadWeapon();
+            
+            if(oldWeapon != null)
+                Destroy(oldWeapon);
         }
 
         private void LoadWeapon()
         {
-            var correctPrefab = this.WeaponManager.GetWeaponForLevel(this.currentWeaponIdx);
-            var newGameObject = Instantiate(correctPrefab, this.transform);
+            var newGameObject = Instantiate(this.possibleWeapons[this.currentWeaponIdx], this.transform);
 
             this.Child = newGameObject.GetComponent<AbstractWeapon>() ?? throw new Exception(
                 "Given Prefab is not a weapon (it does not have a Script that inherits from AbstractWeapon");
