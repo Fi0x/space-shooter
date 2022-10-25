@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseHealth: 5000
-  deathVFX: {fileID: 8129684975493300762, guid: f56c7a0d6cf75b84eb81a434de7ae556, type: 3}
+  deathVFX: {fileID: 8129684975493300762, guid: 6abb809c40555d14e8039c500e053fe5, type: 3}
   vfxLifetime: 4.5
   onDamageTaken:
     m_PersistentCalls:
