@@ -77,24 +77,6 @@ namespace UI.Upgrade
             Cursor.lockState = CursorLockMode.Locked;
             GameManager.Instance.LoadNextLevel();
         }
-
-        // private static (Text name, Text value) GetTextComponents(GameObject upgradeObject)
-        // {
-        //     var textComponents = upgradeObject.GetComponentsInChildren<Text>(); 
-        //     var nameText = textComponents.Where(c => c.gameObject.name.Equals("Name"));
-        //     var valueText = textComponents.Where(c => c.gameObject.name.Equals("Value"));
-        //
-        //     return (nameText.First(), valueText.First());
-        // }
-        //
-        // private static (UpgradeButton decrease, UpgradeButton increase) GetUpgradeButtonComponents(GameObject upgradeObject)
-        // {
-        //     var buttonComponents = upgradeObject.GetComponentsInChildren<UpgradeButton>();
-        //     var decrease = buttonComponents.First(c => c.gameObject.name.Equals("Decrease"));
-        //     var increase = buttonComponents.First(c => c.gameObject.name.Equals("Increase"));
-        //
-        //     return (decrease, increase);
-        // }
         
         public void PurchaseUpgrade(UpgradeNames upgradeName, bool isIncrease)
         {
@@ -112,62 +94,23 @@ namespace UI.Upgrade
         }
 
         public int CalculateUpgradeCost(UpgradeNames type) => (int)upgradeData.GetNextUpgrade(type).Cost;
-    
-        /**
-        [Obsolete]
-        private void ExpandUpgradeList()
-        {
-            foreach (var field in fields)
-            {
-                Destroy(field.Value.gameObject);
-            }
-            fields.Clear();
-            var currentCategory = "";
-            foreach (var upgrade in upgradeData.upgrades)
-            {
-                var category = UpgradeHelper.GetUpgradeCategory(upgrade.type);
-                if (!currentCategory.Equals(category))
-                {
-                    currentCategory = category;
-                    var newSubtopic = Instantiate(this.subtopicPrefab, this.scrollAreaGameObject.transform);
-                    
-                    var textComponents = newSubtopic.GetComponentsInChildren<TextMeshProUGUI>(); 
-                    var nameText = textComponents.First(c => c.gameObject.name.Equals("Name"));
-                    nameText.text = currentCategory;
-        
-                    this.subtopicCount++;
-                }
-                    
-                var newPrefab = Instantiate(this.upgradePrefab, this.scrollAreaGameObject.transform);
-                var field = newPrefab.GetComponent<UpgradeField>();
-                field.upgradeScreen = this;
-                field.type = upgrade.type;
-                field.UpdateField();
-                if (fields.ContainsKey(upgrade.type))
-                {
-                    //Destroy(newPrefab);
-                    Debug.Log("Already contains " + upgrade.type);
-                }else
-                    fields.Add(upgrade.type, field);
-            }
-            
-            this.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 10 + 50 * (upgradeData.upgrades.Count + this.subtopicCount));
-            this.scrollbar.value = 1;
-        }
-        **/
 
         private void GenerateRandomUpgrades()
         {
             var upgradeList = this.upgradeData.GetAllUpgradeable();
-            upgradeList = UpgradeHelper.FisherYatesCardDeckShuffle(upgradeList);
-            
-            foreach (var upgradeType in upgradeList.Take(upgradesToShow))
+            var expandedUpgradeList = this.upgradeData.ExpandUpgradesByWeight(upgradeList);
+            var shuffledUpgradeList = UpgradeHelper.FisherYatesCardDeckShuffle(expandedUpgradeList);
+
+            for (var i = 0; i < this.upgradesToShow; i++)
             {
-                SpawnUpgradeField(upgradeType);
+                var nextUpgradeName = shuffledUpgradeList[0];
+                this.SpawnUpgradeField(nextUpgradeName);
+
+                while (shuffledUpgradeList.Contains(nextUpgradeName))
+                    shuffledUpgradeList.Remove(nextUpgradeName);
             }
-            
-            
-            UpdateAllFields();
+
+            this.UpdateAllFields();
         }
 
         private void SpawnUpgradeField(UpgradeNames type)
