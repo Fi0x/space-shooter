@@ -98,6 +98,15 @@ public partial class @InputMap : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NextWeapon"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""63470960-284e-423a-a2f1-dc28a39ac74b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -474,6 +483,17 @@ public partial class @InputMap : IInputActionCollection2, IDisposable
                     ""action"": ""Boosting"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""04dedde5-d511-4024-8757-23c96461e963"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -518,6 +538,7 @@ public partial class @InputMap : IInputActionCollection2, IDisposable
         m_Player_AltShoot = m_Player.FindAction("AltShoot", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Boosting = m_Player.FindAction("Boosting", throwIfNotFound: true);
+        m_Player_NextWeapon = m_Player.FindAction("NextWeapon", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -585,6 +606,7 @@ public partial class @InputMap : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_AltShoot;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Boosting;
+    private readonly InputAction m_Player_NextWeapon;
     public struct PlayerActions
     {
         private @InputMap m_Wrapper;
@@ -597,6 +619,7 @@ public partial class @InputMap : IInputActionCollection2, IDisposable
         public InputAction @AltShoot => m_Wrapper.m_Player_AltShoot;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @Boosting => m_Wrapper.m_Player_Boosting;
+        public InputAction @NextWeapon => m_Wrapper.m_Player_NextWeapon;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -630,6 +653,9 @@ public partial class @InputMap : IInputActionCollection2, IDisposable
                 @Boosting.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBoosting;
                 @Boosting.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBoosting;
                 @Boosting.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBoosting;
+                @NextWeapon.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNextWeapon;
+                @NextWeapon.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNextWeapon;
+                @NextWeapon.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNextWeapon;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -658,6 +684,9 @@ public partial class @InputMap : IInputActionCollection2, IDisposable
                 @Boosting.started += instance.OnBoosting;
                 @Boosting.performed += instance.OnBoosting;
                 @Boosting.canceled += instance.OnBoosting;
+                @NextWeapon.started += instance.OnNextWeapon;
+                @NextWeapon.performed += instance.OnNextWeapon;
+                @NextWeapon.canceled += instance.OnNextWeapon;
             }
         }
     }
@@ -690,5 +719,6 @@ public partial class @InputMap : IInputActionCollection2, IDisposable
         void OnAltShoot(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnBoosting(InputAction.CallbackContext context);
+        void OnNextWeapon(InputAction.CallbackContext context);
     }
 }

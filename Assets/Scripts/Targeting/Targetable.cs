@@ -82,6 +82,8 @@ namespace Targeting
             }
 
             var weapon = player.GetComponent<WeaponManager>().PrimaryWeaponAttachmentPoint.Child;
+            if (weapon == null)
+                throw new NullReferenceException("No weapon attached");
             return this.GetPredictedTargetLocation(player.transform.position, weapon);
         }
         

@@ -12,7 +12,6 @@ namespace UpgradeSystem
                 UpgradeNames.EngineHandling => "Improve your Ship's Handling",
                 UpgradeNames.MaxRockets => "Increase your Rocket Capacity",
                 UpgradeNames.WeaponDamage => "Increase how much damage your weapons do",
-                UpgradeNames.WeaponType => "Switch your Weapon",
                 UpgradeNames.EngineStabilizationSpeed => 
                     "Improve your stabilization thrusters. Your ship will drift less",
                 UpgradeNames.RocketChargeSpeed => "Improve how quick your Rockets Recharge",

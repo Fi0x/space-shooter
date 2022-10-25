@@ -137,8 +137,13 @@ namespace Ship.Weaponry
 
         public GameObject GetWeaponForLevel(int level)
         {
-            var idx = (level - 1) % this.possibleWeaponPrefabs.Count;
+            var idx = level % this.possibleWeaponPrefabs.Count;
             return this.possibleWeaponPrefabs[idx];
+        }
+
+        public List<GameObject> GetAllPossibleWeapons()
+        {
+            return this.possibleWeaponPrefabs;
         }
     }
 }
