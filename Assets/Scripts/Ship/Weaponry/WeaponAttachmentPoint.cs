@@ -1,6 +1,7 @@
 #nullable enable
 using System;
 using System.Collections.Generic;
+using Manager;
 using Ship.Movement;
 using UnityEngine;
 using UnityEngine.Events;
@@ -65,6 +66,9 @@ namespace Ship.Weaponry
         //TODO: Call when mouse-wheel is scrolled
         private void ChangeWeapon(InputAction.CallbackContext ctx)
         {
+            if(ctx.ReadValue<float>() == 0)
+                return;
+            
             if (ctx.ReadValue<float>() > 0)
                 this.currentWeaponIdx--;
             else
@@ -83,6 +87,20 @@ namespace Ship.Weaponry
             
             if(oldWeapon != null)
                 Destroy(oldWeapon);
+            var weaponName = this.Child.ToString().Split(" ")[0];
+            switch (weaponName)
+            {
+                case "Weapon":
+                    weaponName = "Normal Projectile";
+                    break;
+                case "HitScan":
+                    weaponName = "Beam Laser";
+                    break;
+                case "ChainWeapon":
+                    weaponName = "Chained Projectile";
+                    break;
+            }
+            GameManager.Instance.CreateNewText("Current Weapon: " + weaponName, 3, "selectedWeaponType");
         }
 
         private void LoadWeapon()
