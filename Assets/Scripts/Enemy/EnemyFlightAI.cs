@@ -19,6 +19,7 @@ public class EnemyFlightAI : MonoBehaviour
     private Vector3 targetPosition;
     private Vector3 refer = Vector3.zero;
     private Vector3 homePosition;
+    private float desiredSpeed = 1f;
 
     public void SetTarget(Transform newTarget)
     {
@@ -106,6 +107,8 @@ public class EnemyFlightAI : MonoBehaviour
         float dist;
         if (CheckDirection(dir, Vector3.zero, out dist))
         {
+            float brake = 1 / (dist * .1f + 0.01f);
+            desiredSpeed = 1 - brake;
             // Find different direction
             desiredDirection = this.transform.up;
             Vector3 dodgeVector = transform.forward;
@@ -154,7 +157,7 @@ public class EnemyFlightAI : MonoBehaviour
 
     private void Move()
     {
-        rb.velocity = transform.forward * enemySettings.maxSpeed;
+        rb.velocity = transform.forward * (enemySettings.maxSpeed * desiredSpeed);
     }
 
     private float Remap(float minOld, float maxOld, float minNew, float maxNew, float value)

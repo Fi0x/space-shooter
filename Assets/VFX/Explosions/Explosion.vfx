@@ -16734,7 +16734,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 50
+      m_SerializableObject: 60
     m_Space: 2147483647
   m_Property:
     name: A
@@ -16768,7 +16768,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 65
+      m_SerializableObject: 75
     m_Space: 2147483647
   m_Property:
     name: B
@@ -17333,7 +17333,7 @@ MonoBehaviour:
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
-  title: 
+  title: Shockwave
   m_Owners:
   - {fileID: 8926484042661615290}
   - {fileID: 8926484042661615288}
