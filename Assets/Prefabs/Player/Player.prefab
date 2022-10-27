@@ -2281,20 +2281,47 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.00063532486
-      outSlope: 0.00063532486
+      inSlope: 0.009183233
+      outSlope: 0.009183233
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.08166146
+      outWeight: 0.10659281
     - serializedVersion: 3
-      time: 5000
-      value: 1
-      inSlope: 0.0000009564179
-      outSlope: 0.0000009564179
+      time: 196.06487
+      value: 0.8446297
+      inSlope: 0.0013264244
+      outSlope: 0.0013264244
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.36089924
+      inWeight: 0.33333334
+      outWeight: 0.76678795
+    - serializedVersion: 3
+      time: 357.53403
+      value: 0.9136353
+      inSlope: 0.00013301765
+      outSlope: 0.00013301765
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 1
+    - serializedVersion: 3
+      time: 692.5722
+      value: 0.9415735
+      inSlope: 0.000045268447
+      outSlope: 0.000045268447
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 4979.1665
+      value: 1
+      inSlope: 0.0000030012945
+      outSlope: 0.0000030012945
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.32478145
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -2415,7 +2442,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &3300866360858875057
 CapsuleCollider:
   m_ObjectHideFlags: 0

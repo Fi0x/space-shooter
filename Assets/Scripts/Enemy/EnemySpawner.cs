@@ -24,7 +24,6 @@ namespace Enemy
 
         private float difficulty = 1;
 
-        private Collider[] collisions = new Collider[20];
         public void SetDifficulty(float newDifficulty)
         {
             difficulty = newDifficulty;
@@ -46,6 +45,7 @@ namespace Enemy
                 if(GameManager.Instance.Player != null) spawnPosition = GameManager.Instance.Player.transform.position + randomDirection * spawnRange;
                 var enemy = Instantiate(this.enemyPrefab, spawnPosition, Quaternion.identity);
                 
+                Collider[] collisions = new Collider[20];
                 // Physics.OverlapSphereNonAlloc(enemy.transform.position, 20f, collisions, mask);
                 // foreach (var c in collisions)
                 // {
@@ -71,6 +71,7 @@ namespace Enemy
                 var spawnPosition = randomDirection * spawnRange;
                 if(GameManager.Instance.Player != null) spawnPosition = GameManager.Instance.Player.transform.position + randomDirection * spawnRange;
                 
+                Collider[] collisions = new Collider[20];
                 var enemy = Instantiate(eliteEnemyPrefab, spawnPosition, Quaternion.identity);
                 Physics.OverlapSphereNonAlloc(enemy.transform.position, 40f, collisions, mask);
                 foreach (var c in collisions)
