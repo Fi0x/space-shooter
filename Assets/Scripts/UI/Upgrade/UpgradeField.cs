@@ -44,7 +44,7 @@ namespace UI.Upgrade
             toText.text = canUpgrade ? upgradeObject.ToValue.ToString("F2") : "";
             gainText.text = canUpgrade ? upgradeObject.UpgradeString : "";
             descriptionText.text = UpgradeDescriptionHelper.GetDescriptionForUpgrade(type);
-            upgradeCostText.text = canUpgrade ? "-" + upgradeScreen.CalculateUpgradeCost(type) + " Points" : "";
+            upgradeCostText.text = canUpgrade ? upgradeScreen.CalculateUpgradeCost(type) + " Points" : "";
             increaseButton.interactable = upgradeScreen.upgradeData.freePoints >= upgradeScreen.CalculateUpgradeCost(type) && canUpgrade;
             buyButtonText.text = canUpgrade ? "Upgrade" : "Max Reached";
         }
