@@ -106,5 +106,18 @@ namespace UpgradeSystem
                 select val;
             return valuesThatCanBeUpgraded.ToList();
         }
+
+        public List<UpgradeNames> ExpandUpgradesByWeight(IEnumerable<UpgradeNames> original)
+        {
+            var weightedUpgradeList = new List<UpgradeNames>();
+            
+            foreach (var upgrade in original)
+            {
+                for (var i = 0; i < this.upgrades[upgrade].weight; i++)
+                    weightedUpgradeList.Add(upgrade);
+            }
+
+            return weightedUpgradeList;
+        }
     }
 }
