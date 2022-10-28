@@ -41,7 +41,7 @@ namespace Enemy.Station
 
         private void Update()
         {
-            Debug.Log("updating!");
+            //Debug.Log("updating!");
             if(!isInit) return;
             if(isDying) return;
             if (currentHealth <= 0 || healthTargets.Count <= 0)
