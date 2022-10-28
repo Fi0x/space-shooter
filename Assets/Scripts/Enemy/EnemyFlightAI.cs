@@ -107,7 +107,7 @@ public class EnemyFlightAI : MonoBehaviour
         float dist;
         if (CheckDirection(dir, Vector3.zero, out dist))
         {
-            float brake = 1 / (dist * .1f + 0.01f);
+            float brake = 1 / (dist * 1f + 0.01f);
             desiredSpeed = 1 - brake;
             // Find different direction
             desiredDirection = this.transform.up;

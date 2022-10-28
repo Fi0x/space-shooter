@@ -6,6 +6,7 @@ namespace UI.Ui3D
     public abstract class Ui3DElement : MonoBehaviour
     {
         public float ZOffset { get; } = 0f;
+        public Vector3 oldPosition;
         
         protected abstract Vector3? DesiredPosition { get; }
         
@@ -19,9 +20,11 @@ namespace UI.Ui3D
                 var rootPosition = manager.UiRoot.position;
                 var directionOfTarget = (desiredPos.Value - rootPosition).normalized;
                 var offsetFromCentre = manager.DistanceToRoot + ZOffset;
-                
-                this.transform.position = rootPosition + directionOfTarget * offsetFromCentre;
-                this.transform.rotation.SetLookRotation(rootPosition, manager.UiRoot.up);
+
+                oldPosition = transform.position;
+                // transform.position = rootPosition + directionOfTarget * offsetFromCentre;
+                transform.position = Vector3.Lerp(oldPosition, rootPosition + directionOfTarget * offsetFromCentre, 0.85f);
+                transform.rotation.SetLookRotation(rootPosition, manager.UiRoot.up);
                 
             }
         }
