@@ -23,7 +23,7 @@ namespace UI.Ui3D
             }
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             foreach (var entry in this.uiElements)
             {

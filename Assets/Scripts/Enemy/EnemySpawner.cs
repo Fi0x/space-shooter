@@ -24,16 +24,22 @@ namespace Enemy
 
         private float difficulty = 1;
 
-        private Collider[] collisions = new Collider[20];
         public void SetDifficulty(float newDifficulty)
         {
             difficulty = newDifficulty;
         }
+
+        private void GetDifficulty()
+        {
+            difficulty = GameManager.Instance.difficulty;
+        }
         
         public void SpawnBasic()
         {
+            GetDifficulty();
             var flockCount = Random.Range(minBasic, maxBasic);
-            int enemies = Math.Min((int)(flockCount + 1.2f * difficulty), 3);
+            Debug.Log("Enemies Basic:" + (int)(flockCount + 1.2f * difficulty));
+            int enemies = Math.Max((int)(flockCount + 1.0f * difficulty), 3);
             //Debug.Log("Number enemies: " + enemies);
             for(int i = 0; i < enemies; i++)
             {
@@ -46,6 +52,7 @@ namespace Enemy
                 if(GameManager.Instance.Player != null) spawnPosition = GameManager.Instance.Player.transform.position + randomDirection * spawnRange;
                 var enemy = Instantiate(this.enemyPrefab, spawnPosition, Quaternion.identity);
                 
+                Collider[] collisions = new Collider[20];
                 // Physics.OverlapSphereNonAlloc(enemy.transform.position, 20f, collisions, mask);
                 // foreach (var c in collisions)
                 // {
@@ -59,9 +66,11 @@ namespace Enemy
         
         public void SpawnElite()
         {
+            GetDifficulty();
             var flockCount = Random.Range(minElite, maxElite);
-            //int enemies = (int) (flockCount + 0.25 * difficulty - 2);
-            for(int i = 0; i < flockCount + 0.25 * difficulty - 2; i++)
+            int enemies = (int) (flockCount + 0.25 * difficulty - 2);
+            Debug.Log("Elite Enemies:" + enemies);
+            for(int i = 0; i < enemies; i++)
             {
                 var randomDirection = new Vector3(
                     Random.Range(-1f, 1f),
@@ -71,6 +80,7 @@ namespace Enemy
                 var spawnPosition = randomDirection * spawnRange;
                 if(GameManager.Instance.Player != null) spawnPosition = GameManager.Instance.Player.transform.position + randomDirection * spawnRange;
                 
+                Collider[] collisions = new Collider[20];
                 var enemy = Instantiate(eliteEnemyPrefab, spawnPosition, Quaternion.identity);
                 Physics.OverlapSphereNonAlloc(enemy.transform.position, 40f, collisions, mask);
                 foreach (var c in collisions)
