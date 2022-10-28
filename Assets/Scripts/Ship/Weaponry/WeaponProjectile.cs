@@ -93,7 +93,7 @@ namespace Ship.Weaponry
 
         private static bool ShouldCollide(Component c)
         {
-            return c.gameObject.layer == LayerMask.NameToLayer("Scenery") || c.gameObject.layer == LayerMask.NameToLayer("Enemy");
+            return c.gameObject.layer == LayerMask.NameToLayer("Scenery") || c.gameObject.layer == LayerMask.NameToLayer("Station") || c.gameObject.layer == LayerMask.NameToLayer("Enemy");
         }
 
         private void MakeTrailVisible()
