@@ -16,8 +16,12 @@ MonoBehaviour:
   sightDistance: 250
   collisionMask:
     serializedVersion: 2
-    m_Bits: 8576
+    m_Bits: 8640
   maxSpeed: 50
   tiltSpeed: 25
   rollSpeed: 25
   patrolRadius: 1000
+  projectilePrefab: {fileID: 0}
+  attackSpeed: 0
+  attackAngle: 5
+  muzzleEffect: {fileID: 0}

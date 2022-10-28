@@ -24,11 +24,7 @@ namespace Enemy.Station
         public static event Action<StationController> OnBossHealthAdded = delegate { };
         public static event Action<StationController> OnBossHealthRemoved = delegate { };
         public event Action<float> OnHealthPctChanged;
-
-        private void Start()
-        {
-            //InvokeStartEvents();
-        }
+        
 
         public void InvokeStartEvents()
         {
@@ -45,10 +41,12 @@ namespace Enemy.Station
 
         private void Update()
         {
+            Debug.Log("updating!");
             if(!isInit) return;
             if(isDying) return;
-            if (currentHealth <= 0)
+            if (currentHealth <= 0 || healthTargets.Count <= 0)
             {
+                Debug.Log("Station destroyed!");
                 DestroyStation();
             }
         }
@@ -73,7 +71,7 @@ namespace Enemy.Station
             maxHealth++;
         }
         
-        private void Awake()
+        private void Start()
         {
             Health.OnHealthRemoved += this.OnTargetDestroyed;
             GameManager.Instance.CreateNewText("Destroy the station or at least 80% of enemy ships", 0, "mainGoal");
