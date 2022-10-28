@@ -280,7 +280,7 @@ MonoBehaviour:
   maxBasic: 7
   eliteEnemyPrefab: {fileID: 7148358328865412359, guid: c9edf87119f5f8240b233fa8ffa440db, type: 3}
   minElite: 0
-  maxElite: 0
+  maxElite: 1
   minSpawnRange: 300
   maxSpawnRange: 400
   mask:

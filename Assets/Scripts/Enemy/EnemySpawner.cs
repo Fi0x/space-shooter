@@ -28,11 +28,18 @@ namespace Enemy
         {
             difficulty = newDifficulty;
         }
+
+        private void GetDifficulty()
+        {
+            difficulty = GameManager.Instance.difficulty;
+        }
         
         public void SpawnBasic()
         {
+            GetDifficulty();
             var flockCount = Random.Range(minBasic, maxBasic);
-            int enemies = Math.Min((int)(flockCount + 1.2f * difficulty), 3);
+            Debug.Log("Enemies Basic:" + (int)(flockCount + 1.2f * difficulty));
+            int enemies = Math.Max((int)(flockCount + 1.0f * difficulty), 3);
             //Debug.Log("Number enemies: " + enemies);
             for(int i = 0; i < enemies; i++)
             {
@@ -59,9 +66,11 @@ namespace Enemy
         
         public void SpawnElite()
         {
+            GetDifficulty();
             var flockCount = Random.Range(minElite, maxElite);
-            //int enemies = (int) (flockCount + 0.25 * difficulty - 2);
-            for(int i = 0; i < flockCount + 0.25 * difficulty - 2; i++)
+            int enemies = (int) (flockCount + 0.25 * difficulty - 2);
+            Debug.Log("Elite Enemies:" + enemies);
+            for(int i = 0; i < enemies; i++)
             {
                 var randomDirection = new Vector3(
                     Random.Range(-1f, 1f),

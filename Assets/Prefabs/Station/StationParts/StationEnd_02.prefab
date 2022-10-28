@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 3639134262029116121}
   - component: {fileID: 6521645082680904890}
   - component: {fileID: 1460204128484040652}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: StationEnd_02
   m_TagString: Enemy
   m_Icon: {fileID: 0}
