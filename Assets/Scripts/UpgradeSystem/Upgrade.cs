@@ -9,6 +9,7 @@ namespace UpgradeSystem
         public UpgradeNames type;
         public float costMultiplier = 1f;
         public int points;
+        public int weight = 10;
 
         public Upgrade()
         {
@@ -35,7 +36,6 @@ namespace UpgradeSystem
     
     public enum UpgradeNames
     {
-        WeaponType,
         WeaponDamage,
         WeaponFireRate,
         WeaponProjectileSpeed,

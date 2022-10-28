@@ -240,6 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barImage: {fileID: 0}
+  distanceText: {fileID: 0}
   canvasGroup: {fileID: 0}
   updateSpeedSeconds: 0.2
   offset: 2
