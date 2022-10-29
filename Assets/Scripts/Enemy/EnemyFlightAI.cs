@@ -15,6 +15,7 @@ public class EnemyFlightAI : MonoBehaviour
     [SerializeField] private EnemyAISO enemySettings;
     
     [SerializeField] private Rigidbody rb;
+    private float resetDistance = 5000;
     private Vector3 desiredDirection;
     private Vector3 targetPosition;
     private Vector3 refer = Vector3.zero;
@@ -65,8 +66,18 @@ public class EnemyFlightAI : MonoBehaviour
             UpdateTarget();
             CheckCollision();
             Move();
+            CheckPosition();
             
             yield return new WaitForSeconds(updateFrequency);
+        }
+    }
+
+    private void CheckPosition()
+    {
+        if (Vector3.Distance(transform.position, Vector3.zero) >= resetDistance)
+        {
+            // Reset position
+            transform.position = homePosition;
         }
     }
 
