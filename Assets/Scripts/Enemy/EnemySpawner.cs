@@ -68,7 +68,7 @@ namespace Enemy
         {
             GetDifficulty();
             var flockCount = Random.Range(minElite, maxElite);
-            int enemies = (int) (flockCount + 0.25 * difficulty - 2);
+            int enemies = (int) (flockCount + 0.35 * difficulty - 1);
             Debug.Log("Elite Enemies:" + enemies);
             for(int i = 0; i < enemies; i++)
             {

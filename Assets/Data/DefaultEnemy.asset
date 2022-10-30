@@ -16,7 +16,7 @@ MonoBehaviour:
   sightDistance: 250
   collisionMask:
     serializedVersion: 2
-    m_Bits: 8576
+    m_Bits: 8640
   maxSpeed: 75
   tiltSpeed: 75
   rollSpeed: 100
