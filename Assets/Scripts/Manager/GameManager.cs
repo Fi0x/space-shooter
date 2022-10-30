@@ -18,7 +18,7 @@ namespace Manager
         [SerializeField] private LevelFlowSO levelFlow;
         [SerializeField] public UpgradeDataSO playerUpgrades;
         [SerializeField] private GameObject textManagerPrefab;
-        
+
         public GameObject Player
         {
             get => player;
@@ -26,6 +26,7 @@ namespace Manager
         }
 
         private TextManager textManager;
+
         public TextManager Texts
         {
             private get => this.textManager;
@@ -36,9 +37,11 @@ namespace Manager
                 {
                     this.textManager.CreateText(text, ttl, id);
                 }
+
                 this.textBuffer.Clear();
             }
         }
+
         private List<(string text, float ttl, string id)> textBuffer = new List<(string text, float ttl, string id)>();
 
         public int EnemyLevelCounter
@@ -47,14 +50,15 @@ namespace Manager
             set => enemyLevelCounter = value;
         }
 
-        [SerializeField, ReadOnlyInspector]
-        private int destroyedEnemiesInLevel;
-        public int DestroyedEnemyLevelCounter {
+        [SerializeField, ReadOnlyInspector] private int destroyedEnemiesInLevel;
+
+        public int DestroyedEnemyLevelCounter
+        {
             get => this.destroyedEnemiesInLevel;
             set
             {
                 this.destroyedEnemiesInLevel = value;
-                if (value <= 0 || this.EnemyLevelCounter == 0)
+                if (value <= 0)
                     return;
 
                 if (this.destroyedEnemiesInLevel >= this.EnemyLevelCounter)
@@ -64,23 +68,29 @@ namespace Manager
                         this.CompleteLevel();
                         this.levelAlreadyCompleted = true;
                     }
+
                     return;
                 }
-                
-                var fractionDead = (float)this.destroyedEnemiesInLevel / this.EnemyLevelCounter;
-                
+
+                var fractionDead = (float) this.destroyedEnemiesInLevel / this.EnemyLevelCounter;
+
                 this.CreateNewText((fractionDead * 100f) + "% of enemy ships destroyed", 5, "destroyedPercentage");
-                
-                if(fractionDead >= .8f && !this.levelAlreadyCompleted)
+
+                if (fractionDead >= .8f)
                 {
+                    if (this.levelAlreadyCompleted)
+                        return;
+                    
                     this.CompleteLevel();
                     this.levelAlreadyCompleted = true;
                 }
+                else
+                    this.levelAlreadyCompleted = false;
             }
         }
-        
+
         public event Action LevelCompletedEvent;
-        private bool levelAlreadyCompleted;
+        [SerializeField, ReadOnlyInspector] private bool levelAlreadyCompleted;
 
         public void CompleteLevel()
         {
@@ -91,7 +101,7 @@ namespace Manager
 
         public float difficulty = 1f;
 
-        [SerializeField, ReadOnlyInspector]private int levelIndex = 0;
+        [SerializeField, ReadOnlyInspector] private int levelIndex = 0;
         [SerializeField, ReadOnlyInspector] private GameObject player;
 
         public void NotifyAboutNewPlayerInstance(GameObject newPlayer)
@@ -123,7 +133,7 @@ namespace Manager
             if (_instance == null)
             {
                 DontDestroyOnLoad(this.gameObject);
-                _instance = this; 
+                _instance = this;
                 //this.Player = GameObject.Find("Player");
             }
             else
@@ -136,7 +146,7 @@ namespace Manager
         {
             playerUpgrades.ResetData();
         }
-        
+
         private void Update()
         {
             this.TargetableManager?.NotifyAboutUpdate();
@@ -165,20 +175,20 @@ namespace Manager
             ResetGame();
             SceneManager.LoadScene(SceneManagerUtils.SceneId.Startup.AsInt());
         }
-        
+
         public void ShowUpgradeScreen()
         {
             currentUpgradeScreen.gameObject.SetActive(true);
             currentUpgradeScreen.ShowUpgradeScreen();
-            
+
             IsGamePaused = true;
             currentUpgradeScreen.gameObject.SetActive(true);
             Time.timeScale = 0;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
-        
+
             //_scrollbar.value = 1;
-        
+
             //UpgradeScreenShownEvent?.Invoke(null, null);
         }
 
@@ -189,7 +199,7 @@ namespace Manager
 
         public void ChangePauseState()
         {
-            if(IsGamePaused) OverlayMenu.Resume();
+            if (IsGamePaused) OverlayMenu.Resume();
             else OverlayMenu.Pause();
         }
 
@@ -200,7 +210,7 @@ namespace Manager
 
         public void CreateNewText(string text, float ttl = 0, string id = "")
         {
-            if(this.Texts == null)
+            if (this.Texts == null)
                 this.textBuffer.Add((text, ttl, id));
             else
                 this.Texts.CreateText(text, ttl, id);
