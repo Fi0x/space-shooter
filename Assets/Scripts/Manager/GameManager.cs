@@ -73,9 +73,7 @@ namespace Manager
                 }
 
                 var fractionDead = (float) this.destroyedEnemiesInLevel / this.EnemyLevelCounter;
-
-                this.CreateNewText("Destroyed ships", 0, "destroyedPercentage", fractionDead);
-
+                
                 if (fractionDead >= .8f)
                 {
                     if (this.levelAlreadyCompleted)
@@ -85,7 +83,10 @@ namespace Manager
                     this.levelAlreadyCompleted = true;
                 }
                 else
+                {
+                    this.CreateNewText("Destroyed ships", 0, "destroyedPercentage", fractionDead);
                     this.levelAlreadyCompleted = false;
+                }
             }
         }
 
