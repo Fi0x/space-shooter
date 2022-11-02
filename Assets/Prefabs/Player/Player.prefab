@@ -875,6 +875,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textPrefab: {fileID: 1577933421993792978, guid: 7bb671188e6ad624fbdb0fd4493f4099, type: 3}
+  barPrefab: {fileID: 1577933421993792978, guid: d1c2609e6b92c7447bd954fa499ac0a2, type: 3}
 --- !u!114 &784559768337224627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2506,6 +2507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageMultiplier: 1
+  isPlayer: 1
 --- !u!114 &-4775171038451007952
 MonoBehaviour:
   m_ObjectHideFlags: 0

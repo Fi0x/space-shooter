@@ -33,16 +33,16 @@ namespace Manager
             set
             {
                 this.textManager = value;
-                foreach (var (text, ttl, id) in this.textBuffer)
+                foreach (var (text, ttl, id, barValue) in this.textBuffer)
                 {
-                    this.textManager.CreateText(text, ttl, id);
+                    this.textManager.CreateText(text, ttl, id, barValue);
                 }
 
                 this.textBuffer.Clear();
             }
         }
 
-        private List<(string text, float ttl, string id)> textBuffer = new List<(string text, float ttl, string id)>();
+        private List<(string text, float ttl, string id, float barValue)> textBuffer = new List<(string text, float ttl, string id, float barValue)>();
 
         public int EnemyLevelCounter
         {
@@ -74,7 +74,7 @@ namespace Manager
 
                 var fractionDead = (float) this.destroyedEnemiesInLevel / this.EnemyLevelCounter;
 
-                this.CreateNewText((fractionDead * 100f) + "% of enemy ships destroyed", 5, "destroyedPercentage");
+                this.CreateNewText("Destroyed ships", 0, "destroyedPercentage", fractionDead);
 
                 if (fractionDead >= .8f)
                 {
@@ -208,12 +208,12 @@ namespace Manager
             GameOverScreen.ShowGameOverScreen();
         }
 
-        public void CreateNewText(string text, float ttl = 0, string id = "")
+        public void CreateNewText(string text, float ttl = 0, string id = "", float barValue = -1)
         {
             if (this.Texts == null)
-                this.textBuffer.Add((text, ttl, id));
+                this.textBuffer.Add((text, ttl, id, barValue));
             else
-                this.Texts.CreateText(text, ttl, id);
+                this.Texts.CreateText(text, ttl, id, barValue);
         }
     }
 }
