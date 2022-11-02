@@ -19,6 +19,8 @@ namespace Manager
         [SerializeField] public UpgradeDataSO playerUpgrades;
         [SerializeField] private GameObject textManagerPrefab;
 
+        public bool weaponControlTextShown = false;
+
         public GameObject Player
         {
             get => player;
@@ -145,7 +147,8 @@ namespace Manager
 
         private void Start()
         {
-            playerUpgrades.ResetData();
+            this.playerUpgrades.ResetData();
+            this.CreateNewText("Use the scroll-wheel to change your weapon", 0, "weaponControlGuide");
         }
 
         private void Update()
