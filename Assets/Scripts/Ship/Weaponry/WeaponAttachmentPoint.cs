@@ -63,9 +63,13 @@ namespace Ship.Weaponry
             this.LoadWeapon();
         }
 
-        //TODO: Call when mouse-wheel is scrolled
         private void ChangeWeapon(InputAction.CallbackContext ctx)
         {
+            if (!GameManager.Instance.weaponControlTextShown)
+            {
+                GameManager.Instance.weaponControlTextShown = true;
+                GameManager.Instance.CreateNewText("", 1, "weaponControlGuide");
+            }
             if(ctx.ReadValue<float>() == 0)
                 return;
             

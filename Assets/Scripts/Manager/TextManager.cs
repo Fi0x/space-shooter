@@ -7,6 +7,7 @@ namespace Manager
     public class TextManager : MonoBehaviour
     {
         [SerializeField] private GameObject textPrefab;
+        [SerializeField] private GameObject barPrefab;
 
         private void Start()
         {
@@ -22,17 +23,18 @@ namespace Manager
             GameManager.Instance.LevelCompletedEvent -= this.HandleLevelCompletedEvent;
         }
 
-        public void CreateText(string text, float displayTime = 0, string id = "")
+        public void CreateText(string text, float displayTime = 0, string id = "", float barValue = -1)
         {
             GameObject inst;
+            var correctPrefab = barValue >= 0 ? this.barPrefab : this.textPrefab;
 
             if (id.Equals(""))
-                inst = Instantiate(this.textPrefab, this.transform);
+                inst = Instantiate(correctPrefab, this.transform);
             else
             {
                 inst = this.GetTextWithId(id);
                 if (inst == null)
-                    inst = Instantiate(this.textPrefab, this.transform);
+                    inst = Instantiate(correctPrefab, this.transform);
             }
 
             inst.GetComponent<TextMeshProUGUI>().SetText(text);
@@ -44,6 +46,9 @@ namespace Manager
                 Destroy(inst, displayTime);
             else
                 gameText.PermanentText = true;
+
+            if (barValue >= 0)
+                gameText.BarPercentage = barValue;
         }
 
         private void RemovePermanentTexts()
