@@ -12418,6 +12418,26 @@ PrefabInstance:
       propertyPath: settingsPrefab
       value: 
       objectReference: {fileID: 2663677968070018766, guid: d8671cd971b172049bf918c18f727762, type: 3}
+    - target: {fileID: 2613033295404268782, guid: 75c64abbf7a9d464fbcd308988ad27cf, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2613033295404268782, guid: 75c64abbf7a9d464fbcd308988ad27cf, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2613033295404268782, guid: 75c64abbf7a9d464fbcd308988ad27cf, type: 3}
+      propertyPath: m_Color.b
+      value: 0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 2613033295404268782, guid: 75c64abbf7a9d464fbcd308988ad27cf, type: 3}
+      propertyPath: m_Color.g
+      value: 0.15542857
+      objectReference: {fileID: 0}
+    - target: {fileID: 2613033295404268782, guid: 75c64abbf7a9d464fbcd308988ad27cf, type: 3}
+      propertyPath: m_Color.r
+      value: 0.14571428
+      objectReference: {fileID: 0}
     - target: {fileID: 2613033296141442453, guid: 75c64abbf7a9d464fbcd308988ad27cf, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -12542,6 +12562,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2613033296825931434, guid: 75c64abbf7a9d464fbcd308988ad27cf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: GUIConfirm
+      objectReference: {fileID: 0}
     - target: {fileID: 2613033296922068697, guid: 75c64abbf7a9d464fbcd308988ad27cf, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -12558,21 +12582,37 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2613033296922068702, guid: 75c64abbf7a9d464fbcd308988ad27cf, type: 3}
+      propertyPath: m_text
+      value: Asteroid Starfighter
+      objectReference: {fileID: 0}
+    - target: {fileID: 2613033296922068702, guid: 75c64abbf7a9d464fbcd308988ad27cf, type: 3}
+      propertyPath: m_fontStyle
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2613033296922068702, guid: 75c64abbf7a9d464fbcd308988ad27cf, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6457379337042697846, guid: 75c64abbf7a9d464fbcd308988ad27cf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6457379337042697847, guid: 75c64abbf7a9d464fbcd308988ad27cf, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6457379337042697847, guid: 75c64abbf7a9d464fbcd308988ad27cf, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6457379337042697847, guid: 75c64abbf7a9d464fbcd308988ad27cf, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 6457379337042697847, guid: 75c64abbf7a9d464fbcd308988ad27cf, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -438.4465
       objectReference: {fileID: 0}
     - target: {fileID: 8818971410714549252, guid: 75c64abbf7a9d464fbcd308988ad27cf, type: 3}
       propertyPath: m_AnchorMax.y
@@ -12589,6 +12629,10 @@ PrefabInstance:
     - target: {fileID: 8818971410714549252, guid: 75c64abbf7a9d464fbcd308988ad27cf, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8818971410714549259, guid: 75c64abbf7a9d464fbcd308988ad27cf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: GUIConfirm
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75c64abbf7a9d464fbcd308988ad27cf, type: 3}
